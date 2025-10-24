@@ -136,6 +136,15 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">__domainMax</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domainMax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainUnit</span><span class="p">)</span><span class="o">.</span><span class="n">getValueAs</span><span class="p">(</span><span class="n">newUnit</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__domainUnit</span> <span class="o">=</span> <span class="n">newUnit</span></div>
 
+<div class="viewcode-block" id="SummedCovariance.copy"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.summed.SummedCovariance.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">SummedCovariance</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
+            <span class="n">domainMin</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">domainMin</span><span class="p">,</span>
+            <span class="n">domainMax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">domainMax</span><span class="p">,</span>
+            <span class="n">domainUnit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">domainUnit</span><span class="p">,</span>
+            <span class="n">summands</span><span class="o">=</span><span class="p">[</span><span class="n">summand</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">summand</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">summands</span><span class="p">]</span>
+        <span class="p">)</span></div>
+
 <div class="viewcode-block" id="SummedCovariance.fix"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.summed.SummedCovariance.fix">[docs]</a>    <span class="k">def</span> <span class="nf">fix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[]</span></div>
 
@@ -408,6 +417,17 @@
             <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
                 <span class="k">return</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="Summand.copy"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.summed.Summand.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Summand</span><span class="p">(</span>
+            <span class="n">link</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="p">,</span>
+            <span class="n">root</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span>
+            <span class="n">path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
+            <span class="n">relative</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">relative</span><span class="p">,</span>
+            <span class="n">ENDF_MFMT</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ENDF_MFMT</span><span class="p">,</span>
+            <span class="n">coefficient</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficient</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Summand.toXML_strList"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.summed.Summand.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 

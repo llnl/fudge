@@ -1588,6 +1588,40 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">nf_pointwiseXY</span><span class="o">.</span><span class="n">groupThreeFunctions</span><span class="p">(</span>  <span class="n">boundaries</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">f3</span><span class="p">,</span> <span class="n">norm</span> <span class="o">=</span> <span class="n">norm</span> <span class="p">)</span> <span class="p">)</span></div>
 
+<div class="viewcode-block" id="XYs1d.groupFourFunctions"><a class="viewcode-back" href="../../xData/index.html#xData.XYs1d.XYs1d.groupFourFunctions">[docs]</a>    <span class="k">def</span> <span class="nf">groupFourFunctions</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">f3</span><span class="p">,</span> <span class="n">f4</span><span class="p">,</span> <span class="n">norm</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function multi-groups *self*, *f2*, *f3* and *f4* using the boundaries *xs*. Each group is just the value</span>
+<span class="sd">        of the integral of the product of *self*, *f2*, *f3* and *f4* over the group&#39;s domain divided by the *norm* for that group.</span>
+<span class="sd">        The argument *norm* specifies how to normalize each group. If *norm* is None, no normalization happens. If</span>
+<span class="sd">        *norm* is &#39;dx&#39;, each group integral is divided by its domain width. If *norm* is a list of float, there must be a one-to-one</span>
+<span class="sd">        mapping of the number of float to the number of groups, and the value in the *norm* at the same index as the group is used as</span>
+<span class="sd">        the norm for that group.  The number of groups is the lenght of *xs* - 1.</span>
+
+<span class="sd">        .. note:: Need unit of xs.</span>
+
+<span class="sd">        :param xs:      The list of multi-group boundaries.</span>
+<span class="sd">        :param f2:      An instance of :py:class:`XYs1d`.</span>
+<span class="sd">        :param f3:      An instance of :py:class:`XYs1d`.</span>
+<span class="sd">        :param f4:      An instance of :py:class:`XYs1d`.</span>
+<span class="sd">        :param norm:    Can be None, the python str &#39;dx&#39;, or a python list of floats of lenght the number of groups.</span>
+
+<span class="sd">        :returns:       A python list of floats.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span><span class="p">(</span> <span class="nb">type</span><span class="p">(</span> <span class="n">xs</span> <span class="p">)</span> <span class="o">==</span> <span class="nb">list</span> <span class="p">)</span> <span class="p">:</span>
+            <span class="n">boundaries</span> <span class="o">=</span> <span class="n">xs</span>
+        <span class="k">elif</span><span class="p">(</span> <span class="nb">type</span><span class="p">(</span> <span class="n">xs</span><span class="o">.</span><span class="n">values</span> <span class="p">)</span> <span class="o">==</span> <span class="nb">list</span> <span class="p">)</span> <span class="p">:</span>
+            <span class="n">boundaries</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="n">boundaries</span> <span class="o">=</span> <span class="n">xs</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="k">if</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">f2</span><span class="p">,</span> <span class="n">XYs1d</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="n">f2</span> <span class="o">=</span> <span class="n">f2</span><span class="o">.</span><span class="n">nf_pointwiseXY</span>
+        <span class="k">if</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">f3</span><span class="p">,</span> <span class="n">XYs1d</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="n">f3</span> <span class="o">=</span> <span class="n">f3</span><span class="o">.</span><span class="n">nf_pointwiseXY</span>
+        <span class="k">if</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">f4</span><span class="p">,</span> <span class="n">XYs1d</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="n">f4</span> <span class="o">=</span> <span class="n">f4</span><span class="o">.</span><span class="n">nf_pointwiseXY</span>
+        <span class="k">if</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">norm</span><span class="p">,</span> <span class="n">XYs1d</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="n">norm</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">nf_pointwiseXY</span>
+
+        <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">nf_pointwiseXY</span><span class="o">.</span><span class="n">groupFourFunctions</span><span class="p">(</span>  <span class="n">boundaries</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">f3</span><span class="p">,</span> <span class="n">f4</span><span class="p">,</span> <span class="n">norm</span> <span class="o">=</span> <span class="n">norm</span> <span class="p">)</span> <span class="p">)</span></div>
+
 <div class="viewcode-block" id="XYs1d.hasData"><a class="viewcode-back" href="../../xData/index.html#xData.XYs1d.XYs1d.hasData">[docs]</a>    <span class="k">def</span> <span class="nf">hasData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns True if self&#39;s len is greater than 1 and False otherwise.</span>

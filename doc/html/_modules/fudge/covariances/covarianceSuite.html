@@ -122,6 +122,7 @@
 
         <span class="k">if</span> <span class="n">formatVersion</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">GNDS_formatVersionModule</span><span class="o">.</span><span class="n">allowedPlus</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
             <span class="s2">&quot;Unsupported GNDS structure &#39;</span><span class="si">%s</span><span class="s2">&#39;!&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">formatVersion</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">formatVersion</span> <span class="o">=</span> <span class="n">formatVersion</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">projectile</span> <span class="o">=</span> <span class="n">projectile</span>  <span class="c1">#: The projectile</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">target</span>  <span class="c1">#: The target</span>
@@ -144,8 +145,6 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__parameterCovariances</span> <span class="o">=</span> <span class="n">ParameterCovariances</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__parameterCovariances</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">formatVersion</span> <span class="o">=</span> <span class="n">formatVersion</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">sourcePath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -214,8 +213,8 @@
 
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">Interaction</span><span class="o">.</span><span class="n">nuclear</span>
-            <span class="nb">print</span><span class="p">(</span>
-                <span class="s1">&#39;Need to specify interaction when calling CovarianceSuite.__init__. Setting it to &quot;</span><span class="si">%s</span><span class="s1">&quot;. Please update your code as in the future this will execute a raise.&#39;</span> <span class="o">%</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatVersion</span> <span class="o">!=</span> <span class="n">GNDS_formatVersionModule</span><span class="o">.</span><span class="n">version_1_10</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Need to specify interaction when calling CovarianceSuite.__init__. Setting it to &quot;</span><span class="si">%s</span><span class="s1">&quot;. Please update your code as in the future this will execute a raise.&#39;</span> <span class="o">%</span> <span class="n">value</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__interaction</span> <span class="o">=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">Interaction</span><span class="o">.</span><span class="n">checkEnumOrString</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 

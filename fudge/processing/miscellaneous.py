@@ -85,9 +85,9 @@ def _mutualifyGrouping3Data( f1, f2, f3, printMutualDomainWarning = False ) :
     This function returns versions of :math:`f1`, :math:`f2` and :math:`f3` whose domains are all mutual.
     This function if for internal use.
 
-    :param f1:                          One of the two functions that represent the product this is multi-grouped.
-    :param f2:                          One of the two functions that represent the product this is multi-grouped.
-    :param f3:                          One of the two functions that represent the product this is multi-grouped.
+    :param f1:                          One of the functions that is mutualified.
+    :param f2:                          One of the functions that is mutualified.
+    :param f3:                          One of the functions that is mutualified.
     :param printMutualDomainWarning:    If True, a warning is printed if the domain of :math:`f1`, :math:`f2` and :math:`f3` are not mutual.
 
     :returns:                           Versions of :math:`f1`, :math:`f2` and :math:`f3` whose domains are all mutual.
@@ -127,7 +127,7 @@ def groupOneFunctionAndFlux( style, tempInfo, f1, styleFilter = None ) :
 
 def groupTwoFunctionsAndFlux( style, tempInfo, f1, f2, norm = None, printMutualDomainWarning = False ) :
     r"""
-    This function mulit-groups the product of two function, :math:`f1 \times f2`. Typically, :math:`f2` is a cross section.
+    This function mulit-groups the product of two functions, :math:`f1 \times f2`. Typically, :math:`f2` is a cross section.
     This function if for internal use.
 
     :param style:                       This is the multi-group style for the multi-group data.
@@ -146,6 +146,36 @@ def groupTwoFunctionsAndFlux( style, tempInfo, f1, f2, norm = None, printMutualD
     f1, f2, flux = _mutualifyGrouping3Data( f1, f2, flux, printMutualDomainWarning = printMutualDomainWarning )
     return( f1.groupThreeFunctions( groupBoundaries, flux, f2, norm = norm ) )
 
+def groupThreeFunctionsAndFlux( style, tempInfo, f1, f2, f3, norm = None, printMutualDomainWarning = False ) :
+    r"""
+    This function mulit-groups the product of three functions, :math:`f1 \times f2 \times f3`.
+    This function if for internal use.
+
+    :param style:                       This is the multi-group style for the multi-group data.
+    :param tempInfo:                    This is a dictionary with needed data.
+    :param f1:                          One of the three functions that represent the product that is multi-grouped.
+    :param f2:                          One of the three functions that represent the product that is multi-grouped.
+    :param f3:                          One of the three functions that represent the product that is multi-grouped.
+    :param norm:                        A normalization to divided the multi-groups by.
+    :param printMutualDomainWarning:    If True, a warning is printed if the domain of :math:`f1` and :math:`f2` are not mutual.
+
+    :returns:                           A list like object of the multi-group values.
+    """
+
+    f1 = _toLinear( f1 )
+    f2 = _toLinear( f2 )
+    f3 = _toLinear( f3 )
+    groupBoundaries, flux = _groupFunctionsAndFluxInit( style, tempInfo, f1 )
+
+    minEnergy = max(f1.domainMin, f2.domainMin, f3.domainMin, flux.domainMin, groupBoundaries.domainMin)
+    maxEnergy = min(f1.domainMax, f2.domainMax, f3.domainMax, flux.domainMax, groupBoundaries.domainMax)
+    f1 = f1.domainSlice(domainMin=minEnergy, domainMax=maxEnergy)
+    f2 = f2.domainSlice(domainMin=minEnergy, domainMax=maxEnergy)
+    f3 = f3.domainSlice(domainMin=minEnergy, domainMax=maxEnergy)
+    flux = flux.domainSlice(domainMin=minEnergy, domainMax=maxEnergy)
+
+    return( f1.groupFourFunctions( groupBoundaries, flux, f2, f3, norm = norm ) )
+
 def groupFunctionCrossSectionAndFlux( cls, style, tempInfo, f1, printMutualDomainWarning = False ) :
     """
     This function multi-groups :math:`f1` with the product of the cross section in *tempInfo*.
@@ -154,7 +184,7 @@ def groupFunctionCrossSectionAndFlux( cls, style, tempInfo, f1, printMutualDomai
     :param cls:                         The Gridded1d class to return that has the multi-group data.
     :param style:                       This is the multi-group style for the multi-group data.
     :param tempInfo:                    This is a dictionary with needed data.
-    :param f1:                          One of the two functions that represent the product this is multi-grouped.
+    :param f1:                          One of the two functions that represent the product that is multi-grouped.
     :param printMutualDomainWarning:    If True, a warning is printed if the domain of :math:`f1` and :math:`f2` are not mutual.
 
     :returns:                           An instance of *cls*.

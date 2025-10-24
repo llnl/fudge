@@ -136,8 +136,7 @@ def URR_probabilityTable(self, styleLabel, fromPDF=False, numberOfProbabilities=
     else: # use FUDGE probability tables
         from fudge.resonances import probabilityTables
         pts = self.applicationData[probabilityTables.LLNLProbabilityTablesToken]
-        PTs = pts.parseNodeWithInstitutionClass(probabilityTables.ProbabilityTables)
-        ptNow = PTs[URR_style.label]
+        ptNow = pts.probabilityTables[URR_style.label]
 
         energies = [pt.value for pt in ptNow]
         numberOfProbabilities = len(ptNow[0].table)

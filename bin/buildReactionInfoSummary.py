@@ -123,9 +123,11 @@ def buildReactionInfoSummary(input, recursive=False, numberOfProcesses=None):
         results[index] = data
 
     input = pathlib.Path(map.path)
-    output = input.with_suffix('.ris')
+    output = args.output
+    if output is None:
+        output = input.with_suffix('.ris')
     with output.open('w') as fOut:
-        fOut.write('#ris: 1.0\n')
+        fOut.write('#ris : 1.0\n')
         for index in sorted(results):
             fOut.write(results[index])
 
@@ -137,6 +139,8 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description = description)
     parser.add_argument('input', type=pathlib.Path,                         help='The map file whose protares are analyzed.')
+    parser.add_argument('output', type=pathlib.Path, default=None, nargs='?',
+                                                                            help='The path of the outputted RIS file. Default is to use input map file with extension ".ris".')
     parser.add_argument('--recursive', action='store_true',                 help='If present, imported map files a also processed; otherwise, import map files are not processed.')
     parser.add_argument('-n', '--numberOfProcesses', action='store', type=int, default=multiprocessing.cpu_count(),
                                                                             help='Limits the number of child process to it value. Default is the node number of CPUs.')

@@ -53,17 +53,17 @@ class SingleProtareArguments :
 
         mapOrProtare = GNDS_fileModule.read(args.mapOrProtareFileName, verbosity=verbosity, lazyParsing=lazyParsing)
 
-        if( isinstance( mapOrProtare, reactionSuiteModule.ReactionSuite ) ) :
+        if isinstance(mapOrProtare, reactionSuiteModule.ReactionSuite):
             self.path = args.mapOrProtareFileName
-            return( mapOrProtare )
-        elif( isinstance( mapOrProtare, mapModule.Map ) ) :
-            if( args.tid is None ) : raise ValueError( '--tid option required for the map file.' )
+            return mapOrProtare
+        elif isinstance(mapOrProtare, mapModule.Map):
+            if args.tid is None: raise ValueError('--tid option required for the map file.')
             mapProtare = mapOrProtare.find( args.pid, args.tid )
             self.path = mapOrProtare.path if os.path.isabs(mapProtare.path) else os.path.join(os.path.dirname(args.mapOrProtareFileName), mapProtare.path)
-            if( mapProtare is None ) : raise Exception( 'No match in map file for pid = "%s" and tid = "%s".' % ( args.pid, args.tid ) )
-            return(mapProtare.protare(verbosity=verbosity, lazyParsing=lazyParsing))
-        else :
-            raise TypeError( 'File "%s" is not a map or protare file.' % mapOrProtare )
+            if mapProtare is None: raise Exception('No match in map file for pid = "%s" and tid = "%s".' % (args.pid, args.tid))
+            return mapProtare.protare(verbosity=verbosity, lazyParsing=lazyParsing)
+        else:
+            raise TypeError('File "%s" is not a map or protare file.' % mapOrProtare)
 
 def mapFromMapOrProtarePath(path):
     """

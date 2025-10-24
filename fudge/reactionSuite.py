@@ -413,6 +413,7 @@ class ReactionSuite(ancestryModule.AncestryIO):
         self.orphanProducts.convertUnits(unitMap)
         self.sums.convertUnits(unitMap)
         self.productions.convertUnits(unitMap)
+        self.incompleteReactions.convertUnits(unitMap)
         self.PoPs.convertUnits(unitMap)
         self.fissionComponents.convertUnits(unitMap)
         self.applicationData.convertUnits(unitMap)
@@ -1249,10 +1250,11 @@ class ReactionSuite(ancestryModule.AncestryIO):
 
         return externalFiles
 
-    def loadCovariances(self):
+    def loadCovariances(self, skipConvertingUnits=False):
         """
         Load all external files of type 'covarianceSuite', and resolve links between self and covarianceSuites.
 
+        :param skipConvertingUnits:  If False (default), convert all covarianceSuites to have the same domain unit as self.
         :return: list of loaded covarianceSuites
         """
 
@@ -1263,6 +1265,8 @@ class ReactionSuite(ancestryModule.AncestryIO):
             self._loadedCovariances = []
             for covariance in self.covarianceExternalFiles():
                 covariance.instance = covarianceSuiteModule.read(covariance.realpath(), **kwargs)
+                if not skipConvertingUnits:
+                    covariance.instance.convertUnits({covariance.instance.domainUnit: self.domainUnit})
                 self._loadedCovariances.append(covariance.instance)
 
         return self._loadedCovariances
@@ -1305,19 +1309,16 @@ class ReactionSuite(ancestryModule.AncestryIO):
                 nuclearPlusCoulombInterference.reaction.crossSection.add( crossSection )
 
                 Q = reaction.outputChannel.Q[0].copy( )
-                Q.label = style.label
                 nuclearPlusCoulombInterference.reaction.outputChannel.Q.add( Q )
 
                 product1 = productModule.Product(firstProduct.pid, firstProduct.label)
                 product1.multiplicity.add( firstProduct.multiplicity[0].copy( ) )
-                product1.multiplicity[0].label = style.label
                 angularTwoBody1 = angularModule.TwoBody( crossSection.label, xDataEnumsModule.Frame.centerOfMass, function2d )
                 product1.distribution.add( angularTwoBody1 )
                 nuclearPlusCoulombInterference.reaction.outputChannel.products.add( product1 )
 
                 product2 = productModule.Product(secondProduct.pid, secondProduct.label)
                 product2.multiplicity.add( secondProduct.multiplicity[0].copy( ) )
-                product2.multiplicity[0].label = style.label
                 recoil = angularModule.Recoil( link = product1.distribution[style.label], relative = True )
                 angularTwoBody2 = angularModule.TwoBody( crossSection.label, xDataEnumsModule.Frame.centerOfMass, recoil )
                 product2.distribution.add( angularTwoBody2 )

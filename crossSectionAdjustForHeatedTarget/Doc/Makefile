@@ -13,6 +13,7 @@ pdf: crossSectionAdjustForHeatedTarget.pdf
 
 crossSectionAdjustForHeatedTarget.pdf: crossSectionAdjustForHeatedTarget.tex
 	pdflatex crossSectionAdjustForHeatedTarget.tex
+	pdflatex crossSectionAdjustForHeatedTarget.tex
 
 clean:
 	rm -f *.log *.aux *.dvi *.pdf

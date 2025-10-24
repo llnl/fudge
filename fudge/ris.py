@@ -150,6 +150,17 @@ class RIS:
 
         return protareRIS
 
+    def print(self):
+        """Prints the contents of *self* to the screen in a format similar to how the data are stored in a file."""
+
+        print('#ris : 1.0')         # For format "1.*", the first six elements of each reaction data must be the sample as for "1.0".
+        for projectile in self.__projectiles:
+            targets = self.__projectiles[projectile]
+            for target in targets:
+                evaluations = targets[target]
+                for evaluation in evaluations:
+                    evaluations[evaluation].print()
+
     @staticmethod
     def read(path):
         """
@@ -163,16 +174,17 @@ class RIS:
         with open(path) as fIn:
             lines = fIn.readlines()
 
-        index, command, data = getLine(0, lines, True)
+        index, command, data = getLine(0, lines, True, False)
         if command != '#ris':
             raise ValueError('File is not an RIS file.')
         format = checkDataLength(index, lines, 1, data)
+        specialFormatFlag = ' : ' in lines[0]
 
         ris = RIS(format)
 
         numberOfLines = len(lines)
         while index < numberOfLines:
-            index, command, data = getLine(index, lines, True)
+            index, command, data = getLine(index, lines, True, True)
             if command == '#import':
                 importPath = checkDataLength(index, lines, 1, data)
                 importPath2 = pathlib.Path(path).parent / importPath
@@ -184,7 +196,7 @@ class RIS:
             elif command == '#protare':
                 projectileId, targetId, evaluation, energyUnit = checkDataLength(index, lines, 4, data)
                 protare = Protare(projectileId, targetId, evaluation, energyUnit)
-                index = protare.parse(index, lines)
+                index = protare.parse(index, lines, specialFormatFlag)
                 ris.addProtare(protare)
             else:
                 raise ValueError('Invalid command "%s".' % command)
@@ -287,41 +299,42 @@ class Protare:
         return self.__aliases
 
     @property
-    def reations(self):
+    def reactions(self):
         """
         This method returns a reference to *self*'s reactions member.
         """
 
         return self.__reactions
 
-    def parse(self, index, lines):
+    def parse(self, index, lines, specialFormatFlag):
         """
         This method parse all the data for a protare in an RIS file after the command line of the protare.
 
-        :param index:           The index of the current line in *lines* to process.
-        :param lines:           All the lines in the RIS file.
+        :param index:               The index of the current line in *lines* to process.
+        :param lines:               All the lines in the RIS file.
+        :param specialFormatFlag:   If **True**, the data separator is ' : ', otherwise it is ': '.
 
         :returns:               The index of the next line to processed.
         """
 
         numberOfLines = len(lines)
         while index < numberOfLines:
-            index, command, data = getLine(index, lines, True)
+            index, command, data = getLine(index, lines, True, True)
             if   command == '#aliases':
                 numberOfAliases = int(checkDataLength(index, lines, 1, data))
                 for index2 in range(numberOfAliases):
-                    index, command, data = getLine(index, lines, False)
+                    index, command, data = getLine(index, lines, False, True)
                     aid, pid = checkDataLength(index, lines, 2, data)
                     self.__aliases[aid] = pid
             elif command == '#reactions':
                 numberOfReactions = int(checkDataLength(index, lines, 1, data))
                 for index2 in range(numberOfReactions):
-                    index, command, data = getLine(index, lines, False)
+                    index, command, data = getLine(index, lines, False, specialFormatFlag)
                     if len(data) == 4:
                         label, threshold, intermediate, process = checkDataLength(index, lines, 4, data)
                         reactionLabel, covarianceFlag = None, None
                     else:
-                        label, threshold, intermediate, process, reactionLabel, covarianceFlag = checkDataLength(index, lines, 4, data)
+                        label, threshold, intermediate, process, reactionLabel, covarianceFlag = checkDataLength(index, lines, 6, data)
                     threshold = PQUModule.PQU(float(threshold), self.__energyUnit)
                     reaction = Reaction(label, threshold, intermediate, process, reactionLabel, covarianceFlag)
                     self.__reactions.append(reaction)
@@ -332,6 +345,29 @@ class Protare:
             index -= 1
 
         return index
+
+    def print(self):
+        """Prints the contents of *self* to the screen in a format similar to how the data are stored in a file."""
+
+        print('#protare : %s : %s : %s : %s' % (self.__projectileId, self.__targetId, self.__evaluation, self.__energyUnit))
+
+        if len(self.__aliases) > 0:
+            print('#aliases : %s' % len(self.__aliases))
+            for key, value  in self.__aliases.items():
+                print('    %s : %s' % (key, value))
+
+        print('#reactions : %s' % len(self.__reactions))
+        processWidth = 9
+        for reaction in self.__reactions:
+            if reaction.process is not None:
+                if reaction.process != 'totalFission':
+                    processWidth = max(processWidth, len(reaction.process))
+        processFormat = '%%-%ds' % processWidth
+        reactionLabelWidth = max([len(reaction.reactionLabel) for reaction in self.__reactions])
+        reactionLabelFormat = '%%-%ds' % reactionLabelWidth
+
+        for reaction in self.__reactions:
+            reaction.print(processFormat, reactionLabelFormat)
 
 class Reaction:
     """
@@ -432,6 +468,15 @@ class Reaction:
 
         return self.__covarianceFlag
 
+    def print(self, processFormat, reactionLabelFormat):
+        """Prints the contents of *self* to the screen in a format similar to how the data are stored in a file."""
+
+        threshold = float(PQUModule.floatToShortestString(self.__threshold))
+        process = processFormat % self.__process
+        reactionLabel = reactionLabelFormat % self.__reactionLabel
+        print('    %-31s : %-12s : %-10s : %s : %s : %s' % 
+                (self.__label, threshold, self.__intermediate, process, reactionLabel, self.__covarianceFlag))
+
 def checkDataLength(index, lines, length, data):
     """
     For internal use only. This function checks that the data at line *index* - 1 are consistence with *length*.
@@ -445,27 +490,29 @@ def checkDataLength(index, lines, length, data):
     """
 
     if len(data) != length:
-        raise Exception('Wrong number of data at index: "%s".' % lines[index-1][:-1])
+        raise Exception('Wrong number of data at index (%s): %s vs %s: "%s".' % (index, len(data), length, lines[index-1][:-1]))
 
     if length == 1:
         data = data[0]
 
     return data
 
-def getLine(index, lines, commandLine):
+def getLine(index, lines, commandLine, specialFormatFlag):
     """
     For internal use only. This function gets the next line in *lines* at index *index* and returns the next index,
     the comnnad if *commandLine* is True and the parsed data on the line.
 
-    :param index:           The index of the current line in *lines* to process.
-    :param lines:           All the lines in the RIS file.
-    :param commandLine:     If True, line at index is a command line. Otherwise it is not a command line.
+    :param index:               The index of the current line in *lines* to process.
+    :param lines:               All the lines in the RIS file.
+    :param commandLine:         If True, line at index is a command line. Otherwise it is not a command line.
+    :param specialFormatFlag:   If **True**, the data separator is ' : ', otherwise it is ': '.
 
     :returns:               The tuple index, command, data.
     """
 
+    sep = ' : ' if specialFormatFlag else ': '
     line = lines[index]
-    data = line.split(':')
+    data = line.split(sep)
     data = [datum.strip() for datum in data]
     if commandLine:
         command = data.pop(0)

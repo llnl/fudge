@@ -982,7 +982,7 @@ FIXME method should be inherited, but abstractClasses.Component defines methods 
 <p>Base class for RowData and ColumnData. Both are links but with some additional attributes.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="fudge.covariances.covarianceSection.DataLink.ancestryMembers">
-<span class="sig-name descname"><span class="pre">ancestryMembers</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'slices'</span></em><a class="headerlink" href="#fudge.covariances.covarianceSection.DataLink.ancestryMembers" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ancestryMembers</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('slices',)</span></em><a class="headerlink" href="#fudge.covariances.covarianceSection.DataLink.ancestryMembers" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1632,6 +1632,17 @@ relative because this will throw an error.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fudge.covariances.summed.</span></span><span class="sig-name descname"><span class="pre">Summand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ENDF_MFMT</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coefficient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/covariances/summed.html#Summand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.covariances.summed.Summand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../xData/index.html#xData.link.Link" title="xData.link.Link"><code class="xref py py-class docutils literal notranslate"><span class="pre">Link</span></code></a></p>
 <p>Stores one summand in the summed covariance. Consists of a link, an ENDF MF/MT and a coefficient</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fudge.covariances.summed.Summand.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/covariances/summed.html#Summand.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.covariances.summed.Summand.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses deepcopy to make a copy of self.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A copy of self.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="fudge.covariances.summed.Summand.moniker">
 <span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'summand'</span></em><a class="headerlink" href="#fudge.covariances.summed.Summand.moniker" title="Permalink to this definition">¶</a></dt>
@@ -1684,6 +1695,17 @@ a recursively-defined covariance. Recursion is avoided so long as the domains do
 <dt class="sig sig-object py" id="fudge.covariances.summed.SummedCovariance.convertUnits">
 <span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/covariances/summed.html#SummedCovariance.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.covariances.summed.SummedCovariance.convertUnits" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fudge.covariances.summed.SummedCovariance.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/covariances/summed.html#SummedCovariance.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.covariances.summed.SummedCovariance.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses deepcopy to make a copy of self.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A copy of self.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="fudge.covariances.summed.SummedCovariance.domainMax">

@@ -134,7 +134,7 @@ This function if for internal use.</p>
 <li><p><strong>cls</strong> – The Gridded1d class to return that has the multi-group data.</p></li>
 <li><p><strong>style</strong> – This is the multi-group style for the multi-group data.</p></li>
 <li><p><strong>tempInfo</strong> – This is a dictionary with needed data.</p></li>
-<li><p><strong>f1</strong> – One of the two functions that represent the product this is multi-grouped.</p></li>
+<li><p><strong>f1</strong> – One of the two functions that represent the product that is multi-grouped.</p></li>
 <li><p><strong>printMutualDomainWarning</strong> – If True, a warning is printed if the domain of <img class="math" src="../_images/math/642882586a4156f4e6d997709f5a68257de3153b.png" alt="f1"/> and <img class="math" src="../_images/math/0e284065ac9072ea96e09fd92665be307dd2ee4f.png" alt="f2"/> are not mutual.</p></li>
 </ul>
 </dd>
@@ -164,9 +164,32 @@ This function if for internal use.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="fudge.processing.miscellaneous.groupThreeFunctionsAndFlux">
+<span class="sig-prename descclassname"><span class="pre">fudge.processing.miscellaneous.</span></span><span class="sig-name descname"><span class="pre">groupThreeFunctionsAndFlux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempInfo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printMutualDomainWarning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/miscellaneous.html#groupThreeFunctionsAndFlux"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.miscellaneous.groupThreeFunctionsAndFlux" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function mulit-groups the product of three functions, <img class="math" src="../_images/math/b7aa3d22d37c21d0bcfa871c9cf372b8e2862d55.png" alt="f1 \times f2 \times f3"/>.
+This function if for internal use.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>style</strong> – This is the multi-group style for the multi-group data.</p></li>
+<li><p><strong>tempInfo</strong> – This is a dictionary with needed data.</p></li>
+<li><p><strong>f1</strong> – One of the three functions that represent the product that is multi-grouped.</p></li>
+<li><p><strong>f2</strong> – One of the three functions that represent the product that is multi-grouped.</p></li>
+<li><p><strong>f3</strong> – One of the three functions that represent the product that is multi-grouped.</p></li>
+<li><p><strong>norm</strong> – A normalization to divided the multi-groups by.</p></li>
+<li><p><strong>printMutualDomainWarning</strong> – If True, a warning is printed if the domain of <img class="math" src="../_images/math/642882586a4156f4e6d997709f5a68257de3153b.png" alt="f1"/> and <img class="math" src="../_images/math/0e284065ac9072ea96e09fd92665be307dd2ee4f.png" alt="f2"/> are not mutual.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list like object of the multi-group values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="fudge.processing.miscellaneous.groupTwoFunctionsAndFlux">
 <span class="sig-prename descclassname"><span class="pre">fudge.processing.miscellaneous.</span></span><span class="sig-name descname"><span class="pre">groupTwoFunctionsAndFlux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempInfo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printMutualDomainWarning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/miscellaneous.html#groupTwoFunctionsAndFlux"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.miscellaneous.groupTwoFunctionsAndFlux" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function mulit-groups the product of two function, <img class="math" src="../_images/math/bf628593ebb669b7b7617882a973fe894a7b16ec.png" alt="f1 \times f2"/>. Typically, <img class="math" src="../_images/math/0e284065ac9072ea96e09fd92665be307dd2ee4f.png" alt="f2"/> is a cross section.
+<dd><p>This function mulit-groups the product of two functions, <img class="math" src="../_images/math/bf628593ebb669b7b7617882a973fe894a7b16ec.png" alt="f1 \times f2"/>. Typically, <img class="math" src="../_images/math/0e284065ac9072ea96e09fd92665be307dd2ee4f.png" alt="f2"/> is a cross section.
 This function if for internal use.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

@@ -15,7 +15,7 @@ plus tools for testing, visualizing, and processing **GNDS** data.
 
 ## Getting Started:
 
-Installing **FUDGE** requires Python (version 3.7 or higher) and NumPy (version 1.15 or higher).
+Installing **FUDGE** requires Python (version 3.9 or higher) and NumPy (version 1.15 or higher).
 
 Optional packages matplotlib and PyQT5 are also recommended to support plotting. 
 
@@ -50,7 +50,7 @@ Optional packages matplotlib and PyQT5 are also recommended to support plotting.
       Or,
 
           # Install a tagged release:
-          pip install git+https://github.com/LLNL/fudge.git@6.10.0
+          pip install git+https://github.com/LLNL/fudge.git@6.11.0
 
 
 - Installation by cloning the git repository and building with the unix `make` command: 
@@ -136,7 +136,7 @@ endf2gnds.py <originalFile.endf> <newFile.xml> --continuumSpectraFix
 
 The Python script **gnds2endf.py** translates a **GNDS** file to an **ENDF-6** file. This
 script will look for a corresponding covariance file and, if present, add its data to the **ENDF-6** 
-result. For example, the following translates the *n-001_H_001.xml* file generated in the **endf2gnds.py** comannd above 
+result. For example, the following translates the *n-001_H_001.xml* file generated in the **endf2gnds.py** command above 
 back into an **ENDF-6** file:
 ```
 python3 -m brownies.bin.gnds2endf.py n-001_H_001.xml

@@ -97,6 +97,15 @@ class SummedCovariance(ancestryModule.AncestryIO, base.Covariance):
             self.__domainMax = PQU.PQU(self.domainMax, self.domainUnit).getValueAs(newUnit)
             self.__domainUnit = newUnit
 
+    def copy(self):
+        return SummedCovariance(
+            label=self.label,
+            domainMin=self.domainMin,
+            domainMax=self.domainMax,
+            domainUnit=self.domainUnit,
+            summands=[summand.copy() for summand in self.summands]
+        )
+
     def fix(self, **kw):
         return []
 
@@ -369,6 +378,17 @@ class Summand(linkModule.Link):
             if getattr(self, attr) != getattr(other, attr):
                 return False
         return True
+
+    def copy(self):
+        return Summand(
+            link=self.link,
+            root=self.root,
+            path=self.path,
+            label=self.label,
+            relative=self.relative,
+            ENDF_MFMT=self.ENDF_MFMT,
+            coefficient=self.coefficient
+        )
 
     def toXML_strList(self, indent='', **kwargs):
 

@@ -429,7 +429,7 @@ def ITYPE_0(MTDatas, info, reactionSuite, singleMTOnly, MTs2Skip, parseCrossSect
                          204: IDsPoPsModule.familiarDeuteron,
                          205: IDsPoPsModule.familiarTriton, 206: IDsPoPsModule.familiarHelion,
                          207: IDsPoPsModule.familiarAlpha}[MT]
-            incompleteReaction = incompleteReactionModule.IncompleteReaction(label, outputChannel.genre, ENDF_MT=MT)
+            productionReaction = productionModule.Production(label, outputChannel.genre, ENDF_MT=MT)
             crossSection, outputChannel, MFKeys, LRProducts = parseReaction(
                 info, info.target, info.projectileZA, info.targetZA, MT, MTDatas[MT], warningList,
                 parseCrossSectionOnly=parseCrossSectionOnly, channelProcess=channelProcess)
@@ -444,9 +444,10 @@ def ITYPE_0(MTDatas, info, reactionSuite, singleMTOnly, MTs2Skip, parseCrossSect
                 warningList.append('For reaction MT = %d, the following MFs were not converted: %s\n' % (MT, MFKeys))
             if LRProducts is not None:
                 warningList.append('For reaction MT = %d, LRProducts is not None\n')
-            incompleteReaction.crossSection.add(crossSection)
-            endf_endlModule.setReactionsOutputChannelFromOutputChannel(info, incompleteReaction, outputChannel)
-            incompleteReactions.append(incompleteReaction)
+            productionReaction.crossSection.add(crossSection)
+            endf_endlModule.setReactionsOutputChannelFromOutputChannel(info, productionReaction, outputChannel)
+            productions.append(productionReaction)
+            info.ENDFconversionFlags.add(productionReaction, 'MF3production')
             if verbose > 0:
                 print()  # put messages for each extraMT on a separate line
         elif MT in range(851, 871):

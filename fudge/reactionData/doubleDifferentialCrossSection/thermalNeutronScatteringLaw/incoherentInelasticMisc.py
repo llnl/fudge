@@ -468,7 +468,7 @@ def process( self, style, energyMin, energyMax, temperature, kwargs ):
         else:
             raise AssertionError("Order must be 'energy-angle' or 'angle-energy'")
 
-        return evaluator(energy, distributionAxes, significant_digits=12)
+        return evaluator(energy, distributionAxes, significant_digits=11)
 
     def computeAtEnergies(energies):
         """
@@ -528,7 +528,6 @@ def process( self, style, energyMin, energyMax, temperature, kwargs ):
                 processes = nextProcesses
 
             results.sort()
-
         return results
 #</editor-fold>
 

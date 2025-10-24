@@ -107,6 +107,7 @@ from xData import axes as axesModule
 from xData import XYs1d as XYs1dModule
 from xData import multiD_XYs as multiD_XYsModule
 from xData import regions as regionsModule
+from xData import series1d as series1dModule
 
 from fudge.productData.distributions import angular as angularModule
 from fudge.productData.distributions import energy as energyModule
@@ -598,8 +599,20 @@ def discreteGammaAngularData(style, tempInfo, gammaEnergy, crossSection, angular
     productName = tempInfo['productName']
     productGroupBoundaries = style.transportables[productName].group.boundaries.values
 
+    numberOfCoefficients = 1
+    ClsVsEnergyVsOrder = []
     if angularData is not None and not angularData.isIsotropic():
-        print("WARNING: ignoring non-isotropic angular distribution for discrete gamma")
+        numberOfCoefficients = tempInfo['legendreMax'] + 1
+        ClsVsEnergy = [[] for i in range(numberOfCoefficients)]
+        for func1d in angularData:
+            xys1d = func1d.toPointwise_withLinearXYs(accuracy=1e-3, lowerEps=1e-8)
+            Legendre = series1dModule.LegendreSeries.fromXYs1d(xys1d, tempInfo['legendreMax'])
+            for order, coefficient in enumerate(Legendre.coefficients):
+                ClsVsEnergy[order].append([func1d.outerDomainValue, coefficient])
+        for order in range(numberOfCoefficients):
+            ClsVsEnergyVsOrder.append(XYs1dModule.XYs1d(data=ClsVsEnergy[order]))
+    else:
+        ClsVsEnergyVsOrder.append(XYs1dModule.XYs1d(data=[[crossSection.domainMin, 1.0], [crossSection.domainMax, 1.0]]))
 
     nProj = len(projectileGroupBoundaries) - 1
     nProd = len(productGroupBoundaries) - 1
@@ -607,8 +620,8 @@ def discreteGammaAngularData(style, tempInfo, gammaEnergy, crossSection, angular
     for i1 in range(nProj):
         TM_1_i1, TM_E_i1 = {}, {}
         for i2 in range(nProd):
-            TM_1_i1[i2] = [0.]
-            TM_E_i1[i2] = [0.]
+            TM_1_i1[i2] = numberOfCoefficients * [0.]
+            TM_E_i1[i2] = numberOfCoefficients * [0.]
         TM_1[i1] = TM_1_i1
         TM_E[i1] = TM_E_i1
 
@@ -620,11 +633,13 @@ def discreteGammaAngularData(style, tempInfo, gammaEnergy, crossSection, angular
     indexEp = min(max(indexEp, 0), nProd - 1)
 
     if multiplicity.domainMin < productGroupBoundaries[-1]:
-        xsecTimesMult = miscellaneousModule.groupTwoFunctionsAndFlux(style, tempInfo, crossSection, multiplicity, norm = tempInfo['groupedFlux'])
-        for indexE in range(nProj):
-            x = xsecTimesMult[indexE]
-            TM_1[indexE][indexEp] = [x]
-            TM_E[indexE][indexEp] = [x * gammaEnergy]
+        for order, ClVsEnergy in enumerate(ClsVsEnergyVsOrder):
+            xsecTimesMult = miscellaneousModule.groupThreeFunctionsAndFlux(style, tempInfo, crossSection, multiplicity, ClVsEnergy,
+                    norm = tempInfo['groupedFlux'])
+            for indexE in range(nProj):
+                x = xsecTimesMult[indexE]
+                TM_1[indexE][indexEp][order] = x
+                TM_E[indexE][indexEp][order] = x * gammaEnergy
 
     return TM_1, TM_E
 

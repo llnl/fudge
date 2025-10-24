@@ -1549,6 +1549,40 @@ class XYs1d(baseModule.XDataFunctional):
 
         return( self.nf_pointwiseXY.groupThreeFunctions(  boundaries, f2, f3, norm = norm ) )
 
+    def groupFourFunctions( self, xs, f2, f3, f4, norm = None ) :
+        """
+        This function multi-groups *self*, *f2*, *f3* and *f4* using the boundaries *xs*. Each group is just the value
+        of the integral of the product of *self*, *f2*, *f3* and *f4* over the group's domain divided by the *norm* for that group.
+        The argument *norm* specifies how to normalize each group. If *norm* is None, no normalization happens. If
+        *norm* is 'dx', each group integral is divided by its domain width. If *norm* is a list of float, there must be a one-to-one
+        mapping of the number of float to the number of groups, and the value in the *norm* at the same index as the group is used as
+        the norm for that group.  The number of groups is the lenght of *xs* - 1.
+
+        .. note:: Need unit of xs.
+
+        :param xs:      The list of multi-group boundaries.
+        :param f2:      An instance of :py:class:`XYs1d`.
+        :param f3:      An instance of :py:class:`XYs1d`.
+        :param f4:      An instance of :py:class:`XYs1d`.
+        :param norm:    Can be None, the python str 'dx', or a python list of floats of lenght the number of groups.
+
+        :returns:       A python list of floats.
+        """
+
+        if( type( xs ) == list ) :
+            boundaries = xs
+        elif( type( xs.values ) == list ) :
+            boundaries = xs.values
+        else :
+            boundaries = xs.values.values
+
+        if( isinstance( f2, XYs1d ) ) : f2 = f2.nf_pointwiseXY
+        if( isinstance( f3, XYs1d ) ) : f3 = f3.nf_pointwiseXY
+        if( isinstance( f4, XYs1d ) ) : f4 = f4.nf_pointwiseXY
+        if( isinstance( norm, XYs1d ) ) : norm = norm.nf_pointwiseXY
+
+        return( self.nf_pointwiseXY.groupFourFunctions(  boundaries, f2, f3, f4, norm = norm ) )
+
     def hasData(self):
         """
         This method returns True if self's len is greater than 1 and False otherwise.

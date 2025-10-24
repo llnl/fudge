@@ -173,7 +173,8 @@ static PyObject *pointwiseXY_C_normalize( pointwiseXY_CPy *self, PyObject *args,
 static PyObject *pointwiseXY_C_groupOneFunction( pointwiseXY_CPy *self, PyObject *args, PyObject *keywords );
 static PyObject *pointwiseXY_C_groupTwoFunctions( pointwiseXY_CPy *self, PyObject *args, PyObject *keywords );
 static PyObject *pointwiseXY_C_groupThreeFunctions( pointwiseXY_CPy *self, PyObject *args, PyObject *keywords );
-static PyObject *pointwiseXY_C_groupFunctionsCommon( pointwiseXY_CPy *f1, PyObject *f2, PyObject *f3, PyObject *groupBoundariesPy, PyObject *normPy );
+static PyObject *pointwiseXY_C_groupFunctionsCommon( pointwiseXY_CPy *f1, PyObject *f2, PyObject *f3, PyObject *f4, 
+        PyObject *groupBoundariesPy, PyObject *normPy );
 static PyObject *pointwiseXY_C_areDomainsMutual( pointwiseXY_CPy *self, PyObject *args );
 static PyObject *pointwiseXY_C_mutualify( pointwiseXY_CPy *self, PyObject *args, PyObject *keywords );
 static PyObject *pointwiseXY_C_overflowAllocatedSize( pointwiseXY_CPy *self );
@@ -2022,7 +2023,7 @@ static PyObject *pointwiseXY_C_groupOneFunction( pointwiseXY_CPy *self, PyObject
     static char *kwlist[] = { "groupBoundaries", "norm", NULL };
 
     if( !PyArg_ParseTupleAndKeywords( args, keywords, "O|O", kwlist, &groupBoundariesPy, &normPy ) ) return( NULL );
-    return( pointwiseXY_C_groupFunctionsCommon( self, NULL, NULL, groupBoundariesPy, normPy ) );
+    return( pointwiseXY_C_groupFunctionsCommon( self, NULL, NULL, NULL, groupBoundariesPy, normPy ) );
 }
 /*
 ************************************************************
@@ -2033,7 +2034,7 @@ static PyObject *pointwiseXY_C_groupTwoFunctions( pointwiseXY_CPy *self, PyObjec
     static char *kwlist[] = { "groupBoundaries", "f2", "norm", NULL };
 
     if( !PyArg_ParseTupleAndKeywords( args, keywords, "OO|O", kwlist, &groupBoundariesPy, &f2, &normPy ) ) return( NULL );
-    return( pointwiseXY_C_groupFunctionsCommon( self, f2, NULL, groupBoundariesPy, normPy ) );
+    return( pointwiseXY_C_groupFunctionsCommon( self, f2, NULL, NULL, groupBoundariesPy, normPy ) );
 }
 /*
 ************************************************************
@@ -2044,15 +2045,29 @@ static PyObject *pointwiseXY_C_groupThreeFunctions( pointwiseXY_CPy *self, PyObj
     static char *kwlist[] = { "groupBoundaries", "f2", "f3", "norm", NULL };
 
     if( !PyArg_ParseTupleAndKeywords( args, keywords, "OOO|O", kwlist, &groupBoundariesPy, &f2, &f3, &normPy ) ) return( NULL );
-    return( pointwiseXY_C_groupFunctionsCommon( self, f2, f3, groupBoundariesPy, normPy ) );
+    return( pointwiseXY_C_groupFunctionsCommon( self, f2, f3, NULL, groupBoundariesPy, normPy ) );
 }
+
 /*
 ************************************************************
 */
-static PyObject *pointwiseXY_C_groupFunctionsCommon( pointwiseXY_CPy *f1, PyObject *of2, PyObject *of3, PyObject *groupBoundariesPy, PyObject *normPy ) {
+static PyObject *pointwiseXY_C_groupFourFunctions( pointwiseXY_CPy *self, PyObject *args, PyObject *keywords ) {
+
+    PyObject *groupBoundariesPy, *normPy = NULL, *f2, *f3, *f4;
+    static char *kwlist[] = { "groupBoundaries", "f2", "f3", "f4", "norm", NULL };
+
+    if( !PyArg_ParseTupleAndKeywords( args, keywords, "OOOO|O", kwlist, &groupBoundariesPy, &f2, &f3, &f4, &normPy ) ) return( NULL );
+    return( pointwiseXY_C_groupFunctionsCommon( self, f2, f3, f4, groupBoundariesPy, normPy ) );
+}
+
+/*
+************************************************************
+*/
+static PyObject *pointwiseXY_C_groupFunctionsCommon( pointwiseXY_CPy *f1, PyObject *of2, PyObject *of3, PyObject *of4,
+                PyObject *groupBoundariesPy, PyObject *normPy ) {
 
     ptwXPoints *ptwXGBs, *ptwX_norm = NULL, *groups = NULL;
-    pointwiseXY_CPy *f2 = (pointwiseXY_CPy *) of2, *f3 = (pointwiseXY_CPy *) of3;
+    pointwiseXY_CPy *f2 = (pointwiseXY_CPy *) of2, *f3 = (pointwiseXY_CPy *) of3, *f4 = (pointwiseXY_CPy *) of4;
     PyObject *newPy = NULL;
     ptwXY_group_normType norm = ptwXY_group_normType_none;
     char const *normChars;
@@ -2068,6 +2083,11 @@ static PyObject *pointwiseXY_C_groupFunctionsCommon( pointwiseXY_CPy *f1, PyObje
             if( ( status = PyObject_IsInstance( of3, (PyObject* ) &pointwiseXY_CPyType ) ) < 0 ) return( NULL );
             if( status == 0 ) return( pointwiseXY_C_SetPyErrorExceptionReturnNull( "f3 must be a pointwiseXY_C instance" ) );
             if( pointwiseXY_C_checkStatus2( f3, "f3" ) != 0 ) return( NULL );
+            if( f4 != NULL ) {
+                if( ( status = PyObject_IsInstance( of4, (PyObject* ) &pointwiseXY_CPyType ) ) < 0 ) return( NULL );
+                if( status == 0 ) return( pointwiseXY_C_SetPyErrorExceptionReturnNull( "f4 must be a pointwiseXY_C instance" ) );
+                if( pointwiseXY_C_checkStatus2( f4, "f4" ) != 0 ) return( NULL );
+            }
         }
     }
 /*
@@ -2096,8 +2116,10 @@ BRB FIXME, need to check status of normPy
         groups = ptwXY_groupOneFunction( smr, f1->ptwXY, ptwXGBs, norm, ptwX_norm ); }
     else if( f3 == NULL ) {
         groups = ptwXY_groupTwoFunctions( smr, f1->ptwXY, ((pointwiseXY_CPy *) f2)->ptwXY, ptwXGBs, norm, ptwX_norm ); }
+    else if( f4 == NULL ) {
+        groups = ptwXY_groupThreeFunctions( smr, f1->ptwXY, ((pointwiseXY_CPy *) f2)->ptwXY, ((pointwiseXY_CPy *) f3)->ptwXY, ptwXGBs, norm, ptwX_norm ); }
     else {
-        groups = ptwXY_groupThreeFunctions( smr, f1->ptwXY, ((pointwiseXY_CPy *) f2)->ptwXY, ((pointwiseXY_CPy *) f3)->ptwXY, ptwXGBs, norm, ptwX_norm );
+        groups = ptwXY_groupFourFunctions( smr, f1->ptwXY, f2->ptwXY, f3->ptwXY, f4->ptwXY, ptwXGBs, norm, ptwX_norm );
     }
 
     ptwX_free( ptwXGBs );
@@ -3901,6 +3923,17 @@ static PyMethodDef pointwiseXY_CPyMethods[] = {
         "\nArguments are:\n" \
         "   f2                  the second pointwiseXY_C function with the integrand being the product of self * f2 * f3\n" \
         "   f3                  the third pointwiseXY_C function with the integrand being the product of self * f2 * f3\n" \
+        "   groupBoundaries     the list of group boundaries,\n" \
+        "   norm                each value returned can be normalized as directed by one of the following allowed values\n" \
+        "       None                no normalization is applied,\n" \
+        "       'dx'                each value is normalized by the width of its interval,\n" \
+        "       list                a list of floats, one each for each group which the group is normalized by." },
+    { "groupFourFunctions", (PyCFunction) pointwiseXY_C_groupFourFunctions, METH_VARARGS | METH_KEYWORDS, 
+        "Returns a python list of float values. Each value is the integral of the product of self, f2, f3 and f4 between two consecutive group boundaries.\n" \
+        "\nArguments are:\n" \
+        "   f2                  the second pointwiseXY_C function with the integrand being the product of self * f2 * f3\n" \
+        "   f3                  the third pointwiseXY_C function with the integrand being the product of self * f2 * f3\n" \
+        "   f4                  the fourth pointwiseXY_C function with the integrand being the product of self * f2 * f3\n" \
         "   groupBoundaries     the list of group boundaries,\n" \
         "   norm                each value returned can be normalized as directed by one of the following allowed values\n" \
         "       None                no normalization is applied,\n" \

@@ -124,9 +124,9 @@
 <span class="sd">    This function returns versions of :math:`f1`, :math:`f2` and :math:`f3` whose domains are all mutual.</span>
 <span class="sd">    This function if for internal use.</span>
 
-<span class="sd">    :param f1:                          One of the two functions that represent the product this is multi-grouped.</span>
-<span class="sd">    :param f2:                          One of the two functions that represent the product this is multi-grouped.</span>
-<span class="sd">    :param f3:                          One of the two functions that represent the product this is multi-grouped.</span>
+<span class="sd">    :param f1:                          One of the functions that is mutualified.</span>
+<span class="sd">    :param f2:                          One of the functions that is mutualified.</span>
+<span class="sd">    :param f3:                          One of the functions that is mutualified.</span>
 <span class="sd">    :param printMutualDomainWarning:    If True, a warning is printed if the domain of :math:`f1`, :math:`f2` and :math:`f3` are not mutual.</span>
 
 <span class="sd">    :returns:                           Versions of :math:`f1`, :math:`f2` and :math:`f3` whose domains are all mutual.</span>
@@ -166,7 +166,7 @@
 
 <div class="viewcode-block" id="groupTwoFunctionsAndFlux"><a class="viewcode-back" href="../../../fudge/fudge.processing.html#fudge.processing.miscellaneous.groupTwoFunctionsAndFlux">[docs]</a><span class="k">def</span> <span class="nf">groupTwoFunctionsAndFlux</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">norm</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">printMutualDomainWarning</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This function mulit-groups the product of two function, :math:`f1 \times f2`. Typically, :math:`f2` is a cross section.</span>
+<span class="sd">    This function mulit-groups the product of two functions, :math:`f1 \times f2`. Typically, :math:`f2` is a cross section.</span>
 <span class="sd">    This function if for internal use.</span>
 
 <span class="sd">    :param style:                       This is the multi-group style for the multi-group data.</span>
@@ -185,6 +185,36 @@
     <span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">flux</span> <span class="o">=</span> <span class="n">_mutualifyGrouping3Data</span><span class="p">(</span> <span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">printMutualDomainWarning</span> <span class="o">=</span> <span class="n">printMutualDomainWarning</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">f1</span><span class="o">.</span><span class="n">groupThreeFunctions</span><span class="p">(</span> <span class="n">groupBoundaries</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">norm</span> <span class="o">=</span> <span class="n">norm</span> <span class="p">)</span> <span class="p">)</span></div>
 
+<div class="viewcode-block" id="groupThreeFunctionsAndFlux"><a class="viewcode-back" href="../../../fudge/fudge.processing.html#fudge.processing.miscellaneous.groupThreeFunctionsAndFlux">[docs]</a><span class="k">def</span> <span class="nf">groupThreeFunctionsAndFlux</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">f3</span><span class="p">,</span> <span class="n">norm</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">printMutualDomainWarning</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function mulit-groups the product of three functions, :math:`f1 \times f2 \times f3`.</span>
+<span class="sd">    This function if for internal use.</span>
+
+<span class="sd">    :param style:                       This is the multi-group style for the multi-group data.</span>
+<span class="sd">    :param tempInfo:                    This is a dictionary with needed data.</span>
+<span class="sd">    :param f1:                          One of the three functions that represent the product that is multi-grouped.</span>
+<span class="sd">    :param f2:                          One of the three functions that represent the product that is multi-grouped.</span>
+<span class="sd">    :param f3:                          One of the three functions that represent the product that is multi-grouped.</span>
+<span class="sd">    :param norm:                        A normalization to divided the multi-groups by.</span>
+<span class="sd">    :param printMutualDomainWarning:    If True, a warning is printed if the domain of :math:`f1` and :math:`f2` are not mutual.</span>
+
+<span class="sd">    :returns:                           A list like object of the multi-group values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">_toLinear</span><span class="p">(</span> <span class="n">f1</span> <span class="p">)</span>
+    <span class="n">f2</span> <span class="o">=</span> <span class="n">_toLinear</span><span class="p">(</span> <span class="n">f2</span> <span class="p">)</span>
+    <span class="n">f3</span> <span class="o">=</span> <span class="n">_toLinear</span><span class="p">(</span> <span class="n">f3</span> <span class="p">)</span>
+    <span class="n">groupBoundaries</span><span class="p">,</span> <span class="n">flux</span> <span class="o">=</span> <span class="n">_groupFunctionsAndFluxInit</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">f1</span> <span class="p">)</span>
+
+    <span class="n">minEnergy</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">f1</span><span class="o">.</span><span class="n">domainMin</span><span class="p">,</span> <span class="n">f2</span><span class="o">.</span><span class="n">domainMin</span><span class="p">,</span> <span class="n">f3</span><span class="o">.</span><span class="n">domainMin</span><span class="p">,</span> <span class="n">flux</span><span class="o">.</span><span class="n">domainMin</span><span class="p">,</span> <span class="n">groupBoundaries</span><span class="o">.</span><span class="n">domainMin</span><span class="p">)</span>
+    <span class="n">maxEnergy</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">f1</span><span class="o">.</span><span class="n">domainMax</span><span class="p">,</span> <span class="n">f2</span><span class="o">.</span><span class="n">domainMax</span><span class="p">,</span> <span class="n">f3</span><span class="o">.</span><span class="n">domainMax</span><span class="p">,</span> <span class="n">flux</span><span class="o">.</span><span class="n">domainMax</span><span class="p">,</span> <span class="n">groupBoundaries</span><span class="o">.</span><span class="n">domainMax</span><span class="p">)</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">f1</span><span class="o">.</span><span class="n">domainSlice</span><span class="p">(</span><span class="n">domainMin</span><span class="o">=</span><span class="n">minEnergy</span><span class="p">,</span> <span class="n">domainMax</span><span class="o">=</span><span class="n">maxEnergy</span><span class="p">)</span>
+    <span class="n">f2</span> <span class="o">=</span> <span class="n">f2</span><span class="o">.</span><span class="n">domainSlice</span><span class="p">(</span><span class="n">domainMin</span><span class="o">=</span><span class="n">minEnergy</span><span class="p">,</span> <span class="n">domainMax</span><span class="o">=</span><span class="n">maxEnergy</span><span class="p">)</span>
+    <span class="n">f3</span> <span class="o">=</span> <span class="n">f3</span><span class="o">.</span><span class="n">domainSlice</span><span class="p">(</span><span class="n">domainMin</span><span class="o">=</span><span class="n">minEnergy</span><span class="p">,</span> <span class="n">domainMax</span><span class="o">=</span><span class="n">maxEnergy</span><span class="p">)</span>
+    <span class="n">flux</span> <span class="o">=</span> <span class="n">flux</span><span class="o">.</span><span class="n">domainSlice</span><span class="p">(</span><span class="n">domainMin</span><span class="o">=</span><span class="n">minEnergy</span><span class="p">,</span> <span class="n">domainMax</span><span class="o">=</span><span class="n">maxEnergy</span><span class="p">)</span>
+
+    <span class="k">return</span><span class="p">(</span> <span class="n">f1</span><span class="o">.</span><span class="n">groupFourFunctions</span><span class="p">(</span> <span class="n">groupBoundaries</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">f3</span><span class="p">,</span> <span class="n">norm</span> <span class="o">=</span> <span class="n">norm</span> <span class="p">)</span> <span class="p">)</span></div>
+
 <div class="viewcode-block" id="groupFunctionCrossSectionAndFlux"><a class="viewcode-back" href="../../../fudge/fudge.processing.html#fudge.processing.miscellaneous.groupFunctionCrossSectionAndFlux">[docs]</a><span class="k">def</span> <span class="nf">groupFunctionCrossSectionAndFlux</span><span class="p">(</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">printMutualDomainWarning</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function multi-groups :math:`f1` with the product of the cross section in *tempInfo*.</span>
@@ -193,7 +223,7 @@
 <span class="sd">    :param cls:                         The Gridded1d class to return that has the multi-group data.</span>
 <span class="sd">    :param style:                       This is the multi-group style for the multi-group data.</span>
 <span class="sd">    :param tempInfo:                    This is a dictionary with needed data.</span>
-<span class="sd">    :param f1:                          One of the two functions that represent the product this is multi-grouped.</span>
+<span class="sd">    :param f1:                          One of the two functions that represent the product that is multi-grouped.</span>
 <span class="sd">    :param printMutualDomainWarning:    If True, a warning is printed if the domain of :math:`f1` and :math:`f2` are not mutual.</span>
 
 <span class="sd">    :returns:                           An instance of *cls*.</span>

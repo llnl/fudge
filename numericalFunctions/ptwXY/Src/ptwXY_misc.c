@@ -343,3 +343,20 @@ void ptwXY_simplePrint( ptwXYPoints *ptwXY, char const *format ) {
 
     ptwXY_simpleWrite( ptwXY, stdout, format );
 }
+
+/*
+************************************************************
+*/
+nfu_status ptwXY_simpleSaveToFile( statusMessageReporting *smr, ptwXYPoints *ptwXY, char const *path, char const *format ) {
+
+    FILE *fOut = fopen( path, "w" );
+    if( fOut == NULL ) {
+        smr_setReportError2( smr, nfu_SMR_libraryID, nfu_Error, "Error opening file = '%s'.", path );
+        return( nfu_Error );
+    }
+
+    ptwXY_simpleWrite( ptwXY, fOut, format );
+    fclose( fOut );
+
+    return( nfu_Okay );
+}

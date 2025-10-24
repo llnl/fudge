@@ -4547,6 +4547,35 @@ interpolation is ‘flat’.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="xData.XYs1d.XYs1d.groupFourFunctions">
+<span class="sig-name descname"><span class="pre">groupFourFunctions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/xData/XYs1d.html#XYs1d.groupFourFunctions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#xData.XYs1d.XYs1d.groupFourFunctions" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function multi-groups <em>self</em>, <em>f2</em>, <em>f3</em> and <em>f4</em> using the boundaries <em>xs</em>. Each group is just the value
+of the integral of the product of <em>self</em>, <em>f2</em>, <em>f3</em> and <em>f4</em> over the group’s domain divided by the <em>norm</em> for that group.
+The argument <em>norm</em> specifies how to normalize each group. If <em>norm</em> is None, no normalization happens. If
+<em>norm</em> is ‘dx’, each group integral is divided by its domain width. If <em>norm</em> is a list of float, there must be a one-to-one
+mapping of the number of float to the number of groups, and the value in the <em>norm</em> at the same index as the group is used as
+the norm for that group.  The number of groups is the lenght of <em>xs</em> - 1.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Need unit of xs.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xs</strong> – The list of multi-group boundaries.</p></li>
+<li><p><strong>f2</strong> – An instance of <a class="reference internal" href="#xData.XYs1d.XYs1d" title="xData.XYs1d.XYs1d"><code class="xref py py-class docutils literal notranslate"><span class="pre">XYs1d</span></code></a>.</p></li>
+<li><p><strong>f3</strong> – An instance of <a class="reference internal" href="#xData.XYs1d.XYs1d" title="xData.XYs1d.XYs1d"><code class="xref py py-class docutils literal notranslate"><span class="pre">XYs1d</span></code></a>.</p></li>
+<li><p><strong>f4</strong> – An instance of <a class="reference internal" href="#xData.XYs1d.XYs1d" title="xData.XYs1d.XYs1d"><code class="xref py py-class docutils literal notranslate"><span class="pre">XYs1d</span></code></a>.</p></li>
+<li><p><strong>norm</strong> – Can be None, the python str ‘dx’, or a python list of floats of lenght the number of groups.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A python list of floats.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="xData.XYs1d.XYs1d.groupOneFunction">
 <span class="sig-name descname"><span class="pre">groupOneFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/xData/XYs1d.html#XYs1d.groupOneFunction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#xData.XYs1d.XYs1d.groupOneFunction" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function multi-groups <em>self</em> using the boundaries <em>xs</em>. Since only one function is involved, each group is just the value
@@ -8287,7 +8316,7 @@ a function that is embedded in a high dimensional functions.</p></td>
 <dl class="py method">
 <dt class="sig sig-object py" id="xData.xs_pdf_cdf.Xs_pdf_cdf1d.fromXYs">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fromXYs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xys</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outerDomainValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thinEpsilon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/xData/xs_pdf_cdf.html#Xs_pdf_cdf1d.fromXYs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#xData.xs_pdf_cdf.Xs_pdf_cdf1d.fromXYs" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method creates an <a class="reference internal" href="#xData.xs_pdf_cdf.Xs_pdf_cdf1d" title="xData.xs_pdf_cdf.Xs_pdf_cdf1d"><code class="xref py py-class docutils literal notranslate"><span class="pre">Xs_pdf_cdf1d</span></code></a> instance for an <code class="xref py py-class docutils literal notranslate"><span class="pre">XYs1dModule.XYs1d</span></code> instance. 
+<dd><p>This method creates an <a class="reference internal" href="#xData.xs_pdf_cdf.Xs_pdf_cdf1d" title="xData.xs_pdf_cdf.Xs_pdf_cdf1d"><code class="xref py py-class docutils literal notranslate"><span class="pre">Xs_pdf_cdf1d</span></code></a> instance for an <code class="xref py py-class docutils literal notranslate"><span class="pre">XYs1dModule.XYs1d</span></code> instance.
 If <em>thinEpsilon</em> is not None, then points are thinned so that the returned cdf has cdf[i+1] - cdf[i] &gt; <em>thinEpsilon</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

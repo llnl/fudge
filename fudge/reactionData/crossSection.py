@@ -702,6 +702,10 @@ class ResonancesWithBackground(BaseCrossSectionForm):
             return reconstructed.toPointwise_withLinearXYs(**kwargs)     # Return a copy.
         raise Exception('resonancesWithBackground cross section has not been reconstructed via reactionSuite.reconstructResonances: %s' % self.toXLink())
 
+    def  asXYs1d(self, asLinLin, accuracy, lowerEps, upperEps, biSectionMax=16):
+
+        return self.toPointwise_withLinearXYs(accuracy=accuracy, lowerEps=lowerEps, upperEps=upperEps, biSectionMax=biSectionMax)
+
     def toXML_strList(self, indent="", **kwargs):
 
         indent2 = indent + kwargs.get('incrementalIndent', '  ')

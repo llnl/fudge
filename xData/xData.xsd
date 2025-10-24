@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <!-- xml schema describing documentation and basic data containers for GNDS
+       author: mattoon1@llnl.gov
+
+       Some basic data containers are used throughout GNDS files, and are defined here.
+       They include documentation data, axes with units and optional grids,
+       links (using xlink syntax), pointwise and piecewise versions of 1,2 and 3-dimensional
+       data containers, and the 'table' element:
+
+       This schema only defines types, no root nodes. It can be included in other
+       schemas using an <xs:include> statement. -->
+
+
+  <!-- ========================= DOCUMENTATION ================================ -->
+
+  <xs:complexType name="DocumentationType">
+    <xs:all>
+      <xs:element name="authors" type="AuthorListType" minOccurs="0"/>
+      <xs:element name="contributors" type="ContributorListType" minOccurs="0"/>
+      <xs:element name="collaborations" type="CollaborationListType" minOccurs="0"/>
+      <xs:element name="dates" type="DateListType" minOccurs="0"/>
+      <xs:element name="copyright" type="CopyrightType" minOccurs="0"/>
+      <xs:element name="acknowledgements" type="AcknowledgementListType" minOccurs="0"/>
+      <xs:element name="keywords" type="KeywordListType" minOccurs="0"/>
+      <xs:element name="relatedItems" type="RelatedItemListType" minOccurs="0"/>
+      <xs:element name="title" type="nodeWithText" minOccurs="0"/>
+      <xs:element name="abstract" type="nodeWithText" minOccurs="0"/>
+      <xs:element name="body" type="nodeWithText" minOccurs="0"/>
+      <xs:element name="computerCodes" type="ComputerCodeListType" minOccurs="0"/>
+      <xs:element name="experimentalDataSets" type="ExperimentalDataSetListType" minOccurs="0"/>
+      <xs:element name="bibliography" type="BibliographyType" minOccurs="0"/>
+      <xs:element name="endfCompatible" type="nodeWithText" minOccurs="0"/>
+    </xs:all>
+    <xs:attribute name="doi" type="xs:string"/>
+    <xs:attribute name="publicationDate" type="DateAttribute"/>
+    <xs:attribute name="version" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="CollaborationListType">
+    <xs:sequence>
+      <xs:element name="collaboration" type="CollaborationType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DateListType">
+    <xs:sequence>
+      <xs:element name="date" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="dateType" type="DateEnum" use="required"/>
+          <xs:attribute name="value" type="DateAttribute" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CopyrightType">
+    <xs:complexContent>
+      <xs:extension base="nodeWithText">
+        <xs:attribute name="href" type="xs:anyURI"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AcknowledgementListType">
+    <xs:sequence>
+      <xs:element name="acknowledgement" type="nodeWithText_labelRequired" maxOccurs="unbounded"/>
+      </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="KeywordListType">
+    <xs:sequence>
+      <xs:element name="keyword" type="KeywordType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="KeywordType" >
+    <xs:complexContent>
+      <xs:extension base="nodeWithText">
+         <xs:attribute name="type" type="KeywordEnum" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="RelatedItemType">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="href" type="xs:anyURI"/>
+    <xs:attribute name="relationType" type="RelationEnum"/>
+  </xs:complexType>
+ 
+  <xs:complexType name="RelatedItemListType">
+    <xs:sequence>
+       <xs:element name="relatedItem" type="RelatedItemType" maxOccurs="unbounded"/>
+   </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ExperimentalDataSetListType">
+    <xs:sequence>
+      <xs:element name="exforDataSets" type="ExforDataSetListType"/>
+   </xs:sequence>
+  </xs:complexType>
+        
+  <!-- allowed values for 'dateType' in documentation/dates nodes -->
+  <xs:simpleType name="DateEnum">
+    <xs:restriction base="xs:string">
+     <xs:enumeration value="accepted"/>
+     <xs:enumeration value="available"/>
+     <xs:enumeration value="copyrighted"/>
+     <xs:enumeration value="collected"/>
+     <xs:enumeration value="created"/>
+     <xs:enumeration value="issued"/>
+     <xs:enumeration value="submitted"/>
+     <xs:enumeration value="updated"/>
+     <xs:enumeration value="valid"/>
+     <xs:enumeration value="withdrawn"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- allowed values for 'relationType' in documentation/relatedItems nodes -->
+  <xs:simpleType name="RelationEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IsCitedBy"/>
+      <xs:enumeration value="Cites"/>
+      <xs:enumeration value="IsSupplementTo"/>
+      <xs:enumeration value="IsSupplementedBy"/>
+      <xs:enumeration value="IsContinuedBy"/>
+      <xs:enumeration value="Continues"/>
+      <xs:enumeration value="Describes"/>
+      <xs:enumeration value="IsDescribedBy"/>
+      <xs:enumeration value="HasMetaData"/>
+      <xs:enumeration value="IsMetadataFor"/>
+      <xs:enumeration value="HasVersion"/>
+      <xs:enumeration value="IsVersionOf"/>
+      <xs:enumeration value="IsNewVersionOf"/>
+      <xs:enumeration value="IsPreviousVersionOf"/>
+      <xs:enumeration value="IsPartOf"/>
+      <xs:enumeration value="HasPart"/>
+      <xs:enumeration value="IsPublishedIn"/>
+      <xs:enumeration value="IsReferencedBy"/>
+      <xs:enumeration value="References"/>
+      <xs:enumeration value="IsDocumentedBy"/>
+      <xs:enumeration value="Documents"/>
+      <xs:enumeration value="IsCompiledBy"/>
+      <xs:enumeration value="Complies"/>    <!-- FIXME typo in GNDS-2.0 specs? See Issue #113 on NEA repo -->
+      <xs:enumeration value="IsVariantFormOf"/>
+      <xs:enumeration value="IsOriginalFormOf"/>
+      <xs:enumeration value="IsIdenticalTo"/>
+      <xs:enumeration value="IsReviewedBy"/>
+      <xs:enumeration value="Reviews"/>
+      <xs:enumeration value="IsDerivedFrom"/>
+      <xs:enumeration value="IsSourceOf"/>
+      <xs:enumeration value="IsRequiredBy"/>
+      <xs:enumeration value="Requires"/>
+      <xs:enumeration value="Obsoletes"/>
+      <xs:enumeration value="IsObsoletedBy"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="AffiliationType">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="href" type="xs:anyURI"/>
+  </xs:complexType>
+ 
+  <xs:complexType name="AffiliationListType">
+    <xs:sequence>
+      <xs:element name="affiliation" type="AffiliationType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AuthorType">
+    <xs:sequence>
+      <xs:element name="affiliations" type="AffiliationListType" minOccurs="0"/>
+      <xs:element name="note" type="nodeWithText" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="orcid" type="xs:string"/>  <!-- FIXME define pattern for orcid? -->
+    <xs:attribute name="email" type="xs:string"/>  <!-- FIXME define pattern for email? -->
+  </xs:complexType>
+
+  <xs:complexType name="AuthorListType">
+    <xs:sequence>
+      <xs:element name="author" type="AuthorType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ContributorType">
+    <xs:sequence>
+      <xs:element name="affiliations" type="AffiliationListType" minOccurs="0"/>
+      <xs:element name="note" type="nodeWithText" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:NCName" use="required"/>
+    <xs:attribute name="contributorType" type="ContributorEnum" use="required"/>
+    <xs:attribute name="orcid" type="xs:string"/>  <!-- FIXME define pattern for orcid? -->
+    <xs:attribute name="email" type="xs:NCName"/>
+  </xs:complexType>
+
+  <xs:complexType name="ContributorListType">
+    <xs:sequence>
+      <xs:element name="contributor" type="ContributorType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="ContributorEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ContactPerson"/>
+      <xs:enumeration value="DataCollector"/>
+      <xs:enumeration value="DataCurator"/>
+      <xs:enumeration value="DataManager"/>
+      <xs:enumeration value="Distributor"/>
+      <xs:enumeration value="Editor"/>
+      <xs:enumeration value="HostingInstitution"/>
+      <xs:enumeration value="Producer"/>
+      <xs:enumeration value="ProjectLeader"/>
+      <xs:enumeration value="ProjectManager"/>
+      <xs:enumeration value="ProjectMember"/>
+      <xs:enumeration value="RegistrationAgency"/>
+      <xs:enumeration value="RegistrationAuthority"/>
+      <xs:enumeration value="RelatedPerson"/>
+      <xs:enumeration value="Researcher"/>
+      <xs:enumeration value="ResearchGroup"/>
+      <xs:enumeration value="RightsHolder"/>
+      <xs:enumeration value="Sponsor"/>
+      <xs:enumeration value="Supervisor"/>
+      <xs:enumeration value="WorkPackageLeader"/>
+      <xs:enumeration value="Other"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="CollaborationType">
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="href" type="xs:anyURI"/>
+  </xs:complexType>
+
+  <xs:complexType name="ComputerCodeType">
+    <xs:sequence>
+      <xs:element name="executionArguments" type="nodeWithText" minOccurs="0"/>
+      <xs:element name="codeRepo" type="CodeRepoType" minOccurs="0"/>
+      <xs:element name="note" type="nodeWithText" minOccurs="0"/>
+      <xs:element name="inputDecks" type="InputDeckListType" minOccurs="0"/>
+      <xs:element name="outputDecks" type="OutputDeckListType" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:string" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="version" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="CodeRepoType">
+    <xs:attribute name="revisionSystem" type="xs:string" use="required"/>
+    <xs:attribute name="href" type="xs:anyURI" use="required"/>
+    <xs:attribute name="revisionID" type="xs:string" use="required"/>
+  </xs:complexType>
+ 
+  <xs:complexType name="ComputerCodeListType">
+    <xs:sequence>
+      <xs:element name="computerCode" type="ComputerCodeType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="InputDeckListType">
+    <xs:sequence>
+      <xs:element name="inputDeck" type="nodeWithText_and_filename" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="OutputDeckListType">
+    <xs:sequence>
+      <xs:element name="outputDeck" type="nodeWithText_and_filename" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+ 
+  <xs:complexType name="ExforDataSetType">
+    <xs:sequence>
+      <xs:element name="covarianceScript" type="nodeWithText" minOccurs="0"/>
+      <xs:element name="correctionScript" type="nodeWithText" minOccurs="0"/>
+      <xs:element name="note" type="nodeWithText" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="subentry" type="xs:string" use="required"/>
+    <xs:attribute name="retrievalDate" type="DateAttribute" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="ExforDataSetListType">
+    <xs:sequence>
+      <xs:element name="exforDataSet" type="ExforDataSetType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+ 
+  <xs:complexType name="BibliographyType">
+    <xs:sequence>
+      <xs:element name="bibitem" type="BibitemType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BibitemType">
+    <xs:complexContent>
+      <xs:extension base="nodeWithText">
+        <xs:attribute name="xref" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- ========================= BASIC TEXT TYPES ============================= -->
+
+  <xs:complexType name="nodeWithText" mixed="true">
+    <xs:attribute name="encoding" type="TextEncodingEnum"/>
+    <xs:attribute name="markup" type="TextMarkupEnum"/>
+    <xs:attribute name="label" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="nodeWithText_labelRequired" mixed="true">
+    <xs:attribute name="encoding" type="TextEncodingEnum"/>
+    <xs:attribute name="markup" type="TextMarkupEnum"/>
+    <xs:attribute name="label" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="nodeWithText_and_filename" mixed="true">
+    <xs:attribute name="encoding" type="TextEncodingEnum"/>
+    <xs:attribute name="markup" type="TextMarkupEnum"/>
+    <xs:attribute name="label" type="xs:string"/>
+    <xs:attribute name="filename" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:simpleType name="TextEncodingEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ascii"/>
+      <xs:enumeration value="utf8"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TextMarkupEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="none"/>
+      <xs:enumeration value="xml"/>
+      <xs:enumeration value="xhtml"/>
+      <xs:enumeration value="latex"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="KeywordEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NSR"/>
+      <xs:enumeration value="PACS"/>
+      <xs:enumeration value="PhySH"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="XLinkType">
+    <xs:attribute name="label" type="xs:NCName"/>
+    <xs:attribute name="href" use="required"/>
+  </xs:complexType>
+
+  <!-- ===================================================================== -->
+ 
+  <!-- date could match xs:date or xs:dateTime -->
+  <xs:simpleType name="DateAttribute">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:date"/>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:dateTime"/>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+
+  <!-- ============================ AXES =================================== -->
+
+  <xs:complexType name="AxisType">
+    <xs:attribute name="index" use="required" type="xs:integer"/>
+    <xs:attribute name="label" use="required"/>
+    <xs:attribute name="unit" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="AxesType">
+    <xs:sequence>
+      <xs:element name="axis" type="AxisType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GridAxesType">
+    <xs:sequence>
+      <xs:element name="grid" type="GridType" maxOccurs="unbounded"/>
+      <xs:element name="axis" type="AxisType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GridType" >
+    <xs:sequence>
+      <xs:element name="values" type="xData_values"/>
+    </xs:sequence>
+    <xs:attribute name="index" use="required" type="xs:integer"/>
+    <xs:attribute name="label" use="required"/>
+    <xs:attribute name="unit" use="required"/>
+    <xs:attribute name="style" use="required"/> <!-- FIXME enumerate options? -->
+    <xs:attribute name="interpolation" type="interpolation"/>
+  </xs:complexType>
+
+  <!-- ======================== DATA CONTAINER TYPES ======================= -->
+
+  <!-- plain text data (except for documentation) may only contain a list of doubles: -->
+  <xs:simpleType name="DataList">
+    <xs:list itemType="xs:double"/>
+  </xs:simpleType>
+
+  <!-- allowed interpolation types -->
+  <xs:simpleType name="interpolation">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="flat"/>
+      <xs:enumeration value="charged-particle"/>  <!-- FIXME... should this be here? -->
+      <xs:enumeration value="lin-lin"/>
+      <xs:enumeration value="lin-log"/>
+      <xs:enumeration value="log-lin"/>
+      <xs:enumeration value="log-log"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- 'values' element contains a list of floating-point numbers plus optional attributes -->
+  <xs:complexType name="xData_values">
+    <xs:simpleContent>
+      <xs:extension base="DataList">
+        <xs:attribute name="label" type="xs:string"/>
+        <xs:attribute name="valueType" type="xs:string"/> <!-- FIXME enumerate options? -->
+        <xs:attribute name="start" type="xs:integer"/>
+        <xs:attribute name="length" type="xs:integer"/>
+        <!-- additional attributes for pointing to binary data store: -->
+        <xs:attribute name="href" type="xs:string"/>
+        <xs:attribute name="startIndex" type="xs:integer"/>
+        <xs:attribute name="count" type="xs:integer"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <!-- 1d data (for cross section, multiplicity, series, distribution at one incident energy, etc.) -->
+  <xs:complexType name="xData_constant1d">
+    <xs:sequence>
+      <xs:element name="axes" type="AxesType"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:NCName"/>
+    <xs:attribute name="value" type="xs:double" use="required"/>
+    <xs:attribute name="domainMin" type="xs:double" use="required"/>
+    <xs:attribute name="domainMax" type="xs:double" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="xData_XYs1d_primary">
+    <xs:sequence>
+      <xs:element name="axes" type="AxesType"/>
+      <xs:element name="values" type="xData_values"/>
+      <xs:element name="uncertainty" type="xData_uncertainty" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:NCName"/>
+    <xs:attribute name="interpolation" type="interpolation"/>
+  </xs:complexType>
+
+  <xs:complexType name="XYs1dWrapperType">
+    <xs:sequence>
+      <xs:element name="XYs1d" type="xData_XYs1d_primary"/>
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="xData_XYs1d_inRegions">
+    <xs:sequence>
+      <xs:element name="values" type="xData_values"/>
+    </xs:sequence>
+    <xs:attribute name="index" type="xs:integer" use="required"/>
+    <xs:attribute name="interpolation" type="interpolation"/>
+  </xs:complexType>
+
+  <xs:complexType name="xData_XYs1d">
+    <xs:sequence>
+      <xs:element name="values" type="xData_values"/>
+    </xs:sequence>
+    <xs:attribute name="outerDomainValue" type="xs:double" use="required"/>
+    <xs:attribute name="interpolation" type="interpolation"/>
+  </xs:complexType>
+
+  <!-- piecewise 1d data -->
+  <xs:complexType name="function1ds_inRegions">
+    <xs:sequence>
+      <xs:element name="XYs1d" type="xData_XYs1d_inRegions" minOccurs="2" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="xData_regions_1d_primary">
+    <xs:sequence>
+      <xs:element name="axes" type="AxesType"/>
+      <xs:element name="function1ds" type="function1ds_inRegions"/>
+      <xs:element name="uncertainty" type="xData_uncertainty" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:NCName"/>
+  </xs:complexType>
+
+  <xs:complexType name="xData_regions_1d">
+    <xs:sequence>
+      <xs:element name="function1ds" type="function1ds_inRegions"/>
+    </xs:sequence>
+    <xs:attribute name="outerDomainValue" type="xs:double" use="required"/>
+  </xs:complexType>
+
+  <!-- series data: Legendre expansions, polynomials -->
+  <xs:complexType name="xData_Legendre_1d">
+    <xs:sequence>
+      <xs:element name="values" type="xData_values"/>
+    </xs:sequence>
+    <xs:attribute name="outerDomainValue" type="xs:double" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="xData_polynomial_1d_primary">
+    <xs:sequence>
+      <xs:element name="axes"/>
+      <xs:element name="values" type="xData_values"/>
+      <xs:element name="uncertainty" type="xData_uncertainty" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:NCName"/>
+    <xs:attribute name="domainMin" type="xs:double" use="required"/>
+    <xs:attribute name="domainMax" type="xs:double" use="required"/>
+  </xs:complexType>
+
+  <!-- 2d data: energy or angular distribution -->
+  <xs:complexType name="function1ds">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="Legendre" type="xData_Legendre_1d"/>
+      <xs:element name="XYs1d" type="xData_XYs1d"/>
+      <xs:element name="regions1d" type="xData_regions_1d"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="xData_XYs2d_primary">
+    <xs:sequence>
+      <xs:element name="axes" type="AxesType"/>
+      <xs:element name="function1ds" type="function1ds"/>
+      <xs:element name="uncertainty" type="xData_uncertainty" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:string"/>
+    <xs:attribute name="interpolation" type="interpolation"/>
+    <xs:attribute name="interpolationQualifier" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="XYs2dWrapperType">
+    <xs:sequence>
+      <xs:element name="XYs2d" type="xData_XYs2d_primary"/>
+    </xs:sequence>
+  </xs:complexType>
+ 
+  <xs:complexType name="xData_XYs2d_inRegions">
+    <xs:sequence>
+      <xs:element name="function1ds" type="function1ds"/>
+    </xs:sequence>
+    <xs:attribute name="index" type="xs:integer" use="required"/>
+    <xs:attribute name="interpolation" type="interpolation"/>
+    <xs:attribute name="interpolationQualifier" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="xData_XYs2d">
+    <xs:sequence>
+      <xs:element name="function1ds" type="function1ds"/>
+    </xs:sequence>
+    <xs:attribute name="outerDomainValue" type="xs:double" use="required"/>
+    <xs:attribute name="interpolation" type="interpolation"/>
+    <xs:attribute name="interpolationQualifier" type="xs:string"/>
+  </xs:complexType>
+
+  <!-- 2d regions -->
+  <xs:complexType name="function2ds_inRegions">
+    <xs:sequence>
+      <xs:element name="XYs2d" type="xData_XYs2d_inRegions" minOccurs="2" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="xData_regions_2d_primary">
+    <xs:sequence>
+      <xs:element name="axes" type="AxesType"/>
+      <xs:element name="function2ds" type="function2ds_inRegions"/>
+      <xs:element name="uncertainty" type="xData_uncertainty" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:NCName"/>
+    <xs:attribute name="interpolationQualifier" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="xData_regions_2d">
+    <xs:sequence>
+      <xs:element name="function2ds" type="function2ds_inRegions" minOccurs="2" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="outerDomainValue" type="xs:double" use="required"/>
+  </xs:complexType>
+
+  <!-- 3d data: double-differential distribution -->
+  <xs:complexType name="function2ds">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="XYs2d" type="xData_XYs2d"/>
+      <xs:element name="regions2d" type="xData_regions_2d"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="xData_XYs3d_primary">
+    <xs:sequence>
+      <xs:element name="axes" type="AxesType"/>
+      <xs:element name="function2ds" type="function2ds"/>
+      <xs:element name="uncertainty" type="xData_uncertainty" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:string"/>
+    <xs:attribute name="interpolationQualifier" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="xData_XYs3d_inRegions">
+    <xs:sequence>
+      <xs:element name="axes" type="AxesType"/>
+      <xs:element name="function2ds" type="function2ds"/>
+      <xs:element name="uncertainty" type="xData_uncertainty" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="index" type="xs:integer"/> <!-- use="required"/> -->
+  </xs:complexType>
+
+  <!-- 3d regions -->
+  <xs:complexType name="function3ds_inRegions">
+    <xs:sequence>
+      <xs:element name="XYs3d" type="xData_XYs3d_inRegions" minOccurs="2" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="xData_regions_3d_primary">
+    <xs:sequence>
+      <xs:element name="axes" type="AxesType"/>
+      <xs:element name="function3ds" type="function3ds_inRegions"/>
+    </xs:sequence>
+    <xs:attribute name="outerDomainValue" type="xs:double" use="required"/>
+  </xs:complexType>
+
+  <!-- uncertainty can appear inside many xData containers -->
+  <xs:complexType name="xData_uncertainty">
+    <xs:choice>
+      <xs:element name="XYs1d" type="xData_XYs1d_primary"/>
+      <xs:element name="polynomial1d" type="xData_polynomial_1d_primary"/>
+      <xs:element name="covariance" type="CovarianceType"/>
+      <xs:element name="listOfCovariances" type="CovarianceListType"/>
+    </xs:choice>
+    <xs:attribute name="index" type="xs:integer"/>
+    <xs:attribute name="label" type="xs:string"/>
+    <xs:attribute name="type" type="xs:string"/>
+    <xs:attribute name="pdf" type="xs:string"/>
+    <xs:attribute name="relation" type="xs:string"/>
+  </xs:complexType>
+
+  <!-- 'table' has a list of columns + a rectangular array of data -->
+  <xs:complexType name="TableType">
+    <xs:sequence>
+      <xs:element name="columnHeaders">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="column" type="ColumnType" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="data" type="DataList"/>
+    </xs:sequence>
+    <xs:attribute name="rows" type="xs:integer" use="required"/>
+    <xs:attribute name="columns" type="xs:integer" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="ColumnType">
+    <xs:attribute name="index" type="xs:integer" use="required"/>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="unit" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="xData_array">
+    <xs:sequence>
+      <xs:element name="values" type="xData_values" maxOccurs="3"/>
+    </xs:sequence>
+    <xs:attribute name="shape" type="xs:string" use="required"/>
+    <xs:attribute name="compression" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="xData_gridded2d">
+    <xs:sequence>
+      <xs:element name="axes" type="GridAxesType"/>
+      <xs:element name="array" type="xData_array"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="xData_gridded3d">
+    <xs:sequence>
+      <xs:element name="axes" type="GridAxesType"/>
+      <xs:element name="array" type="xData_array"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CovarianceType">
+    <!-- FIXME: should be stricter here, must either contain array or href -->
+    <xs:sequence>
+      <xs:element name="array" type="xData_array" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:NCName"/>
+    <xs:attribute name="href"/>
+  </xs:complexType>
+  <xs:complexType name="CovarianceListType">
+    <xs:sequence>
+      <xs:element name="covariance" type="CovarianceType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+ 
+</xs:schema>

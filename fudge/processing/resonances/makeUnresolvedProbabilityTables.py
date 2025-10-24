@@ -201,20 +201,24 @@ class ProbabilityTableGenerator:
             from xData import constant, regions
             function1d = function1d.copy()  # don't modify original evaluation
             if isinstance(function1d, XYs1dModule.XYs1d):
-                newY = extrapolate(newDomainMin, function1d[0], function1d[1], function1d.interpolation)
-                function1d.setValue(newDomainMin, newY)
+                if newDomainMin < function1d.domainMin:
+                    newY = extrapolate(newDomainMin, function1d[0], function1d[1], function1d.interpolation)
+                    function1d.setValue(newDomainMin, newY)
 
-                newY = extrapolate(newDomainMax, function1d[-2], function1d[-1], function1d.interpolation)
-                function1d.setValue(newDomainMax, newY)
+                if newDomainMax > function1d.domainMax:
+                    newY = extrapolate(newDomainMax, function1d[-2], function1d[-1], function1d.interpolation)
+                    function1d.setValue(newDomainMax, newY)
             elif isinstance(function1d, regions.Regions1d):
-                newY = extrapolate(newDomainMin, function1d[0][0], function1d[0][1], function1d[0].interpolation)
-                function1d[0].setValue(newDomainMin, newY)
+                if newDomainMin < function1d.domainMin:
+                    newY = extrapolate(newDomainMin, function1d[0][0], function1d[0][1], function1d[0].interpolation)
+                    function1d[0].setValue(newDomainMin, newY)
 
-                newY = extrapolate(newDomainMax, function1d[-1][-2], function1d[-1][-1], function1d[-1].interpolation)
-                function1d[-1].setValue(newDomainMax, newY)
+                if newDomainMax > function1d.domainMax:
+                    newY = extrapolate(newDomainMax, function1d[-1][-2], function1d[-1][-1], function1d[-1].interpolation)
+                    function1d[-1].setValue(newDomainMax, newY)
             elif isinstance(function1d, constant.Constant1d):
-                function1d.domainMin = newDomainMin
-                function1d.domainMax = newDomainMax
+                function1d.domainMin = min(function1d.domainMin, newDomainMin)
+                function1d.domainMax = max(function1d.domainMax, newDomainMax)
 
             return function1d.toPointwise_withLinearXYs(lowerEps=1e-8)
 

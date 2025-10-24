@@ -141,6 +141,9 @@ def nFunkyFloatStringsToFloats(n1, startLine, lines, dimension=1, logFile=sys.st
 
     floats = []
     nd = dimension * n1
+    if len(lines[startLine:]) < nd // 6:
+        logFile.write("WARNING: trying to read %d values, but only %d remain in the section!\n" %
+                      (nd, len(lines[startLine:]) * 6))
     while True:
         line = lines[startLine]
         n6 = min(nd, 6)

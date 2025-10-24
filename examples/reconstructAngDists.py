@@ -81,26 +81,27 @@ if __name__ == "__main__":
             print(smallBanner("Merging angular distributions for reaction `%s`" % key))
             originalDist = product.distribution.evaluated.angularSubform
             Emax = newDist.domainMax
-            if isinstance(originalDist, angularModule.XYs2d):
-                for x in originalDist:
-                    if x.outerDomainValue > Emax:
-                        newDist.append(x)
-            elif isinstance(originalDist, angularModule.Regions2d):
-                newRegions = angularModule.Regions2d(axes=originalDist.axes)
-                newRegions.append(newDist)
-                for region in originalDist:
-                    if region.domainMax <= newDist.domainMax:
-                        continue
-                    if region.domainMin < newDist.domainMax:
-                        regionSlice = region.domainSlice(newDist.domainMax, region.domainMax)
-                        newRegions.append(regionSlice)
-                    else:
-                        newRegions.append(region)
-                newDist = newRegions
-            else:
+
+            if not isinstance(originalDist, (angularModule.XYs2d, angularModule.Regions2d)):
                 raise NotImplementedError(
                     "Don't know how to merge reconstructed data into angular distribution of type %s" %
                     type(originalDist))
+
+            newRegions = angularModule.Regions2d(axes=originalDist.axes)
+            newRegions.append(newDist)
+
+            if isinstance(originalDist, angularModule.XYs2d):
+                originalDist = [originalDist]  # pretend it was Regions2d
+
+            for region in originalDist:
+                if region.domainMax <= newDist.domainMax:
+                    continue
+                if region.domainMin < newDist.domainMax:
+                    regionSlice = region.domainSlice(newDist.domainMax, region.domainMax)
+                    newRegions.append(regionSlice)
+                else:
+                    newRegions.append(region)
+            newDist = newRegions
 
         product.distribution.evaluated.subforms.pop()
         product.distribution.evaluated.subforms.append(newDist)

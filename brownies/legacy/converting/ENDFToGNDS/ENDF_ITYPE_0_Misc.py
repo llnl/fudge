@@ -151,7 +151,7 @@ class MyIter:
 funkyF = endfFileToGNDSMiscModule.sixFunkyFloatStringsToFloats
 
 
-def funkyFI(a, logFile=sys.stderr):   # read ENDF line with 2 floats and 4 ints
+def funkyFI(a, logFile=sys.stderr) -> tuple[float, float, int, int, int, int]:   # read ENDF line with 2 floats and 4 ints
 
     return endfFileToGNDSMiscModule.sixFunkyFloatStringsToIntsAndFloats(a, [2, 3, 4, 5], logFile=logFile)
 
@@ -2114,25 +2114,25 @@ def readMF6(MT, info, MF6Data, productList, warningList, undefinedLevelInfo, isT
             nuclearPlusInterference = None
             nuclearAmplitudeExpansion = None
             # LTP flag changes interpretation of the data:
-            if( LTP == 1 ) :
-                (nuclear, real, imaginary) = convertNuclearPlusInterferenceDataToPiecewise( MT, angularData, warningList, 6, 'LAW = 5, LTP = %d'%LTP, LIDP )
+            if LTP == 1:
+                (nuclear, real, imaginary) = convertNuclearPlusInterferenceDataToPiecewise(MT, angularData, warningList, 6, 'LAW = 5, LTP = %d'%LTP, LIDP)
                 nuclearAmplitudeExpansion = nuclearAmplitudeExpansionModule.NuclearAmplitudeExpansion(
-                        nuclearTerm=nuclear, realInterference=real, imaginaryInterference=imaginary )
-            elif( LTP == 2 ) :
-                raise NotImplemented( "MF=6 LAW=5 LTP=2 not yet implemented (MT%d)!" % MT )
-            elif( LTP in ( 12, 14, 15 ) ) :
-                subform = convertAngularToPointwiseOrPiecewiseFromTAB2_List( MT, LTP, angularData, warningList )
-                assert len( set( [tmp.domainMax for tmp in subform] ) ) == 1, "mu cutoff should not depend on energy!"
+                        nuclearTerm=nuclear, realInterference=real, imaginaryInterference=imaginary)
+            elif LTP == 2:
+                raise NotImplementedError("MF=6 LAW=5 LTP=2 not yet implemented (MT%d)!" % MT)
+            elif LTP in (12, 14, 15):
+                subform = convertAngularToPointwiseOrPiecewiseFromTAB2_List(MT, LTP, angularData, warningList)
+                assert len(set([tmp.domainMax for tmp in subform])) == 1, "mu cutoff should not depend on energy!"
 
                 muCutoff = subform[0].domainMax
-                crossSection = crossSectionModule.XYs1d( data = 2*math.pi*crossSection, axes = crossSection.axes )
+                crossSection = crossSectionModule.XYs1d(data = 2*math.pi*crossSection, axes = crossSection.axes)
                 nuclearPlusInterference = nuclearPlusInterferenceModule.NuclearPlusInterference(
                     muCutoff = muCutoff,
-                    crossSection = nuclearPlusInterferenceModule.CrossSection( crossSection ),
-                    distribution = nuclearPlusInterferenceModule.Distribution( subform)
+                    crossSection = nuclearPlusInterferenceModule.CrossSection(crossSection),
+                    distribution = nuclearPlusInterferenceModule.Distribution(subform)
                 )
             else:
-                raise Exception( "unknown LTP encountered for MF=6, LAW=5, MT=%s" % MT )
+                raise Exception("unknown LTP encountered for MF=6, LAW=5, MT=%s" % MT)
 
             dSigma_form = CoulombPlusNuclearElasticModule.Form( info.projectile, info.style, nuclearPlusInterference = nuclearPlusInterference,
                     nuclearAmplitudeExpansion = nuclearAmplitudeExpansion, identicalParticles = ( LIDP == 1 ) )
@@ -2656,6 +2656,11 @@ def readMF12_13(info, MT, MTData, productList, warningList, crossSection, _dummy
                 raise Exception("Zero-energy gamma from %f eV to %f eV in MF12 MT%d" % (parentEnergy, finalEnergy, MT))
             branchingGammas.append({'ES': LO2['C1'], 'EGk': 0, 'ESk': LO2['data'][idx*LGp], 'angularSubform': None,
                                      'LG': LG, 'branching': LO2['data'][idx*LGp+1:idx*LGp+LGp]})
+            if LG==2:
+                GammaP = branchingGammas[-1]['branching'][-1]
+                if not (0 <= GammaP <= 1):
+                    warningList.append(f"Unphysical gamma emission probability {GammaP} encountered in MF=12 MT={MT}")
+                    info.doRaise.append(warningList[-1])
         gammaBRList = [g['branching'][0] for g in branchingGammas]
         sumGammaBRList = sum(gammaBRList)
         if abs(sumGammaBRList - 1.0) > gammaBRTolerance:
@@ -3729,6 +3734,9 @@ def readMF32(info, dat, mf, mt, cov_info, warningList):
                     continue
                 jsection, = jsections
                 matrixSections.append([lsection.L, jsection.J, jsection.levelSpacing, conversionFlag])
+                if MPAR > len(jsection.widths) + 1:
+                    urr_warnings.append(f"MF32 MPAR={MPAR} is too large")
+                    continue
                 for idx in range(MPAR-1):
                     matrixSections.append([lsection.L, jsection.J, jsection.widths[idx], conversionFlag])
 
@@ -3944,8 +3952,8 @@ def readMF40(info, dat, mf, mt, cov_info, warningList):
                     for line in range(nlines): subsec += funkyF(dat.next(), logFile=info.logs)
                     #coefs = subsec[:NCI2][::2]
                     summands = [
-                            linkModule.Link( 'summand', genID( cov_info, int(mtnum), mf )[0],
-                            attributes={'ENDF_MFMT':"%d,%d"%(mf,mtnum), 'coefficient':coef})
+                            linkModule.Link('summand', genID( cov_info, int(mtnum), mf )[0],
+                                            attributes={'ENDF_MFMT':"%d,%d"%(mf,mtnum), 'coefficient':coef})
                             for coef,mtnum in zip(subsec[:NCI2][::2],subsec[:NCI2][1::2])
                             ]
                     covarsThisSection.append(covarianceSummedModule.SummedCovariance(
@@ -4001,8 +4009,7 @@ def parseMF6FissionData(info, MT, MF6Data, fissionNeutronsAndGammasDataFromMF6, 
 
     print("    WARNING: parseMF6FissionData function not complete.")
     dataLine = 0
-    ZA, AWR, JP, LCT, NK, dummy = endfFileToGNDSMiscModule.sixFunkyFloatStringsToIntsAndFloats(
-        MF6Data[dataLine], intIndices=[0, 2, 3, 4], logFile=info.logs)
+    ZA, AWR, JP, LCT, NK, dummy = funkyFI(MF6Data[dataLine], logFile=info.logs)
     info.ZA_massLineInfo.add(ZA, AWR, MT, 6, 0)
     dataLine += 1
 
@@ -4034,18 +4041,20 @@ def parseMF6FissionParticle(info, dataLine, MT, MF6Data, JPN, JPP, fissionNeutro
 def fillRemainingProductsResidualForBreakup(info, decayChannel, lightIsotopeNames, breakupProducts, residualZA, crossSection):
 
     residualZA2 = residualZA
-    for productName in lightIsotopeNames :
-        if( productName in breakupProducts ) :
+    for productName in lightIsotopeNames:
+        if productName in breakupProducts:
             multiplicity = breakupProducts[productName]
-            product = toGNDSMiscModule.newGNDSParticle( info, toGNDSMiscModule.getTypeNameGamma( info, productNameToZA[productName] ),
-                    crossSection, multiplicity = multiplicity )
-            decayChannel.products.add( decayChannel.products.uniqueLabel( product ) )
-            if( ( residualZA % 1000 ) > 0 ) :
+            product = toGNDSMiscModule.newGNDSParticle(
+                info, toGNDSMiscModule.getTypeNameGamma(info, productNameToZA[productName]),
+                crossSection, multiplicity=multiplicity)
+            decayChannel.products.add(decayChannel.products.uniqueLabel(product))
+            if residualZA % 1000 > 0:
                 residualZA2 -= multiplicity * productNameToZA[productName]
-            else :
-                residualZA2 -= multiplicity * ( 1000 * ( productNameToZA[productName] // 1000 ) )
-    if( residualZA2 != 0 ) : decayChannel.products.add( decayChannel.products.uniqueLabel(
-            toGNDSMiscModule.newGNDSParticle( info, toGNDSMiscModule.getTypeNameGamma( info, residualZA2 ), crossSection ) ) )
+            else:
+                residualZA2 -= multiplicity * (1000 * (productNameToZA[productName] // 1000))
+    if residualZA2 != 0:
+        decayChannel.products.add(decayChannel.products.uniqueLabel(
+            toGNDSMiscModule.newGNDSParticle(info, toGNDSMiscModule.getTypeNameGamma(info, residualZA2), crossSection)))
 
 
 def parseReaction(info, target, projectileZA, targetZA, MT, MTData, warningList,
@@ -4060,123 +4069,125 @@ def parseReaction(info, target, projectileZA, targetZA, MT, MTData, warningList,
     info.logs.write( '    %3d %s' % ( MT, sorted( MFKeys ) ) )
     LRProductZAs = None # If not None, special case to treat excitation level of residual for breakup. Cannot calculate 'level' energy here as not all masses are know.
 
-    for MF in [ 8, 9, 10, 31, 32, 33, 34, 35, 40, 45 ] :
-        if( MF in MFKeys ) : MFKeys.remove( MF )
+    for MF in [8, 9, 10, 31, 32, 33, 34, 35, 40, 45]:
+        if MF in MFKeys: MFKeys.remove(MF)
 
-    if( ( MT == 3 ) and ( 3 not in MFKeys ) ) :   # Kludge, for ENDF files that for MT 3 have MF 12 and 13 but not MF 3 data.
+    if (MT == 3) and (3 not in MFKeys):     # Kludge, for ENDF files that for MT 3 have MF 12 and 13 but not MF 3 data.
         QM, QI, crossSection, LR, breakupProducts = 0, 0, None, 0, None
-    else :
-        QM, QI, crossSection, LR, breakupProducts = readMF3( info, MT, MTData[3], warningList )
-        MFKeys.remove( 3 )
-    if( parseCrossSectionOnly ) :
+    else:
+        QM, QI, crossSection, LR, breakupProducts = readMF3(info, MT, MTData[3], warningList)
+        MFKeys.remove(3)
+    if parseCrossSectionOnly:
         channel = outputChannelModule.OutputChannel(enumsModule.Genre.NBody, process=channelProcess)
-        channel.Q.add( toGNDSMiscModule.returnConstantQ( info.style, QM, crossSection ) )
-        return( crossSection, channel, MFKeys, LRProductZAs )
+        channel.Q.add(toGNDSMiscModule.returnConstantQ(info.style, QM, crossSection))
+        return (crossSection, channel, MFKeys, LRProductZAs)
 
     neutronMFs = []
     fissionNeutronsAndGammasDataFromMF6 = { 0 : [], 1 : [] }        # Keys are ZAP (i.e., 0 for gammas and 1 for neutrons).
-    for MF in [ 4, 5 ] :
-        if( MF in MFKeys ) : neutronMFs.append( MF )
+    for MF in [4, 5]:
+        if MF in MFKeys: neutronMFs.append(MF)
 
-    if( ( neutronMFs != [] ) and ( 6 in MFKeys ) ) :
-        if( MT == 18 ) :
-            parseMF6FissionData( info, MT, MTData[6], fissionNeutronsAndGammasDataFromMF6, warningList )
-            MFKeys.remove( 6 )
-        else :
+    if neutronMFs != [] and 6 in MFKeys:
+        if MT == 18:
+            parseMF6FissionData(info, MT, MTData[6], fissionNeutronsAndGammasDataFromMF6, warningList)
+            MFKeys.remove(6)
+        else:
             raise Exception('MF 6 present and MF 4 and/or 5 present for MT %s: not allowed' % MT) # This should never happen!
 
     endfMTProductList = endf_endlModule.endfMTtoC_ProductLists[MT]
-    compoundZA = calculateZA( targetZA, projectileZA, minus = False )
-    lightIsotopeZAs = sorted( [ productNameToZA[product] for product in lightIsotopeNames ] )
+    compoundZA = calculateZA(targetZA, projectileZA, minus=False)
+    lightIsotopeZAs = sorted([productNameToZA[product] for product in lightIsotopeNames])
     lightIsotopeZAsMultiplicity = {}
-    for product in lightIsotopeNames : lightIsotopeZAsMultiplicity[productNameToZA[product]] = endfMTProductList.productCounts[product]
+    for product in lightIsotopeNames:
+        lightIsotopeZAsMultiplicity[productNameToZA[product]] = endfMTProductList.productCounts[product]
 
-    if( ( 4 in neutronMFs ) or ( ( MT == 18 ) and ( neutronMFs == [ 5 ] ) ) ) : # MT == 18 and neutronMFs == [ 5 ] is a special case for bad data (g + Am241).
+    if 4 in neutronMFs or (MT == 18 and neutronMFs == [5]): # MT == 18 and neutronMFs == [5] is a special case for bad data (g + Am241).
         ZAP = 1
-        if( MT not in [ 2, 5, 18, 19, 20, 21, 38 ] )  :                # Not elastic, fission or sumOfRemainingReactions.
-            for product in lightIsotopeNames :
-                if( endfMTProductList.productCounts[product] > 0 ) : break
+        if MT not in [2, 5, 18, 19, 20, 21, 38]:                # Not elastic, fission or sumOfRemainingReactions.
+            for product in lightIsotopeNames:
+                if endfMTProductList.productCounts[product] > 0: break
             ZAP = productNameToZA[product]
 
     isUndefinedTwoBody = (102 < MT <= 107) or (MT in [91, 649, 699, 749, 799, 849, 999])
     isTwoBody = MT == 2 or 50 <= MT < 91 or ((600 <= MT < 849 or 900 <= MT < 999) and not isUndefinedTwoBody)
 
     levelIndex, decayChannel, twoBodyResidualZA = None, None, None
-    if(    50 <= MT < 91 ) :
+    if 50 <= MT < 91:
         levelIndex = MT - 50
-    elif( 600 <= MT < 649 ) :
+    elif 600 <= MT < 649:
         levelIndex = MT - 600
-    elif( 650 <= MT < 699 ) :
+    elif 650 <= MT < 699:
         levelIndex = MT - 650
-    elif( 700 <= MT < 749 ) :
+    elif 700 <= MT < 749:
         levelIndex = MT - 700
-    elif( 750 <= MT < 799 ) :
+    elif 750 <= MT < 799:
         levelIndex = MT - 750
-    elif( 800 <= MT < 849 ) :
+    elif 800 <= MT < 849:
         levelIndex = MT - 800
-    elif( 875 <= MT < 891 ) :
+    elif 875 <= MT < 891:
         levelIndex = MT - 875
-    elif( 900 <= MT < 999 ) :
+    elif 900 <= MT < 999:
         levelIndex = MT - 900
     level = QM - QI                                                 # If level > 0., residual is in an excited state.
-    if( breakupProducts is not None ) :
+    if breakupProducts is not None:
         if isTwoBody:
             if MT not in [50, 600, 650, 700, 750, 800, 900]:
                 level = -QI
         elif MT == 91:
             pass
         else :
-            print( '\nQM, QI', QM, QI )
-            print( breakupProducts )
-            raise NotImplementedError( 'breakup for MT %s is not supported' % MT )
+            print('\nQM, QI', QM, QI)
+            print(breakupProducts)
+            raise NotImplementedError('breakup for MT %s is not supported' % MT)
     elif MT in [50, 650, 700, 750, 800, 850, 900]:
         level = 0.0
 
-    if( isTwoBody or isUndefinedTwoBody ) :
-        if( MT == 2 ) :
+    if isTwoBody or isUndefinedTwoBody:
+        if MT == 2:
             ZAP = projectileZA
-        else :
+        else:
             for productName in endfMTProductList.productCounts :
-                if( endfMTProductList.productCounts[productName] != 0 ) : break
-            if( productName == IDsPoPsModule.photon ) :
+                if endfMTProductList.productCounts[productName] != 0: break
+            if productName == IDsPoPsModule.photon:
                 ZAP = 0
-            else :
+            else:
                 ZAP = productNameToZA[productName]
-        twoBodyResidualZA = calculateZA( compoundZA, ZAP )
+        twoBodyResidualZA = calculateZA(compoundZA, ZAP)
     undefinedLevelInfo = { 'ZA' : twoBodyResidualZA, 'level' : level, 'levelIndex' : levelIndex, 'count' : 0 }
-    if( neutronMFs == [ 4 ] ) :                     # This is a two-body reaction with only angular data.
-        if( not( isTwoBody ) ) : raise ValueError( 'With only MF = 4 data present, reaction is assumed to be two-body and it is not for MT = %s' % MT )
-        product = toGNDSMiscModule.newGNDSParticle( info, toGNDSMiscModule.getTypeNameGamma( info, ZAP ), crossSection )
-        form = readMF4( info, product, MT, MTData[4], angularModule.TwoBody, warningList )
-        MFKeys.remove( 4 )
-        productList.append( product )
-    elif( ( neutronMFs == [ 4, 5 ] ) or ( ( neutronMFs == [ 5 ] ) and ZAP == 1 ) ) :
-            # Don't check ZAP if MT=5. Currently this combination, MT=5, MF=4/5 appears only for incident gammas
-        if( MT != 5 and ZAP != 1 ) : raise ValueError( 'ZAP = %d != 1 for MFs = [ 4, 5 ] for MT = %d' % ( ZAP, MT ) )
+    if neutronMFs == [4]:                     # This is a two-body reaction with only angular data.
+        if not isTwoBody:
+            raise ValueError('With only MF = 4 data present, reaction is assumed to be two-body and it is not for MT = %s' % MT)
+        product = toGNDSMiscModule.newGNDSParticle(info, toGNDSMiscModule.getTypeNameGamma(info, ZAP), crossSection)
+        form = readMF4(info, product, MT, MTData[4], angularModule.TwoBody, warningList)
+        MFKeys.remove(4)
+        productList.append(product)
+    elif neutronMFs == [4, 5] or (neutronMFs == [5] and ZAP == 1):
+        # Don't check ZAP if MT=5. Currently this combination, MT=5, MF=4/5 appears only for incident gammas
+        if MT != 5 and ZAP != 1: raise ValueError('ZAP = %d != 1 for MFs = [ 4, 5 ] for MT = %d' % (ZAP, MT))
         multiplicity = 1
-        if( MT not in [ 2, 5, 18, 19, 20, 21, 38 ] )  :                # Not elastic or fission.
+        if MT not in [2, 5, 18, 19, 20, 21, 38]:                # Not elastic or fission.
             for product in lightIsotopeNames :
-                if( endfMTProductList.productCounts[product] > 0 ) : break
+                if endfMTProductList.productCounts[product] > 0: break
             ZAP = productNameToZA[product]
             multiplicity = endfMTProductList.productCounts[product]
-        else :
-            if( MT not in [ 2, 5 ] ) : multiplicity = -1            # MT 5 is special case where (g,n') put into MT 5 instead of one of 50-91.
-        product = toGNDSMiscModule.newGNDSParticle( info, toGNDSMiscModule.getTypeNameENDF( info, ZAP, undefinedLevelInfo ),
-                crossSection, multiplicity = multiplicity )
+        else:
+            if MT not in [2, 5]: multiplicity = -1            # MT 5 is special case where (g,n') put into MT 5 instead of one of 50-91.
+        product = toGNDSMiscModule.newGNDSParticle(info, toGNDSMiscModule.getTypeNameENDF(info, ZAP, undefinedLevelInfo),
+                crossSection, multiplicity = multiplicity)
 
-        if( neutronMFs == [ 5 ] ) :
+        if neutronMFs == [5]:
             warningList.append("MF=5 found with no accompanying MF=4, assuming angular distribution for MT=%i is isotropic"%MT)
-            angularSubform = angularModule.Isotropic2d( )             # MF = 5 data is always in lab frame.
-        else :
-            angularSubform = readMF4( info, product, MT, MTData[4], None, warningList )
-            MFKeys.remove( 4 )
+            angularSubform = angularModule.Isotropic2d()             # MF = 5 data is always in lab frame.
+        else:
+            angularSubform = readMF4(info, product, MT, MTData[4], None, warningList)
+            MFKeys.remove(4)
 
-        energySubform , weights = readMF5( info, MT, MTData[5], warningList, product = product )
-        MFKeys.remove( 5 )
+        energySubform , weights = readMF5(info, MT, MTData[5], warningList, product=product)
+        MFKeys.remove(5)
 
-        form = uncorrelated( info.style, frames[1], angularSubform, energySubform )  # BRB: is frame right.
-        product.distribution.add( form )
-        productList.append( product )
+        form = uncorrelated(info.style, frames[1], angularSubform, energySubform)  # BRB: is frame right.
+        product.distribution.add(form)
+        productList.append(product)
     elif 6 in MFKeys:
         compoundZA2 = compoundZA
         isTwoBody = readMF6(MT, info, MTData[6], productList, warningList, undefinedLevelInfo, isTwoBody, crossSection, LR, compoundZA)
@@ -4184,8 +4195,8 @@ def parseReaction(info, target, projectileZA, targetZA, MT, MTData, warningList,
         if isTwoBody and MT == 102:
             ZAP = 0
             undefinedLevelInfo['ZA'] = calculateZA(compoundZA, ZAP)
-    elif( neutronMFs == [] ) :
-        if( isTwoBody and False ) :                 # ????????? Why False
+    elif neutronMFs == []:
+        if isTwoBody and False:                 # ????????? Why False
             raise Exception( 'How did we get here.' )
             product = toGNDSMiscModule.newGNDSParticle( info, toGNDSMiscModule.getTypeNameGamma( info, ZAP ), crossSection )
             residualZA = calculateZA( compoundZA, ZAP )
@@ -4199,262 +4210,265 @@ def parseReaction(info, target, projectileZA, targetZA, MT, MTData, warningList,
                     crossSection, outputChannel = decayChannel )
             productList.append( product )
             productList.append( residual )
-    else :
+    else:
         pass
 
     _dummyCrossSection = []
-    readMF12_13( info, MT, MTData, productList, warningList, crossSection, _dummyCrossSection )
+    readMF12_13(info, MT, MTData, productList, warningList, crossSection, _dummyCrossSection)
     _crossSection = crossSection
-    if( _crossSection is None ) : _crossSection = _dummyCrossSection[0] # Should only happen for MT=3 with no MF=3.
+    if _crossSection is None: _crossSection = _dummyCrossSection[0] # Should only happen for MT=3 with no MF=3.
 
-    for MF in [ 12, 13, 14, 15 ] :
-        if( MF in MFKeys ) : MFKeys.remove( MF )
+    for MF in [12, 13, 14, 15]:
+        if MF in MFKeys: MFKeys.remove(MF)
 
-    if( MT == 5 ) :
-        if( QM != QI ) : info.logs.write( '    --QM %s != QI = %s\n' % ( QM, QI ) )
+    if MT == 5:
+        if QM != QI: info.logs.write('    --QM %s != QI = %s\n' % (QM, QI))
         outputChannel = outputChannelModule.OutputChannel(enumsModule.Genre.sumOfRemainingOutputChannels)
-        outputChannel.Q.add( toGNDSMiscModule.returnConstantQ( info.style, QM, _crossSection ) )
-    elif( ( MT == 102 ) and not( isTwoBody ) ) :
+        outputChannel.Q.add(toGNDSMiscModule.returnConstantQ(info.style, QM, _crossSection))
+    elif MT == 102 and not isTwoBody:
         residualIndex, gammaMissing = -1, False
-        for index, product in enumerate( productList ) :
-            if( product.pid != IDsPoPsModule.photon ) : residualIndex = index
-            gammaMissing = ( product.pid == IDsPoPsModule.photon ) or gammaMissing
-        if( residualIndex == -1 ) :
-            productList.insert( 0, toGNDSMiscModule.newGNDSParticle( info,
-                    toGNDSMiscModule.getTypeNameENDF( info, calculateZA( compoundZA, 0 ), undefinedLevelInfo ), crossSection ) )
-        if( residualIndex > 0 ) : productList.insert( 0, productList.pop( residualIndex ) )
-        if( not( gammaMissing ) ) : productList.append( toGNDSMiscModule.newGNDSParticle( info,
-                toGNDSMiscModule.getTypeNameENDF( info, 0, undefinedLevelInfo ), crossSection ) )
+        for index, product in enumerate(productList):
+            if product.pid != IDsPoPsModule.photon: residualIndex = index
+            gammaMissing = product.pid == IDsPoPsModule.photon or gammaMissing
+        if residualIndex == -1:
+            productList.insert(0, toGNDSMiscModule.newGNDSParticle(info,
+                    toGNDSMiscModule.getTypeNameENDF(info, calculateZA(compoundZA, 0), undefinedLevelInfo), crossSection))
+        if residualIndex > 0: productList.insert(0, productList.pop(residualIndex))
+        if not gammaMissing: productList.append(toGNDSMiscModule.newGNDSParticle(info,
+                toGNDSMiscModule.getTypeNameENDF(info, 0, undefinedLevelInfo), crossSection))
         outputChannel = outputChannelModule.OutputChannel(enumsModule.Genre.NBody, process=channelProcess)
-        outputChannel.Q.add( toGNDSMiscModule.returnConstantQ( info.style, QM, _crossSection ) )  # Q????? What about QI?
-    elif( isTwoBody ) :
-        if( ( QI == 0 ) and ( QM != 0 ) ) : raise Exception("QI = 0, QM = %f for MT=%d" % (QM,MT))
+        outputChannel.Q.add(toGNDSMiscModule.returnConstantQ(info.style, QM, _crossSection))  # Q????? What about QI?
+    elif isTwoBody:
+        if QI == 0 and QM != 0: raise Exception("QI = 0, QM = %f for MT=%d" % (QM, MT))
         outputChannel = outputChannelModule.OutputChannel(enumsModule.Genre.twoBody, process=channelProcess)
-        outputChannel.Q.add( toGNDSMiscModule.returnConstantQ( info.style, QI, _crossSection ) )
-        if( len( [p for p in productList if p.pid != IDsPoPsModule.photon] ) == 0 ) :
+        outputChannel.Q.add(toGNDSMiscModule.returnConstantQ(info.style, QI, _crossSection))
+        if len( [p for p in productList if p.pid != IDsPoPsModule.photon] ) == 0:
             gammaProducts = productList
             productList = []
             for ZA in lightIsotopeZAs :
-                if( lightIsotopeZAsMultiplicity[ZA] != 0 ) :
-                    productList.append( toGNDSMiscModule.newGNDSParticle( info, toGNDSMiscModule.getTypeNameENDF( info, ZA, undefinedLevelInfo ),
-                            crossSection ) )
+                if lightIsotopeZAsMultiplicity[ZA] != 0:
+                    productList.append(toGNDSMiscModule.newGNDSParticle(
+                        info, toGNDSMiscModule.getTypeNameENDF(info, ZA, undefinedLevelInfo), crossSection))
                     break
-            if( len( productList ) == 0 ) :
-                if( MT != 2 ) : raise Exception( "product data for reaction MT = %s needs to be implemented" % MT )
-                productList.append( toGNDSMiscModule.newGNDSParticle( info,
-                        toGNDSMiscModule.getTypeNameENDF( info, projectileZA, undefinedLevelInfo ), crossSection ) )
+            if len(productList) == 0:
+                if MT != 2: raise Exception("product data for reaction MT = %s needs to be implemented" % MT)
+                productList.append(toGNDSMiscModule.newGNDSParticle(
+                        info, toGNDSMiscModule.getTypeNameENDF(info, projectileZA, undefinedLevelInfo), crossSection))
             productList += gammaProducts    # later logic assumes gammas are at the end of the list
 
-        if( LR == 1 ) : LRProductZAs = [ particleZA( info, product.pid ) for product in productList ]
+        if LR == 1: LRProductZAs = [ particleZA( info, product.pid ) for product in productList ]
 
         decayProductList = productList[1:]
         productList = productList[:1]                               # Assume first product is "b" in "a + A -> b + B" where B is the larger product.
-        ZA = particleZA( info, productList[0].pid )
-        residualZA = calculateZA( compoundZA, ZA )
+        ZA = particleZA(info, productList[0].pid)
+        residualZA = calculateZA(compoundZA, ZA)
 
-        if( LR == 1 ) :
-            if (MT not in [50, 600, 650, 700, 750, 800, 850, 900]) and (residualZA not in LRProductZAs):
-                LRProductZAs = [ ZAP, residualZA ]
-            else :
+        if LR == 1:
+            if MT not in [50, 600, 650, 700, 750, 800, 850, 900] and residualZA not in LRProductZAs:
+                LRProductZAs = [ZAP, residualZA]
+            else:
                 LRProductZAs = None
 
         levelIndex = undefinedLevelInfo['levelIndex']
-        if( levelIndex is not None ) :
-            if( ( levelIndex <= info.targetLevel ) and ( targetZA == residualZA ) ) : levelIndex -= 1
+        if levelIndex is not None:
+            if levelIndex <= info.targetLevel and targetZA == residualZA:
+                levelIndex -= 1
         undefinedLevelInfo['levelIndex'] = levelIndex
 
-        for index, product in enumerate( decayProductList ) :
-            ZA = particleZA( info, product.pid )
-            if( residualZA == ZA ) :
-                productList.append( decayProductList.pop( index ) )
+        for index, product in enumerate(decayProductList):
+            ZA = particleZA(info, product.pid)
+            if residualZA == ZA:
+                productList.append(decayProductList.pop(index))
                 break
-        if( len( productList ) < 2 ) :
-            if( MT == 2 ) :
-                productList.append( toGNDSMiscModule.newGNDSParticle( info, target, crossSection ) )
-            else :
-                if( ZA == undefinedLevelInfo['ZA'] ) : undefinedLevelInfo['ZA'] = None
-                productList.append( toGNDSMiscModule.newGNDSParticle( info,
-                        toGNDSMiscModule.getTypeNameENDF( info, residualZA, undefinedLevelInfo ), crossSection ) )
+        if len(productList) < 2:
+            if MT == 2:
+                productList.append(toGNDSMiscModule.newGNDSParticle(info, target, crossSection))
+            else:
+                if ZA == undefinedLevelInfo['ZA']:
+                    undefinedLevelInfo['ZA'] = None
+                productList.append(toGNDSMiscModule.newGNDSParticle(info,
+                        toGNDSMiscModule.getTypeNameENDF(info, residualZA, undefinedLevelInfo), crossSection))
             if 4 not in MTData.keys():
-                info.ENDFconversionFlags.add( productList[-1], 'implicitProduct' )
-            if( info.style in productList[0].distribution ) :
-                recoilForm = angularModule.TwoBody( info.style, xDataEnumsModule.Frame.centerOfMass,
-                        angularSubform = angularModule.Recoil( productList[0].distribution[info.style], relative=True ) )
-                productList[-1].distribution.add( recoilForm )
+                info.ENDFconversionFlags.add(productList[-1], 'implicitProduct')
+            if info.style in productList[0].distribution:
+                recoilForm = angularModule.TwoBody(info.style, xDataEnumsModule.Frame.centerOfMass,
+                        angularSubform = angularModule.Recoil( productList[0].distribution[info.style], relative=True))
+                productList[-1].distribution.add(recoilForm)
 
         decayZAs, decayGammaList, decayNonGammaList = 0, [], []
-        for decayProduct in decayProductList :
-            if( decayProduct.pid == IDsPoPsModule.photon ) :
-                decayGammaList.append( decayProduct )
+        for decayProduct in decayProductList:
+            if decayProduct.pid == IDsPoPsModule.photon:
+                decayGammaList.append(decayProduct)
                 mult = 1
-            else :
-                decayNonGammaList.append( decayProduct )
+            else:
+                decayNonGammaList.append(decayProduct)
                 mult = decayProduct.multiplicity.getConstant()
             decayZAs += particleZA(info, decayProduct.pid) * mult
-        if( LR == 1 ) :
-            if( decayZAs != residualZA ) : raise Exception( "decayZAs = %d != residualZA = %d" % ( decayZAs, residualZA ) )
-        elif( decayZAs == 0 ) :
-            if( len( decayGammaList ) != 0 ) :
-                if( len( decayNonGammaList ) == 0 ) :
-                    decayNonGammaList.append( toGNDSMiscModule.newGNDSParticle( info,
-                            toGNDSMiscModule.getTypeNameENDF( info, residualZA, None ), crossSection ) )
-            elif( len( decayNonGammaList ) != 0 ) :
-                if( len( decayGammaList ) == 0 ) : decayGammaList.append( toGNDSMiscModule.newGNDSParticle( info,
-                        toGNDSMiscModule.getTypeNameENDF( info, 0, None ), crossSection ) )
+        if LR == 1:
+            if decayZAs != residualZA: raise Exception("decayZAs = %d != residualZA = %d" % (decayZAs, residualZA))
+        elif decayZAs == 0:
+            if len(decayGammaList) != 0:
+                if len(decayNonGammaList) == 0:
+                    decayNonGammaList.append(toGNDSMiscModule.newGNDSParticle(
+                        info, toGNDSMiscModule.getTypeNameENDF(info, residualZA, None), crossSection))
+            elif len(decayNonGammaList) != 0:
+                if len(decayGammaList) == 0: decayGammaList.append(toGNDSMiscModule.newGNDSParticle(
+                    info, toGNDSMiscModule.getTypeNameENDF(info, 0, None), crossSection))
             decayProductList = decayNonGammaList + decayGammaList
-        else :
-            raise Exception( "decayZAs = %d != 0" % decayZAs )
+        else:
+            raise Exception("decayZAs = %d != 0" % decayZAs)
 
-        if( breakupProducts is not None ) :
-            if( decayChannel is not None ) : raise Exception( 'breakupProducts and decayChannel both not None' )
+        if breakupProducts is not None:
+            if decayChannel is not None: raise Exception('breakupProducts and decayChannel both not None')
             decayChannel = outputChannelModule.OutputChannel(enumsModule.Genre.NBody)
-            decayChannel.Q.add( toGNDSMiscModule.returnConstantQ( info.style, QM - QI, _crossSection ) )
-            fillRemainingProductsResidualForBreakup( info, decayChannel, lightIsotopeNames, breakupProducts,
-                particleZA( info, productList[1].pid ), crossSection )
-            productList[1].addOutputChannel( decayChannel )
-        elif( len( decayProductList ) > 0 ) :                         # At this point, both two bodies are in productList and second one is redisual.
-            if( QI > QM ) : raise Exception( "Negative decay Q-value for MT%d, QI = %s, QM = %s" % ( MT, QI, QM ) )
+            decayChannel.Q.add(toGNDSMiscModule.returnConstantQ(info.style, QM - QI, _crossSection))
+            fillRemainingProductsResidualForBreakup(info, decayChannel, lightIsotopeNames, breakupProducts,
+                particleZA(info, productList[1].pid), crossSection)
+            productList[1].addOutputChannel(decayChannel)
+        elif len(decayProductList) > 0:                         # At this point, both two bodies are in productList and second one is redisual.
+            if QI > QM: raise Exception("Negative decay Q-value for MT%d, QI = %s, QM = %s" % (MT, QI, QM))
             decayChannel = outputChannelModule.OutputChannel(enumsModule.Genre.NBody)
-            decayChannel.Q.add( toGNDSMiscModule.returnConstantQ( info.style, QM - QI, _crossSection ) )  # Q????? Not right?
-            for decayProduct in decayProductList : decayChannel.products.add( decayChannel.products.uniqueLabel( decayProduct ) )
-            productList[1].addOutputChannel( decayChannel )
+            decayChannel.Q.add(toGNDSMiscModule.returnConstantQ(info.style, QM - QI, _crossSection))  # Q????? Not right?
+            for decayProduct in decayProductList: decayChannel.products.add(decayChannel.products.uniqueLabel(decayProduct))
+            productList[1].addOutputChannel(decayChannel)
 
-    elif( endfMTProductList.isFission ) :
+    elif endfMTProductList.isFission:
         useThisQM = QM
         outputChannel = outputChannelModule.OutputChannel(enumsModule.Genre.NBody, process=channelProcess)
-        if( hasattr( info, 'fissionEnergyReleaseData' ) and ( MT == 18 ) ) :
-                FER = getFissionEnergies( info, crossSection.domainMin, crossSection.domainMax, warningList )
-                outputChannel.fissionFragmentData.fissionEnergyReleases.add( FER )
+        if hasattr(info, 'fissionEnergyReleaseData') and MT == 18:
+                FER = getFissionEnergies(info, crossSection.domainMin, crossSection.domainMax, warningList)
+                outputChannel.fissionFragmentData.fissionEnergyReleases.add(FER)
 
                 # Check for consistency between polynomial expansion and approximate constant Q.
                 ENDF_Q = FER.nonNeutrinoEnergy.data.evaluate(1e-5)
-                if( abs( QM - ENDF_Q ) > 1e-7 * abs( QM ) ) : warningList.append( "Fission QM inconsistent with energy release data for MT = " + str( MT ) )
+                if abs(QM - ENDF_Q) > 1e-7 * abs(QM): warningList.append("Fission QM inconsistent with energy release data for MT = " + str(MT))
 
                 # Compute 'prompt' Q-value (energy to neutrons + gammas + prompt products) for GNDS:
                 useThisQM = FER.promptProductKE.data.evaluate(1e-5) + FER.promptNeutronKE.data.evaluate(1e-5) + FER.promptGammaEnergy.data.evaluate(1e-5)
-        outputChannel.Q.add( toGNDSMiscModule.returnConstantQ( info.style, useThisQM, _crossSection ) )
-        if( MT == 18 ) :
-            if( len( productList ) > 0 ) : outputChannel.products.add( outputChannel.products.uniqueLabel( productList.pop( 0 ) ) )
-            if( len( outputChannel ) == 0 ) :
-                multiplicity = multiplicityModule.Unspecified( info.style )
-                product = toGNDSMiscModule.newGNDSParticle( info, toGNDSMiscModule.getTypeNameGamma( info, 1 ), crossSection,
-                        multiplicity = multiplicity )
-                outputChannel.products.add( outputChannel.products.uniqueLabel( product ) )
-            else :
-                for product in outputChannel :
-                    if( product.pid ==  IDsPoPsModule.neutron ) : break
+        outputChannel.Q.add(toGNDSMiscModule.returnConstantQ(info.style, useThisQM, _crossSection))
+        if MT == 18:
+            if len(productList) > 0: outputChannel.products.add(outputChannel.products.uniqueLabel(productList.pop(0)))
+            if len(outputChannel) == 0:
+                multiplicity = multiplicityModule.Unspecified(info.style)
+                product = toGNDSMiscModule.newGNDSParticle(info, toGNDSMiscModule.getTypeNameGamma(info, 1), crossSection,
+                        multiplicity=multiplicity)
+                outputChannel.products.add(outputChannel.products.uniqueLabel(product))
+            else:
+                for product in outputChannel:
+                    if product.pid == IDsPoPsModule.neutron: break
                 info.firstFissionNeutron = product
-                if( promptToken in info.totalOrPromptFissionNeutrons ) :
-                    product.multiplicity.remove( info.style )
-                    product.multiplicity.add( info.totalOrPromptFissionNeutrons[promptToken] )
-                    product.multiplicity.remove( 'constant' )
-                elif( totalToken in info.totalOrPromptFissionNeutrons ) :
-                    product.multiplicity.remove( info.style )
-                    product.multiplicity.add( info.totalOrPromptFissionNeutrons[totalToken] )
-                    product.multiplicity.remove( 'constant' )
-                if( hasattr( info, 'delayedFissionDecayChannel' ) ) :
-                    for i1, ( decayRate, _delayedNeutron ) in enumerate( info.delayedFissionDecayChannel ) :
+                if promptToken in info.totalOrPromptFissionNeutrons:
+                    product.multiplicity.remove(info.style)
+                    product.multiplicity.add(info.totalOrPromptFissionNeutrons[promptToken])
+                    product.multiplicity.remove('constant')
+                elif totalToken in info.totalOrPromptFissionNeutrons:
+                    product.multiplicity.remove(info.style)
+                    product.multiplicity.add(info.totalOrPromptFissionNeutrons[totalToken])
+                    product.multiplicity.remove('constant')
+                if hasattr(info, 'delayedFissionDecayChannel'):
+                    for i1, (decayRate, _delayedNeutron) in enumerate(info.delayedFissionDecayChannel):
                         product = delayedNeutronModule.Product(IDsPoPsModule.neutron, label=IDsPoPsModule.neutron)
-                        product.multiplicity.add( _delayedNeutron.multiplicity[info.style] )
-                        if( len( _delayedNeutron.distribution ) > 0 ) :
-                            product.distribution.add( _delayedNeutron.distribution[info.style] )
-                        else :
-                            print( 'FIXME: need delayed neutron distribution' )
+                        product.multiplicity.add(_delayedNeutron.multiplicity[info.style])
+                        if len(_delayedNeutron.distribution) > 0:
+                            product.distribution.add(_delayedNeutron.distribution[info.style])
+                        else:
+                            print('FIXME: need delayed neutron distribution')
 
-                        delayedNeutron = delayedNeutronModule.DelayedNeutron( str( i1 ), product )
-                        delayedNeutron.rate.add( rateModule.Double( info.style, decayRate, '1/s' ) )
-                        outputChannel.fissionFragmentData.delayedNeutrons.add( delayedNeutron )
-        else :
-            if( neutronMFs == [] ) :
+                        delayedNeutron = delayedNeutronModule.DelayedNeutron(str(i1), product)
+                        delayedNeutron.rate.add(rateModule.Double(info.style, decayRate, '1/s'))
+                        outputChannel.fissionFragmentData.delayedNeutrons.add(delayedNeutron)
+        else:
+            if neutronMFs == []:
                 pass    # we used to add a reference to total fission nubar and PFNS, but that's not physically correct
                 """
-                if( hasattr( info, 'firstFissionNeutron' ) ) :
-                    multiplicity = multiplicityModule.Reference( link=info.firstFissionNeutron.multiplicity, label = info.style )
-                else :                                              # When singleMTOnly is fission MT != 18.
-                    multiplicity = multiplicityModule.Unspecified( label = info.style )
-                product = toGNDSMiscModule.newGNDSParticle( info, toGNDSMiscModule.getTypeNameGamma( info, 1 ),
-                        crossSection, multiplicity = multiplicity )
-                if( hasattr( info, 'firstFissionNeutron' ) ) :
-                    form = referenceModule.Form( link = info.firstFissionNeutron.distribution, label = info.style )
-                    product.distribution.add( form )
-                outputChannel.products.add( outputChannel.products.uniqueLabel( product ) )
+                if hasattr(info, 'firstFissionNeutron'):
+                    multiplicity = multiplicityModule.Reference(link=info.firstFissionNeutron.multiplicity, label=info.style)
+                else:                                              # When singleMTOnly is fission MT != 18.
+                    multiplicity = multiplicityModule.Unspecified(label=info.style)
+                product = toGNDSMiscModule.newGNDSParticle(info, toGNDSMiscModule.getTypeNameGamma(info, 1),
+                        crossSection, multiplicity=multiplicity)
+                if hasattr(info, 'firstFissionNeutron'):
+                    form = referenceModule.Form(link=info.firstFissionNeutron.distribution, label=info.style)
+                    product.distribution.add(form)
+                outputChannel.products.add(outputChannel.products.uniqueLabel(product))
                 """
 
         # Some files have distributions for 1stChanceFission etc, but should still link to total nubar:
         for product in productList:
             multiplicity = product.multiplicity[info.style]
-            if( ( isinstance( multiplicity, multiplicityModule.Constant1d ) ) and ( product.multiplicity[info.style].evaluate( 0 ) == -1 ) ) :
-                if hasattr( info, 'firstFissionNeutron' ):
-                    product.multiplicity.remove( info.style )
-                    multiplicity = multiplicityModule.Reference( info.firstFissionNeutron.multiplicity, label = info.style )
-                    product.multiplicity.add( multiplicity )
+            if isinstance(multiplicity, multiplicityModule.Constant1d) and product.multiplicity[info.style].evaluate(0) == -1:
+                if hasattr(info, 'firstFissionNeutron'):
+                    product.multiplicity.remove(info.style)
+                    multiplicity = multiplicityModule.Reference(info.firstFissionNeutron.multiplicity, label=info.style)
+                    product.multiplicity.add(multiplicity)
 
-        while( len( productList ) > 0 ) : outputChannel.products.add( outputChannel.products.uniqueLabel( productList.pop( 0 ) ) )
-    else :
+        while len(productList) > 0: outputChannel.products.add(outputChannel.products.uniqueLabel(productList.pop(0)))
+    else:
         Q = QI
-        if( isUndefinedTwoBody ) : Q = QM
+        if isUndefinedTwoBody: Q = QM
         outputChannel = outputChannelModule.OutputChannel(enumsModule.Genre.NBody, process=channelProcess)
-        outputChannel.Q.add( toGNDSMiscModule.returnConstantQ( info.style, Q, _crossSection ) )
-        if( isUndefinedTwoBody ) : info.ENDFconversionFlags.add( outputChannel.Q, "QI=%s" % QI )
+        outputChannel.Q.add(toGNDSMiscModule.returnConstantQ(info.style, Q, _crossSection))
+        if isUndefinedTwoBody: info.ENDFconversionFlags.add(outputChannel.Q, "QI=%s" % QI)
 
         if MT not in [1, 18, 19, 20, 21, 38] + list(range(201,208)):
             residualZA, ZAsMultiplicities, productAsResidual, biggestProduct = compoundZA, {}, None, 0
-            for index, product in enumerate( productList ) :
-                if( product.pid == IDsPoPsModule.photon ) : continue
-                ZA = particleZA( info, product.pid )
+            for index, product in enumerate(productList):
+                if product.pid == IDsPoPsModule.photon: continue
+                ZA = particleZA(info, product.pid)
                 multiplicity = product.multiplicity[info.style]
-                if( isinstance( multiplicity, multiplicityModule.Constant1d ) ) :
-                    mult = int( multiplicity.value )
-                else :
-                    info.logs.write( '\n\nIncorrect multiplicity in ENDF file! MT = %s\n' % MT )
-                    info.logs.write( 'Multiplicity should be constant but is "%s".\n' % multiplicity.moniker )
-                    raise ValueError( 'Multiplicity should be a constant and it is not.' )
-                if( ZA in lightIsotopeZAs ) :
-                    residualZA = calculateZA( residualZA, mult * ZA, minus = True )
+                if isinstance(multiplicity, multiplicityModule.Constant1d):
+                    mult = int(multiplicity.value)
+                else:
+                    info.logs.write('\n\nIncorrect multiplicity in ENDF file! MT = %s\n' % MT)
+                    info.logs.write('Multiplicity should be constant but is "%s".\n' % multiplicity.moniker)
+                    raise ValueError('Multiplicity should be a constant and it is not.')
+                if ZA in lightIsotopeZAs:
+                    residualZA = calculateZA(residualZA, mult * ZA, minus=True)
                         # If we have different distributions for both neutrons in (n,2n), n shows up twice in the productList.
-                    if( ZA in ZAsMultiplicities ) :
+                    if ZA in ZAsMultiplicities:
                         ZAsMultiplicities[ZA] += mult
-                    else :
+                    else:
                         ZAsMultiplicities[ZA] = mult
-                else :
-                    if( productAsResidual is not None ) :
-                        raise Exception( 'multiple residuals for MT = %d, %s %s' % ( MT, productAsResidual.pid, product.pid ) )
+                else:
+                    if productAsResidual is not None:
+                        raise Exception('multiple residuals for MT = %d, %s %s' % (MT, productAsResidual.pid, product.pid))
                     productAsResidual = product
 
-            if( residualZA != 0 ) :
-                for ZA in lightIsotopeZAs :
-                    if( ZA not in ZAsMultiplicities ) : ZAsMultiplicities[ZA] = 0
-                    if( ZAsMultiplicities[ZA] == lightIsotopeZAsMultiplicity[ZA] ) : continue       # All this ZA accounted for.
-                    if( ZAsMultiplicities[ZA] > lightIsotopeZAsMultiplicity[ZA] ) :
-                        raise Exception( 'negative multiplicity for ZA = %s for MT = %s' % ( ZA, MT ) )
+            if residualZA != 0:
+                for ZA in lightIsotopeZAs:
+                    if ZA not in ZAsMultiplicities: ZAsMultiplicities[ZA] = 0
+                    if ZAsMultiplicities[ZA] == lightIsotopeZAsMultiplicity[ZA]: continue       # All this ZA accounted for.
+                    if ZAsMultiplicities[ZA] > lightIsotopeZAsMultiplicity[ZA]:
+                        raise Exception('negative multiplicity for ZA = %s for MT = %s' % (ZA, MT))
                     multiplicity = lightIsotopeZAsMultiplicity[ZA] - ZAsMultiplicities[ZA]
-                    productList.append( toGNDSMiscModule.newGNDSParticle( info, toGNDSMiscModule.getTypeNameENDF( info, ZA, None ),
-                            crossSection, multiplicity = multiplicity ) )
-                    residualZA = calculateZA( residualZA, multiplicity * ZA, minus = True )
-                if( productAsResidual is None ) :
-                    if( residualZA > 0 ) : productList.append( toGNDSMiscModule.newGNDSParticle( info,
-                            toGNDSMiscModule.getTypeNameENDF( info, residualZA, undefinedLevelInfo ), _crossSection ) )
+                    productList.append(toGNDSMiscModule.newGNDSParticle(
+                        info, toGNDSMiscModule.getTypeNameENDF(info, ZA, None), crossSection, multiplicity=multiplicity))
+                    residualZA = calculateZA(residualZA, multiplicity * ZA, minus=True)
+                if productAsResidual is None:
+                    if residualZA > 0:
+                        productList.append( toGNDSMiscModule.newGNDSParticle(
+                            info, toGNDSMiscModule.getTypeNameENDF(info, residualZA, undefinedLevelInfo), _crossSection))
 
-            if( breakupProducts is not None ) :
-                if( MT == 91 ) :
-                    if( decayChannel is not None ) : raise Exception( 'breakupProducts and decayChannel both not None' )
+            if breakupProducts is not None:
+                if MT == 91:
+                    if decayChannel is not None: raise Exception('breakupProducts and decayChannel both not None')
                     decayChannel = outputChannelModule.OutputChannel(enumsModule.Genre.NBody)
-                    decayChannel.Q.add( toGNDSMiscModule.returnConstantQ( info.style, QM - QI, _crossSection ) )
-                    fillRemainingProductsResidualForBreakup( info, decayChannel, lightIsotopeNames, breakupProducts,
-                        particleZA( info, productList[1].pid ), crossSection )
-                    productList[1].addOutputChannel( decayChannel )
-                else :
-                    raise Exception( 'breakup not supported for MT %d' % MT )
+                    decayChannel.Q.add(toGNDSMiscModule.returnConstantQ(info.style, QM - QI, _crossSection))
+                    fillRemainingProductsResidualForBreakup(info, decayChannel, lightIsotopeNames, breakupProducts,
+                        particleZA(info, productList[1].pid), crossSection)
+                    productList[1].addOutputChannel(decayChannel)
+                else:
+                    raise Exception('breakup not supported for MT %d' % MT)
 
-    for product in productList :
-        if( len( product.distribution ) == 0 ) :
+    for product in productList:
+        if len( product.distribution ) == 0:
             frame = xDataEnumsModule.Frame.lab
             if isTwoBody:
                 frame = xDataEnumsModule.Frame.centerOfMass
-            form = unspecifiedModule.Form( info.style, productFrame = frame )
-            product.distribution.add( form )
-            info.ENDFconversionFlags.add( product, 'implicitProduct' )
-        outputChannel.products.add( outputChannel.products.uniqueLabel( product ) )
+            form = unspecifiedModule.Form(info.style, productFrame=frame)
+            product.distribution.add(form)
+            info.ENDFconversionFlags.add(product, 'implicitProduct')
+        outputChannel.products.add(outputChannel.products.uniqueLabel(product))
 
     if outputChannel.genre == enumsModule.Genre.twoBody:
         productID = outputChannel[0].pid
@@ -4536,7 +4550,7 @@ def parseCovariances(info, MTDatas, MTdict, singleMTOnly=None, resonances=None,
             pointed_to = [sec[info.style] for sec in covarianceSuite.covarianceSections if sec.columnData is None
                     and sec.rowData.ENDF_MFMT == pointer.ENDF_MFMT]
             if len(pointed_to) != 1:
-                thisMFMT = summedMatrix.ancestor.rowData.ENDF_MFMT
+                thisMFMT = summedMatrix.findAttributeInAncestry("rowData").ENDF_MFMT
                 warningList.append( "Covariance for MF,MT=%s attempts to sum over non-existant covariance %s"
                         % (thisMFMT, pointer.ENDF_MFMT) )
                 info.doRaise.append( warningList[-1] )

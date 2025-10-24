@@ -33,6 +33,7 @@ This module contains the following classes:
     +-------------------+---------------------------------------------------------------------------------------+
 """
 
+
 class Data(ancestryModule.AncestryIO):
     """
     This is the base class for the classes :py:class:`Xs`, :py:class:`Pdf` and :py:class:`Cdf`.
@@ -46,35 +47,35 @@ class Data(ancestryModule.AncestryIO):
     +-----------+-------------------------------------------------------------------+
     """
 
-    def __init__( self, values ) :
+    def __init__(self, values):
         """
         :param values:      This is the list of values (i.e., data) for the derived class.
         """
 
-        if( not( isinstance( values, valuesModule.Values ) ) ) : raise TypeError( 'Not a values type' )
+        if not isinstance(values, valuesModule.Values): raise TypeError('Not a values type')
         ancestryModule.AncestryIO.__init__(self)
 
         self.values = values
 
-    def __len__( self ) :
+    def __len__(self):
         """
         This method returns the number of values of the domain which is the same as for the pdf and cdf.
 
         :returns:       A python int.
         """
 
-        return( len( self.values ) )
+        return len(self.values)
 
-    def copy( self ) :
+    def copy(self):
         """
         This method returns a copy of *self*.
 
         :returns:       An instance of self.
         """
 
-        return( self.__class__( self.values ) )
+        return self.__class__(self.values)
 
-    def offsetScaleData( self, offset, scale ) :
+    def offsetScaleData(self, offset, scale):
         """
         This method modifies every value in *self* by multiply it by *scale* and adding *offset*.
 
@@ -82,9 +83,9 @@ class Data(ancestryModule.AncestryIO):
         :param scale:       The multiplicative scale factor to apply to each value.
         """
 
-        self.values.offsetScaleValues( offset, scale )
+        self.values.offsetScaleValues(offset, scale)
 
-    def toXML_strList(self, indent = '', **kwargs):
+    def toXML_strList(self, indent='', **kwargs):
         """
         Returns a list of str instances representing the XML lines of *self*.
 
@@ -94,11 +95,11 @@ class Data(ancestryModule.AncestryIO):
         :return:                List of str instances representing the XML lines of self.
         """
 
-        XMLStringList = '%s<%s>' % ( indent, self.moniker )
+        XMLStringList = '%s<%s>' % (indent, self.moniker)
         XMLStringList += ''.join(self.values.toXML_strList('', **kwargs))
         XMLStringList += '</%s>' % self.moniker
 
-        return [ XMLStringList ]
+        return [XMLStringList]
 
     @classmethod
     def parseNodeUsingClass(cls, node, xPath, linkData, **kwargs):
@@ -122,28 +123,32 @@ class Data(ancestryModule.AncestryIO):
 
         return data1
 
-class Xs( Data ) :
+
+class Xs(Data):
     """
     This class stores the domain values of the pdf. 
     """
 
     moniker = 'xs'
 
-class Pdf( Data ) :
+
+class Pdf(Data):
     """
     This class stores the probability density function (pdf) values.
     """
 
     moniker = 'pdf'
 
-class Cdf( Data ) :
+
+class Cdf(Data):
     """
     This class stores the cumulative distribution function (cdf) value of the pdf. 
     """
 
     moniker = 'cdf'
 
-class Xs_pdf_cdf1d( baseModule.XDataFunctional ) :
+
+class Xs_pdf_cdf1d(baseModule.XDataFunctional):
     """
     This class represents a GNDS xs_pdf_cdf1d data container.
 
@@ -174,9 +179,10 @@ class Xs_pdf_cdf1d( baseModule.XDataFunctional ) :
 
     moniker = 'xs_pdf_cdf1d'
     dimension = 1
-    ancestryMembers = ( 'xs', 'pdf', 'cdf' )
+    ancestryMembers = ('xs', 'pdf', 'cdf')
 
-    def __init__(self, _xs, _pdf, _cdf, axes=None, label=None, index=None, outerDomainValue=None, interpolation=enumsModule.Interpolation.linlin):
+    def __init__(self, _xs, _pdf, _cdf, axes=None, label=None, index=None, outerDomainValue=None,
+                 interpolation=enumsModule.Interpolation.linlin):
         """
         :param xs:                  This is the domain values of the pdf.
         :param pdf:                 This is the probability density function (pdf) values.
@@ -188,7 +194,8 @@ class Xs_pdf_cdf1d( baseModule.XDataFunctional ) :
         :param label:               This is the label member use by some xData classes.
         """
 
-        baseModule.XDataFunctional.__init__(self, axes=axes, label=label, index=index, outerDomainValue=outerDomainValue)
+        baseModule.XDataFunctional.__init__(self, axes=axes, label=label, index=index,
+                                            outerDomainValue=outerDomainValue)
 
         self.interpolation = enumsModule.Interpolation.checkEnumOrString(interpolation)
 
@@ -205,40 +212,40 @@ class Xs_pdf_cdf1d( baseModule.XDataFunctional ) :
         self.__cdf.setAncestor(self)
 
         if len(_xs) != len(_pdf) != len(_cdf):
-            raise ValueError('lenghts not the same: %s %s %s' % ( len(_xs), len(_pdf), len(_cdf) ))
+            raise ValueError('lengths not the same: %s %s %s' % (len(_xs), len(_pdf), len(_cdf)))
 
-    def __len__( self ) :
+    def __len__(self):
         """
         This method returns the number of values of the domain which is the same as for the pdf and cdf.
 
         :returns:       A python int.
         """
 
-        return( len( self.__xs ) )
+        return len(self.__xs)
 
     @property
-    def xs( self ) :
+    def xs(self):
         """
         This method returns a reference to *self* xs child.
         """
 
-        return( self.__xs )
+        return self.__xs
 
     @property
-    def pdf( self ) :
+    def pdf(self):
         """
         This method returns a reference to *self* pdf child.
         """
 
-        return( self.__pdf )
+        return self.__pdf
 
     @property
-    def cdf( self ) :
+    def cdf(self):
         """
         This method returns a reference to *self* cdf child.
         """
 
-        return( self.__cdf )
+        return self.__cdf
 
     def asXYs1d(self, asLinLin, accuracy, lowerEps, upperEps, biSectionMax=16):
         """
@@ -256,7 +263,7 @@ class Xs_pdf_cdf1d( baseModule.XDataFunctional ) :
 
         return xys1d
 
-    def convertUnits( self, unitMap ) :
+    def convertUnits(self, unitMap):
         """
         Converts all data in *self* per *unitMap*.
 
@@ -264,23 +271,24 @@ class Xs_pdf_cdf1d( baseModule.XDataFunctional ) :
         """
 
         axes = self.axes
-        if( axes is None ) : axes = self.ancestor.axes.copy( )      # BRB FIXME, the prior line should have worked.
-        factors = axes.convertUnits( unitMap )
-        if( factors[0] != 1.0 ) : self.pdf.offsetScaleData( 0.0, factors[0] )
-        if( factors[1] != 1.0 ) : self.xs.offsetScaleData( 0.0, factors[1] )
-        self.fixValuePerUnitChange( factors )
+        if axes is None: axes = self.ancestor.axes.copy()  # BRB FIXME, the prior line should have worked.
+        factors = axes.convertUnits(unitMap)
+        if factors[0] != 1.0: self.pdf.offsetScaleData(0.0, factors[0])
+        if factors[1] != 1.0: self.xs.offsetScaleData(0.0, factors[1])
+        self.fixValuePerUnitChange(factors)
 
-    def copy( self ) :
+    def copy(self):
         """
         This method returns a copy of *self*.
 
         :returns:       An instance of self.
         """
 
-        return( self.__class__( self.xs.copy( ), self.pdf.copy( ), self.cdf.copy( ), 
-                outerDomainValue = self.outerDomainValue, axes = self.axes, interpolation = self.interpolation ) )
+        return self.__class__(self.xs.copy(), self.pdf.copy(), self.cdf.copy(),
+                              outerDomainValue=self.outerDomainValue, axes=self.axes,
+                              interpolation=self.interpolation)
 
-    def toPointwise_withLinearXYs( self, **kwargs ) :
+    def toPointwise_withLinearXYs(self, **kwargs):
         """
         This method returns an :py:class:`XYs1dModule.XYs1d` representation of *self*'s pdf.
 
@@ -289,10 +297,10 @@ class Xs_pdf_cdf1d( baseModule.XDataFunctional ) :
         :returns:           An instance of :py:class:`XYs1dModule.XYs1d`.
         """
 
-        _pdf, _cdf = self.to_pdf_and_cdf( )
-        return( _pdf.toPointwise_withLinearXYs( **kwargs ) )
+        _pdf, _cdf = self.to_pdf_and_cdf()
+        return _pdf.toPointwise_withLinearXYs(**kwargs)
 
-    def to_pdf_and_cdf( self ) :
+    def to_pdf_and_cdf(self):
         """
         This method returns two :py:class:`XYs1dModule.XYs1d` representation of *self*. One representing the pdf and one 
         representing the cdf.  The interpolation is the same as self's interpolation.  Ergo, the interpolation for the cdf 
@@ -304,23 +312,22 @@ class Xs_pdf_cdf1d( baseModule.XDataFunctional ) :
 
         _pdf = []
         _cdf = []
-        for index, x1 in enumerate( self.__xs.values ) :
-            _pdf.append( [ x1, self.__pdf.values[index] ] )
-            _cdf.append( [ x1, self.__cdf.values[index] ] )
+        for index, x1 in enumerate(self.__xs.values):
+            _pdf.append([x1, self.__pdf.values[index]])
+            _cdf.append([x1, self.__cdf.values[index]])
 
-        linear = self.toLinearXYsClass( )
+        linear = self.toLinearXYsClass()
 
-        axes = self.axes
         axes = self.ancestor.axes
-        _pdf = linear( data = _pdf, axes = axes, interpolation = self.interpolation, outerDomainValue = self.outerDomainValue )
-        if( axes is not None ) :
-            axes = axes.copy( )
-            axes[0].unit = axes[0].multiplyUnit( axes[1] )
-        _cdf = linear( data = _cdf, axes = axes, interpolation = self.interpolation, outerDomainValue = self.outerDomainValue )
+        _pdf = linear(data=_pdf, axes=axes, interpolation=self.interpolation, outerDomainValue=self.outerDomainValue)
+        if axes is not None:
+            axes = axes.copy()
+            axes[0].unit = axes[0].multiplyUnit(axes[1])
+        _cdf = linear(data=_cdf, axes=axes, interpolation=self.interpolation, outerDomainValue=self.outerDomainValue)
 
-        return( _pdf, _cdf )
+        return _pdf, _cdf
 
-    def toXML_strList(self, indent = '', **kwargs):
+    def toXML_strList(self, indent='', **kwargs):
         """
         Returns a list of str instances representing the XML lines of *self*.
 
@@ -339,26 +346,26 @@ class Xs_pdf_cdf1d( baseModule.XDataFunctional ) :
         interpolationStr = ''
         if self.interpolation != enumsModule.Interpolation.linlin:
             interpolationStr = ' interpolation="%s"' % self.interpolation
-        XML_strList = [ '%s<%s%s%s>' % ( indent, self.moniker, attributeStr, interpolationStr ) ]
+        XML_strList = ['%s<%s%s%s>' % (indent, self.moniker, attributeStr, interpolationStr)]
         if self.isPrimaryXData():
-            if self.axes is not None: XML_strList += self.axes.toXML_strList(indent = indent2, **kwargs)
+            if self.axes is not None: XML_strList += self.axes.toXML_strList(indent=indent2, **kwargs)
         XML_strList += self.xs.toXML_strList(indent2, **kwargs)
         XML_strList += self.pdf.toXML_strList(indent2, **kwargs)
         XML_strList += self.cdf.toXML_strList(indent2, **kwargs)
         XML_strList[-1] += '</%s>' % self.moniker
 
-        if xs_pdf_cdf1d_singleLine: XML_strList = [ ''.join(XML_strList) ]
+        if xs_pdf_cdf1d_singleLine: XML_strList = [''.join(XML_strList)]
 
         return XML_strList
 
-    def toLinearXYsClass( self ) :
+    def toLinearXYsClass(self):
         """
         This method always returns the class :py:class:`XYs1dModule.XYs1d`.
 
         :returns:       The class :py:class:`XYs1dModule.XYs1d`.
         """
 
-        return( XYs1dModule.XYs1d )
+        return XYs1dModule.XYs1d
 
     @classmethod
     def parseNodeUsingClass(cls, node, xPath, linkData, **kwargs):
@@ -374,13 +381,16 @@ class Xs_pdf_cdf1d( baseModule.XDataFunctional ) :
         :returns:           An instance of *cls* representing *node*.
         """
 
-        attributes, extraAttributes = baseModule.XDataFunctional.parseBareNodeCommonAttributes(node, xPath, allowInterapolation=True) # parseBareNodeCommonAttributes adds to xPath.
-        if len(extraAttributes) > 0: raise Exception('Invalid attributes: %s.' % ( ', '.join(list(extraAttributes.keys())) ))
+        attributes, extraAttributes = baseModule.XDataFunctional.parseBareNodeCommonAttributes(
+            node, xPath, allowInterapolation=True)  # parseBareNodeCommonAttributes adds to xPath.
+        if len(extraAttributes) > 0:
+            raise Exception('Invalid attributes: %s.' % (', '.join(list(extraAttributes.keys()))))
 
         datas = {}
-        children = { 'xs': Xs, 'pdf': Pdf, 'cdf': Cdf }
+        children = {'xs': Xs, 'pdf': Pdf, 'cdf': Cdf}
         for child in node:
-            if child.tag in children: datas[child.tag] = children[child.tag].parseNodeUsingClass(child, xPath, linkData, **kwargs)
+            if child.tag in children:
+                datas[child.tag] = children[child.tag].parseNodeUsingClass(child, xPath, linkData, **kwargs)
 
         axes = kwargs.get('axes', None)
         if axes is not None: attributes['axes'] = axes
@@ -394,7 +404,8 @@ class Xs_pdf_cdf1d( baseModule.XDataFunctional ) :
         extraNodes.pop('pdf')
         extraNodes.pop('cdf')
 
-        if len(extraNodes) > 0: raise Exception('Invalid nodes: %s.' % (', '.join([extraNode.tag for extraNode in extraNodes])))
+        if len(extraNodes) > 0:
+            raise Exception('Invalid nodes: %s.' % (', '.join([extraNode.tag for extraNode in extraNodes])))
 
         xPath.pop()
 
@@ -402,17 +413,17 @@ class Xs_pdf_cdf1d( baseModule.XDataFunctional ) :
 
     @classmethod
     def fromXYs(cls, xys, outerDomainValue=None, thinEpsilon=None):
-        '''
-        This method creates an :py:class:`Xs_pdf_cdf1d` instance for an :py:class:`XYs1dModule.XYs1d` instance. 
+        """
+        This method creates an :py:class:`Xs_pdf_cdf1d` instance for an :py:class:`XYs1dModule.XYs1d` instance.
         If *thinEpsilon* is not None, then points are thinned so that the returned cdf has cdf[i+1] - cdf[i] > *thinEpsilon*.
 
         :param cls:                 The :py:class:`Xs_pdf_cdf1d` class of the returned instance.
         :param xys:                 The :py:class:`XYs1dModule.XYs1d` to convert to an `Xs_pdf_cdf1d` instance.
         :param outerDomainValue:    The value of the *outerDomainValue* for the returned instance. If None, taken from *xys*.
         :param thinEpsilon:         The thinning parameter.
-        '''
+        """
 
-        if xys.interpolation not in [enumsModule.Interpolation.linlin, enumsModule.Interpolation.flat]:
+        if xys.interpolation not in (enumsModule.Interpolation.linlin, enumsModule.Interpolation.flat):
             xys = xys.toPointwise_withLinearXYs(accuracy=1e-3, lowerEps=0, upperEps=1e-8)
 
         if outerDomainValue is None:
@@ -429,11 +440,11 @@ class Xs_pdf_cdf1d( baseModule.XDataFunctional ) :
             norm[-1] = [norm[-1][0], 0.0]
             norm = norm.normalize()
 
+        xs, pdf = norm.copyDataToXsAndYs()
         cdf = norm.runningIntegral()
         cdf[-1] = 1.0
-        xs, pdf = norm.copyDataToXsAndYs()
 
-        if thinEpsilon is not None:
+        if thinEpsilon is not None and xys.interpolation is not enumsModule.Interpolation.flat:
             indicesToRemove = []
             for index, cdf2 in enumerate(cdf):
                 if cdf2 == 1:
@@ -451,9 +462,9 @@ class Xs_pdf_cdf1d( baseModule.XDataFunctional ) :
                     xs.pop(index)
                     pdf.pop(index)
                     cdf.pop(index)
-                
+
         xs = Xs(valuesModule.Values(xs))
         pdf = Pdf(valuesModule.Values(pdf))
         cdf = Cdf(valuesModule.Values(cdf))
 
-        return cls(xs, pdf, cdf, outerDomainValue = outerDomainValue, interpolation = xys.interpolation)
+        return cls(xs, pdf, cdf, outerDomainValue=outerDomainValue, interpolation=xys.interpolation)

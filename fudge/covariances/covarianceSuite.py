@@ -83,6 +83,7 @@ class CovarianceSuite(ancestryModule.AncestryIO):
 
         if formatVersion not in GNDS_formatVersionModule.allowedPlus: raise Exception(
             "Unsupported GNDS structure '%s'!" % str(formatVersion))
+        self.formatVersion = formatVersion
 
         self.projectile = projectile  #: The projectile
         self.target = target  #: The target
@@ -105,8 +106,6 @@ class CovarianceSuite(ancestryModule.AncestryIO):
 
         self.__parameterCovariances = ParameterCovariances()
         self.__parameterCovariances.setAncestor(self)
-
-        self.formatVersion = formatVersion
 
     @property
     def sourcePath(self):
@@ -175,8 +174,8 @@ class CovarianceSuite(ancestryModule.AncestryIO):
 
         if value is None:
             value = enumsModule.Interaction.nuclear
-            print(
-                'Need to specify interaction when calling CovarianceSuite.__init__. Setting it to "%s". Please update your code as in the future this will execute a raise.' % value)
+            if self.formatVersion != GNDS_formatVersionModule.version_1_10:
+                print('Need to specify interaction when calling CovarianceSuite.__init__. Setting it to "%s". Please update your code as in the future this will execute a raise.' % value)
 
         self.__interaction = enumsModule.Interaction.checkEnumOrString(value)
 

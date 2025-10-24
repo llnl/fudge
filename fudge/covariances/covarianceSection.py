@@ -177,7 +177,7 @@ class DataLink(linkModule.Link, abc.ABC):
     """
     Base class for RowData and ColumnData. Both are links but with some additional attributes.
     """
-    ancestryMembers = ('slices')
+    ancestryMembers = ('slices',)
 
     def __init__(self, link=None, root=None, path=None, label=None, relative=False, ENDF_MFMT=None, dimension=None):
         linkModule.Link.__init__(self, link=link, root=root, path=path, label=label, relative=relative)
