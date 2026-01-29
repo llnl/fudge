@@ -753,7 +753,7 @@ class RRBaseClass(ResonanceReconstructionBaseClass, abc.ABC):
                 a = self.RR.getScatteringRadius().getValueAs( '10**-12*cm', L=c.l )   # a in b^-1/2
         return a
 
-    def rho(self, E, forceUseTabulated=False):
+    def rho(self, E):
         """
         Get the channel radius rho. May be computed from a simple expression or from the tabulated scattering radius.
 
@@ -761,7 +761,7 @@ class RRBaseClass(ResonanceReconstructionBaseClass, abc.ABC):
         :param forceUseTabulated: override 'calculateChannelRadius' flag (should be used for computing phase shift)
         :return:
         """
-        if self.RR.calculateChannelRadius and not forceUseTabulated:
+        if self.RR.calculateChannelRadius:
             a = 0.123 * self.targetMass_amu**( 1. / 3. ) + 0.08  # eq. D.14 in ENDF manual, a in b^-1/2
         else:
             if self.RR.getScatteringRadius().isEnergyDependent():
@@ -769,6 +769,20 @@ class RRBaseClass(ResonanceReconstructionBaseClass, abc.ABC):
                 a = numpy.array(a).reshape(E.shape)
             else:
                 a = self.RR.getScatteringRadius().getValueAs( '10**-12*cm' )   # a in b^-1/2
+        return self.k(E) * a # dimensionless
+
+    def rhohat(self, E):
+        """
+        Get the effective channel radius rhohat.
+
+        :param E: incident energy grid, necessary if the tabulated scattering radius is energy-dependent
+        :return:
+        """
+        if self.RR.getHardSphereRadius().isEnergyDependent():
+            a = self.RR.getHardSphereRadius().getValueAs('10**-12*cm', energy_grid=numpy.ravel(E))   # a in b^-1/2
+            a = numpy.array(a).reshape(E.shape)
+        else:
+            a = self.RR.getHardSphereRadius().getValueAs( '10**-12*cm' )   # a in b^-1/2
         return self.k(E) * a # dimensionless
 
     def generateEnergyGrid(self, lowBound=None, highBound=None, stride=1):
@@ -1846,7 +1860,7 @@ class SLBWcrossSection(RRBaseClass):
         elasticSum = 0
         fissionSum = 0
         rho = self.rho(E)
-        rhohat = self.rho(E, forceUseTabulated=True)    # for calculating phi, always use tabulated scattering radius
+        rhohat = self.rhohat(E)    # for calculating phase shift phi
         for L in self.Ls:
             l = L['L']
             phi = self.phi(l,rhohat)
@@ -1993,7 +2007,7 @@ class MLBWcrossSection(RRBaseClass):
         elasticSum = 0
         fissionSum = 0
         rho = self.rho(E)
-        rhohat = self.rho(E, forceUseTabulated=True)    # for phi
+        rhohat = self.rhohat(E)    # for phase shift phi
         for L in self.Ls:
             l = L['L']
             phi = self.phi(l,rhohat)

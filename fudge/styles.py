@@ -140,6 +140,10 @@ class Styles(ancestryModule.AncestryIO_base):
         self.__styles.append( _style )
         _style.setAncestor(self)
 
+    def keys(self):
+        """ Returns a list of all style labels. """
+        return [style.label for style in self]
+
     def chains( self, ends = False, _styles = None ) :
         """For self, determine the derived from chains for each style. If ends is True, trains which are a part of a longer train are removed from the list."""
 

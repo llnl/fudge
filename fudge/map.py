@@ -931,6 +931,10 @@ class ProtareBase(EntryBase):
 
         if item2 is None:
             return True
+
+        if item1 == item2:      # For case when TNSL target has a regular expression special character in its name.
+            return True
+
         return re.fullmatch(item2, item1) is not None
 
 

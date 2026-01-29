@@ -719,9 +719,8 @@ def readMF2(info, MF2, warningList):
     def readResonanceSection(LRU, LRF, NRO, NAPS):
         """Helper function, read in resonance info for one energy range."""
 
-        scatRadius = None
-        if NRO != 0:  # energy-dependent scattering radius
-            if NAPS == 2: raise BadResonances("NAPS=2 option not yet supported!")
+        scatRadius = hardSphereRadius = None
+        if NRO != 0:  # energy-dependent scattering radius or hard-sphere radius
             line1 = mf2.next()
             dum, dum, dum, dum, NR, NP = funkyFI(line1, logFile=info.logs)
             nLines = NR//3 + bool(NR % 3) + NP//3 + bool(NP % 3)
@@ -734,7 +733,12 @@ def readMF2(info, MF2, warningList):
                 raise NotImplementedError("multi-region scattering radius")
             data = regions[0]
             data = data.convertAxisToUnit(0, 'fm')
-            scatRadius = scatteringRadiusModule.ScatteringRadius(data)
+            if NAPS == 0:
+                hardSphereRadius = scatteringRadiusModule.HardSphereRadius(data)
+            elif NAPS == 1:
+                scatRadius = scatteringRadiusModule.ScatteringRadius(data)
+            else:
+                raise BadResonances(f"NAPS={NAPS} option not yet supported!")
 
         if LRU == 0:  # scattering radius only. Note AP given in 10*fm
             SPI, AP, dum, dum, NLS, dum = funkyFI(mf2.next(), logFile=info.logs)
@@ -780,7 +784,7 @@ def readMF2(info, MF2, warningList):
 
             BWresonances = resolvedResonanceModule.BreitWigner(
                 info.style, approximation, commonResonanceModule.ResonanceParameters(table),
-                scatteringRadius=scatRadius, calculateChannelRadius=not(NAPS))
+                scatteringRadius=scatRadius, hardSphereRadius=hardSphereRadius, calculateChannelRadius=not(NAPS))
 
             info.PoPsOverrides[BWresonances] = (AWRI, None)    # may need to override PoPs in resonance section
 
@@ -837,7 +841,7 @@ def readMF2(info, MF2, warningList):
                     for newChannelSpin, channelSpin in newChannelSpins:
                         resDict[L][J][newChannelSpin] = resDict[L][J][channelSpin]
                         del resDict[L][J][channelSpin]
-            for L in range(max(NLS,NLSC)):
+            for L in range(NLS):
                 if L not in resDict: resDict[L] = {}
                 gsum = 0
                 targetGSum = (2*L+1) * (2 * (2*SPI+1))
@@ -914,7 +918,6 @@ def readMF2(info, MF2, warningList):
                         if L in LdependentAP and LdependentAP[L] != AP:
                             APL = constantModule.Constant1d(LdependentAP[L] * 10, domainMin=EL, domainMax=EH,
                                                             axes=scatteringRadiusAxes)
-                            channels[-1].scatteringRadius = scatteringRadiusModule.ScatteringRadius(APL)
                             channels[-1].hardSphereRadius = scatteringRadiusModule.HardSphereRadius(APL)
                         if haveFission:
                             channels.add(resolvedResonanceModule.Channel(
@@ -940,7 +943,8 @@ def readMF2(info, MF2, warningList):
                 info.style, resolvedResonanceModule.RMatrix.Approximation.ReichMoore, resonanceReactions, spinGroups,
                 boundaryCondition=resolvedResonanceModule.BoundaryCondition.EliminateShiftFunction,
                 calculateChannelRadius=not(NAPS), supportsAngularReconstruction=bool(LAD),
-                relativisticKinematics=False, reducedWidthAmplitudes=False
+                relativisticKinematics=False, reducedWidthAmplitudes=False,
+                LValuesNeededForAngularConvergence=NLSC if NLSC > NLS else None
             )
 
             info.PoPsOverrides[rmatrix] = (AWRI, None)
@@ -1411,7 +1415,12 @@ def readMF2(info, MF2, warningList):
 
             urr = unresolvedResonanceModule.TabulatedWidths(
                 info.style, 'SingleLevelBreitWigner', resonanceReactions, L_list,
-                scatteringRadius=scatRadius, useForSelfShieldingOnly=info.LSSF)
+                scatteringRadius=scatRadius, hardSphereRadius=hardSphereRadius,
+                useForSelfShieldingOnly=info.LSSF, calculateChannelRadius=not(NAPS))
+
+            if NAPS == 1 and info.formatVersion < GNDS_formatVersionModule.version_2_2:
+                # older GNDS versions had no calculateChannelRadius flag for URR
+                flags.append("NAPS=1")
 
             info.PoPsOverrides[urr] = (AWRI, (commonResonanceModule.Spin(SPI), None))
 
@@ -3132,14 +3141,99 @@ def readMF32(info, dat, mf, mt, cov_info, warningList):
     import numpy
     resonances = cov_info['resonances']
 
-    def swaprows(matrix, i1, i2, nrows):
-        # matrix rows may be out-of-order and need resorting
+    def swap_rows(matrix, i1, i2, nrows):
+        # LRF=3 matrix rows may be out of order and need resorting
         rows = matrix[i1:i1+nrows].copy()
         matrix[i1:i1+nrows] = matrix[i2:i2+nrows]
         matrix[i2:i2+nrows] = rows
         cols = matrix[:, i1:i1+nrows].copy()
         matrix[:, i1:i1+nrows] = matrix[:, i2:i2+nrows]
         matrix[:, i2:i2+nrows] = cols
+
+    def rearrange_rows(matrix, i1, i2, nrows):
+        # different strategy for LRF=7: move rows starting at i2 forward to i1, shifting everything between them back
+        assert i2 > i1
+        rows = matrix[i1:i2].copy()
+        matrix[i1:i1+nrows] = matrix[i2:i2+nrows]
+        matrix[i1+nrows:i2+nrows] = rows
+        cols = matrix[:, i1:i2].copy()
+        matrix[:, i1:i1+nrows] = matrix[:, i2:i2+nrows]
+        matrix[:, i1+nrows:i2+nrows] = cols
+
+    def check_MF32_consistency(mf2_elist, mf32_elist, matrix, MPAR=None):
+        """
+        MF32 may store only a subset of MF2 resonances. Check that it *is* a subset, and expand the matrix
+        with extra rows/columns of 0 if necessary.
+        MPAR is required if reading LRF=3 but must be None for LRF=7
+        """
+        if not set(mf32_elist).issubset(mf2_elist):
+            onlyInMF32 = set(mf32_elist).difference(mf2_elist)
+            ndiffs = len(onlyInMF32)
+            warningList.append("MF32 resonance parameters differ for %d resonances. For example:" % ndiffs)
+            for mf32res in sorted(onlyInMF32):
+                # find closest match (by resonance energy) in MF=2
+                eres = mf32res[0]
+                for idx, mf2res in enumerate(mf2_elist_sorted):
+                    if mf2res[0] >= eres: break
+                if abs(mf2_elist_sorted[idx - 1][0] - eres) < abs(mf2res[0] - eres):
+                    idx -= 1
+                    mf2res = mf2_elist_sorted[idx - 1]
+                warningList.append("    resonance #%d: MF2 = %s, MF32 = %s" % (idx, mf2res, mf32res))
+                if not info.verboseWarnings: break
+
+            raise BadCovariance("MF32 resonance parameters don't match MF2 parameters!")
+
+        if len(mf2_elist) != len(mf32_elist):
+            addRows = 0
+            for mf2res in mf2_elist:
+                if mf2res not in mf32_elist:
+                    mf32_elist.append(mf2res)
+                    if MPAR:
+                        addRows += MPAR
+                    else:
+                        addRows += len(mf2res)
+
+            dim = len(matrix) + addRows
+            if MPAR:
+                assert dim == len(mf2_elist) * MPAR     # sanity check
+            matrix2 = numpy.zeros((dim, dim))
+            matrix2[:len(matrix), :len(matrix)] = matrix
+            matrix = matrix2
+
+        if mf32_elist != mf2_elist or LCOMP == 0:
+            # rearrange order of MF32 resonances to match GNDS storage order
+            mf32_elist_extended = mf32_elist + [v for v in mf2_elist if v not in mf32_elist]
+            pairs_before = list(zip([val for resonance in mf32_elist_extended for val in resonance], matrix.diagonal()))
+            mf2_start_indices = []
+            cumulative_length = 0
+            for sublist in mf2_elist:
+                mf2_start_indices.append(cumulative_length)
+                cumulative_length += len(sublist)
+            mf32_start_indices = []
+            cumulative_length = 0
+            for sublist in mf32_elist_extended:
+                mf32_start_indices.append(cumulative_length)
+                cumulative_length += len(sublist)
+            for i1 in range(len(mf2_elist)):
+                i2 = mf32_elist_extended.index(mf2_elist[i1])
+                if i2 != i1:
+                    if MPAR:
+                        swap_rows(matrix, MPAR * i1, MPAR * i2, MPAR)
+                        # also need to swap values in mf32_elist_extended:
+                        val = mf32_elist_extended[i1]
+                        mf32_elist_extended[i1] = mf32_elist_extended[i2]
+                        mf32_elist_extended[i2] = val
+                    else:
+                        rearrange_rows(matrix, mf2_start_indices[i1], mf32_start_indices[i2], len(mf2_elist[i1]))
+                        # also need to rearrange values in mf32_elist_extended:
+                        val = mf32_elist_extended.pop(i2)
+                        mf32_elist_extended.insert(i1, val)
+
+            pairs_after = list(zip([val for resonance in mf32_elist_extended for val in resonance], matrix.diagonal()))
+            if not MPAR:
+                assert set(pairs_before) == set(pairs_after)
+
+        return mf2_elist, mf32_elist, matrix
 
     def read_LCOMP1(dim, matrixSize, dat):
         data = []
@@ -3339,54 +3433,22 @@ def readMF32(info, dat, mf, mt, cov_info, warningList):
                     matrix = matrix2
                     matrixClass = arrayModule.Flattened  # even if originally LCOMP=1
 
+                elif LRF == 7:
+                    MPAR = None
+
                 # mf32 may not contain all resonances from mf2:
                 mf2_elist_sorted = sorted(mf2_elist, key=lambda res: res[0])
                 mf32_elist_sorted = sorted(mf32_elist, key=lambda res: res[0])
                 if mf32_elist != mf32_elist_sorted or LCOMP == 0:
                     ENDFconversionFlags.append('sortByL')
 
-                if not set(mf32_elist).issubset(mf2_elist):
-                    onlyInMF32 = set(mf32_elist).difference(mf2_elist)
-                    ndiffs = len(onlyInMF32)
-                    warningList.append("MF32 resonance parameters differ for %d resonances. For example:" % ndiffs)
-                    for mf32res in sorted(onlyInMF32):
-                        # find closest match (by resonance energy) in MF=2
-                        eres = mf32res[0]
-                        for idx, mf2res in enumerate(mf2_elist_sorted):
-                            if mf2res[0] >= eres: break
-                        if abs(mf2_elist_sorted[idx-1][0] - eres) < abs(mf2res[0] - eres):
-                            idx -= 1
-                            mf2res = mf2_elist_sorted[idx-1]
-                        warningList.append("    resonance #%d: MF2 = %s, MF32 = %s" % (idx, mf2res, mf32res))
-                        if not info.verboseWarnings: break
-
-                    raise BadCovariance("MF32 resonance parameters don't match MF2 parameters!")
-
-                if len(mf2_elist) != len(mf32_elist):
-                    dim = len(mf2_elist) * MPAR
-                    matrix2 = numpy.zeros((dim, dim))
-                    matrix2[:len(matrix), :len(matrix)] = matrix
-                    matrix = matrix2
-                    for mf2res in mf2_elist:
-                        if mf2res not in mf32_elist:
-                            mf32_elist.append(mf2res)
-                    matrixClass = arrayModule.Flattened  # since some rows will be all 0
-
-                if mf32_elist != mf2_elist or LCOMP == 0:
-                    # rearrange order of MF32 resonances to match GNDS storage order
-                    mf32_elist_extended = mf32_elist + [v for v in mf2_elist if v not in mf32_elist]
-                    for i1 in range(len(mf2_elist)):
-                        i2 = mf32_elist_extended.index(mf2_elist[i1])
-                        if i2 != i1:
-                            swaprows(matrix, MPAR * i1, MPAR * i2, MPAR)
-                            # also need to swap values in elist2:
-                            val = mf32_elist_extended[i1]
-                            mf32_elist_extended[i1] = mf32_elist_extended[i2]
-                            mf32_elist_extended[i2] = val
+                mf2_elist, mf32_elist, matrix = check_MF32_consistency(mf2_elist, mf32_elist, matrix, MPAR)
+                # FIXME: check if we should use flattened array
+                # matrixClass = arrayModule.Flattened  # since some rows will be all 0
 
                 if LRF == 3:  # also swap elastic and capture widths to follow LRF=7 convention
                     for i1 in range(len(mf2_elist)):
-                        swaprows(matrix, MPAR * i1 + 1, MPAR * i1 + 2, 1)
+                        swap_rows(matrix, MPAR * i1 + 1, MPAR * i1 + 2, 1)
 
                 parameters = covarianceModelParametersModule.Parameters()
                 parameter_values = []
@@ -3521,6 +3583,7 @@ def readMF32(info, dat, mf, mt, cov_info, warningList):
 
             elif LRF == 7:
                 dum, dum, IFG, LCOMP, NJS, ISR = funkyFI(dat.next(), logFile=info.logs)
+                mf2_elist, mf32_elist = [], []
                 assert IFG in (0, 1), f"IFG={IFG} not supported"
                 if ISR > 0:
                     raise NotImplementedError("scattering radius uncertainty in MF32 LRF7")
@@ -3542,10 +3605,8 @@ def readMF32(info, dat, mf, mt, cov_info, warningList):
                                 vals += funkyF(dat.next(), logFile=info.logs)
                             if NRB>0: resonanceParams.append(vals[:NCH + 1])
 
-                        # test for consistency with MF2
-                        if spinGroup.resonanceParameters.table.data != resonanceParams:
-                            raise BadCovariance(
-                                "MF32 resonance parameters don't match MF2 parameters for spin group %d!" % jdx)
+                        mf2_elist += list(map(tuple, spinGroup.resonanceParameters.table.data))
+                        mf32_elist += list(map(tuple, resonanceParams))
 
                     # rest of matrix:
                     dum, dum, dum, dum, N, NPARB = funkyFI(dat.next(), logFile=info.logs)
@@ -3591,10 +3652,8 @@ def readMF32(info, dat, mf, mt, cov_info, warningList):
                             resonanceUncerts.append(uncerts[:NCH+1])
                             allUncerts += uncerts[:NCH+1]
 
-                        # now test for consistency with MF2
-                        if spinGroup.resonanceParameters.table.data != resonanceParams:
-                            raise BadCovariance(
-                                "MF32 resonance parameters don't match MF2 parameters for spin group %d!" % jdx)
+                        mf2_elist += list(map(tuple, spinGroup.resonanceParameters.table.data))
+                        mf32_elist += list(map(tuple, resonanceParams))
                         J, pi = translateENDFJpi(AJ, PJ)
                         if not J == spinGroup.spin and pi == spinGroup.parity:
                             raise BadCovariance("Inconsistent J/pi for MF2 / MF32 spin group %d" % jdx)
@@ -3612,6 +3671,10 @@ def readMF32(info, dat, mf, mt, cov_info, warningList):
                     ENDFconversionFlags.append("NDIGIT=%d" % NDIGIT)
                 else:
                     raise NotImplementedError("MF32 LRF=7 LCOMP=%d" % LCOMP)
+
+                mf2_elist, mf32_elist, matrix = check_MF32_consistency(mf2_elist, mf32_elist, matrix)
+                # FIXME: check if we should use flattened array
+                # matrixClass = arrayModule.Flattened  # since some rows will be all 0
 
                 # store into GNDS (need links to each spinGroup)
                 parameters = covarianceModelParametersModule.Parameters()
@@ -4587,7 +4650,10 @@ def parseCovariances(info, MTDatas, MTdict, singleMTOnly=None, resonances=None,
             info.doRaise.append(warningList[-1])
         else:
             # mean value is not specified but can be computed (may require resonance reconstruction first)
-            if lumpedChannels.ENDF_MT in (1, 3) and info.reactionSuite.supportsResonanceReconstruction():
+            if info.reactionSuite.supportsResonanceReconstruction() and any([
+                isinstance(summand.link.evaluated, crossSectionModule.ResonancesWithBackground)
+                for summand in lumpedChannels.summands
+            ]):
                 # need to generate resonancesWithBackground as 'evaluated' form.
                 resWithBkg, other = [], []
                 for summand in lumpedChannels.summands:

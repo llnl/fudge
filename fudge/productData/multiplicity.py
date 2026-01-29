@@ -139,13 +139,13 @@ class XYs1d( BaseMultiplicityForm, XYs1dModule.XYs1d ) :
 
         return self.rangeMin == self.rangeMax
 
-    def processMultiGroup( self, style, tempInfo, indent ) :
+    def processMultiGroup(self, style, tempInfo, indent):
 
         from fudge.processing import miscellaneous as miscellaneousModule
 
-        if( tempInfo['verbosity'] > 2 ) : print('%sMulti-grouping XYs1d mutiplicity' % indent)
+        if tempInfo['verbosity'] > 2: print('%sMulti-grouping XYs1d multiplicity' % indent)
 
-        return( miscellaneousModule.groupFunctionCrossSectionAndFlux( Gridded1d, style, tempInfo, self ) )
+        return miscellaneousModule.groupFunctionCrossSectionAndFlux(Gridded1d, style, tempInfo, self)
 
 class Regions1d( BaseMultiplicityForm, regionsModule.Regions1d ) :
 
@@ -477,15 +477,15 @@ class Component(abstractClassesModule.Component):
                 if hasattr(form, 'domain'):
                     domain = form.domainMin, form.domainMax
                 if domain is not None and domain != info['crossSectionDomain']:
-                    # photon multiplicities can start above cross section domainMin for threshold reactions, but domainMax should agree:
-                    if self.ancestor.pid == IDsPoPsModule.photon and info['Q'] < 0:
+                    # photon multiplicities can start above cross section domainMin, but domainMax should agree:
+                    if self.ancestor.pid == IDsPoPsModule.photon:
                         startRatio = domain[0] / info['crossSectionDomain'][0]
                         endRatio = domain[1] / info['crossSectionDomain'][1]
                         if (startRatio < 1 - standardsModule.Floats.epsilon or endRatio < 1 - standardsModule.Floats.epsilon
                             or endRatio > 1 + standardsModule.Floats.epsilon):
                             warnings.append(warning.Domain_mismatch(
                                 *(domain + info['crossSectionDomain']), obj=self))
-                    # For all other products (including photons for non-threshold reactions) both domainMin and domainMax should agree within epsilon
+                    # For all other products both domainMin and domainMax should agree within epsilon
                     else:
                         for idx, (e1, e2) in enumerate(zip(domain, info['crossSectionDomain'])):
                             ratio = e1 / e2

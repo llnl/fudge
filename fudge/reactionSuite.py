@@ -60,6 +60,7 @@ from .reactionData import crossSection as crossSectionModule
 from .reactionData.doubleDifferentialCrossSection.chargedParticleElastic import CoulombPlusNuclearElastic as CoulombPlusNuclearElasticModule
 from .outputChannelData import Q as QModule
 from .productData import averageProductEnergy as averageProductEnergyModule
+from .productData import multiplicity as multiplicityModule
 from .productData.distributions import angular as angularModule
 
 from brownies.legacy.toENDF6 import ENDFconversionFlags as ENDFconversionFlagsModule
@@ -417,6 +418,9 @@ class ReactionSuite(ancestryModule.AncestryIO):
         self.PoPs.convertUnits(unitMap)
         self.fissionComponents.convertUnits(unitMap)
         self.applicationData.convertUnits(unitMap)
+        if self._loadedCovariances is not None:
+            for covariance in self._loadedCovariances:
+                covariance.convertUnits(unitMap)
 
     def fixDomains(self, energyMax):
         """
@@ -590,7 +594,8 @@ class ReactionSuite(ancestryModule.AncestryIO):
                 IDsPoPsModule.photon: '1 eV',
                 IDsPoPsModule.electron: '10 eV'
             }.get(self.projectile, '10 eV')
-        if PQUModule.PQU(self.domainMin, self.domainUnit) > PQUModule.PQU(expectedDomainMin):
+        expectedDomainMin = PQUModule.PQU(expectedDomainMin).inUnitsOf(self.domainUnit)
+        if PQUModule.PQU(self.domainMin, self.domainUnit) > expectedDomainMin:
             warnings.append(warning.EvaluationDomainMinTooHigh(expectedDomainMin, self))
 
         if self.resonances is not None:
@@ -1471,8 +1476,8 @@ class ReactionSuite(ancestryModule.AncestryIO):
             for reaction in reactions:
                 reaction.processGriddedCrossSections(style, verbosity=verbosity, indent=indent, incrementalIndent=incrementalIndent)
 
-    def processMultiGroup( self, style, legendreMax, verbosity = 0, indent = '', incrementalIndent = '  ', logFile = None, workDir = None,
-                restart = False, additionalReactions = [] ) :
+    def processMultiGroup(self, style, legendreMax, verbosity = 0, indent = '', incrementalIndent = '  ', logFile = None, workDir = None,
+                          restart = False, additionalReactions = [], partialReprocessingOptions = None):
         """
         Generate multi-group processed data, including cross sections, weighted multiplicities and Q-values and transfer matrices.
         Processed results will be stored as new forms inside the reactionSuite.
@@ -1485,41 +1490,58 @@ class ReactionSuite(ancestryModule.AncestryIO):
         :param logFile: open file where log will be written.  FIXME logFile is a required argument, but default value = None
         :param workDir: directory to save working files generated during processing. Note that this directory can become very large.
         :param restart: load previous Merced outputs (if found) rather than recomputing, useful if a processProtare run times out or crashes.
+        :param partialReprocessingOptions: optional dictionary with options to support partial reprocessing.
         :return: None, except ValueError is raised if any errors occurred during processing
         """
 
         from LUPY import times as timesModule
 
-        if( verbosity > 0 ) : print ('%s%s' % (indent, self.inputParticlesToReactionString(suffix=" -->")))
-        if( not( isinstance( style, stylesModule.HeatedMultiGroup ) ) ) : raise( 'Instance is not a HeatedMultiGroup style.' )
+        if verbosity > 0:
+            print('%s%s' % (indent, self.inputParticlesToReactionString(suffix=" -->")))
+        if not isinstance(style, stylesModule.HeatedMultiGroup):
+            raise TypeError('Instance is not a HeatedMultiGroup style.')
 
         t0 = timesModule.Times( )
 
-        kwargs = { 'reactionSuite' : self }
-        kwargs['failures'] = 0
-        if( len( self.reactions ) > 0 ) :
-            kwargs['verbosity'] = verbosity
-            kwargs['incrementalIndent'] = incrementalIndent
-            kwargs['logFile'] = logFile
-            kwargs['incidentEnergyUnit'] = self.domainUnit
-            kwargs['massUnit'] = kwargs['incidentEnergyUnit'] + '/c**2'
-            kwargs['restart'] = restart
-            kwargs['legendreMax'] = legendreMax
+        if partialReprocessingOptions is not None and 'crossSectionChanged' not in partialReprocessingOptions:
+            # any reaction with a modified cross section must be fully reprocessed:
+            preProcessLabel = partialReprocessingOptions['preprocessingStyleLabel']
+            crossSectionChanged = [reaction for reaction in self.reactions
+                                    if preProcessLabel in reaction.crossSection]
+            if self.supportsResonanceReconstruction() and self.resonances.containsStyle(preProcessLabel):
+                crossSectionChanged += [reaction for reaction in self.reactions if isinstance(
+                    reaction.crossSection.evaluated, crossSectionModule.ResonancesWithBackground)]
+            partialReprocessingOptions['crossSectionChanged'] = crossSectionChanged
+
+        kwargs = {
+            'reactionSuite': self,
+            'failures': 0,
+            'verbosity': verbosity,
+            'incrementalIndent': incrementalIndent,
+            'logFile': logFile,
+            'incidentEnergyUnit': self.domainUnit,
+            'legendreMax': legendreMax,
+            'restart': restart,
+            'partialReprocessingOptions': partialReprocessingOptions,
+            }
+
+        if len(self.reactions) > 0:
 
             projectile = self.PoPs[self.projectile]
+            kwargs['massUnit'] = kwargs['incidentEnergyUnit'] + '/c**2'
             kwargs['projectile'] = projectile
-            kwargs['projectileZA'] = chemicalElementMiscPoPsModule.ZA( projectile )
-            kwargs['projectileMass'] = projectile.getMass( kwargs['massUnit'] )
+            kwargs['projectileZA'] = chemicalElementMiscPoPsModule.ZA(projectile)
+            kwargs['projectileMass'] = projectile.getMass(kwargs['massUnit'])
 
             kwargs['targetMass'] = None
-            if( not( self.isThermalNeutronScatteringLaw( ) ) ) :
+            if not self.isThermalNeutronScatteringLaw():
                 target = self.PoPs[self.target]
-                kwargs['isInfiniteTargetMass'] = isinstance( target, chemicalElementPoPsModule.ChemicalElement )
-                if( not( isinstance( target, chemicalElementPoPsModule.ChemicalElement ) ) ) :
-                    if( target.id in self.PoPs.aliases ) : target = self.PoPs[target.pid]
-                    kwargs['targetMass'] = target.getMass( kwargs['massUnit'] )
+                kwargs['isInfiniteTargetMass'] = isinstance(target, chemicalElementPoPsModule.ChemicalElement)
+                if not isinstance(target, chemicalElementPoPsModule.ChemicalElement):
+                    if target.id in self.PoPs.aliases: target = self.PoPs[target.pid]
+                    kwargs['targetMass'] = target.getMass(kwargs['massUnit'])
                 kwargs['target'] = target
-                kwargs['targetZA'] = chemicalElementMiscPoPsModule.ZA( target )
+                kwargs['targetZA'] = chemicalElementMiscPoPsModule.ZA(target)
 
             kwargs['masses'] = { 'Projectile'   : kwargs['projectileMass'],
                                  'Product'      : None,
@@ -1529,45 +1551,46 @@ class ReactionSuite(ancestryModule.AncestryIO):
             kwargs['zeroPerTNSL'] = self.isThermalNeutronScatteringLaw( )
             projectileEnergyDomain = style.projectileEnergyDomain
             transportable = style.transportables[self.projectile]
-            for index, boundary in enumerate( transportable.group.boundaries.values ) :
-                if( boundary > projectileEnergyDomain.max ) : break
+            for index, boundary in enumerate(transportable.group.boundaries.values):
+                if boundary > projectileEnergyDomain.max: break
                 kwargs['maximumProjectileGroupIndex'] = index
 
-            if( workDir is None ) : workDir = 'Merced.work'
+            if workDir is None: workDir = 'Merced.work'
             kwargs['workDir'] = workDir
             kwargs['workFile'] = []
 
-            style.processMultiGroup( style, kwargs, indent + incrementalIndent )
-            kwargs['groupedFlux'] = [ x for x in style.multiGroupFlux.array.constructArray( )[:,0] ]
+            indent2 = indent + incrementalIndent
+            style.processMultiGroup(style, kwargs, indent2)
+            kwargs['groupedFlux'] = [x for x in style.multiGroupFlux.array.constructArray()[:,0]]
 
-# BRB FIXME, must have test to determine if reconstructResonances is needed.
-#        self.reconstructResonances( styleName = 'reconstructed', 1e-3, verbose = False )
             for i1, reaction in enumerate( self.reactions ) :
                 kwargs['reactionIndex'] = "%.4d" % i1
-                reaction.processMultiGroup( style, kwargs, indent + incrementalIndent )
+                reaction.processMultiGroup( style, kwargs, indent2 )
             for i1, reaction in enumerate( self.orphanProducts ) :
                 kwargs['reactionIndex'] = "o%.4d" % i1
-                reaction.processMultiGroup( style, kwargs, indent + incrementalIndent )
+                reaction.processMultiGroup( style, kwargs, indent2 )
             for i1, reaction in enumerate( self.productions ) :
                 kwargs['reactionIndex'] = "p%.4d" % i1
-                reaction.processMultiGroup( style, kwargs, indent + incrementalIndent )
+                reaction.processMultiGroup( style, kwargs, indent2 )
             for i1, reaction in enumerate( self.sums.crossSectionSums ) :
                 kwargs['reactionIndex'] = "s%.4d" % i1
-                reaction.processMultiGroup( style, kwargs, indent + incrementalIndent )
+                reaction.processMultiGroup( style, kwargs, indent2 )
             for i1, reaction in enumerate( self.fissionComponents ) :
                 kwargs['reactionIndex'] = "f%.4d" % i1
-                reaction.processMultiGroup( style, kwargs, indent + incrementalIndent )
+                reaction.processMultiGroup( style, kwargs, indent2 )
             for i1, reaction in enumerate( additionalReactions ) :
                 kwargs['reactionIndex'] = "a%.4d" % i1
-                reaction.processMultiGroup( style, kwargs, indent + incrementalIndent )
+                reaction.processMultiGroup( style, kwargs, indent2 )
 
             if institutionModule.photoAtomicIncoherentDoppler in self.applicationData:
                 reactions = self.applicationData[institutionModule.photoAtomicIncoherentDoppler][0]
                 for reaction in reactions:
-                    reaction.processMultiGroup(style, kwargs, indent + incrementalIndent)
+                    reaction.processMultiGroup(style, kwargs, indent2)
 
-        if logFile is not None: logFile.write( '    ' + str( t0 ) + '\n' )
-        if( kwargs['failures'] > 0 ) : raise ValueError( "kwargs['failures'] = %d  > 0" % kwargs['failures'] )
+        if logFile is not None:
+            logFile.write( '    ' + str( t0 ) + '\n' )
+        if kwargs['failures'] > 0:
+            raise ValueError( "kwargs['failures'] = %d  > 0" % kwargs['failures'] )
 
     def multiGroupVector(self, childSuite, multiGroupVectorMethod, multiGroupSettings, temperatureInfo, **kwargs):
         r"""
@@ -1868,6 +1891,106 @@ class ReactionSuite(ancestryModule.AncestryIO):
         from .processing.deterministic import addMultiGroupSums as addMultiGroupSumsModule
 
         addMultiGroupSumsModule.addMultiGroupSums(self, replace=replace)
+
+    def fissionNeutrons(self):
+        """
+        This method returns the fission neutron data for all reactions that fission. The returned object is a list
+        with one element in the list for each reaction that fissions. Currently, all fissionable protares have only one 
+        fission reaction, hence for these protares the length of the returned list will be 1.
+        Each element of the returned list is a list length 4. The 4 elements of this inner list are:
+            a list of prompt neutron produces of class Product, 
+            a list of delayed neutron produces of class Product,
+            a list of mutiplicity sums for the prompt neutrons of class MultiplicitySum and
+            a list of mutiplicity sums for the delayed neutrons of class MultiplicitySum.
+
+        Currently, all fissionable protares have at most one element for the first, third and fourth inner list.
+        This method does not calculate the MultiplicitySum; but instead, returns what is in the sums/multiplicitySum
+        node.
+        """
+
+        def getSums(products):
+            """
+            For internal use only. This function returns a list of total multiplicities for the list of products.
+
+            :param products:    The list of products.
+
+            :returns:           A python list.
+            """
+
+            sums = []
+            for summand0, multiplicitySum in multiplicitySums:
+                for product in products:
+                    if summand0.link == product.multiplicity:
+                        sums.append(multiplicitySum)
+                        break
+
+            return sums
+
+        multiplicitySums = []
+        for multiplicitySum in self.sums.multiplicitySums:
+            if len(multiplicitySum.summands.summands) > 0:
+                multiplicitySums.append([multiplicitySum.summands.summands[0], multiplicitySum])
+
+        reactions = []
+        for reaction in self.reactions:
+            if reaction.isFission():
+                prompts = reaction.outputChannel.getProductsWithName('n', delayedNeutrons=False)
+                delayeds = list(reaction.outputChannel.fissionFragmentData.iterateProducts())
+                totals = getSums(prompts)
+                delayedTotals = getSums(delayeds)
+
+                reactions.append([prompts, delayeds, totals, delayedTotals])
+
+        return reactions
+
+    def fissionNeutronMultiplicities(self, asXYs1d=False, asLinLin=True, accuracy=1e-4, lowerEps=1e-6, upperEps=1e-6, biSectionMax=16):
+        """
+        This method calls the method *fissionNeutrons* and returns the evaluated mulitplicity data for each inner most element 
+        returned from *fissionNeutrons*. If a multiplity suite is empty, a **None** is entered as its value.
+        If **asXYs1d** is **True** and a multiplicity is an instance of *Unspecified*, that instance is left as an *Unspecified* instance.
+        All other arguments are only used if **asXYs1d** is **True**.
+
+        :param asXYs1d:         If **True**, each multiplicty is returned as a XYx1d instance.
+        :param asLinLin:        See arguments for multiplicityModule.XYs1d.asXYs1d.
+        :param accuracy:        See arguments for multiplicityModule.XYs1d.asXYs1d.
+        :param lowerEps:        See arguments for multiplicityModule.XYs1d.asXYs1d.
+        :param upperEps:        See arguments for multiplicityModule.XYs1d.asXYs1d.
+        :param upperEps:        See arguments for multiplicityModule.XYs1d.asXYs1d.
+        :param biSectionMax:    See arguments for multiplicityModule.XYs1d.asXYs1d.
+        """
+
+        def getMultiplicities(_list):
+            """
+            For internal use only. This memthod gets the for multiplicity from each element of **_list** and returns them as a list.
+
+            :param _list:   The list of objects that contain a multiplicity suite.
+
+            :returns:       A python list.
+            """
+
+            multiplicities = []
+            for element in _list:
+                multiplicity = None
+                multiplicitySuite = element.multiplicity
+                if len(multiplicitySuite) != 0:
+                    multiplicity = multiplicitySuite[0]
+                    if asXYs1d:
+                        if not isinstance(multiplicity, (multiplicityModule.XYs1d, multiplicityModule.Unspecified)):
+                            multiplicity = multiplicity.asXYs1d(asLinLin=asLinLin, accuracy=accuracy, lowerEps=lowerEps, upperEps=upperEps, biSectionMax=biSectionMax)
+                multiplicities.append(multiplicity)
+
+            return multiplicities
+
+        reactions = []
+        _reactions = self.fissionNeutrons()
+        for _prompts, _delayeds, _totals, _delayedTotals in _reactions:
+            prompts = getMultiplicities(_prompts)
+            delayeds = getMultiplicities(_delayeds)
+            totals = getMultiplicities(_totals)
+            delayedTotals = getMultiplicities(_delayedTotals)
+            reactions.append([prompts, delayeds, totals, delayedTotals])
+
+        return reactions
 
     def processSnElasticUpScatter(self, style, legendreMax, verbosity = 0, indent = '',
                                   incrementalIndent = '  ', logFile = None, workDir = None,

@@ -73,10 +73,6 @@ class ShortRangeSelfScalingVariance(ancestryModule.AncestryIO, base.Covariance):
         return self.matrix.axes[-1].unit
 
     @property
-    def isSymmetric(self):
-        return True
-
-    @property
     def type(self):
         return self.__type
 
@@ -99,6 +95,9 @@ class ShortRangeSelfScalingVariance(ancestryModule.AncestryIO, base.Covariance):
     @property
     def gridded2d(self):
         return self.matrix  # convenience method
+
+    def isSymmetric(self):
+        return True
 
     def check(self, info):
         """

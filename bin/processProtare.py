@@ -34,6 +34,8 @@ from fudge import physicalQuantity as physicalQuantityModule
 from fudge import styles as stylesModule
 from fudge import institution as institutionModule
 
+from fudge import reactionSuite as reactionSuiteModule
+from fudge.reactionData import crossSection as crossSectionModule
 from fudge.productData import averageProductEnergy as averageProductEnergyModule
 
 from fudge.processing import flux as fluxModule
@@ -142,6 +144,8 @@ def make_parser():
 
     parser.add_argument('--preProcessLabel', type = str, default = None,                                   help = 'Label for style to process. If None, proc will pick the latest from the evaluated, and Realization styles.')
 
+    parser.add_argument('--templateProcessedFile', type = str, default = None,                             help = 'File containing original processed data. Transfer matrices for unmodified reactions will be copied from there. Meant for use with EMU.')
+
     parser.add_argument('--prefixRecon', type = str, default = RCprefixDefault,                            help = 'Prefix for Resonance Reconstruction styles. Default is "%s".' % RCprefixDefault)
     parser.add_argument('--prefixMuCutoff', type = str, default = muCutoffPrefixDefault,                   help = 'Prefix for Coulomb + nuclear elastic scattering mu cutoff style. Default is "%s".' % muCutoffPrefixDefault)
     parser.add_argument('--prefixAEP', type = str, default = AEPprefixDefault,                             help = 'Prefix for Average Energy to Product styles. Default is "%s".' % AEPprefixDefault)
@@ -149,6 +153,7 @@ def make_parser():
     parser.add_argument('--prefixMultiGroup', type = str, default = MGprefixDefault,                       help = 'Prefix for MultiGroup styles. Default is "%s".' % MGprefixDefault)
     parser.add_argument('--prefixMonteCarlo', type = str, default = MCprefixDefault,                       help = 'Prefix for MonteCarlo styles. Default is "%s".' % MCprefixDefault)
     parser.add_argument('--prefixUpScatter', type = str, default = UPprefixDefault,                        help = 'Prefix for UpScatter styles. Default is "%s".' % UPprefixDefault)
+    parser.add_argument('--baseTemperatureIndex', type = int, default = 0,                                 help = 'Index for lowest processed temperature. Default is 0')
 
     return parser, singleProtareArguments
 
@@ -223,7 +228,8 @@ def main():
     args.temperatures.sort()
 
     if args.cullProcessedData:
-        reactionSuite.cullProcessedData(include_reconstructed_data=True)
+        include_reconstructed_data = len(reactionSuite.styles.getTempStyleNameOfClass(stylesModule.Realization)) == 0
+        reactionSuite.cullProcessedData(include_reconstructed_data=include_reconstructed_data)
 
     preProcessedStyles = reactionSuite.styles.preProcessingStyles(include_reconstructed=True)
 
@@ -251,6 +257,34 @@ def main():
         preLoopStyle = reactionSuite.styles[args.preProcessLabel]
     except:
         raise Exception('Cannot find the requested processing label "%s"!' % (args.preProcessLabel))
+
+    partialReprocessingOptions = None
+    if args.MultiGroup and args.templateProcessedFile is not None:
+        assert args.preProcessLabel in reactionSuite.styles, "Specified --preProcessLabel is not a valid style label."
+
+        processedFile = reactionSuiteModule.read(args.templateProcessedFile)
+        temperatureList = set([temp.temperature for temp in processedFile.styles.temperatures()])
+        if not temperatureList.issuperset(args.temperatures):
+            print("Error: template processed file does not contain all requested temperatures!")
+            print("  Missing from original processed file:", sorted(set(args.temperatures) - temperatureList))
+            raise ValueError("Halting due to inconsistent temperatures")
+
+        # are transportables, group boundaries and flux consistent with template file?
+        mgStyles = processedFile.styles.getStylesOfClass(stylesModule.HeatedMultiGroup)
+        if mgStyles:
+            transportables2 = mgStyles[0].transportables
+
+            for t1 in transportables:
+                t2 = transportables2[t1.particle]
+                assert t1.conserve == t2.conserve, f"Transportable {t1.particle} conserve flag mismatch"
+                assert t1.group.label == t2.group.label, f"Transportable {t1.particle} group mismatch"
+
+        assert flux.label == mgStyles[0].flux.label, "Flux mismatch"
+
+        partialReprocessingOptions = {
+            'preprocessingStyleLabel': args.preProcessLabel,
+            'processedDataSource': processedFile,
+        }
 
     logFile.write('Pre resonance reconstruction style label "%s".\n' % preLoopStyle.label)
     if reactionSuite.supportsResonanceReconstruction():            # Reconstruct resonances. FIXME: add logic for choice of reconstruction type (reconstructed angular vs. crossSection).
@@ -302,7 +336,7 @@ def main():
         if args.verbose > 0:
             print('Processing for temperature %s %s (%s of %s)' % (temperatureValue, args.temperatureUnit, temperatureIndex + 1, len(args.temperatures)))
 
-        suffix = '_%03d' % temperatureIndex
+        suffix = '_%03d' % (temperatureIndex + args.baseTemperatureIndex)
 
         temperature = physicalQuantityModule.Temperature(temperatureValue, args.temperatureUnit)
         logFile.write('Heating to %s\n' % temperature)
@@ -373,7 +407,8 @@ def main():
                 workDir.mkdir(parents=True)
 
             reactionSuite.processMultiGroup(heatedMultiGroupStyle, args.legendreMax, verbosity=args.verbose - 2, logFile=logFile, indent='    ',
-                additionalReactions=additionalReactions, workDir=str(workDir), restart=args.restart)
+                additionalReactions=additionalReactions, workDir=str(workDir), restart=args.restart,
+                partialReprocessingOptions=partialReprocessingOptions)
 
             if not args.skipMercedTar:
                 with tarfile.open(str(workDirTarFile), 'w:gz') as tar:

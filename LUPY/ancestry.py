@@ -433,7 +433,9 @@ class Ancestry(abc.ABC):
             raise TypeError('self is not a derived fom class cls2')
 
         print(type(self))
-        for cls in inspect.getmro(self.__class__):
+        for index, cls in enumerate(inspect.getmro(self.__class__)):
+            if index == 0:
+                continue
             print('  %s' % cls)
 
         members = []
@@ -446,9 +448,11 @@ class Ancestry(abc.ABC):
             members.append(item)
 
         width = max(1, width)
-        fmt = '%%-%ds' % max(map(len, members))
+        if len(members) > 0:
+            fmt = '%%-%ds' % max(map(len, members))
         counter = 0
         sep = '   '
+        print()
         for member in members:
             print(sep, fmt % member, end='')
             sep = ''

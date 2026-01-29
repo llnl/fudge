@@ -82,7 +82,7 @@ class SummedCovariance(ancestryModule.AncestryIO, base.Covariance):
     def isSymmetric(self):
 
         for summand in self.summands:
-            if not summand.link.isSymmetric(): return False
+            if summand.link.findAttributeInAncestry('crossTerm'): return False
         return True
 
     def check(self, info):
@@ -200,6 +200,7 @@ class SummedCovariance(ancestryModule.AncestryIO, base.Covariance):
         commonRowAxis = firstCovMtx.matrix.axes[2].copy()
         if isinstance(firstCovMtx.matrix.axes[1].values, linkModule.Link):
             commonColAxis = firstCovMtx.matrix.axes[2].copy()
+            commonColAxis.label = commonRowAxis.label.replace('row', 'column')
         else:
             commonColAxis = firstCovMtx.matrix.axes[1].copy()
         commonMatrixAxis = firstCovMtx.matrix.axes[0].copy()

@@ -360,7 +360,7 @@ class EvaluationDomainMinTooHigh(Warning):
 
 class BadScatteringRadius(Warning):
 
-    def __init__(self, factor=3.0, gotAP=None, expectedAP=None, L=None, E=None, obj=None):
+    def __init__(self, factor, gotAP, expectedAP, L=None, E=None, obj=None):
 
         level = Level.Moderate
         if factor >= 10:

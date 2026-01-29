@@ -25,10 +25,10 @@ def parse( utfil ):
 
             if line.startswith('Cross section'):
                 npoints = int(line.split()[-1])
-                fin.next()  # interpolation line
+                next(fin)  # interpolation line
 
                 for idx in range(npoints):
-                    xsc.append( list(map(float, fin.next().split())) )
+                    xsc.append( list(map(float, next(fin).split())) )
 
         for i in range(4): next(fin)
         for line in fin:

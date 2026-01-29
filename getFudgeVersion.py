@@ -27,7 +27,7 @@ def runShellCommand(_shellCommand, returnSTDOUT=False):
 
 def defaultVersionNumber():
     if not os.path.isfile(versionOutputFile):
-        output = ['FUDGE_MAJORVERSION = 6', 'FUDGE_MINORVERSION = 11', 'FUDGE_RELEASECANDIDATE = \'\'', 'FUDGE_POSTRELEASE = \'\'', 'FUDGE_REPOIDENTIFIER = \'\'', "", "__version__ = '6.11.0'"]
+        output = ['FUDGE_MAJORVERSION = 6', 'FUDGE_MINORVERSION = 12', 'FUDGE_RELEASECANDIDATE = \'\'', 'FUDGE_POSTRELEASE = \'\'', 'FUDGE_REPOIDENTIFIER = \'\'', "", "__version__ = '6.12.0'"]
 
         with open(versionOutputFile, 'w') as fileObject:
             fileObject.write('\n'.join(output))

@@ -26,7 +26,7 @@ def toENDF6(self, flags, targetInfo, verbosityIndent=''):
     """
 
     endf = []
-    AP = self.getScatteringRadius()
+    AP = self.hardSphereRadius or self.getScatteringRadius()
     if AP.isEnergyDependent():
         scatRadius = AP.evaluated
         NR, NP = 1, len(scatRadius)

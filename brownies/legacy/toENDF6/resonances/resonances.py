@@ -66,6 +66,7 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
     LFW = int(unresolvedCount != 0 and reactionSuite.hasFission())
     if unresolvedCount != 0:
         LRFurr = 2  # default = all widths energy-dependent
+        NAPSurr = 0 # default = calculate channel radius
         LRF_LFW = targetInfo['ENDFconversionFlags'].get(self.unresolved.evaluated)
         if LRF_LFW is not None:
             for flag in LRF_LFW.split(','):
@@ -73,6 +74,8 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
                     LRFurr = int(flag.replace('LRF', ''))
                 elif 'LFW' in flag:
                     LFW = int(flag.replace('LFW', ''))
+                elif 'NAPS' in flag:
+                    NAPSurr = int(flag.replace('NAPS=', ''))
                 else:
                     raise Exception("Unrecognized ENDF conversion flag %s for unresolved region" % flag)
     NER = resolvedCount + unresolvedCount
@@ -95,10 +98,13 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
                 LRF = 3
                 targetInfo['LRF7_as_LRF3'] = True
         EL, EH = region.domainMin, region.domainMax
-        if LRF in (3, 7):
-            NRO = 0
-        else:
-            NRO = region.evaluated.getScatteringRadius().isEnergyDependent()
+        NRO = 0
+        if LRF in (1, 2):
+            # NRO=1 should mean energy-dependent hardSphereRadius, but GNDS-2.1 and earlier
+            # incorrectly made the scatteringRadius energy-dependent instead
+            for radius in (region.evaluated.hardSphereRadius, region.evaluated.scatteringRadius):
+                if radius and radius.isEnergyDependent():
+                    NRO = 1
         NAPS = not region.evaluated.calculateChannelRadius
         if LRF == 7:
             NAPS = 1    # never compute radii for LRF=7
@@ -108,8 +114,9 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
         LRU = 2  # unresolved
         region = self.unresolved
         EL, EH = region.domainMin, region.domainMax
-        NRO, NAPS = 0, 0
-        if region.evaluated.getScatteringRadius().isEnergyDependent(): NRO = 1
+        NRO = 0
+        if region.evaluated.getHardSphereRadius().isEnergyDependent(): NRO = 1
+        NAPS = NAPSurr or not region.evaluated.calculateChannelRadius
         endf.append(endfFormatsModule.endfHeadLine(EL, EH, LRU, LRFurr, NRO, NAPS))
         # pass LFW/LRF so we don't have to calculate twice:
         targetInfo['unresolved_LFW'] = LFW

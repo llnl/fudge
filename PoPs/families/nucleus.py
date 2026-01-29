@@ -13,11 +13,16 @@ For the compound particle formed of a nucleus + electrons, see the `nuclide` mod
 
 from .. import misc as miscModule
 
+from .. import IDs as IDsModule
+
+
 from ..chemicalElements import misc as chemicalElementMiscModule
 
 from ..quantities import nuclearEnergyLevel as nuclearEnergyLevelModule
 
 from . import particle as particleModule
+
+from pqu import PQU as PQUModule
 
 class Particle( particleModule.Particle ) :
 
@@ -109,9 +114,15 @@ class Particle( particleModule.Particle ) :
         :return: mass (float)
         """
 
-# FIXME Still need to correct for electron masses and binding energy.
-        if len(self.mass) > 0: return self.mass[0].float(unit)
-        return self.nuclide.getMass(unit)
+# Correction for electron mass and atomic binding energy according to Eq. (2) of AME2003 presented in Nuclear Physics A 729 (2003) 337–676.
+        if len(self.mass) > 0:
+            return self.mass[0].float(unit)
+        else:
+            nuclideMass = PQUModule.PQU(self.nuclide.getMass(unit), unit)
+            Zme = PQUModule.PQU(self.Z, 'me')
+            AtomicBindingEnergy = PQUModule.PQU( 14.4381 * pow(self.Z, 2.39) + 1.55468e-6 * pow(self.Z, 5.35), 'eV/c**2')
+            nuclearMass = nuclideMass - Zme + AtomicBindingEnergy
+            return nuclearMass.getValueAs(unit)
 
     def intid(self, intidDB={}):
         '''

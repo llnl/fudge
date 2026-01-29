@@ -4,4 +4,4 @@ FUDGE_RELEASECANDIDATE = ''
 FUDGE_POSTRELEASE = ''
 FUDGE_REPOIDENTIFIER = ''
 
-__version__ = '6.11.0'
+__version__ = '6.12.0'

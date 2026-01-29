@@ -100,7 +100,7 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
     Translate resolved resonance covariance back to ENDF-6
     """
 
-    def swaprows(matrix, i1, i2, nrows):
+    def swap_rows(matrix, i1, i2, nrows):
         # may need to rearrange parameters: ENDF often sorts first by L rather than by energy
         rows = matrix[i1:i1+nrows].copy()
         matrix[i1:i1+nrows] = matrix[i2:i2+nrows]
@@ -176,7 +176,7 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
             for row in RPs.data:
                 parameters += row
             matrix *= numpy.outer(parameters, parameters)
-            matrix[matrix == numpy.NZERO] = 0
+            matrix[matrix == -0.0] = 0
 
         # toss out extra rows/columns of zeros (for column 'L')
         MPAR2 = len(matrix) // len(table)
@@ -199,7 +199,7 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
             for i in range(len(elist1)):
                 i2 = elist2.index(elist1[i])
                 if i2 != i:
-                    swaprows(matrix, MPAR*i, MPAR*elist2.index(elist1[i]), MPAR)
+                    swap_rows(matrix, MPAR*i, MPAR*elist2.index(elist1[i]), MPAR)
                     val = elist2[i]
                     elist2[i] = elist2[i2]
                     elist2[i2] = val
@@ -334,7 +334,7 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
                 for row in parameterLink.link.data:
                     parameters += row
             matrix *= numpy.outer(parameters, parameters)
-            matrix[matrix == numpy.NZERO] = 0
+            matrix[matrix == -0.0] = 0
 
         MPAR = len(matrix) // NRes
 
@@ -347,13 +347,13 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
         for i in range(len(elist1)):
             i2 = elist2.index(elist1[i])
             if i2 != i:
-                swaprows(matrix, MPAR*i, MPAR*elist2.index(elist1[i]), MPAR)
+                swap_rows(matrix, MPAR*i, MPAR*elist2.index(elist1[i]), MPAR)
                 val = elist2[i]
                 elist2[i] = elist2[i2]
                 elist2[i2] = val
 
         for i1 in range(len(elist1)):   # switch order of elastic and capture widths
-            swaprows(matrix, MPAR * i1 + 1, MPAR * i1 + 2, 1)
+            swap_rows(matrix, MPAR * i1 + 1, MPAR * i1 + 2, 1)
 
         omitRow = numpy.sum(matrix, axis=1) == 0
 
@@ -447,12 +447,21 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
             endf.append(endfFormatsModule.endfContLine(0, 0, 0, LCOMP, 0, ISR))
             endf.append(endfFormatsModule.endfContLine(AWRI, 0, 0, 0, NSRS, NLRS))
             endf.append(endfFormatsModule.endfContLine(0, 0, NJSX, 0, 0, 0))
+            # Skip writing resonances that have no parameter uncertainties
+            keepRows = numpy.zeros(len(matrix), dtype=bool)
             for spingrp in RML.spinGroups:
+                plink, = [p for p in self.parameters if p.link.findClassInAncestry(type(spingrp)) is spingrp]
+                nonzero = numpy.any(matrix[plink.matrixStartIndex : plink.matrixStartIndex + plink.nParameters], axis=1)
+                includeResonance = nonzero.reshape(plink.link.nRows, plink.link.nColumns).any(axis=1)
+                for idx, keepval in enumerate(includeResonance):
+                    start = plink.matrixStartIndex + idx*plink.link.nColumns
+                    keepRows[start:start+plink.link.nColumns] = keepval
                 NCH = len(spingrp.channels)
-                NRB = len(spingrp.resonanceParameters.table)
+                NRB = includeResonance.sum()
                 NX = (NCH // 6 + 1) * NRB
                 endf.append(endfFormatsModule.endfContLine(0, 0, NCH, NRB, 6*NX, NX))
-                for res in spingrp.resonanceParameters.table:
+                for res, include in zip(spingrp.resonanceParameters.table, includeResonance):
+                    if not include: continue
                     for jidx in range(NCH // 6 + 1):
                         endfLine = res[jidx * 6:jidx * 6 + 6]
                         while len(endfLine) < 6: endfLine.append(0)
@@ -462,6 +471,7 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
                 NPARB += NRB * (NCH+1)
 
             # matrix header
+            matrix = matrix[keepRows][:,keepRows]
             N = (NPARB * (NPARB + 1)) // 2
             endf.append(endfFormatsModule.endfContLine(0, 0, 0, 0, N, NPARB))
             dataList = []

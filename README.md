@@ -50,7 +50,7 @@ Optional packages matplotlib and PyQT5 are also recommended to support plotting.
       Or,
 
           # Install a tagged release:
-          pip install git+https://github.com/LLNL/fudge.git@6.11.0
+          pip install git+https://github.com/LLNL/fudge.git@6.12.0
 
 
 - Installation by cloning the git repository and building with the unix `make` command: 

@@ -3740,6 +3740,13 @@ static void pointwiseXY_C_SetPyErrorExceptionFromSMR( PyObject *type, statusMess
 
     if( smr_isOk( smr ) ) return;               /* This and the next line are probably the same. But will check anyway. */
     if( PyErr_Occurred() == NULL ) {            /* Do not set if exception if on is already set. */
+        for(statusMessageReport const *report = smr_firstReport( smr ); report != NULL; report = smr_nextReport(report) ) {
+            if( report->code == nfu_divByZero ) {
+                PyErr_SetString( PyExc_ZeroDivisionError, "division by zero" );
+                smr_release( smr );
+                return;
+            }
+        }
         PyErr_SetString( type, smr_getMessage( smr_firstReport( smr ) ) );
     }
     smr_release( smr );

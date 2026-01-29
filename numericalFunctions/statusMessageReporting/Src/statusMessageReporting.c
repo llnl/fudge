@@ -210,13 +210,13 @@ static int smr_setReport( statusMessageReporting *smr, void *userInterface, char
     if( smr == NULL ) return( 0 );
     if( (int) status < (int) smr->verbosity ) return( 0 );
     if( status == smr_status_Ok ) return( 0 );
-	if( smr->report.status == smr_status_Ok ) {
-		report = &smr->report; }
-	else {
-    	if( ( report = smr_reportNew( ) ) == NULL ) return( smr_setAllocationFailure( NULL, file, line, function, fmt, args ) );
-    	for( next = smr_firstReport2( smr ); next->next != NULL; next = next->next );
-    	next->next = report;
-	}
+    if( smr->report.status == smr_status_Ok ) {
+        report = &smr->report; }
+    else {
+        if( ( report = smr_reportNew( ) ) == NULL ) return( smr_setAllocationFailure( NULL, file, line, function, fmt, args ) );
+        for( next = smr_firstReport2( smr ); next->next != NULL; next = next->next );
+        next->next = report;
+    }
     report->status = status;
     if( ( libraryID < 0 ) || ( libraryID >= numberOfRegisteredLibraries ) ) libraryID = smr_invalidID;
     report->libraryID = libraryID;
@@ -674,7 +674,7 @@ char *smr_allocateCopyString( statusMessageReporting *smr, char const *s, char c
     char *c = strdup( s );
 
     if( c == NULL ) smr_setReportError( smr, NULL, file, line, function, smr_smrID, smr_codeMemoryAllocating, " smr_allocateCopyString: strdup failed for strlen( s ) = %z for variable %s",
-    		strlen( s ), forItem );
+            strlen( s ), forItem );
     return( c );
 }
 /*

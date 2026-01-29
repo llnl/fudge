@@ -77,11 +77,12 @@ class Isotope( miscModule.ClassWithSymbolKey ) :
         baseID, chemicalElementSymbol, A, levelID, isNucleus, anti, qualifier = chemicalElementMiscModule.chemicalElementALevelIDsAndAnti( key )
         if( None in [ chemicalElementSymbol, A, levelID ] ) : raise KeyError( 'key "%s" not found' % key )
         isotopeSymbol = chemicalElementMiscModule.isotopeSymbolFromChemicalElementIDAndA( chemicalElementSymbol, A )
-        nuclideID = chemicalElementMiscModule.nuclideIDFromIsotopeSymbolAndIndex( isotopeSymbol, levelID )
+        nuclideID = chemicalElementMiscModule.nuclideIDFromIsotopeSymbolAndIndex( isotopeSymbol, levelID ) + anti
         if( nuclideID in self.__nuclides ) :
             nuclide = self.__nuclides[nuclideID]
             if( not( isNucleus ) ) : return( nuclide )
             if( nuclide.nucleus is not None ) : return( nuclide.nucleus )
+
         raise KeyError( 'key "%s" not found' % key )
 
     def __iter__( self ) :

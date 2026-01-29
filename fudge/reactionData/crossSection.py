@@ -1029,11 +1029,11 @@ class Component(abstractClassesModule.Component):
         lower = PQUModule.PQU(self.domainMin, self.domainUnit)
         upper = PQUModule.PQU(self.domainMax, self.domainUnit)
 # BRB6 hardwired
-        thresh = PQUModule.PQU(0, 'eV')
+        thresh = PQUModule.PQU(0, self.domainUnit)
         # FIXME skipping Q-value vs. threshold check for continuum channels (e.g. MT=91) since GNDS only stores final Q
         if 'Q' in info and not info['ContinuumOutputChannel']:
             thresh = -info['Q'] * info['kinematicFactor']
-            if not isinstance(info['Q'], PQUModule.PQU): thresh = PQUModule.PQU(thresh, 'eV')
+            if not isinstance(info['Q'], PQUModule.PQU): thresh = PQUModule.PQU(thresh, self.domainUnit)
 
             if not info['CoulombChannel']:
                 # if Q is positive, cross-section must start at info['crossSectionEnergyMin'] (usually 1e-5 eV)

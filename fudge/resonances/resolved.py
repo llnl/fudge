@@ -18,6 +18,7 @@ from xData.Documentation import documentation as documentationModule
 from PoPs import database as PoPsDatabaseModule
 
 from fudge import abstractClasses as abstractClassesModule, suites as suitesModule
+from fudge import GNDS_formatVersion as GNDS_formatVersionModule
 from fudge.resonances.resonances import Resonances
 from fudge.resonances import externalRMatrix as externalRMatrixModule
 from fudge.resonances.scatteringRadius import ScatteringRadius, HardSphereRadius
@@ -164,7 +165,7 @@ class BreitWigner(ancestryModule.AncestryIO):
         :param approximation: 'SingleLevel' or 'MultiLevel'
         :param resonanceParameters: optional ResonanceParameters instance
         :param scatteringRadius: optional ScatteringRadius instance
-        :param hardSphereRadius: optional hardSphereRadius instance
+        :param hardSphereRadius: optional HardSphereRadius instance
         :param PoPs: optional PoPs.Database instance
         :param kwargs: see _optionalAttributes
         """
@@ -244,7 +245,10 @@ class BreitWigner(ancestryModule.AncestryIO):
         return self.__hardSphereRadius
 
     def getHardSphereRadius(self):
-        """Return HardSphereRadius, looking up ancestry if necessary. If no HardSphereRadius is defined, return ScatteringRadius instead"""
+        """
+        Return HardSphereRadius, looking up ancestry if necessary.
+        If no HardSphereRadius is defined, return ScatteringRadius instead.
+        """
         if self.__hardSphereRadius is not None:
             return self.__hardSphereRadius
         else:
@@ -300,7 +304,13 @@ class BreitWigner(ancestryModule.AncestryIO):
         if self.__scatteringRadius is not None:
             xmlString += self.__scatteringRadius.toXML_strList(indent2, **kwargs)
         if self.__hardSphereRadius is not None:
-            xmlString += self.__hardSphereRadius.toXML_strList(indent2, **kwargs)
+            if self.__hardSphereRadius.isEnergyDependent() and kwargs.get(
+                    'formatVersion', GNDS_formatVersionModule.default) < GNDS_formatVersionModule.version_2_2:
+                # pretend it's a scattering radius for backwards compatibility
+                scatteringRadius = ScatteringRadius(self.__hardSphereRadius.evaluated)
+                xmlString += scatteringRadius.toXML_strList(indent2, **kwargs)
+            else:
+                xmlString += self.__hardSphereRadius.toXML_strList(indent2, **kwargs)
         if self.resonanceParameters:
             xmlString.extend(self.resonanceParameters.toXML_strList(indent2, **kwargs))
         xmlString[-1] += '</%s>' % self.moniker
@@ -321,7 +331,7 @@ class BreitWigner(ancestryModule.AncestryIO):
             radius = ScatteringRadius.parseNodeUsingClass(radius, xPath, linkData, **kwargs)
         hsradius = element.find(HardSphereRadius.moniker)
         if hsradius is not None:
-            hsradius = HardSphereRadius.parseNodeUsingClass(radius, xPath, linkData, **kwargs)
+            hsradius = HardSphereRadius.parseNodeUsingClass(hsradius, xPath, linkData, **kwargs)
         parameters = ResonanceParameters.parseNodeUsingClass(
                 element.find(ResonanceParameters.moniker), xPath, linkData, **kwargs)
         attrs = getAttrs(element, required=cls._requiredAttributes, optional=cls._optionalAttributes)
@@ -373,6 +383,7 @@ class RMatrix(ancestryModule.AncestryIO):
         ('calculatePenetrability', bool, True),
         ('useForSelfShieldingOnly', bool, False),
         ('supportsAngularReconstruction', bool, False),
+        ('LValuesNeededForAngularConvergence', int, None),  # not supported by GNDS-2.1
         ('relativisticKinematics', bool, False),  # not supported by GNDS-2.0
         ('reducedWidthAmplitudes', bool, False),  # not supported by GNDS-2.0
         ('calculateShift', bool, False),  # not supported by GNDS-2.0
@@ -498,6 +509,9 @@ class RMatrix(ancestryModule.AncestryIO):
         indent2 = indent + '  '
         xmlString = ['%s<%s label="%s" approximation="%s"' % (indent, self.moniker, self.label, self.approximation)]
         for attr, Type, default in self._optionalAttributes:
+            if attr == "LValuesNeededForAngularConvergence" and kwargs.get(
+                    'formatVersion', GNDS_formatVersionModule.default) < GNDS_formatVersionModule.version_2_2:
+                continue
             if attr in self._writeIfDefault or getattr(self, attr) != default:
                 attrVal = getattr(self, attr)
                 if Type is bool: attrVal = str(attrVal).lower()
@@ -515,8 +529,6 @@ class RMatrix(ancestryModule.AncestryIO):
 
     @classmethod
     def parseNodeUsingClass(cls, element, xPath, linkData, **kwargs):
-
-        from fudge import GNDS_formatVersion as GNDS_formatVersionModule
 
         xPath.append(element.tag)
 

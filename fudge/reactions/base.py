@@ -566,7 +566,7 @@ class Base_reaction(ancestryModule.AncestryIO):
 
         self.crossSection.processGriddedCrossSections( style, verbosity = verbosity, indent = indent, incrementalIndent = incrementalIndent, isPhotoAtomic = isPhotoAtomic )
 
-    def processMultiGroup( self, style, tempInfo, indent ) :
+    def processMultiGroup(self, style, tempInfo, indent):
         """ See documentation for reactionSuite.processMultiGroup. """
 
         from . import reaction as reactionModule
@@ -574,10 +574,20 @@ class Base_reaction(ancestryModule.AncestryIO):
         tempInfo['workFile'].append( 'r%s' % tempInfo['reactionIndex'] )
         tempInfo['transferMatrixComment'] = tempInfo['reactionSuite'].inputParticlesToReactionString( suffix = " --> " ) + self.toString( )
 
+        tempInfo['crossSectionModified'] = False
+        reprocessingOpts = tempInfo['partialReprocessingOptions']
+        if reprocessingOpts is not None:
+            reprocessingOpts['otherStyleLabel'], = [
+                s.heatedMultiGroup for s in reprocessingOpts['processedDataSource'].styles.temperatures()
+                if s.temperature == style.temperature.value]
+
+            if self in reprocessingOpts['crossSectionChanged']:
+                tempInfo['crossSectionModified'] = True
+
         indent2 = indent + tempInfo['incrementalIndent']
         verbosity = tempInfo['verbosity']
 
-        if( verbosity > 0 ) : print( '%s%s' % (indent, self.__outputChannel.toString( simpleString = True, MT = self.ENDF_MT ) ) )
+        if verbosity > 0: print('%s%s' % (indent, self.__outputChannel.toString(simpleString = True, MT = self.ENDF_MT)))
 
         tempInfo['reaction'] = self
         norm = tempInfo['groupedFlux']
@@ -585,25 +595,28 @@ class Base_reaction(ancestryModule.AncestryIO):
 
         crossSection = style.findFormMatchingDerivedStyle( self.crossSection )
 # BRB FIXME The next line is a kludge, see note on crossSection.resonancesWithBackground.processMultiGroup.
-        if( isinstance( crossSection, crossSectionModule.Reference ) ) :
+        if isinstance(crossSection, crossSectionModule.Reference):
             crossSection = crossSection.crossSection
-        if( isinstance( crossSection, crossSectionModule.ResonancesWithBackground ) ) :
+        if isinstance(crossSection, crossSectionModule.ResonancesWithBackground):
             crossSection = crossSection.ancestor['recon']
-        if( not( isinstance( crossSection, crossSectionModule.XYs1d ) ) ) :
+        if not isinstance(crossSection, crossSectionModule.XYs1d):
             crossSection = crossSection.toPointwise_withLinearXYs( accuracy = 1e-5, upperEps = 1e-8 )
         tempInfo['crossSection'] = crossSection
-        tempInfo['multiGroupCrossSection'] = self.crossSection.processMultiGroup( style, tempInfo, indent2 )
-        self.crossSection.remove( style.label )                             # Not normalized by tempInfo['groupedFlux'] so remove.
+        tempInfo['multiGroupCrossSection'] = self.crossSection.processMultiGroup(style, tempInfo, indent2)
+        self.crossSection.remove(style.label)                             # Not normalized by tempInfo['groupedFlux'] so remove.
 
         tempInfo['groupedFlux'] = norm
-        tempInfo['multiGroupCrossSectionNormed'] = self.crossSection.processMultiGroup( style, tempInfo, indent2 )     # Normalized by tempInfo['groupedFlux'].
+        tempInfo['multiGroupCrossSectionNormed'] = self.crossSection.processMultiGroup(style, tempInfo, indent2)     # Normalized by tempInfo['groupedFlux'].
 
-        if( isinstance( self, reactionModule.Reaction ) ) :
-            self.availableEnergy.processMultiGroup( style, tempInfo, indent2 )
-            self.availableMomentum.processMultiGroup( style, tempInfo, indent2 )
-        self.__outputChannel.processMultiGroup( style, tempInfo, indent2 )
+        if isinstance(self, reactionModule.Reaction):
+            self.availableEnergy.processMultiGroup(style, tempInfo, indent2)
+            self.availableMomentum.processMultiGroup(style, tempInfo, indent2)
+        self.__outputChannel.processMultiGroup(style, tempInfo, indent2)
 
+        if reprocessingOpts is not None:
+            del reprocessingOpts['otherStyleLabel']
         del tempInfo['workFile'][-1]
+        del tempInfo['crossSectionModified']
 
     def multiGroupCrossSection(self, multiGroupSettings, temperatureInfo):
         """

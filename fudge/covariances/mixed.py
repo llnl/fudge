@@ -223,19 +223,17 @@ class MixedForm(ancestryModule.AncestryIO, base.Covariance):
                 commonColAxis.values.values = add_values(commonColAxis.values, cc.matrix.axes[1].values)
 
         # Now sum up the components
-        commonMatrix = numpy.asmatrix(firstCovMtx.group((commonRowAxis.values.values, commonColAxis.values.values),
-                                                   (commonRowAxis.unit,
-                                                    commonColAxis.unit)).matrix.array.constructArray())
+        commonMatrix = firstCovMtx.group((commonRowAxis.values.values, commonColAxis.values.values),
+                (commonRowAxis.unit, commonColAxis.unit)).matrix.array.constructArray()
         for c in summands[1:]:
             cc = make_common_type(c)
-            commonMatrix += numpy.asmatrix(cc.group((commonRowAxis.values.values, commonColAxis.values.values),
-                                               (commonRowAxis.unit, commonColAxis.unit)).matrix.array.constructArray())
+            commonMatrix += cc.group((commonRowAxis.values.values, commonColAxis.values.values),
+                    (commonRowAxis.unit, commonColAxis.unit)).matrix.array.constructArray()
 
         # Now create the instance of the resulting CovarianceMatrix
-        if all([isinstance(component.toCovarianceMatrix().matrix.axes[1].values, linkModule.Link) for component in
-                summands]):
-            commonColAxis = summands[0].toCovarianceMatrix().matrix.axes[
-                1].copy()  # FIXME: unresolvedLinks are still unresolved!
+        if all([isinstance(component.toCovarianceMatrix().matrix.axes[1].values, linkModule.Link)
+                for component in summands]):
+            commonColAxis = summands[0].toCovarianceMatrix().matrix.axes[1].copy()  # FIXME: unresolvedLinks are still unresolved!
         newAxes = axesModule.Axes(
             labelsUnits={0: (commonMatrixAxis.label, commonMatrixAxis.unit),
                          1: (commonColAxis.label, commonColAxis.unit),
@@ -247,65 +245,16 @@ class MixedForm(ancestryModule.AncestryIO, base.Covariance):
                                      style=xDataEnumsModule.GridStyle.boundaries,
                                      values=linkModule.Link(link=commonRowAxis.values, relative=True))
         newAxes[0] = axesModule.Axis(commonMatrixAxis.label, commonMatrixAxis.index, commonMatrixAxis.unit)
-        trigdata = commonMatrix[numpy.tri(commonMatrix.shape[0]) == 1.0].tolist()[0]
-        gridded = griddedModule.Gridded2d(axes=newAxes, array=arrayModule.Full(shape=commonMatrix.shape,
-                                                                               data=trigdata,
-                                                                               symmetry=arrayModule.Symmetry.lower))
+        if self.isSymmetric():
+            trigdata = commonMatrix[numpy.tri(commonMatrix.shape[0], dtype=bool)].tolist()
+            newArray = arrayModule.Full(shape=commonMatrix.shape, data=trigdata, symmetry=arrayModule.Symmetry.lower)
+        else:
+            newArray = arrayModule.Full(shape=commonMatrix.shape, data=commonMatrix.flatten().tolist())
+
+        gridded = griddedModule.Gridded2d(axes=newAxes, array=newArray)
         newCov = CovarianceMatrix(label=label, type=commonType, matrix=gridded)
         newCov.setAncestor(self.ancestor)
         return newCov
-
-    '''
-    def toAbsolute( self, rowData=None, colData=None ):
-        """
-        Rescales self (if it is a relative covariance) using XYs1d rowData and colData
-        to convert self into an absolute covariance matrix.
-
-        :param rowData: an XYs1d instance containing data to rescale covariance in the "row direction"
-        :param colData: an XYs1d instance containing data to rescale covariance in the "col direction"
-
-        .. note::   If the column axis is set to 'mirrorOtherAxis', only rowData is needed.
-                    If neither rowData nor colData are specified, you'd better hope that the covariance is already
-                    absolute because this will throw an error.
-
-        :returns: a copy of self, but rescaled and with the type set to absolute
-        """
-        result = copy.copy( self )
-        result.components = []
-        for c in self.components:
-#            if isinstance( c, SummedCovariance ):
-                # If the covariance is summed, a call to toCovarianceMatrix() should add up
-                # the pointed-to covariances (if they are the same type (relative vs. absolute)),
-                # allowing us to do a toAbsolute() call with the correct row or column data
-                result.addComponent( c.toCovarianceMatrix().toAbsolute( rowData, colData ) )
-#            else: result.components.append( c.toAbsolute( rowData, colData ) )
-        return result
-
-    def toRelative( self, label="composed", rowData=None, colData=None ):
-        """
-        Rescales self (if it is a absolute covariance) using XYs1d rowData and colData
-        to convert self into a relative covariance matrix.
-
-        :param rowData: an XYs1d instance containing data to rescale covariance in the "row direction"
-        :param colData: an XYs1d instance containing data to rescale covariance in the "col direction"
-
-        .. note::   If the column axis is set to 'mirrorOtherAxis', only rowData is needed.
-                    If neither rowData nor colData are specified, you'd better hope that the covariance is already
-                    relative because this will throw an error.
-
-        :returns: a copy of self, but rescaled and with the type set to relative
-        """
-        result = copy.copy( self )
-        result.components = []
-        for c in self.components:
-#            if isinstance( c, SummedCovariance ): 
-                # If the covariance is summed, a call to toCovarianceMatrix() should add up
-                # the pointed-to covariances (if they are the same type (relative vs. absolute)),
-                # allowing us to do a toRelative() call with the correct row or column data
-                result.addComponent( c.toCovarianceMatrix().toRelative( rowData, colData ) )
-#            else: result.components.append( c.toRelative( rowData, colData ) )
-        return result
-    '''
 
     def toAbsolute(self, rowData=None, colData=None):
         """
@@ -322,7 +271,7 @@ class MixedForm(ancestryModule.AncestryIO, base.Covariance):
         if rowData is None:
             rowData = self.findAttributeInAncestry('rowData').link.toPointwise_withLinearXYs(lowerEps=1e-8)
         if colData is None and self.findAttributeInAncestry('columnData') is not None:
-            colData = self.findAttributeInAncestry('colData').link.toPointwise_withLinearXYs(lowerEps=1e-8)
+            colData = self.findAttributeInAncestry('columnData').link.toPointwise_withLinearXYs(lowerEps=1e-8)
         return self.toCovarianceMatrix().toAbsolute(rowData=rowData, colData=colData)
 
     def toRelative(self, rowData=None, colData=None):

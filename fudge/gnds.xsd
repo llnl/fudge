@@ -541,6 +541,7 @@
   <xs:complexType name="HardSphereRadiusType">
     <xs:choice>
       <xs:element name="constant1d" type="xData_constant1d"/>
+      <xs:element name="XYs1d" type="xData_XYs1d_primary"/>
     </xs:choice>
   </xs:complexType>
 
@@ -560,6 +561,7 @@
     <xs:sequence>
       <xs:element ref="PoPs" minOccurs="0"/>
       <xs:element name="scatteringRadius" type="ScatteringRadiusType" minOccurs="0"/>
+      <xs:element name="hardSphereRadius" type="HardSphereRadiusType" minOccurs="0"/>
       <xs:element name="resonanceParameters" type="ResonanceParametersType"/>
     </xs:sequence>
     <xs:attribute name="label" type="xs:string" use="required"/>
@@ -578,6 +580,7 @@
     <xs:attribute name="approximation" type="xs:NCName" use="required"/>
     <xs:attribute name="boundaryCondition" type="BoundaryConditionsEnum"/>
     <xs:attribute name="supportsAngularReconstruction" type="xs:boolean"/>
+    <xs:attribute name="LValuesNeededForAngularConvergence" type="xs:integer"/>
     <xs:attribute name="calculateChannelRadius" type="xs:boolean"/>
     <xs:attribute name="useForSelfShieldingOnly" type="xs:boolean"/>
     <xs:attribute name="reducedWidthAmplitudes" type="xs:boolean"/>
@@ -715,6 +718,7 @@
     </xs:sequence>
     <xs:attribute name="label" type="xs:string" use="required"/>
     <xs:attribute name="approximation" type="xs:string" use="required"/>
+    <xs:attribute name="calculateChannelRadius" type="xs:boolean"/>
     <xs:attribute name="useForSelfShieldingOnly" type="xs:boolean"/>
   </xs:complexType>
 

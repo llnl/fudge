@@ -22,6 +22,7 @@ from xData import constant as constantModule
 from xData.Documentation import documentation as documentationModule
 
 from fudge import suites as suitesModule, abstractClasses as abstractClassesModule
+from fudge import GNDS_formatVersion as GNDS_formatVersionModule
 
 from .common import EnergyIntervals, ResonanceReactions, floatOrint, getAttrs
 from .scatteringRadius import ScatteringRadius, HardSphereRadius
@@ -145,11 +146,12 @@ class TabulatedWidths(ancestryModule.AncestryIO):
         ('approximation', str),
     )
     _optionalAttributes = (
+        ('calculateChannelRadius', bool, False),
         ('useForSelfShieldingOnly', bool, False)
     )
 
     def __init__(self, label, approximation, resonanceReactions, Ls, scatteringRadius=None, hardSphereRadius=None,
-                 PoPs=None, useForSelfShieldingOnly=False):
+                 PoPs=None, calculateChannelRadius=False, useForSelfShieldingOnly=False):
         """
         Contains unresolved resonance parameters
 
@@ -160,6 +162,7 @@ class TabulatedWidths(ancestryModule.AncestryIO):
         :param scatteringRadius: optional scatteringRadius instance
         :param hardSphereRadius: optional hardSphereRadius instance (used for phase shift only)
         :param PoPs: optional PoPs Database
+        :param calculateChannelRadius: boolean
         :param useForSelfShieldingOnly: boolean
         """
 
@@ -172,6 +175,7 @@ class TabulatedWidths(ancestryModule.AncestryIO):
         self.hardSphereRadius = hardSphereRadius
         self.PoPs = PoPs
         self.Ls = Ls
+        self.calculateChannelRadius = calculateChannelRadius
         self.useForSelfShieldingOnly = useForSelfShieldingOnly
 
         self.__documentation = documentationModule.Documentation()
@@ -224,7 +228,10 @@ class TabulatedWidths(ancestryModule.AncestryIO):
         return self.__hardSphereRadius
 
     def getHardSphereRadius(self):
-        """Return HardSphereRadius, looking up ancestry if necessary. If no HardSphereRadius is defined, return ScatteringRadius instead"""
+        """
+        Return HardSphereRadius, looking up ancestry if necessary.
+        If no HardSphereRadius is defined, return ScatteringRadius instead.
+        """
         if self.__hardSphereRadius is not None:
             return self.__hardSphereRadius
         else:
@@ -287,6 +294,9 @@ class TabulatedWidths(ancestryModule.AncestryIO):
         indent2 = indent + kwargs.get('incrementalIndent', '  ')
 
         attrs = ' label="%s" approximation="%s"' % (self.label, self.approximation)
+        if kwargs.get('formatVersion', GNDS_formatVersionModule.default) >= GNDS_formatVersionModule.version_2_2:
+            # always write it out
+            attrs += ' calculateChannelRadius="%s"' % str(self.calculateChannelRadius).lower()
         if self.useForSelfShieldingOnly: attrs += ' useForSelfShieldingOnly="true"'
 
         xml = ['%s<%s%s>' % (indent, self.moniker, attrs)]
@@ -300,7 +310,13 @@ class TabulatedWidths(ancestryModule.AncestryIO):
         if self.__scatteringRadius:
             xml += self.__scatteringRadius.toXML_strList(indent2, **kwargs)
         if self.__hardSphereRadius:
-            xml += self.__hardSphereRadius.toXMLi_strList(indent2, **kwargs)
+            if self.__hardSphereRadius.isEnergyDependent() and kwargs.get(
+                    'formatVersion', GNDS_formatVersionModule.default) < GNDS_formatVersionModule.version_2_2:
+                # pretend it's a scattering radius for backwards compatibility
+                scatteringRadius = ScatteringRadius(self.__hardSphereRadius.evaluated)
+                xml += scatteringRadius.toXML_strList(indent2, **kwargs)
+            else:
+                xml += self.__hardSphereRadius.toXML_strList(indent2, **kwargs)
         xml += self.Ls.toXML_strList(indent2, **kwargs)
         xml[-1] += '</%s>' % self.moniker
 
@@ -329,8 +345,12 @@ class TabulatedWidths(ancestryModule.AncestryIO):
 
         result = cls(node.get('label'), node.get('approximation'),
                      resonanceReactions, Ls=Ls, scatteringRadius=radius, hardSphereRadius=hsRadius, PoPs=pops,
+                     calculateChannelRadius=node.get('calculateChannelRadius') == 'true',
                      useForSelfShieldingOnly=node.get('useForSelfShieldingOnly') == 'true'
                      )
+        if kwargs.get('formatVersion', GNDS_formatVersionModule.default) < GNDS_formatVersionModule.version_2_2:
+            # calculateChannelRadius wasn't stored prior to GNDS-2.2, but is usually True. Exception: Re185
+            result.calculateChannelRadius = True
 
         documentation = node.find(documentationModule.Documentation.moniker)
         if documentation is not None:

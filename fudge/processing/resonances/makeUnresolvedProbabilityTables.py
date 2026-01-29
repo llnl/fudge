@@ -113,6 +113,31 @@ class ProbabilityTableGenerator:
                 while energies and energies[-1] > domainMax:
                     energies.pop()
                     table.data.pop()
+        elif isinstance(self.RRR, commonResonancesModule.EnergyIntervals):
+            newRRR = commonResonancesModule.EnergyIntervals(self.RRR.label)
+            for region in self.RRR:
+                if region.domainMin >= domainMax:
+                    break
+                elif region.domainMax > domainMax:
+                    # truncate this region
+                    if isinstance(region, resolvedModule.BreitWigner):
+                        table = region.resonanceParameters.table
+                        energies = table.getColumn('energy')
+                        while energies and energies[-1] > domainMax:
+                            energies.pop()
+                            table.data.pop()
+                    elif isinstance(region, resolvedModule.RMatrix):
+                        for spinGroup in region.spinGroups:
+                            table = spinGroup.resonanceParameters.table
+                            energies = table.getColumn('energy')
+                            while energies and energies[-1] > domainMax:
+                                energies.pop()
+                                table.data.pop()
+                    newRRR.append(region)
+                else:
+                    newRRR.append(region)
+            newRRR.setAncestor(self.RRR.ancestor)
+            self.RRR = newRRR
         else:
             raise NotImplementedError("truncateResolvedRegion for resonances of type %s" % type(self.RRR))
 
@@ -126,7 +151,7 @@ class ProbabilityTableGenerator:
         if self.RRR:
             # For multiple regions, we need to do each region separately, then add them to the unified xs table & egrid
             if isinstance(self.RRR, commonResonancesModule.EnergyIntervals):
-                return self.RRR[-1]
+                return self.RRR[-1].evaluated
             else:  # Single region, everything goes on unified grid
                 return self.RRR
         else:
@@ -222,9 +247,16 @@ class ProbabilityTableGenerator:
 
             return function1d.toPointwise_withLinearXYs(lowerEps=1e-8)
 
-        # extrapolate local copies of widths, densities and scattering radius, all as lin-lin functions
+        self.calculateChannelRadius = self.URR.URR.calculateChannelRadius
+
+        # extrapolate local copies of widths, densities, scattering and hard-sphere radius, all as lin-lin functions
         self.scatteringRadius = self.URR.URR.getScatteringRadius().copy()
         self.scatteringRadius.evaluated = addPoints(self.scatteringRadius.evaluated, newDomainMin, newDomainMax)
+
+        self.hardSphereRadius = None
+        if self.URR.URR.hardSphereRadius:
+            self.hardSphereRadius = self.URR.URR.hardSphereRadius.copy()
+            self.hardSphereRadius.evaluated = addPoints(self.hardSphereRadius.evaluated, newDomainMin, newDomainMax)
 
         self.levelSpacings = {}
         self.levelDensities = {}
@@ -553,14 +585,16 @@ class ProbabilityTableGenerator:
                 approximation=resolvedModule.BreitWigner.Approximation.SingleLevel,
                 resonanceParameters=commonResonancesModule.ResonanceParameters(combinedTable),
                 scatteringRadius=self.scatteringRadius,
-                PoPs=self.URR.URR.getLocalPoPs())
+                hardSphereRadius=self.hardSphereRadius,
+                PoPs=self.URR.URR.getLocalPoPs(),
+                calculateChannelRadius=self.calculateChannelRadius)
             if verbose:
                 print("  drew %d resonances, elapsed time = %.3fs" % (len(combinedTable), time.time() - start))
 
             # FIXME: next lines are required since the domain currently lives on <resolved> rather than the form
             resolvedContainer = resolvedModule.Resolved(self.lowerBound, self.upperBound, self.URR.energyUnit)
             resolvedContainer.add(resolvedRealization)
-            resolvedContainer.setAncestor(self.reactionSuite)
+            resolvedContainer.setAncestor(self.reactionSuite.resonances)
 
             # Setup the reconstruction class
             resonanceReconstructor = self.reconstructionClass(
@@ -703,7 +737,8 @@ class ProbabilityTableGenerator:
                         plotOptions['savePrefix'] = os.path.join(plotDir, "r%d_patch%d_%s" % (iSample, index, label))
 
                     xs, ys = zeroK_xscs[label].domainSlice(Elo_heating, Ehi_heating).copyDataToXsAndYs()
-                    results = heatAndMakePDFs(xs, ys, temperaturesEnergy, Elo, Ehi, self.massRatio, **plotOptions)
+                    results = heatAndMakePDFs(xs, ys, temperaturesEnergy, Elo, Ehi, self.URR.energyUnit,
+                                              samplePoints, self.massRatio, makePDFs, **plotOptions)
                     unpackResults(iSample, index, label, results)
 
             else:
