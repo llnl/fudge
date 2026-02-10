@@ -21,14 +21,6 @@ fudge.processing.miscellaneous module
     :undoc-members:
     :show-inheritance:
 
-fudge.processing.processingInfo module
---------------------------------------
-
-.. automodule:: fudge.processing.processingInfo
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 Module contents
 ---------------
