@@ -37,7 +37,7 @@ This module contains the following functions:
     +-----------------------------------------------+-------------------------------------------------------------------------------------------------------+
     | Function                                      | Description                                                                                           |
     +===============================================+=======================================================================================================+
-    | return_pointwiseXY_AsXYs1d                    | This function returns an instance that is the same class as *self*` from the input arguments.         |
+    | return_pointwiseXY_AsXYs1d                    | This function returns an instance that is the same class as *self* from the input arguments.          |
     +-----------------------------------------------+-------------------------------------------------------------------------------------------------------+
     | otherToSelfsUnits                             | This function scales the data and changes the units of an :py:class:`XYs1d` instance                  |
     |                                               | if they are not the same as the units of another :py:class:`XYs1d` instance                           |
@@ -618,8 +618,8 @@ class XYs1d(baseModule.XDataFunctional):
 
         :param asLinLin:    If **True**, the data have lin-lin interpolation.
         :param accuracy:    Used to determine the accuracy if converting data to lin-lin interpolated data.
-        :param lowerEps     Used to dull the lower point for "flat" interpolation.
-        :param upperEps     Used to dull the upper point for "flat" interpolation.
+        :param lowerEps:    Used to dull the lower point for "flat" interpolation.
+        :param upperEps:    Used to dull the upper point for "flat" interpolation.
 
         :returns:           A :py:class:`XYs1dModule.XYs1d` instance.
         """
@@ -1117,7 +1117,7 @@ class XYs1d(baseModule.XDataFunctional):
 
     def mutualify( self, lowerEps1, upperEps1, positiveXOnly1, other, lowerEps2, upperEps2, positiveXOnly2 ) :
         """
-        Thie method returns copies of *self* and *other*s which have mutual domains.
+        Thie method returns copies of *self* and *other* which have mutual domains.
 
         :param lowerEps1:       The fractional espilon for the first point of *self*.
         :param upperEps1:       The fractional espilon for the last point of *self*.
@@ -1125,9 +1125,9 @@ class XYs1d(baseModule.XDataFunctional):
         :param other:           An instance of :py:class:XYs1d`.
         :param lowerEps2:       The fractional espilon for the first point of *other*.
         :param upperEps2:       The fractional espilon for the last point of *other*.
-        :param positiveXOnly1:  If True, for negative *lowerEps2* a point is not added below the first point of *other* if it would result in a negative x-value.
+        :param positiveXOnly2:  If True, for negative *lowerEps2* a point is not added below the first point of *other* if it would result in a negative x-value.
 
-        :returns:               A copy of *self* and *other*s which have mutualified domains.
+        :returns:               A copy of *self* and *other* which have mutualified domains.
 
         .. note:: Need to check that x units are the same.
         """
@@ -1386,7 +1386,7 @@ class XYs1d(baseModule.XDataFunctional):
 
     def group( self, xs, f2 = None, f3 = None, norm = None, asXYs = False ) :
         r"""
-        This method multi-group *self* with possibly *f2* and/or *f3.
+        This method multi-group *self* with possibly *f2* and/or *f3*.
         The argument ``xs`` is a list of x-values with ``xs[i] < xs[i+1]``. This function calculates the integrals
 
         .. math::

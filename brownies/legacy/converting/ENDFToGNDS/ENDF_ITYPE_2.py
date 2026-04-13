@@ -178,6 +178,24 @@ def ITYPE_2(fileName, MAT, MTDatas, info, evaluation, verbose):
     elif 'Si' in fileBaseName:
         targetID = "tnsl-Si"
         ZA = 14028  # Si28 is 92% of natural abundance
+    elif 'V-metal' in fileBaseName:
+        targetID = "tnsl-V-metal"
+        ZA = 23051  # V51, 99.8% of natural abundance
+    elif 'Ni' in fileBaseName:
+        targetID = "tnsl-Ni"
+        ZA = 28058  # Ni58, 68% of natural abundance
+    elif 'Cu' in fileBaseName:
+        targetID = "tnsl-Cu"
+        ZA = 29063  # Cu63 is 69% of natural abundance
+    elif 'Mo' in fileBaseName:
+        targetID = "tnsl-Mo"
+        ZA = 42098  # Mo98, 24% of natural abundance
+    elif 'W-metal' in fileBaseName:
+        targetID = "tnsl-W-metal"
+        ZA = 74184  # W184, 30% of natural abundance
+    elif 'Pb' in fileBaseName:
+        targetID = "tnsl-Pb"
+        ZA = 82208  # Pb208, 52% of natural abundance
     else:
         # FIXME try using the MAT number or ZSYMAM to get targetID?
         # Unfortunately libraries use different conventions for TNSL MAT numbers, and ZSYMAM can only be 11 chars

@@ -20,8 +20,10 @@ import numpy
 
 from pqu import PQU as PQUModule
 
+
 from LUPY import ancestry as ancestryModule
 from LUPY.hdf5 import HDF5_present, h5py
+from fudge import fudgeVersion as fudgeVersionModule
 from fudge import GNDS_formatVersion as GNDS_formatVersionModule
 from LUPY import checksums as checksumsModule
 
@@ -93,18 +95,17 @@ class ReactionSuite(ancestryModule.AncestryIO):
                                                  suitesModule.OrphanProducts.moniker,               sumsModule.Sums.moniker, 
                                                  suitesModule.FissionComponents.moniker,            suitesModule.Productions.moniker,
                                                  suitesModule.IncompleteReactions.moniker,          suitesModule.ApplicationData.moniker ),
-            GNDS_formatVersionModule.version_2_0_LLNL_4: (suitesModule.ExternalFiles.moniker,                 stylesModule.Styles.moniker,
-                                                        PoPsModule.Database.moniker,
-                                                        resonancesModule.Resonances.moniker,        suitesModule.Reactions.moniker, 
-                                                        suitesModule.OrphanProducts.moniker,                sumsModule.Sums.moniker, 
-                                                        suitesModule.FissionComponents.moniker,             suitesModule.Productions.moniker,
-                                                        suitesModule.IncompleteReactions.moniker,           suitesModule.ApplicationData.moniker),
             GNDS_formatVersionModule.version_2_0:      (suitesModule.ExternalFiles.moniker,                 stylesModule.Styles.moniker,
                                                         PoPsModule.Database.moniker,
                                                         resonancesModule.Resonances.moniker,        suitesModule.Reactions.moniker, 
                                                         suitesModule.OrphanProducts.moniker,                sumsModule.Sums.moniker, 
                                                         suitesModule.FissionComponents.moniker,             suitesModule.Productions.moniker,
                                                         suitesModule.IncompleteReactions.moniker,           suitesModule.ApplicationData.moniker)}
+    for formatVersion in (
+            GNDS_formatVersionModule.version_2_0_LLNL_4,
+            GNDS_formatVersionModule.version_2_1,
+            GNDS_formatVersionModule.version_2_2):
+        childNodeOrder[formatVersion] = childNodeOrder[GNDS_formatVersionModule.version_2_0]
 
     def __init__(self, projectile, target, evaluation, interaction=None, formatVersion=GNDS_formatVersionModule.default,
                  style=None, projectileFrame=xDataEnumsModule.Frame.lab, MAT=None, PoPs=None, sourcePath=None):
@@ -1898,10 +1899,11 @@ class ReactionSuite(ancestryModule.AncestryIO):
         with one element in the list for each reaction that fissions. Currently, all fissionable protares have only one 
         fission reaction, hence for these protares the length of the returned list will be 1.
         Each element of the returned list is a list length 4. The 4 elements of this inner list are:
-            a list of prompt neutron produces of class Product, 
-            a list of delayed neutron produces of class Product,
-            a list of mutiplicity sums for the prompt neutrons of class MultiplicitySum and
-            a list of mutiplicity sums for the delayed neutrons of class MultiplicitySum.
+
+        * a list of prompt neutron produces of class Product, 
+        * a list of delayed neutron produces of class Product,
+        * a list of multiplicity sums for the prompt neutrons of class MultiplicitySum and
+        * a list of multiplicity sums for the delayed neutrons of class MultiplicitySum.
 
         Currently, all fissionable protares have at most one element for the first, third and fourth inner list.
         This method does not calculate the MultiplicitySum; but instead, returns what is in the sums/multiplicitySum
@@ -2098,39 +2100,47 @@ class ReactionSuite(ancestryModule.AncestryIO):
         :param verbose: boolean - turn on/off verbosity
         """
 
-        if( self.resonances is None ) : return
+        if self.resonances is None: return
         if not self.resonances.reconstructCrossSection:
             return # nothing to do
         from fudge.processing.resonances import reconstructResonances
+        from xData.Documentation import computerCode
 
-        if not isinstance( style, stylesModule.CrossSectionReconstructed ):
+        if not isinstance(style, stylesModule.CrossSectionReconstructed):
             raise TypeError("style must be an instance of CrossSectionReconstructed, not %s" % type(style))
 
-        xsecs = reconstructResonances.reconstructResonances(self, accuracy, verbose = verbose, significantDigits = significantDigits )
+        code_documentation = computerCode.ComputerCode("FUDGE", "reconstructResonances", fudgeVersionModule.__version__)
+        execution_args = ["accuracy: %r" % accuracy, "thin: %r" % thin]
+        if significantDigits:
+            execution_args.append("significantDigits: %r" % significantDigits)
+        code_documentation.executionArguments.body = "; ".join(execution_args)
+        style.documentation.computerCodes.add(code_documentation)
+
+        xsecs = reconstructResonances.reconstructResonances(self, accuracy, verbose = verbose, significantDigits = significantDigits)
         epsilon = 1e-8  # for joining multiple regions together
 
         # for each reaction, add tabulated pointwise data (ENDF MF=3) to reconstructed resonances:
         possibleChannels = { 'elastic' : False, 'capture' : True, 'fission' : True, 'total' : False, 'nonelastic' : False }
         derivedFromLabel = ''
         for reaction in self :
-            if isinstance( reaction, sumsModule.MultiplicitySum ): continue
+            if isinstance(reaction, sumsModule.MultiplicitySum): continue
             evaluatedCrossSection = reaction.crossSection.evaluated
-            if not isinstance( evaluatedCrossSection, crossSectionModule.ResonancesWithBackground ):
+            if not isinstance(evaluatedCrossSection, crossSectionModule.ResonancesWithBackground):
                 continue
             # which reconstructed cross section corresponds to this reaction?
-            if( derivedFromLabel == '' ) : derivedFromLabel = evaluatedCrossSection.label
-            if( derivedFromLabel != evaluatedCrossSection.label ) :
-                print ('WARNING derivedFromLabel = "%s" != "%s"' % (derivedFromLabel, evaluatedCrossSection.label))
+            if derivedFromLabel == '': derivedFromLabel = evaluatedCrossSection.label
+            if derivedFromLabel != evaluatedCrossSection.label:
+                print('WARNING derivedFromLabel = "%s" != "%s"' % (derivedFromLabel, evaluatedCrossSection.label))
             RRxsec = None
-            if str( reaction ) in xsecs:
-                RRxsec = xsecs[ str( reaction ) ]
-            else :
-                for possibleChannel in possibleChannels :
-                    if( possibleChannels[possibleChannel] ) :
-                        if( possibleChannel in str( reaction ) ) : RRxsec = xsecs[possibleChannel]
-                    if( RRxsec is None ) :
-                        if( reaction is self.getReaction( possibleChannel ) ) : RRxsec = xsecs[possibleChannel]
-                    if( RRxsec is not None ) : break
+            if str(reaction) in xsecs:
+                RRxsec = xsecs[ str(reaction) ]
+            else:
+                for possibleChannel in possibleChannels:
+                    if possibleChannels[possibleChannel]:
+                        if possibleChannel in str(reaction): RRxsec = xsecs[possibleChannel]
+                    if RRxsec is None:
+                        if reaction is self.getReaction(possibleChannel): RRxsec = xsecs[possibleChannel]
+                    if RRxsec is not None: break
             if RRxsec is None:
                 found = False
                 if isinstance(reaction, sumsModule.CrossSectionSum):
@@ -2157,12 +2167,12 @@ class ReactionSuite(ancestryModule.AncestryIO):
 
             background, RRxsec = background.mutualify(0,0,0, RRxsec, -epsilon,epsilon,True)
             RRxsec = background + RRxsec    # result is a crossSection.XYs1d instance
-            if( RRxsec.rangeMin < 0 ) :
+            if RRxsec.rangeMin < 0:
                 # turn any negative xsc to 0
                 RRxsec = RRxsec.clip( rangeMin=0 )
                 if verbose:
                     print( "Warning: negative cross section encountered for %s; changed to 0 b" % reaction )
-            if( RRxsec[0][1] == 0 ) :
+            if RRxsec[0][1] == 0:
                 # special handling for threshold reaction:
                 #  trim leading zeros + points with cross section < 1e-90 b,
                 #  thin aggressively up to xsc = 1e-10 b
@@ -2191,11 +2201,11 @@ class ReactionSuite(ancestryModule.AncestryIO):
                 RRxsec.setData(points)
 
             if thin:
-                RRxsec = RRxsec.thin( accuracy )
+                RRxsec = RRxsec.thin(accuracy)
             RRxsec.label = style.label
-            reaction.crossSection.add( RRxsec )
+            reaction.crossSection.add(RRxsec)
 
-        self.styles.add( style )
+        self.styles.add(style)
 
     def reconstructResonancesAngularDistributions( self, styleName, overwrite=False, accuracy = None, thin = False, verbose = False ):
         """
@@ -2324,7 +2334,7 @@ class ReactionSuite(ancestryModule.AncestryIO):
         if len(covariances) > 0:
             if self.sourcePath is None:                 # Self was generated directly, not parsed from a file. Add externalFiles before saving.
                 covariances[0].externalFiles.add(externalFileModule.ExternalFile("reactions", path=selfsPathInCovarianceFile))
-                covariances[0].saveToFile(covariancePath)
+                covariances[0].saveToFile(covariancePath, **kwargs)
                 covariancePaths.append(covariancePath)
 
                 sha1sum = checksumsModule.Sha1sum.from_file(covariancePath)
@@ -2341,7 +2351,7 @@ class ReactionSuite(ancestryModule.AncestryIO):
                     if externalFile.label == 'covariances':
                         selfsExternalFile4Covariance = externalFile
                 if selfsExternalFile4Covariance is None:
-                    raise Exception('Could not find externalFile for convarince in self.')
+                    raise Exception('Could not find externalFile for covariance in self.')
 
                 if not pathlib.Path(selfsExternalFile4Covariance.path).is_absolute():   # Only write if path to covariance file is not absolute.
                                                                                         # Probably should have option to write even if absolute.
@@ -2350,7 +2360,7 @@ class ReactionSuite(ancestryModule.AncestryIO):
                         if externalFile.label == 'reactions':
                             externalFile4ReactionSuite = externalFile
                     if externalFile4ReactionSuite is None:
-                        raise Exception('Could not find externalFile for self in convarince.')
+                        raise Exception('Could not find externalFile for self in covariance.')
 
                     originalPaths[externalFile4ReactionSuite] = externalFile4ReactionSuite.path
                     externalFile4ReactionSuite.path = selfsPathInCovarianceFile

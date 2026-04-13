@@ -125,6 +125,9 @@ class Isotope( miscModule.ClassWithSymbolKey ) :
             if nuclideWarnings:
                 warnings.append(warningModule.Context('nuclide %s' % nuclide.id, nuclideWarnings))
 
+            if nuclide.A == 0:
+                continue    # ignore energy level for natural abundance isotopes
+
             if len(nuclide.nucleus.energy) == 0:
                 warnings.append(warningModule.UnknownEnergy(nuclide.nucleus))
                 continue

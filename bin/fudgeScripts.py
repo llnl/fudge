@@ -69,10 +69,10 @@ subModules = {}
 for binPath in binDir.parent.glob('**/bin'):
     addScriptsInBin(binPath, subModules)
 
-for subModule in ['FUDGE', 'PoPs', 'xData']:
+for subModule in ['FUDGE', 'PoPs', 'xData', 'Brownies']:
     if subModule not in subModules:
         continue
     printInfo(subModule, subModules.pop(subModule))
 
 for subModule in subModules:
-    printInfoo(subModule, subModulessubModule)
+    printInfo(subModule, subModules[subModule])

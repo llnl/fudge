@@ -610,6 +610,21 @@ class ZAbalanceWarning(Warning):
         return "ZA doesn't balance for this reaction!"
 
 
+class AverageZAbalanceWarning(Warning):
+    """ Special test for sumOfRemainingOutputChannels. """
+
+    def __init__(self, compoundZA, maxZA, obj=None):
+        Warning.__init__(self, Level.Fatal, obj)
+        self.compoundZA = compoundZA
+        self.maxZA = maxZA
+
+    def __str__(self):
+        return f"Multiplicity-weighted mean product ZA > compound ZA. Worst case: {self.maxZA} vs. {self.compoundZA}!"
+
+    def __eq__(self, other):
+        return self.xpath == other.xpath and self.compoundZA == other.compoundZA and self.maxZA == other.maxZA
+
+
 class Q_mismatch(Warning):
 
     def __init__(self, Qcalc, Qactual, obj=None):
@@ -1295,6 +1310,14 @@ class MatrixDimensionMismatch(Warning):
         return (self.xpath == other.xpath and
                 self.matrixShape == other.matrixShape and
                 self.gridShape == other.gridShape)
+
+
+class EmptyMatrix(Warning):
+    def __init__(self, obj=None):
+        Warning.__init__(self, Level.Severe, obj)
+
+    def __str__(self):
+        return "No non-zero covariance matrix elements"
 
 
 class NegativeVariance(Warning):

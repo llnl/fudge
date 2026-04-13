@@ -337,6 +337,13 @@ class TabulatedWidths(ancestryModule.AncestryIO):
         hsRadius = node.find(HardSphereRadius.moniker)
         if hsRadius is not None:
             hsRadius = HardSphereRadius.parseNodeUsingClass(hsRadius, xPath, linkData, **kwargs)
+
+        if (kwargs.get('formatVersion', GNDS_formatVersionModule.default) < GNDS_formatVersionModule.version_2_2
+                and radius is not None and radius.isEnergyDependent()):
+            # GNDS-2.1 and earlier incorrectly treated energy-dependent hard-sphere radius as scattering radius
+            hsRadius = HardSphereRadius(radius.evaluated)
+            radius = None
+
         pops = node.find(PoPsDatabaseModule.Database.moniker)
         if pops is not None:
             pops = PoPsDatabaseModule.Database.parseNodeUsingClass(pops, xPath, linkData, **kwargs)

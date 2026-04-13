@@ -2504,13 +2504,14 @@ def readMF8(info, MT, MTData, warningList):
                 if abs(ELFS - ELFS9or10) > 2e-4 * abs(ELFS) and abs(ELFS - ELFS9or10) > 1e-6 * abs(QM):
                     if not info.convertJENDL_stylePrimarygammas or abs(ELFS - ELFS9or10) > 1e-3 * abs(ELFS):
                         warningList.append(
-                            f"MF8 residual level energy = {ELFS} for level {LIS} of ZA = {ZAP} not close "
+                            f"MF8 residual level energy = {ELFS} for level {LFS} of ZA = {ZAP} not close "
                             f"to MF{LMF}'s value = {ELFS9or10} for MT = {MT}")
                         info.doRaise.append(warningList[-1])
                 if LFS != LFS9or10:
-                    warningList.append("For MT%d, MF8 claims level index = %d for ZA = %d but MF9/10 claim level index = %d"
-                                       % (MT, LFS, ZAP, LFS9or10))
-                    info.doRaise.append( warningList[-1] )
+                    warningList.append(
+                        f"For MT{MT}, MF8 claims level index = {LFS} for ZA = {ZAP} "
+                        f"but MF9/10 claim level index = {LFS9or10}")
+                    info.doRaise.append(warningList[-1])
 
             radioactiveDatas.append( [ ZAP, ELFS, LFS, multiplicity, crossSection, LFS, QI ] )
 
@@ -3169,6 +3170,7 @@ def readMF32(info, dat, mf, mt, cov_info, warningList):
         if not set(mf32_elist).issubset(mf2_elist):
             onlyInMF32 = set(mf32_elist).difference(mf2_elist)
             ndiffs = len(onlyInMF32)
+            mf2_elist_sorted = sorted(mf2_elist)
             warningList.append("MF32 resonance parameters differ for %d resonances. For example:" % ndiffs)
             for mf32res in sorted(onlyInMF32):
                 # find closest match (by resonance energy) in MF=2
@@ -3583,7 +3585,7 @@ def readMF32(info, dat, mf, mt, cov_info, warningList):
 
             elif LRF == 7:
                 dum, dum, IFG, LCOMP, NJS, ISR = funkyFI(dat.next(), logFile=info.logs)
-                mf2_elist, mf32_elist = [], []
+                mf32_elist = []
                 assert IFG in (0, 1), f"IFG={IFG} not supported"
                 if ISR > 0:
                     raise NotImplementedError("scattering radius uncertainty in MF32 LRF7")
@@ -3605,7 +3607,6 @@ def readMF32(info, dat, mf, mt, cov_info, warningList):
                                 vals += funkyF(dat.next(), logFile=info.logs)
                             if NRB>0: resonanceParams.append(vals[:NCH + 1])
 
-                        mf2_elist += list(map(tuple, spinGroup.resonanceParameters.table.data))
                         mf32_elist += list(map(tuple, resonanceParams))
 
                     # rest of matrix:
@@ -3652,7 +3653,6 @@ def readMF32(info, dat, mf, mt, cov_info, warningList):
                             resonanceUncerts.append(uncerts[:NCH+1])
                             allUncerts += uncerts[:NCH+1]
 
-                        mf2_elist += list(map(tuple, spinGroup.resonanceParameters.table.data))
                         mf32_elist += list(map(tuple, resonanceParams))
                         J, pi = translateENDFJpi(AJ, PJ)
                         if not J == spinGroup.spin and pi == spinGroup.parity:
@@ -3671,6 +3671,10 @@ def readMF32(info, dat, mf, mt, cov_info, warningList):
                     ENDFconversionFlags.append("NDIGIT=%d" % NDIGIT)
                 else:
                     raise NotImplementedError("MF32 LRF=7 LCOMP=%d" % LCOMP)
+
+                mf2_elist = []
+                for spinGroup in resonances.resolved.evaluated:
+                    mf2_elist += list(map(tuple, spinGroup.resonanceParameters.table.data))
 
                 mf2_elist, mf32_elist, matrix = check_MF32_consistency(mf2_elist, mf32_elist, matrix)
                 # FIXME: check if we should use flattened array

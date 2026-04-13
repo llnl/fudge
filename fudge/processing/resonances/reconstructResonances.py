@@ -3050,6 +3050,7 @@ class URRcrossSection(ResonanceReconstructionBaseClass):
                 if reaction.link.link is reactionFinder(simpleLabel):
                     self.reactionLabels[reaction.label] = simpleLabel
                     found = True
+                    break
             if not found:
                 raise NotImplementedError("Reaction '%s' not yet supported in unresolved region" % reaction.label)
 
@@ -3064,10 +3065,7 @@ class URRcrossSection(ResonanceReconstructionBaseClass):
 
                 # Set the widths
                 for wid in J.widths:
-                    if wid.resonanceReaction == 'competitive':
-                        simpleLabel = wid.resonanceReaction
-                    else:
-                        simpleLabel = self.reactionLabels[ wid.resonanceReaction ]
+                    simpleLabel = self.reactionLabels.get(wid.resonanceReaction, wid.resonanceReaction)
                     self.averageWidths[(l,j)][simpleLabel] = wid.data  # FIXME: average neutron width is funky ENDF "reduced width", we should fix it!
                     self.DOFs[(l, j)][simpleLabel] = wid.degreesOfFreedom
 

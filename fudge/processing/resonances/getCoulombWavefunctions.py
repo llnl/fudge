@@ -32,9 +32,9 @@ SQRTTWOPI = math.sqrt(2.0*math.pi)
 def coulombNormalizationFactor(L, eta):
     r"""
     Coulomb wavefunction normalization factor (see DLMF Eq. 33.2.5 or Abramowitz & Stegun Eq. 14.1.7),
-    :math:`C_\\ell(\\eta)={2^\\ell e^{2\pi\\eta}|\Gamma(\\ell+1+i\\eta)|}/{(2\\ell+1)!}`
+    :math:`C_\ell(\eta)={2^\ell e^{2\pi\eta}|\Gamma(\ell+1+i\eta)|}/{(2\ell+1)!}`
 
-    Because we're working with numpy arrays of :math:`\\eta` (for parallelization ala' Caleb's tricks), the logic
+    Because we're working with numpy arrays of :math:`eta` (for parallelization ala' Caleb's tricks), the logic
     of numpy masked arrays is at work here to handle different regimes of eta.
 
     :param int L: the L to evaluate at
@@ -73,9 +73,9 @@ def coulombNormalizationFactor(L, eta):
 
 def coulombPenetrationFactor(L, rho, eta):
     r"""
-    Compute the Coulomb penetrability, :math:`P_\\ell`,
-    :math:`P_\\ell(\\rho,\\eta)={\\rho}/{(A_\\ell(\\rho,\\eta))^2}`
-    where :math:`(A_\\ell(\\rho,\\eta))^2=(G_\\ell(\\rho,\\eta))^2+(F_\\ell(\\rho,\\eta))^2`
+    Compute the Coulomb penetrability, :math:`P_\ell`,
+    :math:`P_\ell(\rho,\eta)={\rho}/{(A_\ell(\rho,\eta))^2}`
+    where :math:`(A_\ell(\rho,\eta))^2=(G_\ell(\rho,\eta))^2+(F_\ell(\rho,\eta))^2`
 
     Because we're working with numpy arrays of :math:`\eta` (for parallelization ala' Caleb's tricks), the logic
     of numpy masked arrays is at work here to handle different regimes of eta.
@@ -84,7 +84,7 @@ def coulombPenetrationFactor(L, rho, eta):
 
     :param L: the L to evaluate at
     :type L: int
-    :param rho: array of :math:`\\rho` values
+    :param rho: array of :math:`\rho` values
     :type rho: numpy.array(type=float)
     :param eta: array of :math:`\eta` values
     :type eta: numpy.array(type=float)
@@ -118,16 +118,16 @@ def coulombPenetrationFactor(L, rho, eta):
 
 def coulombPhi(L, rho, eta):
     r"""
-    Compute the Coulomb phase, :math:`\\varphi_\\ell`, :math:`\\varphi_\\ell(\\rho,\\eta)=\\arg(G_\\ell(\\rho,\\eta)+iF_\\ell(\\rho,\\eta))`
+    Compute the Coulomb phase, :math:`\varphi_\ell`, :math:`\varphi_\ell(\rho,\eta)=\arg(G_\ell(\rho,\eta)+iF_\ell(\rho,\eta))`
 
-    Because we're working with numpy arrays of :math:`\\eta` (for parallelization ala' Caleb's tricks), the logic
+    Because we're working with numpy arrays of :math:`\eta` (for parallelization ala' Caleb's tricks), the logic
     of numpy masked arrays is at work here to handle different regimes of eta.
 
     Here we use an external subroutine 'coulfg2' from Thompson et al, converted to c and wrapped
 
     :param int L: the L to evaluate at
-    :param numpy.array(type=float) rho: array of :math:`\\rho` values
-    :param numpy.array(type=float) eta: array of :math:`\\eta` values
+    :param numpy.array(type=float) rho: array of :math:`\rho` values
+    :param numpy.array(type=float) eta: array of :math:`\eta` values
     :return: numpy.array(type=float) of phases
     """
     _checkRhoAndEta(rho, eta)
@@ -178,8 +178,8 @@ def coulombPhi(L, rho, eta):
 
 def coulombShiftFactor(L, rho, eta):
     r"""
-    Compute the Coulomb shift, :math:`S_\ell`, :math:`S_\\ell(\\rho,\\eta)=({\\rho}/{A_\\ell(\\rho,\\eta)})({\partial A_\\ell(\\rho,\\eta)}/{\partial\\rho})`
-    where :math:`(A_\\ell(\\rho,\\eta))^2=(G_\\ell(\\rho,\\eta))^2+(F_\\ell(\\rho,\\eta))^2`
+    Compute the Coulomb shift, :math:`S_\ell`, :math:`S_\ell(\rho,\eta)=({\rho}/{A_\ell(\rho,\eta)})({\partial A_\ell(\rho,\eta)}/{\partial\rho})`
+    where :math:`(A_\ell(\rho,\eta))^2=(G_\ell(\rho,\eta))^2+(F_\ell(\rho,\eta))^2`
 
     Because we're working with numpy arrays of :math:`\eta` (for parallelization ala' Caleb's tricks), the logic
     of numpy masked arrays is at work here to handle different regimes of eta.
@@ -188,7 +188,7 @@ def coulombShiftFactor(L, rho, eta):
 
     :param L: the L to evaluate at
     :type L: int
-    :param rho: array of :math:`\\rho` values
+    :param rho: array of :math:`\rho` values
     :type rho: numpy.array(type=float)
     :param eta: array of :math:`\eta` values
     :type eta: numpy.array(type=float)

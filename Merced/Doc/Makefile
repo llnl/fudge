@@ -24,6 +24,6 @@ merced.pdf: merced.tex assertion.tex doubleDiffFormula.tex \
 	pdflatex merced
 
 clean:
-	rm -f *.log *.aux *.toc *.out
+	rm -f *.log *.aux *.toc *.out *.pdf
 
 realclean: clean

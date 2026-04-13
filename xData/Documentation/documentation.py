@@ -13,7 +13,7 @@ This module contains the following classes:
     +---------------------------+-----------------------------------------------------------------------------------+
     | Class                     | Description                                                                       |
     +===========================+===================================================================================+
-    | Documentation             | This is the class for the GNDS documentation node.                                 |
+    | Documentation             | This is the class for the GNDS documentation node.                                |
     +---------------------------+-----------------------------------------------------------------------------------+
 """
 

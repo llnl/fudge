@@ -51,7 +51,7 @@ def angleBiasingPhotonBranchingData(initialState, branchingData, probability, an
     """
     This function calculations transition probabilities for each decay transition and the data needed to calculate
     the photon multiplicity for each transition. The results are stored in *angleBiasingData*. For decay transition *trans*
-    the following::
+    the following:
 
     photonDecayChain[trans][0] is the probabiltity for emitting this photon. The sum of the this for all transistions (i.e., photons) is 1.
     photonDecayChain[trans][1] is the probability for emitting this photon for one decay path.

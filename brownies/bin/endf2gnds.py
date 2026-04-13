@@ -22,6 +22,8 @@ from LUPY import checksums as checksumsModule
 
 from brownies.legacy.converting import endfFileToGNDS
 
+summaryDocString__Brownies = '''Converts an ENDF6 file into GNDS.'''
+
 def process_args( ) :
 
     parser = argparse.ArgumentParser( description = "Translates an ENDF file to the GNDS format." )

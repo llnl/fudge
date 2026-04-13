@@ -332,6 +332,13 @@ class BreitWigner(ancestryModule.AncestryIO):
         hsradius = element.find(HardSphereRadius.moniker)
         if hsradius is not None:
             hsradius = HardSphereRadius.parseNodeUsingClass(hsradius, xPath, linkData, **kwargs)
+
+        if (kwargs.get('formatVersion', GNDS_formatVersionModule.default) < GNDS_formatVersionModule.version_2_2
+                and radius is not None and radius.isEnergyDependent()):
+            # GNDS-2.1 and earlier incorrectly treated energy-dependent hard-sphere radius as scattering radius
+            hsradius = HardSphereRadius(radius.evaluated)
+            radius = None
+
         parameters = ResonanceParameters.parseNodeUsingClass(
                 element.find(ResonanceParameters.moniker), xPath, linkData, **kwargs)
         attrs = getAttrs(element, required=cls._requiredAttributes, optional=cls._optionalAttributes)

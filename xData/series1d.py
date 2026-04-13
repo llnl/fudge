@@ -291,8 +291,8 @@ class Series1d( baseModule.XDataFunctional ) :
 
         :param asLinLin:    If **True**, the data have lin-lin interpolation.
         :param accuracy:    Used to determine the accuracy if converting data to lin-lin interpolated data.
-        :param lowerEps     Used to dull the lower point for "flat" interpolation.
-        :param upperEps     Used to dull the upper point for "flat" interpolation.
+        :param lowerEps:    Used to dull the lower point for "flat" interpolation.
+        :param upperEps:    Used to dull the upper point for "flat" interpolation.
 
         :returns:           A :py:class:`XYs1dModule.XYs1d` instance.
         """
@@ -823,7 +823,7 @@ class LegendreSeries( Series1d ) :
         ..math::
             C_l = \int_{-1}^1 d\mu \, P_l(\mu) \, f(\mu)
 
-        where *xys1d*is the poinwise representation of :math:`f(\mu)`.
+        where *xys1d* is the poinwise representation of :math:`f(\mu)`.
 
         :param xys1d:       An instance of :py:class:`XYs1dModule.XYs1d`.
         :param maxOrder:    The maximum Legendre order of the returned instance.

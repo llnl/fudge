@@ -15,9 +15,6 @@ clean:
 
 realclean: clean
 
-sdist:
-	$(PYTHON) setup.py sdist
-
 FUDGETESTFILES = \
     BNL/utilities/test/test_c4.py \
     BNL/utilities/test/test_bins.py \

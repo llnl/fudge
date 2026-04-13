@@ -181,6 +181,3 @@ class RelatedItems(suiteModule.Suite):
 
     def __init__(self):
         suiteModule.Suite.__init__(self, [RelatedItem])
-
-    def toXML(self, indent='', **kwargs):
-        return '\n'.join(self.toXML_strList(**kwargs))

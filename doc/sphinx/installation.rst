@@ -19,17 +19,17 @@ While there are numerous options available for the installation of FUDGE, only t
 
     ::
 
-        pip install git+ssh://git@czgitlab.llnl.gov:7999/nuclear/fudge/fudge.git@fudge6.1.0
+        pip install git+https://github.com/LLNL/fudge.git
 
 * Installation via Makefiles which is our typical development mode for active FUDGE code maintenance and improvements. The following steps are recommended:
 
 (i) Ensure that NumPy (version 1.15 or higher) is installed
 
-(ii) Use the following command to clone FUDGE to the current folder:
+(ii) Use the following command to clone FUDGE to the current folder (users at LLNL may wish to clone the latest development version from CZ gitlab instead):
 
     ::
 
-        git clone --recurse-submodules ssh://git@czgitlab.llnl.gov:7999/nuclear/fudge/fudge.git
+        git clone git+https://github.com/LLNL/fudge.git
 
 (iii) Build FUDGE with the following command:
 

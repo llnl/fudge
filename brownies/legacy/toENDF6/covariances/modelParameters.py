@@ -441,7 +441,7 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
 
         if LCOMP == 1:
             AWRI, NSRS, NLRS = 0, 1, 0    # FIXME: hard-coded
-            NJSX = len(RML.spinGroups)
+            NJSX = len([sg for sg in RML.spinGroups if len(sg.resonanceParameters.table) > 0])
             NPARB = 0
 
             endf.append(endfFormatsModule.endfContLine(0, 0, 0, LCOMP, 0, ISR))
@@ -450,7 +450,13 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
             # Skip writing resonances that have no parameter uncertainties
             keepRows = numpy.zeros(len(matrix), dtype=bool)
             for spingrp in RML.spinGroups:
-                plink, = [p for p in self.parameters if p.link.findClassInAncestry(type(spingrp)) is spingrp]
+                plinks = [p for p in self.parameters if p.link.findClassInAncestry(type(spingrp)) is spingrp]
+                if len(plinks) == 0:
+                    assert len(spingrp.resonanceParameters.table) == 0, "Non-empty spin group missing from MF32 covariance!"
+                    continue
+                elif len(plinks) > 1:
+                    raise NotImplementedError("MF32 LRF7 with multiple parameter links per spin group")
+                plink = plinks[0]
                 nonzero = numpy.any(matrix[plink.matrixStartIndex : plink.matrixStartIndex + plink.nParameters], axis=1)
                 includeResonance = nonzero.reshape(plink.link.nRows, plink.link.nColumns).any(axis=1)
                 for idx, keepval in enumerate(includeResonance):

@@ -481,13 +481,13 @@ class AncestryIO_base(Ancestry):
     """This class adds methods to read and write *self* to a file. Currently, its supports reading and writing to an XML file."""
 
     def toXML(self, indent = '', **kwargs):
-        """
+        r"""
         Calls self.toXML_strList and joins its returned list with '\n'.
 
         :param indent:              Amount of starting indentation.
         :param kwargs:              A dictionary that contains data to control the way this method acts.
 
-        :returns:                   XML representation of *self*.
+        :return:                    XML representation of *self*.
         """
 
         return '\n'.join(self.toXML_strList(indent=indent, **kwargs))

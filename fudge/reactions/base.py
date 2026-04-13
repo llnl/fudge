@@ -28,7 +28,7 @@ from ..reactionData import availableMomentum as availableMomentumModule
 class Base_reaction(ancestryModule.AncestryIO):
     """Base class for all types of reaction."""
 
-    ancestryMembers = ('crossSection', 'outputChannel')
+    ancestryMembers = ('documentation', 'crossSection', 'outputChannel')
     keyName = 'label'
 
     def __init__(self, label, genre, ENDF_MT):
@@ -36,7 +36,7 @@ class Base_reaction(ancestryModule.AncestryIO):
         ancestryModule.AncestryIO.__init__( self )
         self.__label = label
 
-        self.__documentation = None
+        self.__documentation = documentationModule.Documentation()
         self.ENDF_MT = int( ENDF_MT )
 
         self.__crossSection = crossSectionModule.Component( )
@@ -220,7 +220,23 @@ class Base_reaction(ancestryModule.AncestryIO):
             except ValueError:
                 pass    # this test only works if multiplicity and Q are both constant for all non-gamma products
 
-        if not (self.__outputChannel.genre == enumsModule.Genre.sumOfRemainingOutputChannels or self.isFission() or
+        if self.__outputChannel.genre == enumsModule.Genre.sumOfRemainingOutputChannels:
+            # ZA should balance on average
+            mean_ZA = None
+            for product in self.__outputChannel.products:
+                if product.pid == IDsPoPsModule.photon: continue
+                ZA = particleZA(product.pid)
+                ZA_now = product.multiplicity.evaluated.toPointwise_withLinearXYs(lowerEps=1e-8, upperEps=1e-8) * ZA
+                if mean_ZA is None:
+                    mean_ZA = ZA_now
+                else:
+                    mean_ZA, ZA_now = mean_ZA.mutualify(1e-8, 1e-8, 0, ZA_now, 1e-8, 1e-8, 0)
+                    mean_ZA += ZA_now
+
+            if mean_ZA.rangeMax > info['compoundZA']:
+                warnings.append(warning.AverageZAbalanceWarning(info['compoundZA'], mean_ZA.rangeMax, self))
+
+        elif not (self.isFission() or
                 isinstance(self, (productionModule.Production, orphanProductModule.OrphanProduct,
                                   incompleteReactionModule.IncompleteReaction))):
             # check that ZA balances:
@@ -926,7 +942,8 @@ class Base_reaction(ancestryModule.AncestryIO):
             self.fissionGenre = node.get('fissionGenre', enumsModule.FissionGenre.none)
 
         childNodesNotParse, membersNotFoundInNode = self.parseAncestryMembers(node, xPath, linkData, **kwargs)
-        if len(childNodesNotParse) > 0: raise Exception("Encountered unexpected child nodes '%s' in %s!" % (self.moniker, ', '.join(list(childNodesNotParse.keys()))))
+        if len(childNodesNotParse) > 0: raise Exception("Encountered unexpected child nodes '%s' in %s!" %
+            (', '.join(list(childNodesNotParse.keys())), self.moniker))
 
         if hasattr(self, 'fissionGenre'):
             if self.fissionGenre is enumsModule.FissionGenre.none:      # See note in outputChannel.parseNode.

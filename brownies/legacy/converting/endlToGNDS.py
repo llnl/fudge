@@ -50,6 +50,7 @@ from PoPs.quantities import quantity as quantityPoPsModule
 from PoPs.quantities import mass as massPoPsModule
 from PoPs.chemicalElements import misc as chemicalElementMiscPoPsModule
 from PoPs.chemicalElements import chemicalElement as chemicalElementPoPsModule
+from PoPs.families import nuclide as nuclideModule
 from PoPs.families import unorthodox as unorthodoxPoPsModule
 from PoPs.fissionFragmentData import rate as rateModule
 
@@ -636,9 +637,12 @@ def toGNDS(self, evaluationLibrary, evaluationVersion, formatVersion=GNDS_format
     levelIndex = None
     if( level is not None ) : levelIndex = residualExcitationIndexLevels[targetZA][level]
     if( self.yi == 7 and targetZA not in (99120, 99125) ) :
+        # target is a chemicalElement, but target mass is stored in an A=0 nuclide
         targetID = chemicalElementMiscPoPsModule.symbolFromZ[targetZ]
-        targetName = chemicalElementMiscPoPsModule.nameFromZ[targetZ]
-        info.PoPs.add( chemicalElementPoPsModule.ChemicalElement( targetID, targetZ, targetName ) )
+        target = nuclideModule.Particle.buildFromClassAndRawData(targetID + "0",
+                mass=(info.massTracker.getMassAMU(targetZA), 'amu'),
+                label=info.PoPsLabel)
+        info.PoPs.add( target )
         info.targetID = targetID
     elif( self.yi == 9 ) :
         info.targetID = chemicalElementMiscPoPsModule.symbolFromZ[targetZ]

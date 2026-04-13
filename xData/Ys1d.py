@@ -157,8 +157,8 @@ class Ys1d(baseModule.XDataFunctional):
 
         :param asLinLin:    If **True**, the data have lin-lin interpolation.
         :param accuracy:    Used to determine the accuracy if converting data to lin-lin interpolated data.
-        :param lowerEps     Used to dull the lower point for "flat" interpolation.
-        :param upperEps     Used to dull the upper point for "flat" interpolation.
+        :param lowerEps:    Used to dull the lower point for "flat" interpolation.
+        :param upperEps:    Used to dull the upper point for "flat" interpolation.
 
         :returns:           A :py:class:`XYs1dModule.XYs1d` instance.
         """

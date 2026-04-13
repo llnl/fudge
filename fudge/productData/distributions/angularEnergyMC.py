@@ -121,6 +121,11 @@ class Angular( Subform ) :
     allowedSubElements = ( angularModule.XYs2d, )
     ancestryMembers = ( 'angular', )
 
+    @property
+    def angular(self):
+
+        return self.data
+
     @classmethod
     def parseNodeUsingClass(cls, node, xPath, linkData, **kwargs):
         """
@@ -155,6 +160,11 @@ class AngularEnergy( Subform ) :
     moniker = 'angularEnergy'
     allowedSubElements = ( XYs3d, )
     ancestryMembers = ( 'angularEnergy', )
+
+    @property
+    def angularEnergy(self):
+
+        return self.data
 
     @classmethod
     def parseNodeUsingClass(cls, node, xPath, linkData, **kwargs):

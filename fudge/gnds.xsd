@@ -708,6 +708,7 @@
       <xs:element ref="PoPs" minOccurs="0"/>
       <xs:element name="resonanceReactions" type="ResonanceReactionListType"/>
       <xs:element name="scatteringRadius" type="ScatteringRadiusType" minOccurs="0"/>
+      <xs:element name="hardSphereRadius" type="HardSphereRadiusType" minOccurs="0"/>
       <xs:element name="Ls">
         <xs:complexType>
         <xs:sequence>

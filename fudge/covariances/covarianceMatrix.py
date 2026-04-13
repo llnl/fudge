@@ -12,6 +12,7 @@ import numpy
 
 from . import enums as covarianceEnumsModule
 from . import base
+from . import mixed as mixedModule
 
 from LUPY import ancestry as ancestryModule
 
@@ -510,6 +511,12 @@ class CovarianceMatrix(ancestryModule.AncestryIO, base.Covariance):
         if self.findAttributeInAncestry('crossTerm') or not info['checkUncLimits']:
             # remaining checks don't apply to cross-terms yet
             # FIXME also test FULL matrix including cross-terms
+            return warnings
+
+        if not A.any():
+            # all matrix elements == 0. Warn unless self is inside a <mixed> section:
+            if not isinstance(self.ancestor, mixedModule.MixedForm):
+                warnings.append(warning.EmptyMatrix(obj=self))
             return warnings
 
         # run variance and eigenvalue checks on original matrix, relative or absolute:

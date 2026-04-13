@@ -68,21 +68,6 @@ class ProbabilityTableGenerator:
         self.tolerance = tolerance
         self.verbose = verbose
 
-        """ # disabled: adding background cross section to realizations biases samples
-        # obtain background cross sections (will be added to each realization).
-        self.backgrounds = {}
-        if not self.URR.URR.useForSelfShieldingOnly:
-            for reaction in self.URR.URR.resonanceReactions:
-                xsc = reaction.link.link.crossSection.evaluated
-                assert isinstance(xsc, crossSectionModule.ResonancesWithBackground)
-                key = reaction.label
-                for simpleKey in ('elastic', 'capture', 'fission', 'total'):
-                    if reaction.link.link is reactionSuite.getReaction(simpleKey):
-                        key = simpleKey
-
-                self.backgrounds[key] = xsc.background.unresolvedRegion.data
-        """
-
         # get mass ratio for heating cross sections:
         projectileMass = reactionSuite.PoPs[reactionSuite.projectile].getMass('amu')
 

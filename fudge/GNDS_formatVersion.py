@@ -17,7 +17,7 @@ version_2_2        = '2.2.rc1'
 allowed = (version_1_10, version_2_0, version_2_1, version_2_2)
 allowedPlus = allowed + (version_2_0_LLNL_3, version_2_0_LLNL_4)
 
-default = version_2_0       # version written by default in translation scripts
+default = version_2_1       # version written by default in translation scripts
 
 MAJORVERSION, MINORVERSION = default.split( '.' )[:2]
 
