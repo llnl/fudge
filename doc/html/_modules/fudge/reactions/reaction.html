@@ -1,81 +1,79 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>fudge.reactions.reaction &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-    
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../../_static/gnd-20121206-favicon.ico"/>
+    <title>fudge.reactions.reaction &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">fudge.reactions.reaction</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for fudge.reactions.reaction</h1><div class="highlight"><pre>
 <span></span><span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This module contains the reaction class.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">xDataEnumsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">xDataEnumsModule</span>
 
-<span class="kn">from</span> <span class="nn">PoPs</span> <span class="kn">import</span> <span class="n">IDs</span> <span class="k">as</span> <span class="n">popsIDsModule</span>
-<span class="kn">from</span> <span class="nn">PoPs</span> <span class="kn">import</span> <span class="n">database</span> <span class="k">as</span> <span class="n">PoPsDatabaseModule</span>
-<span class="kn">from</span> <span class="nn">PoPs</span> <span class="kn">import</span> <span class="n">specialNuclearParticleID</span> <span class="k">as</span> <span class="n">specialNuclearParticleID_PoPsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PoPs</span><span class="w"> </span><span class="kn">import</span> <span class="n">IDs</span> <span class="k">as</span> <span class="n">popsIDsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PoPs</span><span class="w"> </span><span class="kn">import</span> <span class="n">database</span> <span class="k">as</span> <span class="n">PoPsDatabaseModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PoPs</span><span class="w"> </span><span class="kn">import</span> <span class="n">specialNuclearParticleID</span> <span class="k">as</span> <span class="n">specialNuclearParticleID_PoPsModule</span>
 
-<span class="kn">from</span> <span class="nn">fudge.core.utilities</span> <span class="kn">import</span> <span class="n">fudgeExceptions</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge.core.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">fudgeExceptions</span>
 
-<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
-<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">outputChannel</span> <span class="k">as</span> <span class="n">outputChannelModule</span>
-<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">reactionProducts</span> <span class="k">as</span> <span class="n">reactionProductsModule</span>
-<span class="kn">from</span> <span class="nn">..reactionData</span> <span class="kn">import</span> <span class="n">availableEnergy</span> <span class="k">as</span> <span class="n">availableEnergyModule</span>
-<span class="kn">from</span> <span class="nn">..reactionData</span> <span class="kn">import</span> <span class="n">availableMomentum</span> <span class="k">as</span> <span class="n">availableMomentumModule</span>
-<span class="kn">from</span> <span class="nn">..reactionData.doubleDifferentialCrossSection.chargedParticleElastic</span> <span class="kn">import</span> <span class="n">CoulombPlusNuclearElastic</span> <span class="k">as</span> <span class="n">CoulombPlusNuclearElasticModule</span>
-<span class="kn">from</span> <span class="nn">..reactionData.doubleDifferentialCrossSection.thermalNeutronScatteringLaw</span> <span class="kn">import</span> \
+<span class="kn">from</span><span class="w"> </span><span class="nn">..</span><span class="w"> </span><span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..</span><span class="w"> </span><span class="kn">import</span> <span class="n">outputChannel</span> <span class="k">as</span> <span class="n">outputChannelModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..</span><span class="w"> </span><span class="kn">import</span> <span class="n">reactionProducts</span> <span class="k">as</span> <span class="n">reactionProductsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..reactionData</span><span class="w"> </span><span class="kn">import</span> <span class="n">availableEnergy</span> <span class="k">as</span> <span class="n">availableEnergyModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..reactionData</span><span class="w"> </span><span class="kn">import</span> <span class="n">availableMomentum</span> <span class="k">as</span> <span class="n">availableMomentumModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..reactionData.doubleDifferentialCrossSection.chargedParticleElastic</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoulombPlusNuclearElastic</span> <span class="k">as</span> <span class="n">CoulombPlusNuclearElasticModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..reactionData.doubleDifferentialCrossSection.thermalNeutronScatteringLaw</span><span class="w"> </span><span class="kn">import</span> \
     <span class="n">base</span> <span class="k">as</span> <span class="n">thermalNeutronScatteringLawBaseModule</span>
 
-<span class="kn">from</span> <span class="nn">fudge.productData.distributions</span> <span class="kn">import</span> <span class="n">angular</span> <span class="k">as</span> <span class="n">angularModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge.productData.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">angular</span> <span class="k">as</span> <span class="n">angularModule</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">base</span> <span class="k">as</span> <span class="n">baseModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">base</span> <span class="k">as</span> <span class="n">baseModule</span>
 
-<div class="viewcode-block" id="Reaction"><a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction">[docs]</a><span class="k">class</span> <span class="nc">Reaction</span><span class="p">(</span><span class="n">baseModule</span><span class="o">.</span><span class="n">Base_reaction2</span><span class="p">):</span>
+<div class="viewcode-block" id="Reaction">
+<a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Reaction</span><span class="p">(</span><span class="n">baseModule</span><span class="o">.</span><span class="n">Base_reaction2</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This is the class for a normal gnds reaction.&quot;&quot;&quot;</span>
 
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;reaction&#39;</span>
     <span class="n">ancestryMembers</span> <span class="o">=</span> <span class="n">baseModule</span><span class="o">.</span><span class="n">Base_reaction2</span><span class="o">.</span><span class="n">ancestryMembers</span> <span class="o">+</span> <span class="p">(</span> <span class="s1">&#39;availableEnergy&#39;</span><span class="p">,</span> <span class="s1">&#39;availableMomentum&#39;</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">genre</span><span class="p">,</span> <span class="n">ENDF_MT</span><span class="p">,</span> <span class="n">fissionGenre</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">FissionGenre</span><span class="o">.</span><span class="n">none</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">genre</span><span class="p">,</span> <span class="n">ENDF_MT</span><span class="p">,</span> <span class="n">fissionGenre</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">FissionGenre</span><span class="o">.</span><span class="n">none</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a new reaction object. Reaction is two-body or uncorrelated-body, depending on</span>
 <span class="sd">        the outputChannel genre. This class is only meant to be used for &#39;distinct&#39; reactions (distinct reactions</span>
@@ -93,13 +91,15 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__reactionProducts</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">baseModule</span><span class="o">.</span><span class="n">isGNDSReaction</span><span class="p">(</span> <span class="n">other</span> <span class="p">)):</span> <span class="k">return</span> <span class="kc">False</span>
         <span class="n">selfParent</span><span class="p">,</span> <span class="n">otherParent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getReactionSuite</span><span class="p">(</span> <span class="p">),</span> <span class="n">other</span><span class="o">.</span><span class="n">getReactionSuite</span><span class="p">(</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="p">(</span> <span class="n">selfParent</span><span class="o">.</span><span class="n">projectile</span> <span class="o">==</span> <span class="n">otherParent</span><span class="o">.</span><span class="n">projectile</span> <span class="p">)</span> <span class="ow">and</span> <span class="p">(</span> <span class="n">selfParent</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="n">otherParent</span><span class="o">.</span><span class="n">target</span> <span class="p">)</span> 
             <span class="ow">and</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputChannel</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">outputChannel</span> <span class="p">)</span> <span class="p">)</span>
     
-<div class="viewcode-block" id="Reaction.getThreshold"><a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.getThreshold">[docs]</a>    <span class="k">def</span> <span class="nf">getThreshold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
+<div class="viewcode-block" id="Reaction.getThreshold">
+<a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.getThreshold">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getThreshold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
 
         <span class="n">Q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getQ</span><span class="p">(</span><span class="n">unit</span> <span class="o">=</span> <span class="n">unit</span><span class="p">,</span> <span class="n">final</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">Q</span> <span class="o">&gt;=</span> <span class="mf">0.</span><span class="p">:</span> <span class="k">return</span> <span class="mf">0.</span>
@@ -113,15 +113,24 @@
         <span class="n">targetMass</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">getMass</span><span class="p">(</span><span class="s1">&#39;amu&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="o">-</span><span class="n">Q</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">projectileMass</span> <span class="o">/</span> <span class="n">targetMass</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Reaction.isBasicReaction"><a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.isBasicReaction">[docs]</a>    <span class="k">def</span> <span class="nf">isBasicReaction</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Reaction.isBasicReaction">
+<a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.isBasicReaction">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">isBasicReaction</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="kc">True</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Reaction.isCompleteReaction"><a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.isCompleteReaction">[docs]</a>    <span class="k">def</span> <span class="nf">isCompleteReaction</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Reaction.isCompleteReaction">
+<a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.isCompleteReaction">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">isCompleteReaction</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="kc">True</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Reaction.processCoulombPlusNuclearMuCutoff"><a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.processCoulombPlusNuclearMuCutoff">[docs]</a>    <span class="k">def</span> <span class="nf">processCoulombPlusNuclearMuCutoff</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">excludeRutherfordScattering</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Reaction.processCoulombPlusNuclearMuCutoff">
+<a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.processCoulombPlusNuclearMuCutoff">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">processCoulombPlusNuclearMuCutoff</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">excludeRutherfordScattering</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">for</span> <span class="n">doubleDifferentialCrossSection</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doubleDifferentialCrossSection</span> <span class="p">:</span>
             <span class="k">if</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">doubleDifferentialCrossSection</span><span class="p">,</span> <span class="n">CoulombPlusNuclearElasticModule</span><span class="o">.</span><span class="n">Form</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span>
@@ -142,7 +151,10 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="kc">None</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Reaction.processThermalNeutronScatteringLaw"><a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.processThermalNeutronScatteringLaw">[docs]</a>    <span class="k">def</span> <span class="nf">processThermalNeutronScatteringLaw</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Reaction.processThermalNeutronScatteringLaw">
+<a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.processThermalNeutronScatteringLaw">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">processThermalNeutronScatteringLaw</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">for</span> <span class="n">doubleDifferentialCrossSection</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doubleDifferentialCrossSection</span> <span class="p">:</span>
             <span class="k">if</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">doubleDifferentialCrossSection</span><span class="p">,</span> <span class="n">thermalNeutronScatteringLawBaseModule</span><span class="o">.</span><span class="n">Form</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span>
@@ -168,14 +180,20 @@
 
                 <span class="k">break</span></div>
 
-<div class="viewcode-block" id="Reaction.reactionProducts"><a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.reactionProducts">[docs]</a>    <span class="k">def</span> <span class="nf">reactionProducts</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Reaction.reactionProducts">
+<a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.reactionProducts">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reactionProducts</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">if</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reactionProducts</span> <span class="ow">is</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reactionProducts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputChannel</span><span class="o">.</span><span class="n">reactionProducts</span><span class="p">(</span> <span class="n">reactionProductsModule</span><span class="o">.</span><span class="n">ReactionProducts</span><span class="p">(</span> <span class="p">)</span> <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fissionGenre</span> <span class="o">!=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">FissionGenre</span><span class="o">.</span><span class="n">none</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__reactionProducts</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fissionGenre</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;Fission&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reactionProductsModule</span><span class="o">.</span><span class="n">ReactionProduct</span><span class="p">(</span> <span class="n">reactionProductsModule</span><span class="o">.</span><span class="n">Category</span><span class="o">.</span><span class="n">process</span><span class="p">,</span> <span class="mi">0</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__reactionProducts</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Reaction.specialReactionLabel"><a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.specialReactionLabel">[docs]</a>    <span class="k">def</span> <span class="nf">specialReactionLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputMode</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">specialNuclearParticleID_PoPsModule</span><span class="o">.</span><span class="n">Mode</span><span class="o">.</span><span class="n">familiar</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Reaction.specialReactionLabel">
+<a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.specialReactionLabel">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">specialReactionLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputMode</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">specialNuclearParticleID_PoPsModule</span><span class="o">.</span><span class="n">Mode</span><span class="o">.</span><span class="n">familiar</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the special label for *self*. The special label is a unique label for the reaction that is meant to </span>
 <span class="sd">        be the same for the same reaction type.</span>
@@ -191,53 +209,101 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reactionProducts</span><span class="p">()</span><span class="o">.</span><span class="n">specialReactionLabel</span><span class="p">(</span><span class="n">outputMode</span><span class="p">,</span> <span class="n">pops</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Reaction.thermalNeutronScatteringLawTemperatures"><a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.thermalNeutronScatteringLawTemperatures">[docs]</a>    <span class="k">def</span> <span class="nf">thermalNeutronScatteringLawTemperatures</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">temperatures</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Reaction.thermalNeutronScatteringLawTemperatures">
+<a class="viewcode-back" href="../../../fudge/fudge.reactions.html#fudge.reactions.reaction.Reaction.thermalNeutronScatteringLawTemperatures">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">thermalNeutronScatteringLawTemperatures</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">temperatures</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">for</span> <span class="n">doubleDifferentialCrossSection</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">doubleDifferentialCrossSection</span> <span class="p">:</span>
             <span class="k">if</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">doubleDifferentialCrossSection</span><span class="p">,</span> <span class="n">thermalNeutronScatteringLawBaseModule</span><span class="o">.</span><span class="n">Form</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span>
-                <span class="n">doubleDifferentialCrossSection</span><span class="o">.</span><span class="n">temperatures</span><span class="p">(</span> <span class="n">temperatures</span> <span class="p">)</span></div></div>
+                <span class="n">doubleDifferentialCrossSection</span><span class="o">.</span><span class="n">temperatures</span><span class="p">(</span> <span class="n">temperatures</span> <span class="p">)</span></div>
+</div>
+
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../../index.html">
-              <img class="logo" src="../../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">fudge.reactions.reaction</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

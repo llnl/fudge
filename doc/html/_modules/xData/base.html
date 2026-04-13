@@ -1,47 +1,43 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>xData.base &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
-    
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../_static/gnd-20121206-favicon.ico"/>
+    <title>xData.base &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">xData.base</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for xData.base</h1><div class="highlight"><pre>
 <span></span><span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
@@ -83,15 +79,17 @@
 <span class="sd">    +-----------------------------------+-----------------------------------------------------------------------+</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">abc</span>
 
-<span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
 
-<span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
 
-<div class="viewcode-block" id="getArguments"><a class="viewcode-back" href="../../xData/index.html#xData.base.getArguments">[docs]</a><span class="k">def</span> <span class="nf">getArguments</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+<div class="viewcode-block" id="getArguments">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.getArguments">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">getArguments</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function replaces every value for a key in *arguments* with the value of the key in *kwargs*. If a key in *arguments* </span>
 <span class="sd">    is not in *kwargs*, *arguments* value for that key is not changed.</span>
@@ -105,20 +103,29 @@
     <span class="k">for</span> <span class="n">argument</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="n">argument</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">argument</span><span class="p">,</span> <span class="n">arguments</span><span class="p">[</span><span class="n">argument</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">arguments</span></div>
 
-<div class="viewcode-block" id="XDataBase"><a class="viewcode-back" href="../../xData/index.html#xData.base.XDataBase">[docs]</a><span class="k">class</span> <span class="nc">XDataBase</span><span class="p">:</span>
+
+<div class="viewcode-block" id="XDataBase">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.XDataBase">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">XDataBase</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This class is only inherited by XData so can be deleted.&quot;&quot;&quot;</span>
 
     <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="XData"><a class="viewcode-back" href="../../xData/index.html#xData.base.XData">[docs]</a><span class="k">class</span> <span class="nc">XData</span><span class="p">(</span><span class="n">XDataBase</span><span class="p">,</span> <span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XData">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.XData">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">XData</span><span class="p">(</span><span class="n">XDataBase</span><span class="p">,</span> <span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This class is only inherited by XDataCoreMembers so can be deleted.&quot;&quot;&quot;</span>
 
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="XDataCoreMembers"><a class="viewcode-back" href="../../xData/index.html#xData.base.XDataCoreMembers">[docs]</a><span class="k">class</span> <span class="nc">XDataCoreMembers</span><span class="p">(</span><span class="n">XData</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XDataCoreMembers">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.XDataCoreMembers">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">XDataCoreMembers</span><span class="p">(</span><span class="n">XData</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is the base class inherited by many xData class and defined the members index and label.</span>
 <span class="sd">    </span>
@@ -133,7 +140,7 @@
 <span class="sd">    +-----------+-----------------------------------------------------------+</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param index:       This argument defines index member.</span>
 <span class="sd">        :param label:       This argument defines the label member.</span>
@@ -145,7 +152,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
 
-<div class="viewcode-block" id="XDataCoreMembers.attributesToXMLAttributeStr"><a class="viewcode-back" href="../../xData/index.html#xData.base.XDataCoreMembers.attributesToXMLAttributeStr">[docs]</a>    <span class="k">def</span> <span class="nf">attributesToXMLAttributeStr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="XDataCoreMembers.attributesToXMLAttributeStr">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.XDataCoreMembers.attributesToXMLAttributeStr">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">attributesToXMLAttributeStr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This functions returns the XML attributes string for the index and label members.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -155,35 +164,38 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">attributeStr</span> <span class="o">+=</span> <span class="s1">&#39; label=&quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span>
         <span class="k">return</span> <span class="n">attributeStr</span></div>
 
+
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The method returns the index member.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__index</span>
 
     <span class="nd">@index</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The method sets the index member to *value*.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__index</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The method returns the label member.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__label</span>
 
     <span class="nd">@label</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;The method sets the label member to *value*.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;label must be a string, got </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__label</span> <span class="o">=</span> <span class="n">value</span>
 
-<div class="viewcode-block" id="XDataCoreMembers.getArguments"><a class="viewcode-back" href="../../xData/index.html#xData.base.XDataCoreMembers.getArguments">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">getArguments</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+<div class="viewcode-block" id="XDataCoreMembers.getArguments">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.XDataCoreMembers.getArguments">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getArguments</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function calls :py:func:`getArguments` and returns its results.</span>
 
@@ -193,9 +205,13 @@
 <span class="sd">        :returns:               The modified *arguments*.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="n">getArguments</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">getArguments</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span></div>
+</div>
 
-<div class="viewcode-block" id="XDataFunctional"><a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional">[docs]</a><span class="k">class</span> <span class="nc">XDataFunctional</span><span class="p">(</span><span class="n">XDataCoreMembers</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XDataFunctional">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">XDataFunctional</span><span class="p">(</span><span class="n">XDataCoreMembers</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is the base class inherited by the xData classes that can have an axes, outerDomainValue, index and label members.</span>
 <span class="sd">    </span>
@@ -217,7 +233,7 @@
 
     <span class="n">ancestryMembers</span> <span class="o">=</span> <span class="p">(</span> <span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="s1">&#39;uncertainty&#39;</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">valueType</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">ValueType</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">valueType</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">ValueType</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param axes:                This is the axes member.</span>
 <span class="sd">        :param valueType:           This describes the type of data (i.e., float, int) returned by the function.</span>
@@ -227,8 +243,8 @@
 <span class="sd">        :param label:               See documentation for constructor for :py:class:`XDataCoreMembers`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">axes</span> <span class="k">as</span> <span class="n">axesModule</span>
-        <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">uncertainties</span> <span class="k">as</span> <span class="n">uncertaintiesModule</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">axes</span> <span class="k">as</span> <span class="n">axesModule</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">uncertainties</span> <span class="k">as</span> <span class="n">uncertaintiesModule</span>
 
         <span class="n">XDataCoreMembers</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
 
@@ -244,12 +260,14 @@
 
     <span class="nd">@property</span>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">dimension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dimension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This method must be over-written by the sub-class with the correct dimension (i.e., the number of independent axes) of the function.&quot;&quot;&quot;</span>
 
         <span class="k">pass</span>
 
-<div class="viewcode-block" id="XDataFunctional.attributesToXMLAttributeStr"><a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.attributesToXMLAttributeStr">[docs]</a>    <span class="k">def</span> <span class="nf">attributesToXMLAttributeStr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="XDataFunctional.attributesToXMLAttributeStr">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.attributesToXMLAttributeStr">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">attributesToXMLAttributeStr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This functions returns the XML attributes string for the index, label, and *outerDomainValue*  members.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -258,21 +276,22 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">outerDomainValue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">attributeStr</span> <span class="o">+=</span> <span class="s1">&#39; outerDomainValue=&quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="n">PQUModule</span><span class="o">.</span><span class="n">floatToShortestString</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">outerDomainValue</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">attributeStr</span></div>
 
+
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">axes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">axes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This method returns self&#39;s axes.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__axes</span>
 
     <span class="nd">@axes</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">axes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes1</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">axes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes1</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method sets self&#39;s axes to *axes1*.</span>
 
 <span class="sd">        :param axes1:       The new axes for *self*.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">axes</span> <span class="k">as</span> <span class="n">axesModule</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">axes</span> <span class="k">as</span> <span class="n">axesModule</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axes1</span><span class="p">,</span> <span class="n">axesModule</span><span class="o">.</span><span class="n">Axes</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;axes in not an axes instance&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -284,13 +303,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__axes</span> <span class="o">=</span> <span class="n">axes1</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">outerDomainValue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">outerDomainValue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This method returns self&#39;s *outerDomainValue* value.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__outerDomainValue</span>
 
     <span class="nd">@outerDomainValue</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">outerDomainValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">outerDomainValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method sets self&#39;s *outerDomainValue*.</span>
 
@@ -301,13 +320,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__outerDomainValue</span> <span class="o">=</span> <span class="n">outerDomainValue</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">valueType</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">valueType</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This method returns self&#39;s *valueType*.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__valueType</span>
 
     <span class="nd">@valueType</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">valueType</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">valueType</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">valueType</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">valueType</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method sets self&#39;s *valueType*.</span>
 
@@ -319,7 +338,9 @@
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;valueType = &quot;</span><span class="si">%s</span><span class="s1">&quot; not supported&#39;</span> <span class="o">%</span> <span class="n">valueType</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__valueType</span> <span class="o">=</span> <span class="n">valueType</span>
 
-<div class="viewcode-block" id="XDataFunctional.fixValuePerUnitChange"><a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.fixValuePerUnitChange">[docs]</a>    <span class="k">def</span> <span class="nf">fixValuePerUnitChange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">factors</span><span class="p">):</span>
+<div class="viewcode-block" id="XDataFunctional.fixValuePerUnitChange">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.fixValuePerUnitChange">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fixValuePerUnitChange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">factors</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This methods changes self&#39;s *outerDomainValue* per a unit change if self&#39;s *outerDomainValue* is not None.</span>
 <span class="sd">        This method is called from a sub-class&#39;s **convertUnits** method.</span>
@@ -329,7 +350,10 @@
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__outerDomainValue</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">__outerDomainValue</span> <span class="o">*=</span> <span class="n">factors</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dimension</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="XDataFunctional.getAxisIndexByIndexOrName"><a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.getAxisIndexByIndexOrName">[docs]</a>    <span class="k">def</span> <span class="nf">getAxisIndexByIndexOrName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexOrName</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XDataFunctional.getAxisIndexByIndexOrName">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.getAxisIndexByIndexOrName">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getAxisIndexByIndexOrName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indexOrName</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the index of self&#39;s axis that is associated with *indexOrName*. If *indexOrName* is an int, it is returned.</span>
 <span class="sd">        Otherwise, *indexOrName* must be a string that matches the label of one of self&#39;s axis whose index will be returned.</span>
@@ -345,7 +369,10 @@
                 <span class="k">if</span> <span class="n">axis</span><span class="o">.</span><span class="n">label</span> <span class="o">==</span> <span class="n">indexOrName</span><span class="p">:</span> <span class="k">return</span> <span class="n">index</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;argument must be an integer or a string&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="XDataFunctional.getAxisUnitSafely"><a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.getAxisUnitSafely">[docs]</a>    <span class="k">def</span> <span class="nf">getAxisUnitSafely</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XDataFunctional.getAxisUnitSafely">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.getAxisUnitSafely">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getAxisUnitSafely</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the unit for the axis at *index*. If no axis&#39; are present, an empty string is returned.</span>
 
@@ -357,7 +384,10 @@
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="s1">&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span></div>
 
-<div class="viewcode-block" id="XDataFunctional.getPrimaryXData"><a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.getPrimaryXData">[docs]</a>    <span class="k">def</span> <span class="nf">getPrimaryXData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XDataFunctional.getPrimaryXData">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.getPrimaryXData">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getPrimaryXData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Thie method returns a reference to the top level :py:class:`XDataFunctional` function. That is, if *self* is embedded in a </span>
 <span class="sd">        higher dimensional :py:class:`XDataFunctional` function, a reference to the outer most function is returned, otherwise, *self* is returned.</span>
@@ -369,14 +399,20 @@
         <span class="k">while</span> <span class="ow">not</span> <span class="n">ancestor</span><span class="o">.</span><span class="n">isPrimaryXData</span><span class="p">():</span> <span class="n">ancestor</span> <span class="o">=</span> <span class="n">ancestor</span><span class="o">.</span><span class="n">ancestor</span>
         <span class="k">return</span> <span class="n">ancestor</span></div>
 
-<div class="viewcode-block" id="XDataFunctional.isPrimaryXData"><a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.isPrimaryXData">[docs]</a>    <span class="k">def</span> <span class="nf">isPrimaryXData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XDataFunctional.isPrimaryXData">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.isPrimaryXData">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">isPrimaryXData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;This method returns False if self is contained in a higher dimension :py:class:`XDataFunctional` and False otherwise.&quot;&quot;&quot;</span>
 
         <span class="n">ancestry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ancestor</span>
         <span class="k">if</span> <span class="n">ancestry</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="k">return</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ancestry</span><span class="p">,</span> <span class="n">XDataFunctional</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="XDataFunctional.buildXML_strList"><a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.buildXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">buildXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="p">,</span> <span class="n">startTag</span><span class="p">,</span> <span class="n">extraData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XDataFunctional.buildXML_strList">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.buildXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">buildXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="p">,</span> <span class="n">startTag</span><span class="p">,</span> <span class="n">extraData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This methods builds the list of XML strings by adding (if present) the axes, uncertainty data, the end tag name and</span>
 <span class="sd">        the additional data sub-class adds.  This method is for internal use.</span>
@@ -399,7 +435,10 @@
 
         <span class="k">return</span> <span class="n">XML_strList</span></div>
 
-<div class="viewcode-block" id="XDataFunctional.parseNodeStandardChildren"><a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.parseNodeStandardChildren">[docs]</a>    <span class="k">def</span> <span class="nf">parseNodeStandardChildren</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XDataFunctional.parseNodeStandardChildren">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.parseNodeStandardChildren">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeStandardChildren</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method parses the common child nodes (i.e., &#39;axes&#39; and &#39;uncertainty&#39;) of *self*, and returns the other child nodes, </span>
 <span class="sd">        which were not parsed, as a dictionary with keys of the child.tag values.</span>
@@ -425,8 +464,11 @@
 
         <span class="k">return</span> <span class="n">extraNodes</span></div>
 
-<div class="viewcode-block" id="XDataFunctional.parseBareNodeCommonAttributes"><a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.parseBareNodeCommonAttributes">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">parseBareNodeCommonAttributes</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">allowInterapolation</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XDataFunctional.parseBareNodeCommonAttributes">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.XDataFunctional.parseBareNodeCommonAttributes">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseBareNodeCommonAttributes</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">allowInterapolation</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns two dictionaries. One dictionary contains all the common attributions of *self*</span>
 <span class="sd">        and the other dictionary constains the other attributions.</span>
@@ -459,9 +501,13 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">extraAttributes</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
 
-        <span class="k">return</span> <span class="n">attributes</span><span class="p">,</span> <span class="n">extraAttributes</span></div></div>
+        <span class="k">return</span> <span class="n">attributes</span><span class="p">,</span> <span class="n">extraAttributes</span></div>
+</div>
 
-<div class="viewcode-block" id="isXDataFunctional"><a class="viewcode-back" href="../../xData/index.html#xData.base.isXDataFunctional">[docs]</a><span class="k">def</span> <span class="nf">isXDataFunctional</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="isXDataFunctional">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.isXDataFunctional">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">isXDataFunctional</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns True if object is an instance of XDataBase and False otherwise.</span>
 
@@ -472,7 +518,10 @@
 
     <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">XDataBase</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="getDomainValue"><a class="viewcode-back" href="../../xData/index.html#xData.base.getDomainValue">[docs]</a><span class="k">def</span> <span class="nf">getDomainValue</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
+
+<div class="viewcode-block" id="getDomainValue">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.getDomainValue">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">getDomainValue</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a number which will be *default* if *value* is None. Otherwise, the number is *value* (in unit of *unit* if </span>
 <span class="sd">    *value* is a :py:class:`PQUModule.PQU` instance).</span>
@@ -488,7 +537,10 @@
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span> <span class="nb">str</span><span class="p">,</span> <span class="n">PQUModule</span><span class="o">.</span><span class="n">PQU</span> <span class="p">)):</span> <span class="k">return</span> <span class="n">PQUModule</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">getValueAs</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">value</span></div>
 
-<div class="viewcode-block" id="getDomainLimits"><a class="viewcode-back" href="../../xData/index.html#xData.base.getDomainLimits">[docs]</a><span class="k">def</span> <span class="nf">getDomainLimits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMin</span><span class="p">,</span> <span class="n">domainMax</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
+
+<div class="viewcode-block" id="getDomainLimits">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.getDomainLimits">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">getDomainLimits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMin</span><span class="p">,</span> <span class="n">domainMax</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns the limits of a domain in unit of *unit*.</span>
 
@@ -502,7 +554,10 @@
     <span class="n">defaultMin</span><span class="p">,</span> <span class="n">defaultMax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainMin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainMax</span>
     <span class="k">return</span> <span class="n">getDomainValue</span><span class="p">(</span><span class="n">domainMin</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">defaultMin</span><span class="p">),</span> <span class="n">getDomainValue</span><span class="p">(</span><span class="n">domainMax</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">defaultMax</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="processUnits"><a class="viewcode-back" href="../../xData/index.html#xData.base.processUnits">[docs]</a><span class="k">def</span> <span class="nf">processUnits</span><span class="p">(</span><span class="n">unit1</span><span class="p">,</span> <span class="n">unit2</span><span class="p">,</span> <span class="n">operator</span><span class="p">):</span>
+
+<div class="viewcode-block" id="processUnits">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.processUnits">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">processUnits</span><span class="p">(</span><span class="n">unit1</span><span class="p">,</span> <span class="n">unit2</span><span class="p">,</span> <span class="n">operator</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a unit this is *unit1* operating on *unit2*. The *operator* can only be &quot;*&quot; or &quot;/&quot;.</span>
 
@@ -517,7 +572,10 @@
     <span class="n">result</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s1">&#39;PQUModule.PQU(1, unit1) </span><span class="si">%s</span><span class="s1"> PQUModule.PQU(1, unit2)&#39;</span> <span class="o">%</span> <span class="n">operator</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">getUnitSymbol</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="getDomainValue2"><a class="viewcode-back" href="../../xData/index.html#xData.base.getDomainValue2">[docs]</a><span class="k">def</span> <span class="nf">getDomainValue2</span><span class="p">(</span><span class="n">domainValue</span><span class="p">):</span>
+
+<div class="viewcode-block" id="getDomainValue2">
+<a class="viewcode-back" href="../../xData/index.html#xData.base.getDomainValue2">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">getDomainValue2</span><span class="p">(</span><span class="n">domainValue</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns *domainValue* as either a float if *domainValue* is a number or a :py:class:`PQUModule.PQU` if *domainValue*</span>
 <span class="sd">    is a number with a unit.</span>
@@ -534,48 +592,92 @@
         <span class="k">except</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">PQUModule</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span><span class="n">domainValue</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">domainValue</span><span class="p">)</span></div>
+
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">xData.base</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

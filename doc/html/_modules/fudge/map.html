@@ -1,47 +1,43 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>fudge.map &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
-    
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../_static/gnd-20121206-favicon.ico"/>
+    <title>fudge.map &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">fudge.map</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for fudge.map</h1><div class="highlight"><pre>
 <span></span><span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 
 <span class="vm">__doc__</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
@@ -61,33 +57,37 @@
 <span class="s2">Note, in general, most user should get a protare (i.e., **GNDS** **reactionSuite**) this way.</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">abc</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">abc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pathlib</span>
 
-<span class="kn">from</span> <span class="nn">fudge</span> <span class="kn">import</span> <span class="n">GNDS_formatVersion</span> <span class="k">as</span> <span class="n">GNDS_formatVersionModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge</span><span class="w"> </span><span class="kn">import</span> <span class="n">GNDS_formatVersion</span> <span class="k">as</span> <span class="n">GNDS_formatVersionModule</span>
 
-<span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
-<span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">checksums</span> <span class="k">as</span> <span class="n">checksumsModule</span>
-<span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">misc</span> <span class="k">as</span> <span class="n">LUPY_miscModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">checksums</span> <span class="k">as</span> <span class="n">checksumsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">misc</span> <span class="k">as</span> <span class="n">LUPY_miscModule</span>
 
-<span class="kn">from</span> <span class="nn">fudge</span> <span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">styles</span> <span class="k">as</span> <span class="n">stylesModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">GNDS_file</span> <span class="k">as</span> <span class="n">GNDS_fileModule</span>
-<span class="kn">from</span> <span class="nn">fudge.core.utilities</span> <span class="kn">import</span> <span class="n">guessInteraction</span> <span class="k">as</span> <span class="n">guessInteractionModule</span>
-<span class="kn">from</span> <span class="nn">fudge</span> <span class="kn">import</span> <span class="n">reactionSuite</span> <span class="k">as</span> <span class="n">reactionSuiteModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge</span><span class="w"> </span><span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">styles</span> <span class="k">as</span> <span class="n">stylesModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">GNDS_file</span> <span class="k">as</span> <span class="n">GNDS_fileModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge.core.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">guessInteraction</span> <span class="k">as</span> <span class="n">guessInteractionModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge</span><span class="w"> </span><span class="kn">import</span> <span class="n">reactionSuite</span> <span class="k">as</span> <span class="n">reactionSuiteModule</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PoPs.specialNuclearParticleID</span><span class="w"> </span><span class="kn">import</span> <span class="n">specialNuclearParticleID</span>
 
 
 <span class="n">__todo</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    -) Need to make Base and some other classes a meta class.</span>
 <span class="s2">&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="FormatVersion"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.FormatVersion">[docs]</a><span class="k">class</span> <span class="nc">FormatVersion</span><span class="p">:</span>
+<div class="viewcode-block" id="FormatVersion">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.FormatVersion">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FormatVersion</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class is only needed because some legacy map files (map files created before the map node was</span>
 <span class="sd">    defined in **GNDS**) are still used at LLNL. When these map files are no longer used, this class</span>
-<span class="sd">    will be removed. New map files should only be created with **GNDS** format &#39;2.0&#39;.</span>
+<span class="sd">    will be removed. New map files should only be created with **GNDS** format &#39;2.0&#39; or later.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">version_0_1</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
@@ -98,11 +98,14 @@
         <span class="n">GNDS_formatVersionModule</span><span class="o">.</span><span class="n">version_1_10</span><span class="p">,</span>
         <span class="n">GNDS_formatVersionModule</span><span class="o">.</span><span class="n">version_2_0_LLNL_4</span><span class="p">,</span>
         <span class="n">GNDS_formatVersionModule</span><span class="o">.</span><span class="n">version_2_0</span><span class="p">,</span>
+        <span class="n">GNDS_formatVersionModule</span><span class="o">.</span><span class="n">version_2_1</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">default</span> <span class="o">=</span> <span class="n">GNDS_formatVersionModule</span><span class="o">.</span><span class="n">default</span>
 
-<div class="viewcode-block" id="FormatVersion.check"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.FormatVersion.check">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="nb">format</span><span class="p">):</span>
+<div class="viewcode-block" id="FormatVersion.check">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.FormatVersion.check">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="nb">format</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This methods should be used to check that the format of a map file is valid. Also, the returned value is the format</span>
 <span class="sd">        that should be used after calling this method.</span>
@@ -117,10 +120,14 @@
         <span class="k">if</span> <span class="nb">format</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">FormatVersion</span><span class="o">.</span><span class="n">allowed</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unsupported format &quot;</span><span class="si">%s</span><span class="s1">&quot;.&#39;</span> <span class="o">%</span> <span class="nb">format</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="nb">format</span></div></div>
+        <span class="k">return</span> <span class="nb">format</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Base"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Base">[docs]</a><span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Base">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Base">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class used by all other map related classes. Mainly inherits class :py:class:`ancestryModule.AncestryIO`</span>
 <span class="sd">    and adds the members **checksum** and **algorithm**.</span>
@@ -136,7 +143,7 @@
 <span class="sd">    +-----------+-----------------------------------------------------------+</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param checksum:        The check sum of the file referrence by the path member.</span>
 <span class="sd">        :param algorithm:       The algorithm used to calculate *checksum*.</span>
@@ -148,13 +155,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span> <span class="o">=</span> <span class="n">algorithm</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">checksum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">checksum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return checksum for this map entry.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__checksum</span>
 
     <span class="nd">@checksum</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">checksum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checksum_</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">checksum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checksum_</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets *self*&#39;s checksum to checksum_.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">checksum_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">checksum_</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
@@ -162,7 +169,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__checksum</span> <span class="o">=</span> <span class="n">checksum_</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">algorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">algorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the algorithm used to compute the checksum for this entry.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__algorithm</span><span class="p">:</span>
@@ -172,7 +179,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ancestor</span><span class="o">.</span><span class="n">algorithm</span>
 
     <span class="nd">@algorithm</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">algorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">algorithm_</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">algorithm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">algorithm_</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Set *self*&#39;s algorithm to algorithm_.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">algorithm_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">algorithm_</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">checksumsModule</span><span class="o">.</span><span class="n">supportedAlgorithms</span><span class="p">:</span>
@@ -181,10 +188,12 @@
 
     <span class="nd">@property</span>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
-<div class="viewcode-block" id="Base.standardXML_attributes"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Base.standardXML_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">standardXML_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checkAncestor</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Base.standardXML_attributes">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Base.standardXML_attributes">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">standardXML_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checkAncestor</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the XML attribute string for *checksum* and *algorithm*. Mainly for internal use.</span>
 <span class="sd">        If *checkAncestor* is **True** and *self*&#39;s *ancestor* uses the same *algorithm* as *self*, then</span>
@@ -206,10 +215,14 @@
         <span class="k">if</span> <span class="n">algorithm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">attrs</span> <span class="o">+=</span> <span class="s1">&#39; algorithm=&quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="n">algorithm</span>
 
-        <span class="k">return</span> <span class="n">attrs</span></div></div>
+        <span class="k">return</span> <span class="n">attrs</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Map"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map">[docs]</a><span class="k">class</span> <span class="nc">Map</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Map">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Map</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class represents a **GNDS** **map** that is used to create a nuclear data library from a list</span>
 <span class="sd">    of :py:class:`Protare` :py:class:`TNSL` and :py:class:`Import` instances. Each instance in the list</span>
@@ -236,7 +249,7 @@
 
     <span class="n">moniker</span> <span class="o">=</span> <span class="s2">&quot;map&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">library</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">parentsDir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">FormatVersion</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">library</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">parentsDir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">FormatVersion</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor for **Map** class.</span>
 
@@ -267,7 +280,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__entries</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the (index-1)^th item of self.</span>
 
@@ -276,19 +289,19 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__entries</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Iterators over each entry in *self*. Does not dive into import entries.&quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__entries</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">entry</span>
 
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the number of entries in *self*. Does not dive into import entries.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__entries</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the path this map was read from or may be written to. It may be absolote or relative,</span>
 <span class="sd">        depending on how it was initialize.</span>
@@ -297,19 +310,19 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__path</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns to format for *self*.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__format</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">library</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">library</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the library name for *self*.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__library</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">fileName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fileName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the file name for the location of *self*. Unlike the method :py:func:`path`,</span>
 <span class="sd">        this will always be the absolute path.</span>
@@ -317,20 +330,22 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fileName</span>
 
-<div class="viewcode-block" id="Map.updateAllChecksums"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.updateAllChecksums">[docs]</a>    <span class="k">def</span> <span class="nf">updateAllChecksums</span><span class="p">(</span>
+<div class="viewcode-block" id="Map.updateAllChecksums">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.updateAllChecksums">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">updateAllChecksums</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">checksumsModule</span><span class="o">.</span><span class="n">Sha1sum</span><span class="o">.</span><span class="n">algorithm</span><span class="p">,</span> <span class="n">mapDirectory</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls *updateChecksum* on all entries and then updates *self*&#39;s *checksum*.&quot;&quot;&quot;</span>
 
-        <span class="kn">import</span> <span class="nn">threading</span>
-        <span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">parallelprocessing</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">parallelprocessing</span>
 
-        <span class="k">class</span> <span class="nc">computeSum</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
-            <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry</span><span class="p">):</span>
+        <span class="k">class</span><span class="w"> </span><span class="nc">computeSum</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry</span><span class="p">):</span>
                 <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">entry</span> <span class="o">=</span> <span class="n">entry</span>
 
-            <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">entry</span><span class="o">.</span><span class="n">updateChecksum</span><span class="p">(</span><span class="n">algorithm</span><span class="p">,</span> <span class="n">mapDirectory</span><span class="o">=</span><span class="n">mapDirectory</span><span class="p">)</span>
 
         <span class="n">entries</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -338,7 +353,10 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">updateChecksum</span><span class="p">(</span><span class="n">algorithm</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Map.updateChecksum"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.updateChecksum">[docs]</a>    <span class="k">def</span> <span class="nf">updateChecksum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">checksumsModule</span><span class="o">.</span><span class="n">Sha1sum</span><span class="o">.</span><span class="n">algorithm</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Map.updateChecksum">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.updateChecksum">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">updateChecksum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">checksumsModule</span><span class="o">.</span><span class="n">Sha1sum</span><span class="o">.</span><span class="n">algorithm</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes map file checksum by concatenating checksums for all entries of *self* into a string and compute the</span>
 <span class="sd">        checksum of that string.</span>
@@ -353,7 +371,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">checksum</span> <span class="o">=</span> <span class="n">checker</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span> <span class="o">=</span> <span class="n">algorithm</span></div>
 
-<div class="viewcode-block" id="Map.append"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Map.append">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.append">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Appends *entry* to *self*.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">EntryBase</span><span class="p">):</span>
@@ -362,7 +383,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__entries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
         <span class="n">entry</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Map.insert"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">entry</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Map.insert">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.insert">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">entry</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Inserts the entry into *self* at index.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">EntryBase</span><span class="p">):</span>
@@ -371,7 +395,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__entries</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">entry</span><span class="p">)</span>
         <span class="n">entry</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Map.iterate"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.iterate">[docs]</a>    <span class="k">def</span> <span class="nf">iterate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Map.iterate">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.iterate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">iterate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Iterates over all protares and TNSLs in *self* including those in import entries.</span>
 <span class="sd">        Ergo, unlike :py:class:`__getitem__`, this method dives into import entries.</span>
@@ -384,7 +411,10 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">yield</span> <span class="n">entry</span></div>
 
-<div class="viewcode-block" id="Map.find"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.find">[docs]</a>    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">library</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Map.find">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.find">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">library</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the first entry matching *projectile*, *target*, *library* and *evaluation*.</span>
 <span class="sd">        Searches each entry in the order they were appended and dives into imported maps.</span>
@@ -410,7 +440,10 @@
 
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="Map.findAllOf"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.findAllOf">[docs]</a>    <span class="k">def</span> <span class="nf">findAllOf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">library</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Map.findAllOf">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.findAllOf">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">findAllOf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">library</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of all entries matching *projectile*, *target*, *library* and *evaluation*. Searches</span>
 <span class="sd">        all imported maps. If *library* is **None**, the all libraries are treated as matched.</span>
@@ -435,7 +468,10 @@
 
         <span class="k">return</span> <span class="n">allFound</span></div>
 
-<div class="viewcode-block" id="Map.unrecurseAndSave"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.unrecurseAndSave">[docs]</a>    <span class="k">def</span> <span class="nf">unrecurseAndSave</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newFileName</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Map.unrecurseAndSave">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.unrecurseAndSave">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unrecurseAndSave</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newFileName</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Iterate through all entries recursively and save as a flattened map files to file *newFileName*.</span>
 <span class="sd">        Ergo, produces a similar :py:class:`Map` instance but with no import entries.</span>
@@ -460,7 +496,10 @@
 
         <span class="k">return</span> <span class="n">newInstance</span></div>
 
-<div class="viewcode-block" id="Map.toXML_strList"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Map.toXML_strList">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of str instances representing the XML lines of *self*.</span>
 
@@ -486,8 +525,11 @@
 
         <span class="k">return</span> <span class="n">XML_list</span></div>
 
-<div class="viewcode-block" id="Map.parseNodeUsingClass"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Map.parseNodeUsingClass">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a Map instance from an map node.</span>
 
@@ -527,8 +569,11 @@
 
         <span class="k">return</span> <span class="nb">map</span></div>
 
-<div class="viewcode-block" id="Map.read"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.read">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Map.read">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Map.read">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reads in the file name *fileName* and returns a **Map** instance.</span>
 
@@ -538,10 +583,14 @@
 <span class="sd">        :return:            :py:class:`Map` instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="n">Map</span><span class="o">.</span><span class="n">readXML_file</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">Map</span><span class="o">.</span><span class="n">readXML_file</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="EntryBase"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.EntryBase">[docs]</a><span class="k">class</span> <span class="nc">EntryBase</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+
+<div class="viewcode-block" id="EntryBase">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.EntryBase">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">EntryBase</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for all map entry classes.</span>
 
@@ -558,7 +607,7 @@
 <span class="sd">    +-----------+-----------------------------------------------------------+</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Base constructor for map entries.</span>
 
@@ -571,7 +620,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">fileName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fileName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the file name for the location of *self*. Unlike the method :py:func:`path`,</span>
 <span class="sd">        this will always be the absolute path.</span>
@@ -585,13 +634,13 @@
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">fileName</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the value of the *__path* member. This may be absolute or relative.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__path</span>
 
     <span class="nd">@path</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets member *self*.__path to *path*.</span>
 
@@ -605,7 +654,9 @@
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Path must be a string.&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__path</span> <span class="o">=</span> <span class="n">path</span>
 
-<div class="viewcode-block" id="EntryBase.buildFileName"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.EntryBase.buildFileName">[docs]</a>    <span class="k">def</span> <span class="nf">buildFileName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapDirectory</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="EntryBase.buildFileName">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.EntryBase.buildFileName">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">buildFileName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapDirectory</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is designed to aid in building a map file when the map file does not reside in its final resting place.</span>
 <span class="sd">        The value of *mapDirectory* should be the final resting place (i.e., directory) of the map file.</span>
@@ -619,7 +670,10 @@
 
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">mapDirectory</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="EntryBase.updateChecksum"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.EntryBase.updateChecksum">[docs]</a>    <span class="k">def</span> <span class="nf">updateChecksum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">checksumsModule</span><span class="o">.</span><span class="n">Sha1sum</span><span class="o">.</span><span class="n">algorithm</span><span class="p">,</span> <span class="n">mapDirectory</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="EntryBase.updateChecksum">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.EntryBase.updateChecksum">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">updateChecksum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">checksumsModule</span><span class="o">.</span><span class="n">Sha1sum</span><span class="o">.</span><span class="n">algorithm</span><span class="p">,</span> <span class="n">mapDirectory</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Compute the checksum of the file specified by *path* member and store it into the *checksum* member.</span>
 
@@ -627,9 +681,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">algorithm</span> <span class="o">=</span> <span class="n">algorithm</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">checksum</span> <span class="o">=</span> <span class="n">checksumsModule</span><span class="o">.</span><span class="n">checkers</span><span class="p">[</span><span class="n">algorithm</span><span class="p">]</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buildFileName</span><span class="p">(</span><span class="n">mapDirectory</span><span class="p">))</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">checksum</span> <span class="o">=</span> <span class="n">checksumsModule</span><span class="o">.</span><span class="n">checkers</span><span class="p">[</span><span class="n">algorithm</span><span class="p">]</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buildFileName</span><span class="p">(</span><span class="n">mapDirectory</span><span class="p">))</span></div>
+</div>
 
-<div class="viewcode-block" id="Import"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Import">[docs]</a><span class="k">class</span> <span class="nc">Import</span><span class="p">(</span><span class="n">EntryBase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Import">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Import">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Import</span><span class="p">(</span><span class="n">EntryBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class representing an &#39;import&#39; entry in a map. An import entry specifies the location of another map file to import.</span>
 
@@ -648,7 +706,7 @@
 
     <span class="n">moniker</span> <span class="o">=</span> <span class="s2">&quot;import&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Constructor for the import entry.</span>
 
 <span class="sd">        :param path:            Path to the map file in import.</span>
@@ -659,13 +717,13 @@
         <span class="n">EntryBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="n">checksum</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">algorithm</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__map</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a simple string representation of *self*.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> with path &quot;</span><span class="si">%s</span><span class="s1">&quot;.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">moniker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">derivedPath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">derivedPath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the parent part of the ancestor&#39;s path. This, together with *self*&#39;s path defines the</span>
 <span class="sd">        location of the map file to read in.</span>
@@ -680,14 +738,16 @@
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Import not an entry of a Map instance.&#39;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a reference to *self*.__map.&quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">readMap</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map</span>
 
-<div class="viewcode-block" id="Import.find"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Import.find">[docs]</a>    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">library</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Import.find">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Import.find">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">library</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calls :py:func:`Map.find` on *self*.__map and returns its results.</span>
 
@@ -703,7 +763,10 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">projectile</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">library</span><span class="p">,</span> <span class="n">evaluation</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Import.findAllOf"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Import.findAllOf">[docs]</a>    <span class="k">def</span> <span class="nf">findAllOf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">library</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Import.findAllOf">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Import.findAllOf">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">findAllOf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">library</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calls :py:func:`Map.findAllOf` on *self*.__map and returns its results.</span>
 <span class="sd">        Arguments that are **None** match all values of their type. For example, if *projectile* is **None**,</span>
@@ -720,7 +783,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">readMap</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map</span><span class="o">.</span><span class="n">findAllOf</span><span class="p">(</span><span class="n">projectile</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">library</span><span class="p">,</span> <span class="n">evaluation</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Import.iterate"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Import.iterate">[docs]</a>    <span class="k">def</span> <span class="nf">iterate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Import.iterate">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Import.iterate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">iterate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Iterates over all protares and TNSLs in *self*&#39;s map including nested :py:class:`Map` instances.</span>
 <span class="sd">        No :py:class:`Import` instances is returned.</span>
@@ -729,7 +795,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">readMap</span><span class="p">()</span>
         <span class="k">yield from</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">iterate</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Import.readMap"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Import.readMap">[docs]</a>    <span class="k">def</span> <span class="nf">readMap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Import.readMap">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Import.readMap">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">readMap</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads in the map file pointed to by *self* if not already read in. An import only reads its map file when needed.&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -741,7 +810,10 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map</span></div>
 
-<div class="viewcode-block" id="Import.toXML_strList"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Import.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Import.toXML_strList">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Import.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of str instances representing the XML lines of *self*.</span>
 
@@ -754,8 +826,11 @@
         <span class="n">attrs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardXML_attributes</span><span class="p">()</span>
         <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&lt;</span><span class="si">%s</span><span class="s1"> path=&quot;</span><span class="si">%s</span><span class="s1">&quot;</span><span class="si">%s</span><span class="s1">/&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">indent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">moniker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)]</span></div>
 
-<div class="viewcode-block" id="Import.parseNodeUsingClass"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Import.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Import.parseNodeUsingClass">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Import.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates an :py:class:`Import` instance from an import node.</span>
 
@@ -772,10 +847,14 @@
 
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">attr</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="s2">&quot;checksum&quot;</span><span class="p">,</span> <span class="s2">&quot;algorithm&quot;</span><span class="p">)}</span>
         <span class="n">_import</span> <span class="o">=</span> <span class="n">Import</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">_import</span></div></div>
+        <span class="k">return</span> <span class="n">_import</span></div>
+</div>
 
 
-<div class="viewcode-block" id="ProtareBase"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.ProtareBase">[docs]</a><span class="k">class</span> <span class="nc">ProtareBase</span><span class="p">(</span><span class="n">EntryBase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ProtareBase">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.ProtareBase">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ProtareBase</span><span class="p">(</span><span class="n">EntryBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for all protare-like entry classes (i.e., the :py:class:`Protare` and :py:class:`TNSL` classes).</span>
 
@@ -800,7 +879,7 @@
 <span class="sd">    +---------------+-----------------------------------------------------------+</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">evaluation</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">interaction</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">evaluation</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">interaction</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construtor for ProtareBase instance.</span>
 
@@ -836,31 +915,31 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__guessedInteraction</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">projectile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">projectile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the projectile&#39;s name.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__projectile</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">target</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">target</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the target&#39;s name.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__target</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">evaluation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the evaluation string.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__evaluation</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">interaction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">interaction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the interaction attribute.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__interaction</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">guessedInteraction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">guessedInteraction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the guessedInteraction value. This is for pre GNDS 2.0 use only and should not be used with GNDS 2.0 or higher</span>
 <span class="sd">        (i.e., it should always return **False** for GNDS 2.0 or higher).</span>
@@ -869,7 +948,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__guessedInteraction</span>
 
     <span class="nd">@guessedInteraction</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">guessedInteraction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">guessedInteraction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set *self*&#39;s guessedInteraction member. This is for pre GNDS 2.0 use only and should not be</span>
 <span class="sd">        used with GNDS 2.0 or higher.</span>
@@ -878,13 +957,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__guessedInteraction</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">library</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">library</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the name of the library the protare resides in.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ancestor</span><span class="o">.</span><span class="n">library</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">derivedPath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">derivedPath</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the location of the file pointed to by the *path* member relative to the ancestor&#39;s locations.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -894,7 +973,9 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span>
         <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">ancestor</span><span class="o">.</span><span class="n">path</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ProtareBase.isMatch"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.ProtareBase.isMatch">[docs]</a>    <span class="k">def</span> <span class="nf">isMatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">library</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ProtareBase.isMatch">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.ProtareBase.isMatch">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">isMatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">library</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">evaluation</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns **True** is *self* matches projectile, target, library and evaluation, and **False** otherwise.</span>
 <span class="sd">        If an argument has a value of **None**, that argument is a match.</span>
@@ -915,10 +996,13 @@
 
         <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="ProtareBase.preview"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.ProtareBase.preview">[docs]</a>    <span class="k">def</span> <span class="nf">preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">haltParsingMoniker</span><span class="o">=</span><span class="n">stylesModule</span><span class="o">.</span><span class="n">Styles</span><span class="o">.</span><span class="n">moniker</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This method calls :py:func:`GNDS_fileModule.preview with *haltParsingMoniker*` with *self*&#39;s *fileName* and returns</span>
-<span class="sd">        its retults.  See :py:func:`GNDS_fileModule.preview for more details.</span>
+
+<div class="viewcode-block" id="ProtareBase.preview">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.ProtareBase.preview">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">preview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">haltParsingMoniker</span><span class="o">=</span><span class="n">stylesModule</span><span class="o">.</span><span class="n">Styles</span><span class="o">.</span><span class="n">moniker</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method calls :py:func:`GNDS_fileModule.preview with *haltParsingMoniker*` with *self*\&#39;s *fileName*</span>
+<span class="sd">        and returns its results.  See :py:func:`GNDS_fileModule.preview` for more details.</span>
 
 <span class="sd">        :param haltParsingMoniker:  The child node of the protare to halt parsing on.</span>
 
@@ -927,12 +1011,18 @@
 
         <span class="k">return</span> <span class="n">GNDS_fileModule</span><span class="o">.</span><span class="n">preview</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fileName</span><span class="p">,</span> <span class="n">haltParsingMoniker</span><span class="o">=</span><span class="n">haltParsingMoniker</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ProtareBase.protare"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.ProtareBase.protare">[docs]</a>    <span class="k">def</span> <span class="nf">protare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lazyParsing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ProtareBase.protare">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.ProtareBase.protare">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">protare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lazyParsing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calls *self*.read. This method is deprecated.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="n">verbosity</span><span class="p">,</span> <span class="n">lazyParsing</span><span class="o">=</span><span class="n">lazyParsing</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ProtareBase.read"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.ProtareBase.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lazyParsing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ProtareBase.read">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.ProtareBase.read">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lazyParsing</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reads in the protare using the **read** function in the module ReactionSuite.py and returns the instance.</span>
 
@@ -942,7 +1032,10 @@
 
         <span class="k">return</span> <span class="n">reactionSuiteModule</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fileName</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="n">verbosity</span><span class="p">,</span> <span class="n">lazyParsing</span><span class="o">=</span><span class="n">lazyParsing</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ProtareBase.standardXML_attributes"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.ProtareBase.standardXML_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">standardXML_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checkAncestor</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ProtareBase.standardXML_attributes">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.ProtareBase.standardXML_attributes">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">standardXML_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checkAncestor</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the XML attribute string for protare, target, evalution and interaction as well that those</span>
 <span class="sd">        returned by :py:func:`Base.standardXML_attributes`.</span>
@@ -959,8 +1052,11 @@
 
         <span class="k">return</span> <span class="n">attributeString</span> <span class="o">+</span> <span class="n">Base</span><span class="o">.</span><span class="n">standardXML_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">checkAncestor</span><span class="o">=</span><span class="n">checkAncestor</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ProtareBase.adaptable"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.ProtareBase.adaptable">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">adaptable</span><span class="p">(</span><span class="n">item1</span><span class="p">,</span> <span class="n">item2</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ProtareBase.adaptable">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.ProtareBase.adaptable">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">adaptable</span><span class="p">(</span><span class="n">item1</span><span class="p">,</span> <span class="n">item2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns **True** whenever item2 is **None** or *item1* and *item2* are the same. For internal use.</span>
 
@@ -970,10 +1066,21 @@
 
         <span class="k">if</span> <span class="n">item2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">item2</span><span class="p">,</span> <span class="n">item1</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div></div>
+
+        <span class="k">if</span> <span class="n">specialNuclearParticleID</span><span class="p">(</span><span class="n">item1</span><span class="p">)</span> <span class="o">==</span> <span class="n">specialNuclearParticleID</span><span class="p">(</span><span class="n">item2</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">item1</span> <span class="o">==</span> <span class="n">item2</span><span class="p">:</span>      <span class="c1"># For case when TNSL target has a regular expression special character in its name.</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">item2</span><span class="p">,</span> <span class="n">item1</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+</div>
 
 
-<div class="viewcode-block" id="Protare"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Protare">[docs]</a><span class="k">class</span> <span class="nc">Protare</span><span class="p">(</span><span class="n">ProtareBase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Protare">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Protare">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Protare</span><span class="p">(</span><span class="n">ProtareBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The class for a map&#39;s protare child node.</span>
 
@@ -1000,7 +1107,7 @@
 
     <span class="n">moniker</span> <span class="o">=</span> <span class="s2">&quot;protare&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">evaluation</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">interaction</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">evaluation</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">interaction</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construtor for a Protare instance.</span>
 
@@ -1016,13 +1123,15 @@
         <span class="n">ProtareBase</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">evaluation</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">interaction</span><span class="p">,</span>
                              <span class="n">checksum</span><span class="o">=</span><span class="n">checksum</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="n">algorithm</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a simple string representation of *self*.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> with projectile &quot;</span><span class="si">%s</span><span class="s1">&quot;, target &quot;</span><span class="si">%s</span><span class="s1">&quot;, evaluation &quot;</span><span class="si">%s</span><span class="s1">&quot;, path &quot;</span><span class="si">%s</span><span class="s1">&quot; and interaction &quot;</span><span class="si">%s</span><span class="s1">&quot;.&#39;</span> <span class="o">%</span>
                 <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">moniker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">projectile</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluation</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">interaction</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Protare.toXML_strList"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Protare.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Protare.toXML_strList">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Protare.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of str instances representing the XML lines of *self*.</span>
 
@@ -1036,8 +1145,11 @@
 
         <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&lt;</span><span class="si">%s%s</span><span class="s2">/&gt;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">indent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">moniker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardXML_attributes</span><span class="p">())]</span></div>
 
-<div class="viewcode-block" id="Protare.parseNodeUsingClass"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Protare.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Protare.parseNodeUsingClass">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.Protare.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a Protare instance from a protare node.</span>
 
@@ -1062,10 +1174,14 @@
 
         <span class="n">protare</span><span class="o">.</span><span class="n">guessedInteraction</span> <span class="o">=</span> <span class="n">guessedInteraction</span>
 
-        <span class="k">return</span> <span class="n">protare</span></div></div>
+        <span class="k">return</span> <span class="n">protare</span></div>
+</div>
 
 
-<div class="viewcode-block" id="TNSL"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.TNSL">[docs]</a><span class="k">class</span> <span class="nc">TNSL</span><span class="p">(</span><span class="n">ProtareBase</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TNSL">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.TNSL">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TNSL</span><span class="p">(</span><span class="n">ProtareBase</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The class for a map&#39;s TNSL node.</span>
 
@@ -1094,7 +1210,7 @@
 
     <span class="n">moniker</span> <span class="o">=</span> <span class="s2">&quot;TNSL&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">evaluation</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">standardTarget</span><span class="p">,</span> <span class="n">standardEvaluation</span><span class="p">,</span> 
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">projectile</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">evaluation</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">standardTarget</span><span class="p">,</span> <span class="n">standardEvaluation</span><span class="p">,</span> 
                 <span class="n">interaction</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Construtor for a TNSL instance.</span>
@@ -1123,7 +1239,7 @@
             <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__standardEvaluation</span> <span class="o">=</span> <span class="n">standardEvaluation</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a simple string representation of *self*.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="p">(</span>
@@ -1132,18 +1248,20 @@
         <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">standardTarget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">standardTarget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the standardTarget.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__standardTarget</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">standardEvaluation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">standardEvaluation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the standardEvaluation.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__standardEvaluation</span>
 
-<div class="viewcode-block" id="TNSL.toXML_strList"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.TNSL.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="TNSL.toXML_strList">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.TNSL.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of str instances representing the XML lines of *self*.</span>
 
@@ -1169,8 +1287,11 @@
 
         <span class="k">return</span> <span class="n">XML_list</span></div>
 
-<div class="viewcode-block" id="TNSL.parseNodeUsingClass"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.TNSL.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TNSL.parseNodeUsingClass">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.TNSL.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a TNSL instance from a TNSL node.</span>
 
@@ -1199,57 +1320,105 @@
             <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;standardTarget&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;standardTarget&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
             <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;standardEvaluation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;standardEvaluation&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">TNSL</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">TNSL</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="read"><a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.read">[docs]</a><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="read">
+<a class="viewcode-back" href="../../fudge/fudge.html#fudge.map.read">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reads in the file named *fileName* and returns a :py:class:`Map` instance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">Map</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">fudge.map</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

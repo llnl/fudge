@@ -1,43 +1,35 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>fudge.processing.resonances.makeUnresolvedProbabilityTables &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
-    
-    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-    <script src="../../../../_static/jquery.js"></script>
-    <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../../../_static/gnd-20121206-favicon.ico"/>
+    <title>fudge.processing.resonances.makeUnresolvedProbabilityTables &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../../search.html" /> 
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">fudge.processing.resonances.makeUnresolvedProbabilityTables</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for fudge.processing.resonances.makeUnresolvedProbabilityTables</h1><div class="highlight"><pre>
@@ -45,25 +37,29 @@
 <span class="c1"># encoding: utf-8</span>
 
 <span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">bisect</span>
-<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">bisect</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
 
-<span class="kn">from</span> <span class="nn">fudge.reactionData</span> <span class="kn">import</span> <span class="n">crossSection</span> <span class="k">as</span> <span class="n">crossSectionModule</span>
-<span class="kn">from</span> <span class="nn">fudge.resonances</span> <span class="kn">import</span> <span class="n">common</span> <span class="k">as</span> <span class="n">commonResonancesModule</span><span class="p">,</span> <span class="n">resolved</span> <span class="k">as</span> <span class="n">resolvedModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge.reactionData</span><span class="w"> </span><span class="kn">import</span> <span class="n">crossSection</span> <span class="k">as</span> <span class="n">crossSectionModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge.resonances</span><span class="w"> </span><span class="kn">import</span> <span class="n">common</span> <span class="k">as</span> <span class="n">commonResonancesModule</span><span class="p">,</span> <span class="n">resolved</span> <span class="k">as</span> <span class="n">resolvedModule</span>
 
-<span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
 
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">table</span> <span class="k">as</span> <span class="n">tableModule</span>
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">axes</span> <span class="k">as</span> <span class="n">axesModule</span>
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">multiD_XYs</span> <span class="k">as</span> <span class="n">multiD_XYsModule</span>
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">table</span> <span class="k">as</span> <span class="n">tableModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">axes</span> <span class="k">as</span> <span class="n">axesModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">multiD_XYs</span> <span class="k">as</span> <span class="n">multiD_XYsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">reconstructResonances</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">reconstructResonances</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Classes for generating cross section probability densities P(crossSection | energy_in, T)</span>
@@ -80,14 +76,16 @@
 
 <span class="n">debug</span> <span class="o">=</span> <span class="kc">False</span>   <span class="c1"># set True before debugging (disables multiprocessing)</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">debug</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">matplotlib</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
 
     <span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;Agg&#39;</span><span class="p">)</span>  <span class="c1"># avoid trouble with matplotlib and multiprocessing</span>
 
 
-<div class="viewcode-block" id="ProbabilityTableGenerator"><a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator">[docs]</a><span class="k">class</span> <span class="nc">ProbabilityTableGenerator</span><span class="p">:</span>
+<div class="viewcode-block" id="ProbabilityTableGenerator">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ProbabilityTableGenerator</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reactionSuite</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reactionSuite</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">reactionSuite</span> <span class="o">=</span> <span class="n">reactionSuite</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">RRR</span> <span class="o">=</span> <span class="kc">None</span>
@@ -107,21 +105,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tolerance</span> <span class="o">=</span> <span class="n">tolerance</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
 
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; # disabled: adding background cross section to realizations biases samples</span>
-<span class="sd">        # obtain background cross sections (will be added to each realization).</span>
-<span class="sd">        self.backgrounds = {}</span>
-<span class="sd">        if not self.URR.URR.useForSelfShieldingOnly:</span>
-<span class="sd">            for reaction in self.URR.URR.resonanceReactions:</span>
-<span class="sd">                xsc = reaction.link.link.crossSection.evaluated</span>
-<span class="sd">                assert isinstance(xsc, crossSectionModule.ResonancesWithBackground)</span>
-<span class="sd">                key = reaction.label</span>
-<span class="sd">                for simpleKey in (&#39;elastic&#39;, &#39;capture&#39;, &#39;fission&#39;, &#39;total&#39;):</span>
-<span class="sd">                    if reaction.link.link is reactionSuite.getReaction(simpleKey):</span>
-<span class="sd">                        key = simpleKey</span>
-
-<span class="sd">                self.backgrounds[key] = xsc.background.unresolvedRegion.data</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="c1"># get mass ratio for heating cross sections:</span>
         <span class="n">projectileMass</span> <span class="o">=</span> <span class="n">reactionSuite</span><span class="o">.</span><span class="n">PoPs</span><span class="p">[</span><span class="n">reactionSuite</span><span class="o">.</span><span class="n">projectile</span><span class="p">]</span><span class="o">.</span><span class="n">getMass</span><span class="p">(</span><span class="s1">&#39;amu&#39;</span><span class="p">)</span>
 
@@ -131,7 +114,9 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">massRatio</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">getMass</span><span class="p">(</span><span class="s1">&#39;amu&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="n">projectileMass</span>
 
-<div class="viewcode-block" id="ProbabilityTableGenerator.truncateResolvedRegion"><a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.truncateResolvedRegion">[docs]</a>    <span class="k">def</span> <span class="nf">truncateResolvedRegion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ProbabilityTableGenerator.truncateResolvedRegion">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.truncateResolvedRegion">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">truncateResolvedRegion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove all resolved resonances with energies above domainMax.</span>
 <span class="sd">        If domainMax is None, use self.lowerBound  (i.e. lower limit of the unresolved region).</span>
@@ -152,10 +137,38 @@
                 <span class="k">while</span> <span class="n">energies</span> <span class="ow">and</span> <span class="n">energies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">domainMax</span><span class="p">:</span>
                     <span class="n">energies</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
                     <span class="n">table</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RRR</span><span class="p">,</span> <span class="n">commonResonancesModule</span><span class="o">.</span><span class="n">EnergyIntervals</span><span class="p">):</span>
+            <span class="n">newRRR</span> <span class="o">=</span> <span class="n">commonResonancesModule</span><span class="o">.</span><span class="n">EnergyIntervals</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RRR</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">RRR</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">region</span><span class="o">.</span><span class="n">domainMin</span> <span class="o">&gt;=</span> <span class="n">domainMax</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="k">elif</span> <span class="n">region</span><span class="o">.</span><span class="n">domainMax</span> <span class="o">&gt;</span> <span class="n">domainMax</span><span class="p">:</span>
+                    <span class="c1"># truncate this region</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">resolvedModule</span><span class="o">.</span><span class="n">BreitWigner</span><span class="p">):</span>
+                        <span class="n">table</span> <span class="o">=</span> <span class="n">region</span><span class="o">.</span><span class="n">resonanceParameters</span><span class="o">.</span><span class="n">table</span>
+                        <span class="n">energies</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">getColumn</span><span class="p">(</span><span class="s1">&#39;energy&#39;</span><span class="p">)</span>
+                        <span class="k">while</span> <span class="n">energies</span> <span class="ow">and</span> <span class="n">energies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">domainMax</span><span class="p">:</span>
+                            <span class="n">energies</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                            <span class="n">table</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">resolvedModule</span><span class="o">.</span><span class="n">RMatrix</span><span class="p">):</span>
+                        <span class="k">for</span> <span class="n">spinGroup</span> <span class="ow">in</span> <span class="n">region</span><span class="o">.</span><span class="n">spinGroups</span><span class="p">:</span>
+                            <span class="n">table</span> <span class="o">=</span> <span class="n">spinGroup</span><span class="o">.</span><span class="n">resonanceParameters</span><span class="o">.</span><span class="n">table</span>
+                            <span class="n">energies</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">getColumn</span><span class="p">(</span><span class="s1">&#39;energy&#39;</span><span class="p">)</span>
+                            <span class="k">while</span> <span class="n">energies</span> <span class="ow">and</span> <span class="n">energies</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">domainMax</span><span class="p">:</span>
+                                <span class="n">energies</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                                <span class="n">table</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                    <span class="n">newRRR</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">region</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">newRRR</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">region</span><span class="p">)</span>
+            <span class="n">newRRR</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RRR</span><span class="o">.</span><span class="n">ancestor</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">RRR</span> <span class="o">=</span> <span class="n">newRRR</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;truncateResolvedRegion for resonances of type </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RRR</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="ProbabilityTableGenerator.getLastResolvedResonanceRegion"><a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.getLastResolvedResonanceRegion">[docs]</a>    <span class="k">def</span> <span class="nf">getLastResolvedResonanceRegion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ProbabilityTableGenerator.getLastResolvedResonanceRegion">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.getLastResolvedResonanceRegion">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getLastResolvedResonanceRegion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the highest energy resolved resonance region. Most evaluations only contain one resolved region,</span>
 <span class="sd">        but a few (notably Pu239 in ENDF-VII.1) break the RRR into several regions.</span>
@@ -165,13 +178,16 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">RRR</span><span class="p">:</span>
             <span class="c1"># For multiple regions, we need to do each region separately, then add them to the unified xs table &amp; egrid</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">RRR</span><span class="p">,</span> <span class="n">commonResonancesModule</span><span class="o">.</span><span class="n">EnergyIntervals</span><span class="p">):</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">RRR</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">RRR</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">evaluated</span>
             <span class="k">else</span><span class="p">:</span>  <span class="c1"># Single region, everything goes on unified grid</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">RRR</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="ProbabilityTableGenerator.getLastResolvedResonanceEnergy"><a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.getLastResolvedResonanceEnergy">[docs]</a>    <span class="k">def</span> <span class="nf">getLastResolvedResonanceEnergy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ProbabilityTableGenerator.getLastResolvedResonanceEnergy">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.getLastResolvedResonanceEnergy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getLastResolvedResonanceEnergy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the last resonance energy from the resolved region, that will start all the ladders in the URR</span>
 
@@ -202,19 +218,22 @@
 
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="ProbabilityTableGenerator.extrapolate_URR_parameters"><a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.extrapolate_URR_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">extrapolate_URR_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDomainMin</span><span class="p">,</span> <span class="n">newDomainMax</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ProbabilityTableGenerator.extrapolate_URR_parameters">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.extrapolate_URR_parameters">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">extrapolate_URR_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDomainMin</span><span class="p">,</span> <span class="n">newDomainMax</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extrapolate widths, level densities and possibly scattering radius beyond either end</span>
 <span class="sd">        of the unresolved region, so we can draw realizations extending to higher/lower energy</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">extrapolate</span><span class="p">(</span><span class="n">xnew</span><span class="p">,</span> <span class="n">xy1</span><span class="p">,</span> <span class="n">xy2</span><span class="p">,</span> <span class="n">interpolation</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">extrapolate</span><span class="p">(</span><span class="n">xnew</span><span class="p">,</span> <span class="n">xy1</span><span class="p">,</span> <span class="n">xy2</span><span class="p">,</span> <span class="n">interpolation</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Use designated interpolation rule to extrapolate using 2 points xy1 and xy2 to get y-value at xnew.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="c1">#FIXME should be implemented in LUPY or numericalFunctions instead?</span>
-            <span class="kn">import</span> <span class="nn">math</span>
-            <span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">enums</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">enums</span>
             <span class="k">if</span> <span class="n">interpolation</span> <span class="ow">is</span> <span class="n">enums</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">flat</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">xnew</span> <span class="o">&gt;</span> <span class="n">xy2</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="k">return</span> <span class="n">xy2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                 <span class="k">elif</span> <span class="n">xnew</span> <span class="o">&lt;</span> <span class="n">xy1</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="k">return</span> <span class="n">xy1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -236,8 +255,8 @@
                 <span class="n">ynew</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">ynew</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">ynew</span>
 
-        <span class="k">def</span> <span class="nf">addPoints</span><span class="p">(</span><span class="n">function1d</span><span class="p">,</span> <span class="n">newDomainMin</span><span class="p">,</span> <span class="n">newDomainMax</span><span class="p">):</span>
-            <span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">constant</span><span class="p">,</span> <span class="n">regions</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">addPoints</span><span class="p">(</span><span class="n">function1d</span><span class="p">,</span> <span class="n">newDomainMin</span><span class="p">,</span> <span class="n">newDomainMax</span><span class="p">):</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">constant</span><span class="p">,</span> <span class="n">regions</span>
             <span class="n">function1d</span> <span class="o">=</span> <span class="n">function1d</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># don&#39;t modify original evaluation</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">function1d</span><span class="p">,</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">newDomainMin</span> <span class="o">&lt;</span> <span class="n">function1d</span><span class="o">.</span><span class="n">domainMin</span><span class="p">:</span>
@@ -261,9 +280,16 @@
 
             <span class="k">return</span> <span class="n">function1d</span><span class="o">.</span><span class="n">toPointwise_withLinearXYs</span><span class="p">(</span><span class="n">lowerEps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)</span>
 
-        <span class="c1"># extrapolate local copies of widths, densities and scattering radius, all as lin-lin functions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculateChannelRadius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">URR</span><span class="o">.</span><span class="n">URR</span><span class="o">.</span><span class="n">calculateChannelRadius</span>
+
+        <span class="c1"># extrapolate local copies of widths, densities, scattering and hard-sphere radius, all as lin-lin functions</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scatteringRadius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">URR</span><span class="o">.</span><span class="n">URR</span><span class="o">.</span><span class="n">getScatteringRadius</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scatteringRadius</span><span class="o">.</span><span class="n">evaluated</span> <span class="o">=</span> <span class="n">addPoints</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scatteringRadius</span><span class="o">.</span><span class="n">evaluated</span><span class="p">,</span> <span class="n">newDomainMin</span><span class="p">,</span> <span class="n">newDomainMax</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">hardSphereRadius</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">URR</span><span class="o">.</span><span class="n">URR</span><span class="o">.</span><span class="n">hardSphereRadius</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hardSphereRadius</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">URR</span><span class="o">.</span><span class="n">URR</span><span class="o">.</span><span class="n">hardSphereRadius</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hardSphereRadius</span><span class="o">.</span><span class="n">evaluated</span> <span class="o">=</span> <span class="n">addPoints</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hardSphereRadius</span><span class="o">.</span><span class="n">evaluated</span><span class="p">,</span> <span class="n">newDomainMin</span><span class="p">,</span> <span class="n">newDomainMax</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">levelSpacings</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">levelDensities</span> <span class="o">=</span> <span class="p">{}</span>
@@ -292,7 +318,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">lowerBound</span> <span class="o">=</span> <span class="n">newDomainMin</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">upperBound</span> <span class="o">=</span> <span class="n">newDomainMax</span></div>
 
-<div class="viewcode-block" id="ProbabilityTableGenerator.sampleRR"><a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.sampleRR">[docs]</a>    <span class="k">def</span> <span class="nf">sampleRR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lastResonanceEnergies</span><span class="p">,</span> <span class="n">lowerBound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upperBound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;goe&#39;</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ProbabilityTableGenerator.sampleRR">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.sampleRR">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sampleRR</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lastResonanceEnergies</span><span class="p">,</span> <span class="n">lowerBound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upperBound</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;goe&#39;</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate a sample of a resolved resonance set using the average URR parameters</span>
 
@@ -304,7 +333,7 @@
 <span class="sd">        :param verbose: turn on verbose output</span>
 <span class="sd">        :return: dictionary containing resonance parameters sorted by l/j</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">brownies.BNL.restools.resonance_generator</span> <span class="k">as</span> <span class="nn">rg</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">brownies.BNL.restools.resonance_generator</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">rg</span>
 
         <span class="n">fakeRRR</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -348,7 +377,10 @@
 
         <span class="k">return</span> <span class="n">fakeRRR</span></div>
 
-<div class="viewcode-block" id="ProbabilityTableGenerator.generatePDFs"><a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.generatePDFs">[docs]</a>    <span class="k">def</span> <span class="nf">generatePDFs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nSamples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">temperatures</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;goe&#39;</span><span class="p">,</span> <span class="n">makePDFs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">interpolateWidths</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+
+<div class="viewcode-block" id="ProbabilityTableGenerator.generatePDFs">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.generatePDFs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">generatePDFs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nSamples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">temperatures</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;goe&#39;</span><span class="p">,</span> <span class="n">makePDFs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">interpolateWidths</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                      <span class="n">temperatureUnit</span><span class="o">=</span><span class="s1">&#39;K&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">plotSamples</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">plotDir</span><span class="o">=</span><span class="s1">&#39;realizationPlots&#39;</span><span class="p">,</span>
                      <span class="n">debugFile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -369,7 +401,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">plotSamples</span><span class="p">:</span>
-            <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">plotDir</span><span class="p">):</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">plotDir</span><span class="p">)</span>
 
@@ -481,7 +513,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">patchLimits</span> <span class="o">=</span> <span class="n">patchLimits</span>
 
         <span class="c1"># &lt;editor-fold desc=&quot;helper functions&quot; defaultstate=&quot;collapsed&quot;&gt;</span>
-        <span class="k">def</span> <span class="nf">smoothPDF</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">maxPoints</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">smoothPDF</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">maxPoints</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Ruthlessly smooth pdf to desired number of points by integrating over intervals.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
@@ -504,7 +536,7 @@
             <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">segment</span><span class="o">.</span><span class="n">domainMax</span><span class="p">,</span> <span class="n">segment</span><span class="o">.</span><span class="n">rangeMin</span><span class="p">])</span>
             <span class="k">return</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">to_XYs2ds</span><span class="p">(</span><span class="n">thePDFs</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">to_XYs2ds</span><span class="p">(</span><span class="n">thePDFs</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">smooth</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
             <span class="c1"># helper method, used after all samples collected to pack final results.</span>
             <span class="c1"># May also be used to write intermediate results for debugging</span>
             <span class="n">xsc_pdf_axes</span> <span class="o">=</span> <span class="n">axesModule</span><span class="o">.</span><span class="n">Axes</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">labelsUnits</span><span class="o">=</span><span class="p">{</span><span class="mi">2</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;energy_in&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">URR</span><span class="o">.</span><span class="n">energyUnit</span><span class="p">),</span>
@@ -592,14 +624,16 @@
                 <span class="n">approximation</span><span class="o">=</span><span class="n">resolvedModule</span><span class="o">.</span><span class="n">BreitWigner</span><span class="o">.</span><span class="n">Approximation</span><span class="o">.</span><span class="n">SingleLevel</span><span class="p">,</span>
                 <span class="n">resonanceParameters</span><span class="o">=</span><span class="n">commonResonancesModule</span><span class="o">.</span><span class="n">ResonanceParameters</span><span class="p">(</span><span class="n">combinedTable</span><span class="p">),</span>
                 <span class="n">scatteringRadius</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scatteringRadius</span><span class="p">,</span>
-                <span class="n">PoPs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">URR</span><span class="o">.</span><span class="n">URR</span><span class="o">.</span><span class="n">getLocalPoPs</span><span class="p">())</span>
+                <span class="n">hardSphereRadius</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hardSphereRadius</span><span class="p">,</span>
+                <span class="n">PoPs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">URR</span><span class="o">.</span><span class="n">URR</span><span class="o">.</span><span class="n">getLocalPoPs</span><span class="p">(),</span>
+                <span class="n">calculateChannelRadius</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">calculateChannelRadius</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  drew </span><span class="si">%d</span><span class="s2"> resonances, elapsed time = </span><span class="si">%.3f</span><span class="s2">s&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">combinedTable</span><span class="p">),</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
 
             <span class="c1"># FIXME: next lines are required since the domain currently lives on &lt;resolved&gt; rather than the form</span>
             <span class="n">resolvedContainer</span> <span class="o">=</span> <span class="n">resolvedModule</span><span class="o">.</span><span class="n">Resolved</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lowerBound</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">upperBound</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">URR</span><span class="o">.</span><span class="n">energyUnit</span><span class="p">)</span>
             <span class="n">resolvedContainer</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">resolvedRealization</span><span class="p">)</span>
-            <span class="n">resolvedContainer</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reactionSuite</span><span class="p">)</span>
+            <span class="n">resolvedContainer</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reactionSuite</span><span class="o">.</span><span class="n">resonances</span><span class="p">)</span>
 
             <span class="c1"># Setup the reconstruction class</span>
             <span class="n">resonanceReconstructor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reconstructionClass</span><span class="p">(</span>
@@ -683,7 +717,7 @@
             <span class="c1"># next step: divide 0K cross sections into small regions, heat each region to desired temperature(s)</span>
             <span class="c1"># convert result to pdf(crossSection) and add to &#39;running total&#39; pdf</span>
 
-            <span class="k">def</span> <span class="nf">unpackResults</span><span class="p">(</span><span class="n">iSample</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+            <span class="k">def</span><span class="w"> </span><span class="nf">unpackResults</span><span class="p">(</span><span class="n">iSample</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
 <span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">                heatAndMakePDFs returns a list containing a pdfOfY and probTable at each temperature.</span>
 <span class="sd">                Unpack those and add them to thePDFs and theProbabilityTables</span>
@@ -742,12 +776,13 @@
                         <span class="n">plotOptions</span><span class="p">[</span><span class="s1">&#39;savePrefix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">plotDir</span><span class="p">,</span> <span class="s2">&quot;r</span><span class="si">%d</span><span class="s2">_patch</span><span class="si">%d</span><span class="s2">_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">iSample</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
 
                     <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">zeroK_xscs</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">domainSlice</span><span class="p">(</span><span class="n">Elo_heating</span><span class="p">,</span> <span class="n">Ehi_heating</span><span class="p">)</span><span class="o">.</span><span class="n">copyDataToXsAndYs</span><span class="p">()</span>
-                    <span class="n">results</span> <span class="o">=</span> <span class="n">heatAndMakePDFs</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">temperaturesEnergy</span><span class="p">,</span> <span class="n">Elo</span><span class="p">,</span> <span class="n">Ehi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">massRatio</span><span class="p">,</span> <span class="o">**</span><span class="n">plotOptions</span><span class="p">)</span>
+                    <span class="n">results</span> <span class="o">=</span> <span class="n">heatAndMakePDFs</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">temperaturesEnergy</span><span class="p">,</span> <span class="n">Elo</span><span class="p">,</span> <span class="n">Ehi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">URR</span><span class="o">.</span><span class="n">energyUnit</span><span class="p">,</span>
+                                              <span class="n">samplePoints</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">massRatio</span><span class="p">,</span> <span class="n">makePDFs</span><span class="p">,</span> <span class="o">**</span><span class="n">plotOptions</span><span class="p">)</span>
                     <span class="n">unpackResults</span><span class="p">(</span><span class="n">iSample</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
 
             <span class="k">else</span><span class="p">:</span>
-                <span class="kn">import</span> <span class="nn">multiprocessing</span>
-                <span class="kn">from</span> <span class="nn">fudge.defaults</span> <span class="kn">import</span> <span class="n">numTasks</span>
+                <span class="kn">import</span><span class="w"> </span><span class="nn">multiprocessing</span>
+                <span class="kn">from</span><span class="w"> </span><span class="nn">fudge.defaults</span><span class="w"> </span><span class="kn">import</span> <span class="n">numTasks</span>
                 <span class="n">numTasks</span> <span class="o">=</span> <span class="n">numTasks</span> <span class="o">//</span> <span class="mi">2</span>
 
                 <span class="n">pool</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="n">numTasks</span><span class="p">)</span>
@@ -787,7 +822,7 @@
             <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  heat and accumulate probabilities, elapsed time = </span><span class="si">%.3f</span><span class="s2">s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
 
-        <span class="k">def</span> <span class="nf">genPTs</span><span class="p">(</span><span class="n">egrid</span><span class="p">,</span> <span class="n">crossSectionSamples</span><span class="p">,</span> <span class="n">normalize</span><span class="p">,</span> <span class="n">nbins</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">genPTs</span><span class="p">(</span><span class="n">egrid</span><span class="p">,</span> <span class="n">crossSectionSamples</span><span class="p">,</span> <span class="n">normalize</span><span class="p">,</span> <span class="n">nbins</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
             <span class="n">resultPTs</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">temperature</span> <span class="ow">in</span> <span class="n">temperatures</span><span class="p">:</span>
                 <span class="n">resultPTs</span><span class="p">[</span><span class="n">temperature</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
@@ -837,15 +872,19 @@
             <span class="n">crossSectionSamples</span><span class="p">[</span><span class="s1">&#39;egrid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">egrid</span><span class="p">)</span>
             <span class="n">crossSectionSamples</span><span class="p">[</span><span class="s1">&#39;samplePoints&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">crossSectionSamples</span><span class="p">[</span><span class="s1">&#39;samplePoints&#39;</span><span class="p">])</span>
             <span class="n">crossSectionSamples</span><span class="p">[</span><span class="s1">&#39;parameterRealizations&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameterRealizations</span>
-            <span class="kn">import</span> <span class="nn">pickle</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">debugFile</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fout</span><span class="p">:</span>
                 <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">crossSectionSamples</span><span class="p">,</span> <span class="n">fout</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">result</span></div></div>
+        <span class="k">return</span> <span class="n">result</span></div>
+</div>
+
 
 
 <span class="c1"># Function must be declared at module level for use in multiprocessing.Pool.apply_async:</span>
-<div class="viewcode-block" id="heatAndMakePDFs"><a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.heatAndMakePDFs">[docs]</a><span class="k">def</span> <span class="nf">heatAndMakePDFs</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">temperaturesEnergy</span><span class="p">,</span> <span class="n">domainMin</span><span class="p">,</span> <span class="n">domainMax</span><span class="p">,</span> <span class="n">energyUnit</span><span class="p">,</span> <span class="n">samplePoints</span><span class="p">,</span> <span class="n">massRatio</span><span class="p">,</span>
+<div class="viewcode-block" id="heatAndMakePDFs">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.heatAndMakePDFs">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">heatAndMakePDFs</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">temperaturesEnergy</span><span class="p">,</span> <span class="n">domainMin</span><span class="p">,</span> <span class="n">domainMax</span><span class="p">,</span> <span class="n">energyUnit</span><span class="p">,</span> <span class="n">samplePoints</span><span class="p">,</span> <span class="n">massRatio</span><span class="p">,</span>
                     <span class="n">makePDFs</span><span class="p">,</span> <span class="o">**</span><span class="n">plotOptions</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Called for each cross section / incident energy range.</span>
@@ -853,7 +892,7 @@
 <span class="sd">    Also optionally computes pdf(crossSection) at each temperature.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">plotOptions</span><span class="p">:</span>
-        <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span>
 
     <span class="n">initialXsc</span> <span class="o">=</span> <span class="n">crossSectionModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="p">(</span>
         <span class="n">axes</span><span class="o">=</span><span class="n">crossSectionModule</span><span class="o">.</span><span class="n">defaultAxes</span><span class="p">(</span><span class="n">energyUnit</span><span class="p">),</span>
@@ -915,48 +954,92 @@
         <span class="n">pyplot</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">results</span></div>
+
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../../../index.html">
-              <img class="logo" src="../../../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">fudge.processing.resonances.makeUnresolvedProbabilityTables</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

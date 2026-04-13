@@ -1,47 +1,43 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>fudge.processing.deterministic.transferMatrices &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
-    
-    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-    <script src="../../../../_static/jquery.js"></script>
-    <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../../../_static/gnd-20121206-favicon.ico"/>
+    <title>fudge.processing.deterministic.transferMatrices &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../../search.html" /> 
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">fudge.processing.deterministic.transferMatrices</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for fudge.processing.deterministic.transferMatrices</h1><div class="highlight"><pre>
 <span></span><span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
@@ -126,33 +122,33 @@
 <span class="sd">    +---------------------------------------+-----------------------------------------------------------------------------------+</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
 
-<span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
 
-<span class="kn">from</span> <span class="nn">PoPs</span> <span class="kn">import</span> <span class="n">IDs</span> <span class="k">as</span> <span class="n">IDsPoPsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PoPs</span><span class="w"> </span><span class="kn">import</span> <span class="n">IDs</span> <span class="k">as</span> <span class="n">IDsPoPsModule</span>
 
-<span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">locateFudgeBin</span> <span class="k">as</span> <span class="n">locateBinFolderModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">locateFudgeBin</span> <span class="k">as</span> <span class="n">locateBinFolderModule</span>
 
-<span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">subprocessing</span> <span class="k">as</span> <span class="n">subprocessingModule</span>
-<span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">times</span> <span class="k">as</span> <span class="n">timesModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">subprocessing</span> <span class="k">as</span> <span class="n">subprocessingModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">times</span> <span class="k">as</span> <span class="n">timesModule</span>
 
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">xDataEnumsModule</span>
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">axes</span> <span class="k">as</span> <span class="n">axesModule</span>
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">multiD_XYs</span> <span class="k">as</span> <span class="n">multiD_XYsModule</span>
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">regions</span> <span class="k">as</span> <span class="n">regionsModule</span>
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">series1d</span> <span class="k">as</span> <span class="n">series1dModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">xDataEnumsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">axes</span> <span class="k">as</span> <span class="n">axesModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">multiD_XYs</span> <span class="k">as</span> <span class="n">multiD_XYsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">regions</span> <span class="k">as</span> <span class="n">regionsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">series1d</span> <span class="k">as</span> <span class="n">series1dModule</span>
 
-<span class="kn">from</span> <span class="nn">fudge.productData.distributions</span> <span class="kn">import</span> <span class="n">angular</span> <span class="k">as</span> <span class="n">angularModule</span>
-<span class="kn">from</span> <span class="nn">fudge.productData.distributions</span> <span class="kn">import</span> <span class="n">energy</span> <span class="k">as</span> <span class="n">energyModule</span>
-<span class="kn">from</span> <span class="nn">fudge.productData.distributions</span> <span class="kn">import</span> <span class="n">energyAngular</span> <span class="k">as</span> <span class="n">energyAngularModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge.productData.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">angular</span> <span class="k">as</span> <span class="n">angularModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge.productData.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">energy</span> <span class="k">as</span> <span class="n">energyModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge.productData.distributions</span><span class="w"> </span><span class="kn">import</span> <span class="n">energyAngular</span> <span class="k">as</span> <span class="n">energyAngularModule</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">specialCases</span> <span class="k">as</span> <span class="n">specialCasesModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">specialCases</span> <span class="k">as</span> <span class="n">specialCasesModule</span>
 
 <span class="n">linlin</span> <span class="o">=</span> <span class="n">xDataEnumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">linlin</span>
 <span class="n">linlog</span> <span class="o">=</span> <span class="n">xDataEnumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">linlog</span>
@@ -176,7 +172,9 @@
 
 <span class="n">transferMatrixExecute</span> <span class="o">=</span> <span class="n">locateBinFolderModule</span><span class="o">.</span><span class="n">locateMerced</span><span class="p">()</span>
 
-<div class="viewcode-block" id="twoBodyTransferMatrix"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.twoBodyTransferMatrix">[docs]</a><span class="k">def</span> <span class="nf">twoBodyTransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">angularData</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="twoBodyTransferMatrix">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.twoBodyTransferMatrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">twoBodyTransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">angularData</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates multi-group product matices from a two-body distribution which must be in the center-of-mass frame. </span>
 <span class="sd">    This function allows for the distribution to have different incident energy regions. It calls :py:func:`twoBodyTransferMatrix2` </span>
@@ -234,8 +232,11 @@
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span> <span class="s1">&#39;Unsupported P(mu|E) = </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">angularData</span><span class="o">.</span><span class="n">moniker</span> <span class="p">)</span>
 
     <span class="k">return</span><span class="p">(</span> <span class="n">TM1</span><span class="p">,</span> <span class="n">TME</span> <span class="p">)</span></div>
+
         
-<div class="viewcode-block" id="twoBodyTransferMatrix2"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.twoBodyTransferMatrix2">[docs]</a><span class="k">def</span> <span class="nf">twoBodyTransferMatrix2</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">angularData</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="twoBodyTransferMatrix2">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.twoBodyTransferMatrix2">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">twoBodyTransferMatrix2</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">angularData</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates multi-group product matices from a two-body distribution which must be in the center-of-mass frame. </span>
 <span class="sd">    This function is called by :py:func:`twoBodyTransferMatrix` to handle one region of the distrition. This function is for internal use.</span>
@@ -317,7 +318,10 @@
 
     <span class="k">return</span> <span class="n">TM1</span><span class="p">,</span> <span class="n">TME</span></div>
 
-<div class="viewcode-block" id="wholeAtomScattering"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.wholeAtomScattering">[docs]</a><span class="k">def</span> <span class="nf">wholeAtomScattering</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">formFactor</span><span class="p">,</span> <span class="n">realAnomalousFactor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">imaginaryAnomalousFactor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="wholeAtomScattering">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.wholeAtomScattering">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">wholeAtomScattering</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">formFactor</span><span class="p">,</span> <span class="n">realAnomalousFactor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">imaginaryAnomalousFactor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates multi-group product matices for photo-atomic coherent scattering.</span>
 
@@ -357,7 +361,10 @@
         <span class="n">s1</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">twoDToString</span><span class="p">(</span> <span class="s2">&quot;imaginaryAnomalousFactor&quot;</span><span class="p">,</span> <span class="n">imaginaryAnomalousFactor</span> <span class="p">)</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">executeCommand</span><span class="p">(</span> <span class="n">logFile</span><span class="p">,</span> <span class="n">transferMatrixExecute</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">workDir</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;workFile&#39;</span><span class="p">],</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;restart&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="comptonScattering"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.comptonScattering">[docs]</a><span class="k">def</span> <span class="nf">comptonScattering</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">scatteringFactor</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="comptonScattering">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.comptonScattering">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">comptonScattering</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">scatteringFactor</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates multi-group product matices for photo-atomic incoherent scattering.</span>
 
@@ -388,7 +395,10 @@
     <span class="n">s1</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">twoDToString</span><span class="p">(</span> <span class="s2">&quot;ScatteringFactorData&quot;</span><span class="p">,</span> <span class="n">scatteringFactor</span> <span class="p">)</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">executeCommand</span><span class="p">(</span> <span class="n">logFile</span><span class="p">,</span> <span class="n">transferMatrixExecute</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">workDir</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;workFile&#39;</span><span class="p">],</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;restart&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ENDFEMuEpP_TransferMatrix"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.ENDFEMuEpP_TransferMatrix">[docs]</a><span class="k">def</span> <span class="nf">ENDFEMuEpP_TransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">angularEnergyData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="ENDFEMuEpP_TransferMatrix">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.ENDFEMuEpP_TransferMatrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ENDFEMuEpP_TransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">angularEnergyData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates multi-group product matices for ENDF MF = 6, LAW = 7 type data.</span>
 
@@ -411,7 +421,10 @@
     <span class="n">s</span> <span class="o">+=</span> <span class="n">EMuEpPDataToString</span><span class="p">(</span> <span class="n">angularEnergyData</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">executeCommand</span><span class="p">(</span> <span class="n">logFile</span><span class="p">,</span> <span class="n">transferMatrixExecute</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">workDir</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;workFile&#39;</span><span class="p">],</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;restart&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ENDLEMuEpP_TransferMatrix"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.ENDLEMuEpP_TransferMatrix">[docs]</a><span class="k">def</span> <span class="nf">ENDLEMuEpP_TransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">angularData</span><span class="p">,</span> <span class="n">EMuEpPData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="ENDLEMuEpP_TransferMatrix">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.ENDLEMuEpP_TransferMatrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ENDLEMuEpP_TransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">angularData</span><span class="p">,</span> <span class="n">EMuEpPData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates multi-group product matices for ENDL I = 1, 3 type data.</span>
 
@@ -438,7 +451,10 @@
     <span class="n">s</span> <span class="o">+=</span> <span class="n">EMuEpPDataToString</span><span class="p">(</span> <span class="n">EMuEpPData</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">executeCommand</span><span class="p">(</span> <span class="n">logFile</span><span class="p">,</span> <span class="n">transferMatrixExecute</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">workDir</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;workFile&#39;</span><span class="p">],</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;restart&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ELEpP_TransferMatrix"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.ELEpP_TransferMatrix">[docs]</a><span class="k">def</span> <span class="nf">ELEpP_TransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">LEEpPData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="ELEpP_TransferMatrix">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.ELEpP_TransferMatrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">ELEpP_TransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">LEEpPData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates multi-group product matices for ENDL I = 4 data with l &gt; 0.</span>
 
@@ -463,7 +479,10 @@
     <span class="n">s</span> <span class="o">+=</span> <span class="n">LEEpPDataToString</span><span class="p">(</span> <span class="n">LEEpPData</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">executeCommand</span><span class="p">(</span> <span class="n">logFile</span><span class="p">,</span> <span class="n">transferMatrixExecute</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">workDir</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;workFile&#39;</span><span class="p">],</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;restart&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="EEpMuP_TransferMatrix"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.EEpMuP_TransferMatrix">[docs]</a><span class="k">def</span> <span class="nf">EEpMuP_TransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">energyAngularData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="EEpMuP_TransferMatrix">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.EEpMuP_TransferMatrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">EEpMuP_TransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">energyAngularData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates multi-group product matices for MT = 6 LAW = 1, LANG = 1, 11-15 data.</span>
 
@@ -488,7 +507,10 @@
     <span class="k">else</span> <span class="p">:</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span> <span class="s2">&quot;Unsupported P(mu) for P(E&#39;,mu|E) = </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">energyAngularData</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">moniker</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Legendre_TransferMatrix"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.Legendre_TransferMatrix">[docs]</a><span class="k">def</span> <span class="nf">Legendre_TransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">LegendreData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Legendre_TransferMatrix">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.Legendre_TransferMatrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">Legendre_TransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">LegendreData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates multi-group product matices for MT = 6 LAW = 1, LANG = 1 data. This function is for internal use.</span>
 
@@ -514,7 +536,10 @@
 
     <span class="k">return</span><span class="p">(</span> <span class="n">executeCommand</span><span class="p">(</span> <span class="n">logFile</span><span class="p">,</span> <span class="n">transferMatrixExecute</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">workDir</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;workFile&#39;</span><span class="p">],</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;restart&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="doubleDifferential_EEpMuP"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.doubleDifferential_EEpMuP">[docs]</a><span class="k">def</span> <span class="nf">doubleDifferential_EEpMuP</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">EEpMuPData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="doubleDifferential_EEpMuP">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.doubleDifferential_EEpMuP">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">doubleDifferential_EEpMuP</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">EEpMuPData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates multi-group product matices for MT = 6 LAW = 1, LANG = 11-15 data. This function is for internal use. </span>
 
@@ -540,7 +565,10 @@
     
     <span class="k">return</span><span class="p">(</span> <span class="n">executeCommand</span><span class="p">(</span> <span class="n">logFile</span><span class="p">,</span> <span class="n">transferMatrixExecute</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">workDir</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;workFile&#39;</span><span class="p">],</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;restart&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="uncorrelated_EMuP_EEpP_TransferMatrix"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.uncorrelated_EMuP_EEpP_TransferMatrix">[docs]</a><span class="k">def</span> <span class="nf">uncorrelated_EMuP_EEpP_TransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">angularData</span><span class="p">,</span> <span class="n">energyData</span><span class="p">,</span> 
+
+<div class="viewcode-block" id="uncorrelated_EMuP_EEpP_TransferMatrix">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.uncorrelated_EMuP_EEpP_TransferMatrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">uncorrelated_EMuP_EEpP_TransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">angularData</span><span class="p">,</span> <span class="n">energyData</span><span class="p">,</span> 
         <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates multi-group product matices for uncorrelated energy and angular distributions.</span>
@@ -613,7 +641,10 @@
 
     <span class="k">return</span><span class="p">(</span> <span class="n">executeCommand</span><span class="p">(</span> <span class="n">logFile</span><span class="p">,</span> <span class="n">transferMatrixExecute</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">workDir</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;workFile&#39;</span><span class="p">],</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;restart&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="discreteGammaAngularData"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.discreteGammaAngularData">[docs]</a><span class="k">def</span> <span class="nf">discreteGammaAngularData</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">gammaEnergy</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">angularData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="discreteGammaAngularData">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.discreteGammaAngularData">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">discreteGammaAngularData</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">gammaEnergy</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">angularData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates multi-group product matices for a discrete photon distribution.</span>
 <span class="sd">    Currently, only isotropic (i.e., l = 0) data are returned. That is, lMax and angularData are ignored.</span>
@@ -630,7 +661,7 @@
 <span class="sd">    :returns:                   The number and energy conserving product matices.                                               </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">from</span> <span class="nn">fudge.processing</span> <span class="kn">import</span> <span class="n">miscellaneous</span> <span class="k">as</span> <span class="n">miscellaneousModule</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">fudge.processing</span><span class="w"> </span><span class="kn">import</span> <span class="n">miscellaneous</span> <span class="k">as</span> <span class="n">miscellaneousModule</span>
 
     <span class="n">reactionSuite</span> <span class="o">=</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;reactionSuite&#39;</span><span class="p">]</span>
     <span class="n">projectileName</span> <span class="o">=</span> <span class="n">reactionSuite</span><span class="o">.</span><span class="n">projectile</span>
@@ -682,7 +713,10 @@
 
     <span class="k">return</span> <span class="n">TM_1</span><span class="p">,</span> <span class="n">TM_E</span></div>
 
-<div class="viewcode-block" id="primaryGammaAngularData"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.primaryGammaAngularData">[docs]</a><span class="k">def</span> <span class="nf">primaryGammaAngularData</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">energyData</span><span class="p">,</span> <span class="n">angularData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="primaryGammaAngularData">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.primaryGammaAngularData">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">primaryGammaAngularData</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">energyData</span><span class="p">,</span> <span class="n">angularData</span><span class="p">,</span> <span class="n">multiplicity</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates multi-group product matrices for a primary photon distribution from a capture reaction.</span>
 <span class="sd">    Currently, only isotropic (i.e., l = 0) data are returned. That is, lMax and angularData are ignored. massRatio is the</span>
@@ -769,7 +803,10 @@
 
     <span class="k">return</span> <span class="n">TM_1</span><span class="p">,</span> <span class="n">TM_E</span></div>
 
-<div class="viewcode-block" id="NBodyPhaseSpace"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.NBodyPhaseSpace">[docs]</a><span class="k">def</span> <span class="nf">NBodyPhaseSpace</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">numberOfProducts</span><span class="p">,</span> <span class="n">mTotal</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">multiplicity</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="NBodyPhaseSpace">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.NBodyPhaseSpace">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">NBodyPhaseSpace</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">numberOfProducts</span><span class="p">,</span> <span class="n">mTotal</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">multiplicity</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates multi-group product matices for an n-body phase space distribution.</span>
 
@@ -797,7 +834,10 @@
     <span class="n">s</span> <span class="o">+=</span> <span class="n">commonDataToString</span><span class="p">(</span> <span class="n">comment</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">multiplicity</span> <span class="o">=</span> <span class="n">multiplicity</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">executeCommand</span><span class="p">(</span> <span class="n">logFile</span><span class="p">,</span> <span class="n">transferMatrixExecute</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">workDir</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;workFile&#39;</span><span class="p">],</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;restart&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="KalbachMann_TransferMatrix"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.KalbachMann_TransferMatrix">[docs]</a><span class="k">def</span> <span class="nf">KalbachMann_TransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">particlesData</span><span class="p">,</span> <span class="n">KalbachMannData</span><span class="p">,</span> <span class="n">multiplicity</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="KalbachMann_TransferMatrix">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.KalbachMann_TransferMatrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">KalbachMann_TransferMatrix</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">particlesData</span><span class="p">,</span> <span class="n">KalbachMannData</span><span class="p">,</span> <span class="n">multiplicity</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">comment</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function calculates multi-group product matices for a Kalbach/Mann distribution.</span>
 
@@ -826,7 +866,10 @@
     <span class="n">s</span> <span class="o">+=</span> <span class="n">KalbachMannDataToString</span><span class="p">(</span> <span class="n">KalbachMannData</span><span class="p">,</span> <span class="n">energy_in_unit</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">executeCommand</span><span class="p">(</span> <span class="n">logFile</span><span class="p">,</span> <span class="n">transferMatrixExecute</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">workDir</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;workFile&#39;</span><span class="p">],</span> <span class="n">tempInfo</span><span class="p">[</span><span class="s1">&#39;restart&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="executeCommand"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.executeCommand">[docs]</a><span class="k">def</span> <span class="nf">executeCommand</span><span class="p">(</span> <span class="n">logFile</span><span class="p">,</span> <span class="n">executable</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">workDir</span><span class="p">,</span> <span class="n">workFile</span><span class="p">,</span> <span class="n">restart</span><span class="p">,</span> <span class="n">productOffset</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="executeCommand">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.executeCommand">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">executeCommand</span><span class="p">(</span> <span class="n">logFile</span><span class="p">,</span> <span class="n">executable</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">workDir</span><span class="p">,</span> <span class="n">workFile</span><span class="p">,</span> <span class="n">restart</span><span class="p">,</span> <span class="n">productOffset</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function runs *executable* (presumably Merced) on a single input, parses resulting output file and returns two transfer matrices:</span>
 
@@ -848,7 +891,7 @@
 <span class="sd">    :returns:               The number and energy conserving product matices.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">checkNegative_l0</span><span class="p">(</span> <span class="n">TM_EEpL</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">f</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">checkNegative_l0</span><span class="p">(</span> <span class="n">TM_EEpL</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">f</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function counts the number of negative l=0 elements in the product matrix *TM_EEpL*.</span>
 
@@ -930,7 +973,10 @@
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span> <span class="n">fullFileName</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">TM1</span><span class="p">,</span> <span class="n">TME</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="parseOutputFile"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.parseOutputFile">[docs]</a><span class="k">def</span> <span class="nf">parseOutputFile</span><span class="p">(</span> <span class="n">file</span><span class="p">,</span> <span class="n">productOffset</span><span class="p">,</span> <span class="n">firstLine</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="parseOutputFile">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.parseOutputFile">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">parseOutputFile</span><span class="p">(</span> <span class="n">file</span><span class="p">,</span> <span class="n">productOffset</span><span class="p">,</span> <span class="n">firstLine</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function parses the Merced output file that contains the product matrices.</span>
 
@@ -941,7 +987,7 @@
 <span class="sd">    :returns:               The tuple (number product matrices, energy weighted product matrices, dictionary ).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">checkKeyValue</span><span class="p">(</span> <span class="n">lineNumber</span><span class="p">,</span> <span class="n">keyValue</span><span class="p">,</span> <span class="n">_key</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">checkKeyValue</span><span class="p">(</span> <span class="n">lineNumber</span><span class="p">,</span> <span class="n">keyValue</span><span class="p">,</span> <span class="n">_key</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function parses a key/value string (e.g., &#39;EinBin = 87&#39;) where the value is a python int.</span>
 
@@ -963,7 +1009,7 @@
         <span class="k">except</span> <span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span> <span class="s1">&#39;bad value type </span><span class="si">%s</span><span class="s1"> at line </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">lineNumber</span> <span class="p">)</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">parseCrossSection</span><span class="p">(</span> <span class="n">paras</span><span class="p">,</span> <span class="n">lineNumber</span><span class="p">,</span> <span class="n">ls</span><span class="p">,</span> <span class="n">file</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseCrossSection</span><span class="p">(</span> <span class="n">paras</span><span class="p">,</span> <span class="n">lineNumber</span><span class="p">,</span> <span class="n">ls</span><span class="p">,</span> <span class="n">file</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function skips over a multi-group cross section in the merced output file.</span>
 
@@ -982,7 +1028,7 @@
         <span class="n">lineNumber</span> <span class="o">+=</span> <span class="n">n1</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">lineNumber</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">parseTransferMatrix</span><span class="p">(</span> <span class="n">paras</span><span class="p">,</span> <span class="n">lineNumber</span><span class="p">,</span> <span class="n">ls</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">productOffset</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseTransferMatrix</span><span class="p">(</span> <span class="n">paras</span><span class="p">,</span> <span class="n">lineNumber</span><span class="p">,</span> <span class="n">ls</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">productOffset</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function parses a product matrix from the output file *file*.</span>
 
@@ -1062,7 +1108,10 @@
         <span class="n">lineNumber</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">TM1</span><span class="p">,</span> <span class="n">TME</span><span class="p">,</span> <span class="n">paras</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="commonDataToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.commonDataToString">[docs]</a><span class="k">def</span> <span class="nf">commonDataToString</span><span class="p">(</span> <span class="n">comment</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">multiplicity</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">energy_in_unit</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+
+<div class="viewcode-block" id="commonDataToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.commonDataToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">commonDataToString</span><span class="p">(</span> <span class="n">comment</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">tempInfo</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">productFrame</span><span class="p">,</span> <span class="n">multiplicity</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">energy_in_unit</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">photonFrame</span> <span class="o">=</span> <span class="n">xDataEnumsModule</span><span class="o">.</span><span class="n">Frame</span><span class="o">.</span><span class="n">lab</span><span class="p">,</span> <span class="n">legendreMax</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">modifiedProductGroup</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function converts common data needed to calculate any of the distribution product matrices to a list of string and returns the list.</span>
@@ -1110,7 +1159,10 @@
     <span class="k">if</span><span class="p">(</span> <span class="n">weight</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span> <span class="n">s</span> <span class="o">+=</span> <span class="n">startOfNewData</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">twoDToString</span><span class="p">(</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">addExtraBlankLine</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">s</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="GBToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.GBToString">[docs]</a><span class="k">def</span> <span class="nf">GBToString</span><span class="p">(</span> <span class="n">name</span><span class="p">,</span> <span class="n">gb</span><span class="p">,</span> <span class="n">energy_in_unit</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="GBToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.GBToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">GBToString</span><span class="p">(</span> <span class="n">name</span><span class="p">,</span> <span class="n">gb</span><span class="p">,</span> <span class="n">energy_in_unit</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a string representation of the multi-group boundaries that will be writted to the Merced input file.</span>
 
@@ -1129,7 +1181,10 @@
     <span class="n">s</span> <span class="o">+=</span> <span class="n">oneDToString</span><span class="p">(</span> <span class="n">boundaries</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">factor</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">s</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="fluxToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.fluxToString">[docs]</a><span class="k">def</span> <span class="nf">fluxToString</span><span class="p">(</span> <span class="n">flux</span><span class="p">,</span> <span class="n">energy_in_unit</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="fluxToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.fluxToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">fluxToString</span><span class="p">(</span> <span class="n">flux</span><span class="p">,</span> <span class="n">energy_in_unit</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a string representation of the flux that will be writted to the Merced input file.</span>
 
@@ -1149,7 +1204,10 @@
         <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="s1">&#39;  &#39;</span> <span class="o">+</span> <span class="p">(</span> <span class="n">doubleFmt</span> <span class="o">%</span> <span class="n">Cls</span> <span class="p">)</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">startOfNewData</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">s</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="crossSectionToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.crossSectionToString">[docs]</a><span class="k">def</span> <span class="nf">crossSectionToString</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">energy_in_unit</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="crossSectionToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.crossSectionToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">crossSectionToString</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">energy_in_unit</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a string representation of the cross section that will be writted to the Merced input file.</span>
 
@@ -1163,7 +1221,10 @@
     <span class="k">if</span><span class="p">(</span> <span class="n">energy_in_unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span> <span class="n">crossSection</span> <span class="o">=</span> <span class="n">crossSection</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span> <span class="p">)</span><span class="o">.</span><span class="n">convertAxisToUnit</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">energy_in_unit</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">startOfNewData</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">twoDToString</span><span class="p">(</span> <span class="s2">&quot;Cross section&quot;</span><span class="p">,</span> <span class="n">crossSection</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="multiplicityToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.multiplicityToString">[docs]</a><span class="k">def</span> <span class="nf">multiplicityToString</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">_multiplicity</span><span class="p">,</span> <span class="n">energy_in_unit</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="multiplicityToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.multiplicityToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">multiplicityToString</span><span class="p">(</span> <span class="n">style</span><span class="p">,</span> <span class="n">_multiplicity</span><span class="p">,</span> <span class="n">energy_in_unit</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a string representation of the cross section that will be writted to the Merced input file.</span>
 
@@ -1179,7 +1240,10 @@
     <span class="k">if</span><span class="p">(</span> <span class="n">energy_in_unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span> <span class="n">multiplicity</span> <span class="o">=</span> <span class="n">multiplicity</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span> <span class="p">)</span><span class="o">.</span><span class="n">convertAxisToUnit</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">energy_in_unit</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">startOfNewData</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">twoDToString</span><span class="p">(</span> <span class="s2">&quot;Multiplicity&quot;</span><span class="p">,</span> <span class="n">multiplicity</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="angularToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.angularToString">[docs]</a><span class="k">def</span> <span class="nf">angularToString</span><span class="p">(</span> <span class="n">angularData</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">twoBody</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">changeInterpolationQualifierWarning</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="angularToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.angularToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">angularToString</span><span class="p">(</span> <span class="n">angularData</span><span class="p">,</span> <span class="n">crossSection</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">twoBody</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">changeInterpolationQualifierWarning</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a string representation of the angular data that will be writted to the Merced input file.</span>
 
@@ -1266,7 +1330,10 @@
 
     <span class="k">return</span><span class="p">(</span> <span class="n">startOfNewData</span> <span class="o">+</span> <span class="n">weightString</span> <span class="o">+</span> <span class="n">s</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="energyFunctionToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.energyFunctionToString">[docs]</a><span class="k">def</span> <span class="nf">energyFunctionToString</span><span class="p">(</span> <span class="n">energyData</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="energyFunctionToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.energyFunctionToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">energyFunctionToString</span><span class="p">(</span> <span class="n">energyData</span><span class="p">,</span> <span class="n">weight</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a string representation of the energy data for an uncorrelated distribution that will </span>
 <span class="sd">    be writted to the Merced input file.</span>
@@ -1277,7 +1344,7 @@
 <span class="sd">    :returns:                   A python list of strings representing the energy distribution.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">getParameter</span><span class="p">(</span> <span class="n">data</span><span class="p">,</span> <span class="n">label</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getParameter</span><span class="p">(</span> <span class="n">data</span><span class="p">,</span> <span class="n">label</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function returns a string representation of the energy parameter data that will be writted to the Merced input file.</span>
 
@@ -1338,7 +1405,10 @@
 
     <span class="k">return</span><span class="p">(</span> <span class="n">sProcess</span><span class="p">,</span> <span class="n">sSpecific</span><span class="p">,</span> <span class="n">startOfNewData</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">sData</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="EEpPDataToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.EEpPDataToString">[docs]</a><span class="k">def</span> <span class="nf">EEpPDataToString</span><span class="p">(</span> <span class="n">EEpPData</span><span class="p">,</span> <span class="n">changeInterpolationQualifierWarning</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="EEpPDataToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.EEpPDataToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">EEpPDataToString</span><span class="p">(</span> <span class="n">EEpPData</span><span class="p">,</span> <span class="n">changeInterpolationQualifierWarning</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a string representation of the energy data for an uncorrelated distribution that will </span>
 <span class="sd">    be writted to the Merced input file.</span>
@@ -1377,7 +1447,10 @@
     <span class="n">s</span> <span class="o">+=</span> <span class="n">threeDToString</span><span class="p">(</span> <span class="n">EEpPData</span><span class="p">,</span> <span class="n">linearizeXYs</span> <span class="o">=</span> <span class="n">linearizeXYs</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">s</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="LEEpPDataToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.LEEpPDataToString">[docs]</a><span class="k">def</span> <span class="nf">LEEpPDataToString</span><span class="p">(</span> <span class="n">LEEpPData</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="LEEpPDataToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.LEEpPDataToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">LEEpPDataToString</span><span class="p">(</span> <span class="n">LEEpPData</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a string representation of the ENDL I = 4 data with l &gt; 0 distribution data </span>
 <span class="sd">    that will be writted to the Merced input file.</span>
@@ -1397,7 +1470,10 @@
         <span class="n">s</span> <span class="o">+=</span> <span class="n">threeDToString</span><span class="p">(</span> <span class="n">l_EEpP</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">s</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="LegendreDataToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.LegendreDataToString">[docs]</a><span class="k">def</span> <span class="nf">LegendreDataToString</span><span class="p">(</span> <span class="n">LegendreData</span><span class="p">,</span> <span class="n">changeInterpolationQualifierWarning</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="LegendreDataToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.LegendreDataToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">LegendreDataToString</span><span class="p">(</span> <span class="n">LegendreData</span><span class="p">,</span> <span class="n">changeInterpolationQualifierWarning</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a string representation of the MT = 6 LAW = 1, LANG = 1 distribution data </span>
 <span class="sd">    that will be writted to the Merced input file.</span>
@@ -1433,7 +1509,10 @@
     <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="s1">&#39;&#39;</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">startOfNewData</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">s</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="EMuEpPDataToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.EMuEpPDataToString">[docs]</a><span class="k">def</span> <span class="nf">EMuEpPDataToString</span><span class="p">(</span> <span class="n">EMuEpPData</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="EMuEpPDataToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.EMuEpPDataToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">EMuEpPDataToString</span><span class="p">(</span> <span class="n">EMuEpPData</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a string representation of the MF = 6, LAW = 7 distribution data </span>
 <span class="sd">    that will be writted to the Merced input file.</span>
@@ -1464,7 +1543,10 @@
         <span class="n">s</span> <span class="o">+=</span> <span class="n">threeDToString</span><span class="p">(</span> <span class="n">muEpP</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">s</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="EEpMuPDataToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.EEpMuPDataToString">[docs]</a><span class="k">def</span> <span class="nf">EEpMuPDataToString</span><span class="p">(</span> <span class="n">EEpMuPData</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="EEpMuPDataToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.EEpMuPDataToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">EEpMuPDataToString</span><span class="p">(</span> <span class="n">EEpMuPData</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a string representation of the MT = 6 LAW = 1, LANG = 11-15 distribution data </span>
 <span class="sd">    that will be writted to the Merced input file.</span>
@@ -1495,7 +1577,10 @@
         <span class="n">s</span> <span class="o">+=</span> <span class="n">threeDToString</span><span class="p">(</span> <span class="n">EpMuP</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">s</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="KalbachMannDataToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.KalbachMannDataToString">[docs]</a><span class="k">def</span> <span class="nf">KalbachMannDataToString</span><span class="p">(</span> <span class="n">KalbachMannData</span><span class="p">,</span> <span class="n">energy_in_unit</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="KalbachMannDataToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.KalbachMannDataToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">KalbachMannDataToString</span><span class="p">(</span> <span class="n">KalbachMannData</span><span class="p">,</span> <span class="n">energy_in_unit</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a string representation of the Kalbach/Mann distribution data </span>
 <span class="sd">    that will be writted to the Merced input file.</span>
@@ -1537,7 +1622,10 @@
 
     <span class="k">return</span><span class="p">(</span> <span class="n">s</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="oneDToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.oneDToString">[docs]</a><span class="k">def</span> <span class="nf">oneDToString</span><span class="p">(</span> <span class="n">data</span><span class="p">,</span> <span class="n">factor</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="oneDToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.oneDToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">oneDToString</span><span class="p">(</span> <span class="n">data</span><span class="p">,</span> <span class="n">factor</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function takes a list of floats and returns a list of strings representations of the floats that will be </span>
 <span class="sd">    written to the Merced input file.</span>
@@ -1557,7 +1645,10 @@
     <span class="k">if</span><span class="p">(</span> <span class="p">(</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">10</span> <span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">a</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="twoDToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.twoDToString">[docs]</a><span class="k">def</span> <span class="nf">twoDToString</span><span class="p">(</span> <span class="n">label</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">addHeader</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">addExtraBlankLine</span> <span class="o">=</span> <span class="kc">True</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="twoDToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.twoDToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">twoDToString</span><span class="p">(</span> <span class="n">label</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">addHeader</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">addExtraBlankLine</span> <span class="o">=</span> <span class="kc">True</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function takes a list of points (x,y) and returns a list of strings representations of the floats that will be </span>
 <span class="sd">    written to the Merced input file.</span>
@@ -1589,7 +1680,10 @@
     <span class="k">if</span><span class="p">(</span> <span class="n">addExtraBlankLine</span> <span class="p">)</span> <span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="s1">&#39;&#39;</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">a</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="threeDToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.threeDToString">[docs]</a><span class="k">def</span> <span class="nf">threeDToString</span><span class="p">(</span> <span class="n">data</span><span class="p">,</span> <span class="n">linearizeXYs</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="threeDToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.threeDToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">threeDToString</span><span class="p">(</span> <span class="n">data</span><span class="p">,</span> <span class="n">linearizeXYs</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function takes a pointwise 2d function (i.e., f(x,y)) and returns a list of strings representations of the data that will be </span>
 <span class="sd">    written to the Merced input file.</span>
@@ -1617,7 +1711,10 @@
     <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="s2">&quot;&quot;</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">a</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="threeDListToString"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.threeDListToString">[docs]</a><span class="k">def</span> <span class="nf">threeDListToString</span><span class="p">(</span> <span class="n">data</span><span class="p">,</span> <span class="n">linearizeXYs</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="threeDListToString">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.threeDListToString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">threeDListToString</span><span class="p">(</span> <span class="n">data</span><span class="p">,</span> <span class="n">linearizeXYs</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function takes a pointwise 2d function (i.e., f(x,y)) and returns a list of strings representations of the data that will be </span>
 <span class="sd">    written to the Merced input file.</span>
@@ -1640,7 +1737,10 @@
     <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="s2">&quot;&quot;</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="n">a</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="addTMs"><a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.addTMs">[docs]</a><span class="k">def</span> <span class="nf">addTMs</span><span class="p">(</span> <span class="n">TMs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="addTMs">
+<a class="viewcode-back" href="../../../../fudge/fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.addTMs">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">addTMs</span><span class="p">(</span> <span class="n">TMs</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the sum of the product matrices in *TMs*.</span>
 
@@ -1658,48 +1758,92 @@
                 <span class="k">for</span> <span class="n">i3</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span> <span class="n">TM_energy_in_out</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="n">TM_energy_in_out</span><span class="p">[</span><span class="n">i3</span><span class="p">]</span> <span class="o">+=</span> <span class="n">TM2</span><span class="p">[</span><span class="n">i1</span><span class="p">][</span><span class="n">i2</span><span class="p">][</span><span class="n">i3</span><span class="p">]</span>
                 
     <span class="k">return</span><span class="p">(</span> <span class="n">TM</span> <span class="p">)</span></div>
+
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../../../index.html">
-              <img class="logo" src="../../../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">fudge.processing.deterministic.transferMatrices</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

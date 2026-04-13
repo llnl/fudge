@@ -1,69 +1,56 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Sub-packages &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
-    
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="_static/gnd-20121206-favicon.ico"/>
+    <title>Sub-packages &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Generalized Nuclear Data (GNDS)" href="gnds.html" />
-    <link rel="prev" title="Installation" href="installation.html" /> 
+    <link rel="prev" title="Installation" href="installation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="gnds.html" title="Generalized Nuclear Data (GNDS)"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="installation.html" title="Installation"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Sub-packages</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <section id="sub-packages">
-<h1>Sub-packages<a class="headerlink" href="#sub-packages" title="Permalink to this heading">¶</a></h1>
+<h1>Sub-packages<a class="headerlink" href="#sub-packages" title="Link to this heading">¶</a></h1>
 <p>In addition to the <em>fudge</em> directory, the <strong>FUDGE</strong> code package includes the following required, parallel directories that
 are considered code sub-packages of <strong>FUDGE</strong>. In general, <strong>FUDGE</strong> requires the sub-packages but the sub-packages
 do not require <strong>FUDGE</strong>. The sub-packages are included with the <em>FUDGE</em> installation.</p>
 <section id="id1">
-<h2>Sub-packages<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h2>
+<h2>Sub-packages<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
 <section id="lupy">
-<h3>LUPY<a class="headerlink" href="#lupy" title="Permalink to this heading">¶</a></h3>
+<h3>LUPY<a class="headerlink" href="#lupy" title="Link to this heading">¶</a></h3>
 <p>This sub-package contains functions and classes that are used in various other sub-packages.</p>
 </section>
 <section id="pqu">
-<h3>pqu<a class="headerlink" href="#pqu" title="Permalink to this heading">¶</a></h3>
+<h3>pqu<a class="headerlink" href="#pqu" title="Link to this heading">¶</a></h3>
 <p>This sub-package contains classes and functions for representing and manipulating a value with units and uncertainty,
 herein called a “Physical Quantity with Uncertainty” or PQU. For example, the following code shows some examples:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pqu.PQU</span> <span class="kn">import</span> <span class="n">PQU</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pqu.PQU</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">length</span> <span class="o">=</span> <span class="n">PQU</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">time</span> <span class="o">=</span> <span class="n">PQU</span><span class="p">(</span><span class="mf">2.4</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">speed</span> <span class="o">=</span> <span class="n">length</span> <span class="o">/</span> <span class="n">time</span>
@@ -73,36 +60,36 @@ herein called a “Physical Quantity with Uncertainty” or PQU. For example, th
 </div>
 </section>
 <section id="numericalfunctions">
-<h3>numericalFunctions<a class="headerlink" href="#numericalfunctions" title="Permalink to this heading">¶</a></h3>
+<h3>numericalFunctions<a class="headerlink" href="#numericalfunctions" title="Link to this heading">¶</a></h3>
 <p>This sub-package contains C functions for storing and operating on a 1-d pointwise function include python wrappers.
 In general, the user should not need to interact with this sub-package as it is used by the class
 <strong>XYs1d</strong> in the <strong>xData</strong> sub-package and it is the <strong>XYs1d</strong> class that users should use.</p>
 </section>
 <section id="xdata">
-<h3>xData<a class="headerlink" href="#xdata" title="Permalink to this heading">¶</a></h3>
+<h3>xData<a class="headerlink" href="#xdata" title="Link to this heading">¶</a></h3>
 <p>This sub-package contains functions and classes for storing and operating on a 1, 2 and 3-d pointwise functions.</p>
 </section>
 <section id="pops">
-<h3>PoPs<a class="headerlink" href="#pops" title="Permalink to this heading">¶</a></h3>
+<h3>PoPs<a class="headerlink" href="#pops" title="Link to this heading">¶</a></h3>
 <p>This sub-package contains functions and classes for working with <strong>GNDS</strong> <strong>PoPs</strong> database. A <strong>PoPs</strong> (Properties
 of Particles) database contains a list of particles, and for particle, its mass, spin, parity, etc. can be
 stored.</p>
 </section>
 <section id="crosssectionadjustforheatedtarget">
-<h3>crossSectionAdjustForHeatedTarget<a class="headerlink" href="#crosssectionadjustforheatedtarget" title="Permalink to this heading">¶</a></h3>
+<h3>crossSectionAdjustForHeatedTarget<a class="headerlink" href="#crosssectionadjustforheatedtarget" title="Link to this heading">¶</a></h3>
 <p>This sub-package contains C functions for “heating” a nuclear cross section for a projectile hitting a material where
 the effects of the thermal motion of the atoms in the material are taken into account.</p>
 </section>
 <section id="merced">
-<h3>Merced<a class="headerlink" href="#merced" title="Permalink to this heading">¶</a></h3>
+<h3>Merced<a class="headerlink" href="#merced" title="Link to this heading">¶</a></h3>
 <p>This sub-package contains C++ for calculating multi-group transfer matries. The user should not need to
 interact with this sub-package as it is called from within <strong>FUDGE</strong> via the <strong>processMultiGroup</strong> methods.</p>
 </section>
 <section id="brownies">
-<h3>brownies<a class="headerlink" href="#brownies" title="Permalink to this heading">¶</a></h3>
+<h3>brownies<a class="headerlink" href="#brownies" title="Link to this heading">¶</a></h3>
 </section>
 <section id="isotopicabundances">
-<h3>isotopicAbundances<a class="headerlink" href="#isotopicabundances" title="Permalink to this heading">¶</a></h3>
+<h3>isotopicAbundances<a class="headerlink" href="#isotopicabundances" title="Link to this heading">¶</a></h3>
 <p>This sub-package supports isotopic abundance data stored in an <em>isotopicAbundancesByChemicalElement</em> node.
 Basically, the <em>isotopicAbundancesByChemicalElement</em> node is a list of chemical elements where each
 chemical element is a list of “natural” occurring isotopes for that chemical element. Each isotope
@@ -118,7 +105,7 @@ one evaluation has the following data for the chemical element Oxygen:</p>
 </section>
 </section>
 <section id="sub-package-dependencies">
-<h2>Sub-package dependencies<a class="headerlink" href="#sub-package-dependencies" title="Permalink to this heading">¶</a></h2>
+<h2>Sub-package dependencies<a class="headerlink" href="#sub-package-dependencies" title="Link to this heading">¶</a></h2>
 <p>This section list the dependencies of one sub-package on the other sub-packages.</p>
 <blockquote>
 <div><ul class="simple">
@@ -135,7 +122,7 @@ one evaluation has the following data for the chemical element Oxygen:</p>
 </div></blockquote>
 </section>
 <section id="bin-directory">
-<h2>bin directory<a class="headerlink" href="#bin-directory" title="Permalink to this heading">¶</a></h2>
+<h2>bin directory<a class="headerlink" href="#bin-directory" title="Link to this heading">¶</a></h2>
 <p>In general, <strong>FUDGE</strong> should be considered as a toolkit for interaction which nuclear data.
 Ergo, the user has to write Python scripts to read, modify, process and write nuclear data.
 This directory contains some useful scripts that have been written by the <strong>FUDGE</strong> developers.</p>
@@ -143,91 +130,92 @@ This directory contains some useful scripts that have been written by the <stron
 </section>
 
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-  <div>
-    <h3><a href="index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">Sub-packages</a><ul>
-<li><a class="reference internal" href="#id1">Sub-packages</a><ul>
-<li><a class="reference internal" href="#lupy">LUPY</a></li>
-<li><a class="reference internal" href="#pqu">pqu</a></li>
-<li><a class="reference internal" href="#numericalfunctions">numericalFunctions</a></li>
-<li><a class="reference internal" href="#xdata">xData</a></li>
-<li><a class="reference internal" href="#pops">PoPs</a></li>
-<li><a class="reference internal" href="#crosssectionadjustforheatedtarget">crossSectionAdjustForHeatedTarget</a></li>
-<li><a class="reference internal" href="#merced">Merced</a></li>
-<li><a class="reference internal" href="#brownies">brownies</a></li>
-<li><a class="reference internal" href="#isotopicabundances">isotopicAbundances</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#sub-package-dependencies">Sub-package dependencies</a></li>
-<li><a class="reference internal" href="#bin-directory">bin directory</a></li>
-</ul>
-</li>
-</ul>
+<h1 class="logo"><a href="index.html">Fudge and GNDS</a></h1>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="installation.html"
-                          title="previous chapter">Installation</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="gnds.html"
-                          title="next chapter">Generalized Nuclear Data (GNDS)</a></p>
-  </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/sub-packages.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="installation.html" title="previous chapter">Installation</a></li>
+      <li>Next: <a href="gnds.html" title="next chapter">Generalized Nuclear Data (GNDS)</a></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="gnds.html" title="Generalized Nuclear Data (GNDS)"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="installation.html" title="Installation"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Sub-packages</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/sub-packages.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

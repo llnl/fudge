@@ -1,84 +1,263 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>fudge.processing package &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../_static/gnd-20121206-favicon.ico"/>
+    <title>fudge.processing package &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="fudge.processing.deterministic package" href="fudge.processing.deterministic.html" />
-    <link rel="prev" title="fudge.covariances package" href="fudge.covariances.html" /> 
+    <link rel="prev" title="fudge.covariances package" href="fudge.covariances.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="fudge.processing.deterministic.html" title="fudge.processing.deterministic package"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="fudge.covariances.html" title="fudge.covariances package"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >fudge Package</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="fudge.html" accesskey="U">fudge package</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">fudge.processing package</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <section id="fudge-processing-package">
-<h1>fudge.processing package<a class="headerlink" href="#fudge-processing-package" title="Permalink to this heading">¶</a></h1>
+<h1>fudge.processing package<a class="headerlink" href="#fudge-processing-package" title="Link to this heading">¶</a></h1>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">¶</a></h2>
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="fudge.processing.deterministic.html">fudge.processing.deterministic package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="fudge.processing.deterministic.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fudge.processing.deterministic.html#module-fudge.processing.deterministic.transferMatrices">fudge.processing.deterministic.transferMatrices module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fudge.processing.deterministic.html#module-fudge.processing.deterministic.multiGroupUpScatter">fudge.processing.deterministic.multiGroupUpScatter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fudge.processing.deterministic.html#module-fudge.processing.deterministic.transferMatrices">fudge.processing.deterministic.transferMatrices module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.EEpMuPDataToString"><code class="docutils literal notranslate"><span class="pre">EEpMuPDataToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.EEpMuP_TransferMatrix"><code class="docutils literal notranslate"><span class="pre">EEpMuP_TransferMatrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.EEpPDataToString"><code class="docutils literal notranslate"><span class="pre">EEpPDataToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.ELEpP_TransferMatrix"><code class="docutils literal notranslate"><span class="pre">ELEpP_TransferMatrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.EMuEpPDataToString"><code class="docutils literal notranslate"><span class="pre">EMuEpPDataToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.ENDFEMuEpP_TransferMatrix"><code class="docutils literal notranslate"><span class="pre">ENDFEMuEpP_TransferMatrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.ENDLEMuEpP_TransferMatrix"><code class="docutils literal notranslate"><span class="pre">ENDLEMuEpP_TransferMatrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.GBToString"><code class="docutils literal notranslate"><span class="pre">GBToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.KalbachMannDataToString"><code class="docutils literal notranslate"><span class="pre">KalbachMannDataToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.KalbachMann_TransferMatrix"><code class="docutils literal notranslate"><span class="pre">KalbachMann_TransferMatrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.LEEpPDataToString"><code class="docutils literal notranslate"><span class="pre">LEEpPDataToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.LegendreDataToString"><code class="docutils literal notranslate"><span class="pre">LegendreDataToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.Legendre_TransferMatrix"><code class="docutils literal notranslate"><span class="pre">Legendre_TransferMatrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.NBodyPhaseSpace"><code class="docutils literal notranslate"><span class="pre">NBodyPhaseSpace()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.addTMs"><code class="docutils literal notranslate"><span class="pre">addTMs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.angularToString"><code class="docutils literal notranslate"><span class="pre">angularToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.commonDataToString"><code class="docutils literal notranslate"><span class="pre">commonDataToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.comptonScattering"><code class="docutils literal notranslate"><span class="pre">comptonScattering()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.crossSectionToString"><code class="docutils literal notranslate"><span class="pre">crossSectionToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.discreteGammaAngularData"><code class="docutils literal notranslate"><span class="pre">discreteGammaAngularData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.doubleDifferential_EEpMuP"><code class="docutils literal notranslate"><span class="pre">doubleDifferential_EEpMuP()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.energyFunctionToString"><code class="docutils literal notranslate"><span class="pre">energyFunctionToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.executeCommand"><code class="docutils literal notranslate"><span class="pre">executeCommand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.fluxToString"><code class="docutils literal notranslate"><span class="pre">fluxToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.multiplicityToString"><code class="docutils literal notranslate"><span class="pre">multiplicityToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.oneDToString"><code class="docutils literal notranslate"><span class="pre">oneDToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.parseOutputFile"><code class="docutils literal notranslate"><span class="pre">parseOutputFile()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.primaryGammaAngularData"><code class="docutils literal notranslate"><span class="pre">primaryGammaAngularData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.threeDListToString"><code class="docutils literal notranslate"><span class="pre">threeDListToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.threeDToString"><code class="docutils literal notranslate"><span class="pre">threeDToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.twoBodyTransferMatrix"><code class="docutils literal notranslate"><span class="pre">twoBodyTransferMatrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.twoBodyTransferMatrix2"><code class="docutils literal notranslate"><span class="pre">twoBodyTransferMatrix2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.twoDToString"><code class="docutils literal notranslate"><span class="pre">twoDToString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.uncorrelated_EMuP_EEpP_TransferMatrix"><code class="docutils literal notranslate"><span class="pre">uncorrelated_EMuP_EEpP_TransferMatrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.transferMatrices.wholeAtomScattering"><code class="docutils literal notranslate"><span class="pre">wholeAtomScattering()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fudge.processing.deterministic.html#module-fudge.processing.deterministic.multiGroupUpScatter">fudge.processing.deterministic.multiGroupUpScatter module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.multiGroupUpScatter.SnElasticUpScatter"><code class="docutils literal notranslate"><span class="pre">SnElasticUpScatter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.multiGroupUpScatter.checkNegative_l0"><code class="docutils literal notranslate"><span class="pre">checkNegative_l0()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.multiGroupUpScatter.executeCommand"><code class="docutils literal notranslate"><span class="pre">executeCommand()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.multiGroupUpScatter.parseAveEnergyOutputFile"><code class="docutils literal notranslate"><span class="pre">parseAveEnergyOutputFile()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.deterministic.html#fudge.processing.deterministic.multiGroupUpScatter.rescaleCrossSection"><code class="docutils literal notranslate"><span class="pre">rescaleCrossSection()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="fudge.processing.deterministic.html#module-fudge.processing.deterministic">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="fudge.processing.montecarlo.html">fudge.processing.montecarlo package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="fudge.processing.montecarlo.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fudge.processing.montecarlo.html#module-fudge.processing.montecarlo.fudge2dEqualProbableBinning">fudge.processing.montecarlo.fudge2dEqualProbableBinning module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fudge.processing.montecarlo.html#module-fudge.processing.montecarlo.fudge2dEqualProbableBinning">fudge.processing.montecarlo.fudge2dEqualProbableBinning module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.montecarlo.html#fudge.processing.montecarlo.fudge2dEqualProbableBinning.EqualProbableBinnedData"><code class="docutils literal notranslate"><span class="pre">EqualProbableBinnedData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.montecarlo.html#fudge.processing.montecarlo.fudge2dEqualProbableBinning.EqualProbableBinnedData.getData"><code class="docutils literal notranslate"><span class="pre">EqualProbableBinnedData.getData()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.montecarlo.html#fudge.processing.montecarlo.fudge2dEqualProbableBinning.EqualProbableBinnedData.getEnd"><code class="docutils literal notranslate"><span class="pre">EqualProbableBinnedData.getEnd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.montecarlo.html#fudge.processing.montecarlo.fudge2dEqualProbableBinning.EqualProbableBinnedData.getStart"><code class="docutils literal notranslate"><span class="pre">EqualProbableBinnedData.getStart()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.montecarlo.html#fudge.processing.montecarlo.fudge2dEqualProbableBinning.equalProbableBins"><code class="docutils literal notranslate"><span class="pre">equalProbableBins()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="fudge.processing.montecarlo.html#module-fudge.processing.montecarlo">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="fudge.processing.resonances.html">fudge.processing.resonances package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="fudge.processing.resonances.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fudge.processing.resonances.html#module-fudge.processing.resonances.getCoulombWavefunctions">fudge.processing.resonances.getCoulombWavefunctions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fudge.processing.resonances.html#module-fudge.processing.resonances.getScatteringMatrices">fudge.processing.resonances.getScatteringMatrices module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fudge.processing.resonances.html#module-fudge.processing.resonances.getCoulombWavefunctions">fudge.processing.resonances.getCoulombWavefunctions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.getCoulombWavefunctions.coulombNormalizationFactor"><code class="docutils literal notranslate"><span class="pre">coulombNormalizationFactor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.getCoulombWavefunctions.coulombPenetrationFactor"><code class="docutils literal notranslate"><span class="pre">coulombPenetrationFactor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.getCoulombWavefunctions.coulombPhi"><code class="docutils literal notranslate"><span class="pre">coulombPhi()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.getCoulombWavefunctions.coulombShiftFactor"><code class="docutils literal notranslate"><span class="pre">coulombShiftFactor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.getCoulombWavefunctions.digamma"><code class="docutils literal notranslate"><span class="pre">digamma()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.getCoulombWavefunctions.getCoulombWavefunctions"><code class="docutils literal notranslate"><span class="pre">getCoulombWavefunctions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.getCoulombWavefunctions.test_getCoulombWavefunctions"><code class="docutils literal notranslate"><span class="pre">test_getCoulombWavefunctions()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fudge.processing.resonances.html#module-fudge.processing.resonances.getScatteringMatrices">fudge.processing.resonances.getScatteringMatrices module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.getScatteringMatrices.getScatteringMatrices"><code class="docutils literal notranslate"><span class="pre">getScatteringMatrices()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="fudge.processing.resonances.html#module-fudge.processing.resonances.reconstructResonances">fudge.processing.resonances.reconstructResonances module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#basic-usage">Basic usage:</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#alternate-uses">Alternate uses:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.J"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.J</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.Xi"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.Xi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.channelClass"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.channelClass</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.eliminated"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.eliminated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.externalRMatrix"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.externalRMatrix</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.gfact"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.gfact</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.has_same_J"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.has_same_J()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.index"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.isElastic"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.isElastic</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.is_open"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.is_open()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.l"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.l</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.particleA"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.particleA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.particleB"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.particleB</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.reaction"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.reaction</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.s"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.s</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ChannelDesignator.useRelativistic"><code class="docutils literal notranslate"><span class="pre">ChannelDesignator.useRelativistic</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="fudge.processing.resonances.html#module-fudge.processing.resonances.makeUnresolvedProbabilityTables">fudge.processing.resonances.makeUnresolvedProbabilityTables module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.MLBWcrossSection"><code class="docutils literal notranslate"><span class="pre">MLBWcrossSection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.MLBWcrossSection.getChannelConstantsBc"><code class="docutils literal notranslate"><span class="pre">MLBWcrossSection.getChannelConstantsBc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.MLBWcrossSection.getCrossSection"><code class="docutils literal notranslate"><span class="pre">MLBWcrossSection.getCrossSection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.MLBWcrossSection.getScatteringMatrixU"><code class="docutils literal notranslate"><span class="pre">MLBWcrossSection.getScatteringMatrixU()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.eta"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.eta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.getAPByChannel"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.getAPByChannel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.getChannelConstantsBc"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.getChannelConstantsBc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.getChannelScatteringRadiiEffective"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.getChannelScatteringRadiiEffective()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.getChannelScatteringRadiiTrue"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.getChannelScatteringRadiiTrue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.getCrossSection"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.getCrossSection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.getEiPhis"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.getEiPhis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.getL0Matrix"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.getL0Matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.getLMax"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.getLMax()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.getRMatrix"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.getRMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.getScatteringMatrixT"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.getScatteringMatrixT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.isElastic"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.isElastic()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.k_competitive"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.k_competitive()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.omega"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.omega()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.penetrationFactorByChannel"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.penetrationFactorByChannel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.phiByChannel"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.phiByChannel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.resetResonanceParametersByChannel"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.resetResonanceParametersByChannel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.rho"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.rho()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.rhohat"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.rhohat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.setResonanceParametersByChannel"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.setResonanceParametersByChannel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RMatrixLimitedcrossSection.shiftFactorByChannel"><code class="docutils literal notranslate"><span class="pre">RMatrixLimitedcrossSection.shiftFactorByChannel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass"><code class="docutils literal notranslate"><span class="pre">RRBaseClass</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.generateEnergyGrid"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.generateEnergyGrid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getAMatrix"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getAMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getAPByChannel"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getAPByChannel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getAngularDistribution"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getAngularDistribution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getAverageQuantities"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getAverageQuantities()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getChannelConstantsBc"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getChannelConstantsBc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getEiPhis"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getEiPhis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getKMatrix"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getKMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getL0Matrix"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getL0Matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getLMax"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getLMax()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getParticleParities"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getParticleParities()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getParticleSpinParities"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getParticleSpinParities()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getParticleSpins"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getParticleSpins()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getPoleStrength"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getPoleStrength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getPorterThomasFitToWidths"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getPorterThomasFitToWidths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getRMatrix"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getRMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getReducedWidths"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getReducedWidths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getScatteringLength"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getScatteringLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getScatteringMatrixT"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getScatteringMatrixT()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getScatteringMatrixU"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getScatteringMatrixU()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getTransmissionCoefficients"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getTransmissionCoefficients()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getWMatrix"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getWMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.getXMatrix"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.getXMatrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.penetrationFactorByChannel"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.penetrationFactorByChannel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.phiByChannel"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.phiByChannel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.resetResonanceParametersByChannel"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.resetResonanceParametersByChannel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.rho"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.rho()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.rhohat"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.rhohat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.setResonanceParametersByChannel"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.setResonanceParametersByChannel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.shiftFactorByChannel"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.shiftFactorByChannel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.RRBaseClass.sortLandJ"><code class="docutils literal notranslate"><span class="pre">RRBaseClass.sortLandJ()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ResonanceReconstructionBaseClass"><code class="docutils literal notranslate"><span class="pre">ResonanceReconstructionBaseClass</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ResonanceReconstructionBaseClass.getCrossSection"><code class="docutils literal notranslate"><span class="pre">ResonanceReconstructionBaseClass.getCrossSection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ResonanceReconstructionBaseClass.k"><code class="docutils literal notranslate"><span class="pre">ResonanceReconstructionBaseClass.k()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ResonanceReconstructionBaseClass.penetrationFactor"><code class="docutils literal notranslate"><span class="pre">ResonanceReconstructionBaseClass.penetrationFactor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ResonanceReconstructionBaseClass.phi"><code class="docutils literal notranslate"><span class="pre">ResonanceReconstructionBaseClass.phi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ResonanceReconstructionBaseClass.refineInterpolation"><code class="docutils literal notranslate"><span class="pre">ResonanceReconstructionBaseClass.refineInterpolation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.ResonanceReconstructionBaseClass.shiftFactor"><code class="docutils literal notranslate"><span class="pre">ResonanceReconstructionBaseClass.shiftFactor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.SLBWcrossSection"><code class="docutils literal notranslate"><span class="pre">SLBWcrossSection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.SLBWcrossSection.getAngularDistribution"><code class="docutils literal notranslate"><span class="pre">SLBWcrossSection.getAngularDistribution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.SLBWcrossSection.getCrossSection"><code class="docutils literal notranslate"><span class="pre">SLBWcrossSection.getCrossSection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.SLBWcrossSection.getScatteringLength"><code class="docutils literal notranslate"><span class="pre">SLBWcrossSection.getScatteringLength()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.SLBWcrossSection.getScatteringMatrixU"><code class="docutils literal notranslate"><span class="pre">SLBWcrossSection.getScatteringMatrixU()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.SLBWcrossSection.setResonanceParametersByChannel"><code class="docutils literal notranslate"><span class="pre">SLBWcrossSection.setResonanceParametersByChannel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.URRcrossSection"><code class="docutils literal notranslate"><span class="pre">URRcrossSection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.URRcrossSection.generateEnergyGrid"><code class="docutils literal notranslate"><span class="pre">URRcrossSection.generateEnergyGrid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.URRcrossSection.getCrossSection"><code class="docutils literal notranslate"><span class="pre">URRcrossSection.getCrossSection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.URRcrossSection.getFluctuationIntegrals"><code class="docutils literal notranslate"><span class="pre">URRcrossSection.getFluctuationIntegrals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.URRcrossSection.getTransmissionCoefficients"><code class="docutils literal notranslate"><span class="pre">URRcrossSection.getTransmissionCoefficients()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.URRcrossSection.getWidthsAndSpacings"><code class="docutils literal notranslate"><span class="pre">URRcrossSection.getWidthsAndSpacings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.URRcrossSection.rho"><code class="docutils literal notranslate"><span class="pre">URRcrossSection.rho()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.blockwise"><code class="docutils literal notranslate"><span class="pre">blockwise()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.getAllowedTotalSpins"><code class="docutils literal notranslate"><span class="pre">getAllowedTotalSpins()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.getR_S"><code class="docutils literal notranslate"><span class="pre">getR_S()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.getResonanceReconstructionClass"><code class="docutils literal notranslate"><span class="pre">getResonanceReconstructionClass()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.invertMatrices"><code class="docutils literal notranslate"><span class="pre">invertMatrices()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.reconstructAngularDistributions"><code class="docutils literal notranslate"><span class="pre">reconstructAngularDistributions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.reconstructResonances"><code class="docutils literal notranslate"><span class="pre">reconstructResonances()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.reconstructResonances.spins_equal"><code class="docutils literal notranslate"><span class="pre">spins_equal()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fudge.processing.resonances.html#module-fudge.processing.resonances.makeUnresolvedProbabilityTables">fudge.processing.resonances.makeUnresolvedProbabilityTables module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator"><code class="docutils literal notranslate"><span class="pre">ProbabilityTableGenerator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.extrapolate_URR_parameters"><code class="docutils literal notranslate"><span class="pre">ProbabilityTableGenerator.extrapolate_URR_parameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.generatePDFs"><code class="docutils literal notranslate"><span class="pre">ProbabilityTableGenerator.generatePDFs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.getLastResolvedResonanceEnergy"><code class="docutils literal notranslate"><span class="pre">ProbabilityTableGenerator.getLastResolvedResonanceEnergy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.getLastResolvedResonanceRegion"><code class="docutils literal notranslate"><span class="pre">ProbabilityTableGenerator.getLastResolvedResonanceRegion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.sampleRR"><code class="docutils literal notranslate"><span class="pre">ProbabilityTableGenerator.sampleRR()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.ProbabilityTableGenerator.truncateResolvedRegion"><code class="docutils literal notranslate"><span class="pre">ProbabilityTableGenerator.truncateResolvedRegion()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fudge.processing.resonances.html#fudge.processing.resonances.makeUnresolvedProbabilityTables.heatAndMakePDFs"><code class="docutils literal notranslate"><span class="pre">heatAndMakePDFs()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="fudge.processing.resonances.html#module-fudge.processing.resonances.setup">fudge.processing.resonances.setup module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fudge.processing.resonances.html#module-fudge.processing.resonances">Module contents</a></li>
 </ul>
@@ -87,10 +266,10 @@
 </div>
 </section>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
 </section>
 <section id="module-fudge.processing.miscellaneous">
-<span id="fudge-processing-miscellaneous-module"></span><h2>fudge.processing.miscellaneous module<a class="headerlink" href="#module-fudge.processing.miscellaneous" title="Permalink to this heading">¶</a></h2>
+<span id="fudge-processing-miscellaneous-module"></span><h2>fudge.processing.miscellaneous module<a class="headerlink" href="#module-fudge.processing.miscellaneous" title="Link to this heading">¶</a></h2>
 <p>This module contains functions used internally by FUDGE to multi-group 1d functions.</p>
 <p>This module contains the following functions:</p>
 <blockquote>
@@ -125,7 +304,7 @@
 </div></blockquote>
 <dl class="py function">
 <dt class="sig sig-object py" id="fudge.processing.miscellaneous.groupFunctionCrossSectionAndFlux">
-<span class="sig-prename descclassname"><span class="pre">fudge.processing.miscellaneous.</span></span><span class="sig-name descname"><span class="pre">groupFunctionCrossSectionAndFlux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempInfo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printMutualDomainWarning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/miscellaneous.html#groupFunctionCrossSectionAndFlux"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.miscellaneous.groupFunctionCrossSectionAndFlux" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fudge.processing.miscellaneous.</span></span><span class="sig-name descname"><span class="pre">groupFunctionCrossSectionAndFlux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempInfo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printMutualDomainWarning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/miscellaneous.html#groupFunctionCrossSectionAndFlux"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.miscellaneous.groupFunctionCrossSectionAndFlux" title="Link to this definition">¶</a></dt>
 <dd><p>This function multi-groups <img class="math" src="../_images/math/642882586a4156f4e6d997709f5a68257de3153b.png" alt="f1"/> with the product of the cross section in <em>tempInfo</em>.
 This function if for internal use.</p>
 <dl class="field-list simple">
@@ -146,7 +325,7 @@ This function if for internal use.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fudge.processing.miscellaneous.groupOneFunctionAndFlux">
-<span class="sig-prename descclassname"><span class="pre">fudge.processing.miscellaneous.</span></span><span class="sig-name descname"><span class="pre">groupOneFunctionAndFlux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempInfo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">styleFilter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/miscellaneous.html#groupOneFunctionAndFlux"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.miscellaneous.groupOneFunctionAndFlux" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fudge.processing.miscellaneous.</span></span><span class="sig-name descname"><span class="pre">groupOneFunctionAndFlux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempInfo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">styleFilter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/miscellaneous.html#groupOneFunctionAndFlux"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.miscellaneous.groupOneFunctionAndFlux" title="Link to this definition">¶</a></dt>
 <dd><p>This function mulit-groups <img class="math" src="../_images/math/642882586a4156f4e6d997709f5a68257de3153b.png" alt="f1"/>. This function if for internal use.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -165,7 +344,7 @@ This function if for internal use.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fudge.processing.miscellaneous.groupThreeFunctionsAndFlux">
-<span class="sig-prename descclassname"><span class="pre">fudge.processing.miscellaneous.</span></span><span class="sig-name descname"><span class="pre">groupThreeFunctionsAndFlux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempInfo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printMutualDomainWarning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/miscellaneous.html#groupThreeFunctionsAndFlux"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.miscellaneous.groupThreeFunctionsAndFlux" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fudge.processing.miscellaneous.</span></span><span class="sig-name descname"><span class="pre">groupThreeFunctionsAndFlux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempInfo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printMutualDomainWarning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/miscellaneous.html#groupThreeFunctionsAndFlux"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.miscellaneous.groupThreeFunctionsAndFlux" title="Link to this definition">¶</a></dt>
 <dd><p>This function mulit-groups the product of three functions, <img class="math" src="../_images/math/b7aa3d22d37c21d0bcfa871c9cf372b8e2862d55.png" alt="f1 \times f2 \times f3"/>.
 This function if for internal use.</p>
 <dl class="field-list simple">
@@ -188,7 +367,7 @@ This function if for internal use.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="fudge.processing.miscellaneous.groupTwoFunctionsAndFlux">
-<span class="sig-prename descclassname"><span class="pre">fudge.processing.miscellaneous.</span></span><span class="sig-name descname"><span class="pre">groupTwoFunctionsAndFlux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempInfo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printMutualDomainWarning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/miscellaneous.html#groupTwoFunctionsAndFlux"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.miscellaneous.groupTwoFunctionsAndFlux" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">fudge.processing.miscellaneous.</span></span><span class="sig-name descname"><span class="pre">groupTwoFunctionsAndFlux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tempInfo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printMutualDomainWarning</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/miscellaneous.html#groupTwoFunctionsAndFlux"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.miscellaneous.groupTwoFunctionsAndFlux" title="Link to this definition">¶</a></dt>
 <dd><p>This function mulit-groups the product of two functions, <img class="math" src="../_images/math/bf628593ebb669b7b7617882a973fe894a7b16ec.png" alt="f1 \times f2"/>. Typically, <img class="math" src="../_images/math/0e284065ac9072ea96e09fd92665be307dd2ee4f.png" alt="f2"/> is a cross section.
 This function if for internal use.</p>
 <dl class="field-list simple">
@@ -209,219 +388,128 @@ This function if for internal use.</p>
 </dd></dl>
 
 </section>
-<section id="module-fudge.processing.processingInfo">
-<span id="fudge-processing-processinginfo-module"></span><h2>fudge.processing.processingInfo module<a class="headerlink" href="#module-fudge.processing.processingInfo" title="Permalink to this heading">¶</a></h2>
-<p>Nothing in the module is being used so the module should be deleted.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fudge.processing.processingInfo.</span></span><span class="sig-name descname"><span class="pre">ProcessInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">particles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/processingInfo.html#ProcessInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class is not used ans should be deleted.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo.addParticle">
-<span class="sig-name descname"><span class="pre">addParticle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">particle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/processingInfo.html#ProcessInfo.addParticle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo.addParticle" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo.getParticleGroups">
-<span class="sig-name descname"><span class="pre">getParticleGroups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/processingInfo.html#ProcessInfo.getParticleGroups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo.getParticleGroups" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo.getParticle_lMax">
-<span class="sig-name descname"><span class="pre">getParticle_lMax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/processingInfo.html#ProcessInfo.getParticle_lMax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo.getParticle_lMax" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo.getProjectileName">
-<span class="sig-name descname"><span class="pre">getProjectileName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/processingInfo.html#ProcessInfo.getProjectileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo.getProjectileName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo.getTargetName">
-<span class="sig-name descname"><span class="pre">getTargetName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/processingInfo.html#ProcessInfo.getTargetName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo.getTargetName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo.isProcessParticle">
-<span class="sig-name descname"><span class="pre">isProcessParticle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/processingInfo.html#ProcessInfo.isProcessParticle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo.isProcessParticle" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo.process">
-<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosityIndent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/processingInfo.html#ProcessInfo.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo.process" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo2">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fudge.processing.processingInfo.</span></span><span class="sig-name descname"><span class="pre">ProcessInfo2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactionSuite</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosityIndentStep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span>&#160; <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energyAccuracy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentumAccuracy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/processingInfo.html#ProcessInfo2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class is not used ans should be deleted.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo2.checkStyle">
-<span class="sig-name descname"><span class="pre">checkStyle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_class</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/processingInfo.html#ProcessInfo2.checkStyle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo2.checkStyle" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo2.energyAccuracy">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">energyAccuracy</span></span><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo2.energyAccuracy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo2.flux">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">flux</span></span><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo2.flux" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo2.logFile">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">logFile</span></span><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo2.logFile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo2.momentumAccuracy">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">momentumAccuracy</span></span><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo2.momentumAccuracy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo2.reactionSuite">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reactionSuite</span></span><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo2.reactionSuite" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo2.style">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">style</span></span><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo2.style" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo2.verbosity">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">verbosity</span></span><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo2.verbosity" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfo2.verbosityIndentStep">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">verbosityIndentStep</span></span><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfo2.verbosityIndentStep" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfoLLNL">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fudge.processing.processingInfo.</span></span><span class="sig-name descname"><span class="pre">ProcessInfoLLNL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LLNL_Pn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lMax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/processingInfo.html#ProcessInfoLLNL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfoLLNL" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#fudge.processing.processingInfo.ProcessInfo" title="fudge.processing.processingInfo.ProcessInfo"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessInfo</span></code></a></p>
-<p>This class is not used ans should be deleted.</p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.ProcessInfoParticle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fudge.processing.processingInfo.</span></span><span class="sig-name descname"><span class="pre">ProcessInfoParticle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lMax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conservationFlag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'conserveParticle'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/processingInfo.html#ProcessInfoParticle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.processingInfo.ProcessInfoParticle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class is not used ans should be deleted.</p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.TempInfo">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fudge.processing.processingInfo.</span></span><span class="sig-name descname"><span class="pre">TempInfo</span></span><a class="reference internal" href="../_modules/fudge/processing/processingInfo.html#TempInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.processingInfo.TempInfo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>This class is not used ans should be deleted.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.TempInfo.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/processingInfo.html#TempInfo.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.processingInfo.TempInfo.get" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="fudge.processing.processingInfo.TempInfo.keys">
-<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fudge/processing/processingInfo.html#TempInfo.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#fudge.processing.processingInfo.TempInfo.keys" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</section>
 <section id="module-fudge.processing">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-fudge.processing" title="Permalink to this heading">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-fudge.processing" title="Link to this heading">¶</a></h2>
 </section>
 </section>
 
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-  <div>
-    <h3><a href="../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">fudge.processing package</a><ul>
-<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-fudge.processing.miscellaneous">fudge.processing.miscellaneous module</a></li>
-<li><a class="reference internal" href="#module-fudge.processing.processingInfo">fudge.processing.processingInfo module</a></li>
-<li><a class="reference internal" href="#module-fudge.processing">Module contents</a></li>
-</ul>
-</li>
-</ul>
+<h1 class="logo"><a href="../index.html">Fudge and GNDS</a></h1>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="fudge.covariances.html"
-                          title="previous chapter">fudge.covariances package</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="fudge.processing.deterministic.html"
-                          title="next chapter">fudge.processing.deterministic package</a></p>
-  </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/fudge/fudge.processing.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thanks.html">Thanks</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The FUDGE Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#id1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fudge</span></code> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#module-fudge.__doc__"><code class="xref py py-mod docutils literal notranslate"><span class="pre">__doc__</span></code> Module</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="fudge.html">GNDS hierarchy</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Processing support</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="fudge.processing.deterministic.html">fudge.processing.deterministic package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="fudge.processing.montecarlo.html">fudge.processing.montecarlo package</a></li>
+<li class="toctree-l5"><a class="reference internal" href="fudge.processing.resonances.html">fudge.processing.resonances package</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-fudge.processing.miscellaneous">fudge.processing.miscellaneous module</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#fudge.processing.miscellaneous.groupFunctionCrossSectionAndFlux"><code class="docutils literal notranslate"><span class="pre">groupFunctionCrossSectionAndFlux()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#fudge.processing.miscellaneous.groupOneFunctionAndFlux"><code class="docutils literal notranslate"><span class="pre">groupOneFunctionAndFlux()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#fudge.processing.miscellaneous.groupThreeFunctionsAndFlux"><code class="docutils literal notranslate"><span class="pre">groupThreeFunctionsAndFlux()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="#fudge.processing.miscellaneous.groupTwoFunctionsAndFlux"><code class="docutils literal notranslate"><span class="pre">groupTwoFunctionsAndFlux()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#module-fudge.processing">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">fudge Package</a><ul>
+  <li><a href="fudge.html">fudge package</a><ul>
+      <li>Previous: <a href="fudge.covariances.html" title="previous chapter">fudge.covariances package</a></li>
+      <li>Next: <a href="fudge.processing.deterministic.html" title="next chapter">fudge.processing.deterministic package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="fudge.processing.deterministic.html" title="fudge.processing.deterministic package"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="fudge.covariances.html" title="fudge.covariances package"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >fudge Package</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="fudge.html" >fudge package</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">fudge.processing package</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/fudge/fudge.processing.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

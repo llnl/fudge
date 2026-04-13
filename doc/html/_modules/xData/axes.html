@@ -1,47 +1,43 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>xData.axes &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
-    
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../_static/gnd-20121206-favicon.ico"/>
+    <title>xData.axes &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">xData.axes</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for xData.axes</h1><div class="highlight"><pre>
 <span></span><span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
@@ -60,20 +56,22 @@
 <span class="sd">    +-----------------------------------+-----------------------------------------------------------------------+</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">string</span>
 
-<span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
-<span class="kn">from</span> <span class="nn">fudge</span> <span class="kn">import</span> <span class="n">GNDS_formatVersion</span> <span class="k">as</span> <span class="n">GNDS_formatVersionModule</span>
-<span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge</span><span class="w"> </span><span class="kn">import</span> <span class="n">GNDS_formatVersion</span> <span class="k">as</span> <span class="n">GNDS_formatVersionModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">link</span> <span class="k">as</span> <span class="n">linkModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">values</span> <span class="k">as</span> <span class="n">valuesModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">link</span> <span class="k">as</span> <span class="n">linkModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">values</span> <span class="k">as</span> <span class="n">valuesModule</span>
 
 <span class="c1"># only used for GNDS-1.10 and older:</span>
 <span class="n">linkGridToken</span> <span class="o">=</span> <span class="s1">&#39;link&#39;</span>
 
-<div class="viewcode-block" id="Axis"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis">[docs]</a><span class="k">class</span> <span class="nc">Axis</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
+<div class="viewcode-block" id="Axis">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Axis</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class represents a GNDS axis node.</span>
 
@@ -92,7 +90,7 @@
 
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;axis&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param label:       The label for the axis.</span>
 <span class="sd">        :param index:       The index of the axis in the parent :py:class: Axes instance.</span>
@@ -108,12 +106,12 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="n">unit</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a simple string representation of *self*.&quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="s1">&#39;label=&quot;</span><span class="si">%s</span><span class="s1">&quot;, index=&quot;</span><span class="si">%s</span><span class="s1">&quot;, unit=&quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns True if *self* and *other* are equal and False otherwise.</span>
 <span class="sd">        For two :py:class:`Axis` instances to be equal, they must have the same *label* and *unit*.</span>
@@ -125,7 +123,7 @@
 
         <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Axis</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">label</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">unit</span>
 
-    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns True if *self* and *other* are not equal and False otherwise.</span>
 <span class="sd">        For two :py:class:`Axis` instances to be equal, they must have the same *label* and *unit*.</span>
@@ -138,7 +136,7 @@
         <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">keyName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keyName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        This method returns the key name for *self*.</span>
 
@@ -148,7 +146,7 @@
         <span class="k">return</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">keyValue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keyValue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the key value for *self*.</span>
 
@@ -158,7 +156,7 @@
         <span class="k">return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the index for *self*.</span>
 
@@ -168,7 +166,7 @@
         <span class="k">return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__index</span><span class="p">)</span>
 
     <span class="nd">@index</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method sets the index for *self* to *value*.</span>
 
@@ -178,7 +176,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the label for *self*.</span>
 
@@ -188,7 +186,7 @@
         <span class="k">return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__label</span><span class="p">)</span>
 
     <span class="nd">@label</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method sets the label for *self* to *value*.</span>
 
@@ -198,7 +196,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__label</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the unit for *self*.</span>
 
@@ -208,7 +206,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__unit</span>
 
     <span class="nd">@unit</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method sets the unit of *self* to *value. This method only checks that unit is a string or None. </span>
 <span class="sd">        If None, the unit is set to an empty string (i.e., &#39;&#39;).</span>
@@ -220,7 +218,9 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;unit type &quot;</span><span class="si">%s</span><span class="s1">&quot; is not a string&#39;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__unit</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Axis.convertUnits"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.convertUnits">[docs]</a>    <span class="k">def</span> <span class="nf">convertUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span><span class="p">):</span>
+<div class="viewcode-block" id="Axis.convertUnits">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.convertUnits">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convertUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts all data in *self* per *unitMap*.</span>
 
@@ -231,7 +231,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="n">unit</span>
         <span class="k">return</span> <span class="n">factor</span></div>
 
-<div class="viewcode-block" id="Axis.copy"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Axis.copy">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.copy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a new instance that is a copy of *self*.</span>
 
@@ -240,9 +243,12 @@
 
         <span class="k">return</span> <span class="n">Axis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span></div>
 
+
     <span class="n">__copy__</span> <span class="o">=</span> <span class="n">copy</span>
 
-<div class="viewcode-block" id="Axis.divideUnit"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.divideUnit">[docs]</a>    <span class="k">def</span> <span class="nf">divideUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<div class="viewcode-block" id="Axis.divideUnit">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.divideUnit">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">divideUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the unit obtained by the division of self.unit by other.unit. Other must be an instance of :py:class:`Axis`.</span>
 
@@ -255,7 +261,10 @@
 
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">pqu</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Axis.multiplyUnit"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.multiplyUnit">[docs]</a>    <span class="k">def</span> <span class="nf">multiplyUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Axis.multiplyUnit">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.multiplyUnit">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">multiplyUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the unit obtained by the product of self.unit times other.unit. Other must be an instance of :py:class:`Axis`.</span>
 
@@ -268,7 +277,10 @@
 
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">pqu</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Axis.plotLabel"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.plotLabel">[docs]</a>    <span class="k">def</span> <span class="nf">plotLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Axis.plotLabel">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.plotLabel">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plotLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the string composed of self&#39;s label and unit that can be used as an axis label.</span>
 
@@ -281,7 +293,10 @@
 
         <span class="k">return</span> <span class="n">label</span></div>
 
-<div class="viewcode-block" id="Axis.toXML_strList"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Axis.toXML_strList">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of str instances representing the XML lines of *self*.</span>
 
@@ -293,7 +308,10 @@
 
         <span class="k">return</span> <span class="p">[</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&lt;</span><span class="si">%s</span><span class="s1"> index=&quot;</span><span class="si">%d</span><span class="s1">&quot; label=&quot;</span><span class="si">%s</span><span class="s1">&quot; unit=&quot;</span><span class="si">%s</span><span class="s1">&quot;/&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="n">indent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">moniker</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span> <span class="p">)</span> <span class="p">]</span></div>
 
-<div class="viewcode-block" id="Axis.unitConversionFactor"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.unitConversionFactor">[docs]</a>    <span class="k">def</span> <span class="nf">unitConversionFactor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newUnit</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Axis.unitConversionFactor">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.unitConversionFactor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unitConversionFactor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newUnit</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a scale factor as a float that is needed to convert self&#39;s unit to *newUnit*. If units are not compatible, a raise is executed.</span>
 
@@ -304,7 +322,10 @@
 
         <span class="k">return</span> <span class="n">PQUModule</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span><span class="o">.</span><span class="n">getValueAs</span><span class="p">(</span><span class="n">newUnit</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Axis.parseNode"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.parseNode">[docs]</a>    <span class="k">def</span> <span class="nf">parseNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Axis.parseNode">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.parseNode">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method sets data in *self* using the contents of *node*.</span>
 
@@ -322,8 +343,11 @@
 
         <span class="n">xPath</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Axis.parseNodeUsingClass"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Axis.parseNodeUsingClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axis.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parse *node* into an instance of *cls*.</span>
 
@@ -339,9 +363,13 @@
         <span class="n">axis1</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="n">axis1</span><span class="o">.</span><span class="n">parseNode</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">axis1</span></div></div>
+        <span class="k">return</span> <span class="n">axis1</span></div>
+</div>
 
-<div class="viewcode-block" id="Grid"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid">[docs]</a><span class="k">class</span> <span class="nc">Grid</span><span class="p">(</span><span class="n">Axis</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Grid">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Grid</span><span class="p">(</span><span class="n">Axis</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class represents a GNDS grid node.</span>
 
@@ -367,7 +395,7 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;grid&#39;</span>
     <span class="n">ancestryMembers</span> <span class="o">=</span> <span class="p">(</span> <span class="s1">&#39;values&#39;</span><span class="p">,</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">linlin</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">linlin</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param label:           The label for the axis.</span>
 <span class="sd">        :param index:           The index of the axis in the parent :py:class: Axes instance.</span>
@@ -392,7 +420,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">interpolation</span> <span class="o">=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">checkEnumOrString</span><span class="p">(</span><span class="n">interpolation</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">style</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">style</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Thid method returns *self*&#39;s style.</span>
 
@@ -405,7 +433,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__style</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Thid method returns *self*&#39;s value instance.</span>
 
@@ -414,7 +442,9 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__values</span>
 
-<div class="viewcode-block" id="Grid.isLink"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.isLink">[docs]</a>    <span class="k">def</span> <span class="nf">isLink</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Grid.isLink">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.isLink">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">isLink</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns True if *self* is a :py:class:`linkModule.Link` instance and False otherwise.</span>
 
@@ -423,8 +453,9 @@
 
         <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__values</span><span class="p">,</span> <span class="n">linkModule</span><span class="o">.</span><span class="n">Link</span><span class="p">)</span></div>
 
+
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">domainMin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainMin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the minimum domain value for *self*&#39;s grid.</span>
 
@@ -434,7 +465,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">domainMax</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainMax</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the maximum domain value for *self*&#39;s grid.</span>
 
@@ -444,7 +475,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">domainUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the domain unit for *self*&#39;s grid with is the same as self&#39;s unit.</span>
 
@@ -453,7 +484,9 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span>
 
-<div class="viewcode-block" id="Grid.domainUnitConversionFactor"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.domainUnitConversionFactor">[docs]</a>    <span class="k">def</span> <span class="nf">domainUnitConversionFactor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unitTo</span><span class="p">):</span>
+<div class="viewcode-block" id="Grid.domainUnitConversionFactor">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.domainUnitConversionFactor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainUnitConversionFactor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unitTo</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the factor needed to convert self&#39;s domain to unit *unitTo*.</span>
 
@@ -464,8 +497,9 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">unitConversionFactor</span><span class="p">(</span><span class="n">unitTo</span><span class="p">)</span></div>
 
+
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">domainGrid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainGrid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns all domain values for *self* as a python list.</span>
 
@@ -474,7 +508,9 @@
 
         <span class="k">return</span> <span class="p">[</span> <span class="n">value</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="p">]</span>
 
-<div class="viewcode-block" id="Grid.convertToUnit"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.convertToUnit">[docs]</a>    <span class="k">def</span> <span class="nf">convertToUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
+<div class="viewcode-block" id="Grid.convertToUnit">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.convertToUnit">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convertToUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method changes *self*&#39;s unit to *unit* and scales the grid to the new unit.</span>
 
@@ -486,7 +522,10 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">isLink</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__values</span> <span class="o">=</span> <span class="n">valuesModule</span><span class="o">.</span><span class="n">Values</span><span class="p">([</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">value</span> <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="p">])</span></div>
 
-<div class="viewcode-block" id="Grid.convertUnits"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.convertUnits">[docs]</a>    <span class="k">def</span> <span class="nf">convertUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Grid.convertUnits">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.convertUnits">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convertUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts all data in *self* per *unitMap*.</span>
 
@@ -499,7 +538,10 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">__values</span><span class="o">.</span><span class="n">offsetScaleValues</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">factor</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">factor</span></div>
 
-<div class="viewcode-block" id="Grid.copy"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Grid.copy">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.copy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a new grid instance that is a copy of self.</span>
 
@@ -509,9 +551,12 @@
         <span class="n">grid1</span> <span class="o">=</span> <span class="n">Grid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">interpolation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">interpolation</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">grid1</span></div>
 
+
     <span class="n">__copy__</span> <span class="o">=</span> <span class="n">copy</span>
 
-<div class="viewcode-block" id="Grid.getIndexOfValue"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.getIndexOfValue">[docs]</a>    <span class="k">def</span> <span class="nf">getIndexOfValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+<div class="viewcode-block" id="Grid.getIndexOfValue">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.getIndexOfValue">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getIndexOfValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Thie method returns the lower index of the two elements of the grid where *v* is between. If *v* is not in the domain</span>
 <span class="sd">        of the grid, None is returned.</span>
@@ -526,7 +571,10 @@
 
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="Grid.toXML_strList"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Grid.toXML_strList">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of str instances representing the XML lines of *self*.</span>
 
@@ -549,8 +597,11 @@
 
         <span class="k">return</span> <span class="n">XML_strList</span></div>
 
-<div class="viewcode-block" id="Grid.parseNodeUsingClass"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Grid.parseNodeUsingClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Grid.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parse *node* into an instance of *cls*.</span>
 
@@ -589,9 +640,13 @@
 
         <span class="n">xPath</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">grid1</span></div></div>
+        <span class="k">return</span> <span class="n">grid1</span></div>
+</div>
 
-<div class="viewcode-block" id="Axes"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axes">[docs]</a><span class="k">class</span> <span class="nc">Axes</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Axes">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axes">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Axes</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class represents a GNDS Axes node. Basically, this class stores a list :py:class:`Axis` and/or py:class:`Grid` children.</span>
 
@@ -608,7 +663,7 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;axes&#39;</span>
     <span class="n">ancestryMembers</span> <span class="o">=</span> <span class="p">(</span> <span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">labelsUnits</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">labelsUnits</span><span class="o">=</span><span class="p">{}):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor for ``axes`` class. For example::</span>
 
@@ -636,7 +691,7 @@
             <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">labelsUnits</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span> <span class="n">unit</span> <span class="o">=</span> <span class="n">labelsUnits</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Axis</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">unit</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns True if *self* and *other* have the same child axis nodes.</span>
 
@@ -651,7 +706,7 @@
             <span class="k">if</span> <span class="n">_axis</span> <span class="o">!=</span> <span class="n">other</span><span class="p">[</span><span class="n">index</span><span class="p">]:</span> <span class="k">return</span> <span class="kc">False</span>
         <span class="k">return</span> <span class="kc">True</span>
 
-    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns True if *self* and *other* have the same child axis nodes.</span>
 
@@ -662,7 +717,7 @@
 
         <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the number of child axis nodes.</span>
 
@@ -671,7 +726,7 @@
 
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the child node at *index*.</span>
 
@@ -682,7 +737,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">axisOrGrid</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">axisOrGrid</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method sets the child node at *index*.</span>
 
@@ -704,7 +759,7 @@
 
         <span class="n">axisOrGrid</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returned a simple string representation of each **Axes** of *self*.</span>
 
@@ -713,7 +768,9 @@
 
         <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span> <span class="nb">str</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span> <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="bp">self</span> <span class="p">])</span>
 
-<div class="viewcode-block" id="Axes.convertUnits"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axes.convertUnits">[docs]</a>    <span class="k">def</span> <span class="nf">convertUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span><span class="p">):</span>
+<div class="viewcode-block" id="Axes.convertUnits">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axes.convertUnits">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convertUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts all data in *self* per *unitMap*.</span>
 
@@ -726,7 +783,10 @@
             <span class="n">factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">axis</span><span class="o">.</span><span class="n">convertUnits</span><span class="p">(</span><span class="n">unitMap</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">factors</span></div>
 
-<div class="viewcode-block" id="Axes.copy"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axes.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Axes.copy">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axes.copy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a new instance that is a copy of *self*.</span>
 
@@ -741,9 +801,12 @@
 
         <span class="k">return</span> <span class="n">newAxes</span></div>
 
+
     <span class="n">__copy__</span> <span class="o">=</span> <span class="n">copy</span>
 
-<div class="viewcode-block" id="Axes.toXML_strList"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axes.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Axes.toXML_strList">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axes.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of str instances representing the XML lines of *self*.</span>
 
@@ -761,7 +824,10 @@
         <span class="n">XML_strList</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/</span><span class="si">%s</span><span class="s1">&gt;&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">moniker</span>
         <span class="k">return</span> <span class="n">XML_strList</span></div>
 
-<div class="viewcode-block" id="Axes.parseNode"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axes.parseNode">[docs]</a>    <span class="k">def</span> <span class="nf">parseNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>       <span class="c1"># FIXME2, needed until self.axes is a suite instance.</span>
+
+<div class="viewcode-block" id="Axes.parseNode">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axes.parseNode">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>       <span class="c1"># FIXME2, needed until self.axes is a suite instance.</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method sets data in *self* using the contents of *node*.</span>
 
@@ -782,8 +848,11 @@
 
         <span class="n">xPath</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Axes.parseNodeUsingClass"><a class="viewcode-back" href="../../xData/index.html#xData.axes.Axes.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Axes.parseNodeUsingClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.axes.Axes.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parse *node* into an instance of *cls*.</span>
 
@@ -799,49 +868,94 @@
         <span class="n">axes</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">axes</span><span class="o">.</span><span class="n">parseNode</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">axes</span></div></div>
+        <span class="k">return</span> <span class="n">axes</span></div>
+</div>
+
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">xData.axes</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

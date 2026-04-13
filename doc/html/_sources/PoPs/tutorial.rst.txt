@@ -36,7 +36,7 @@ Uncertainties can also be added to a quantity:
 >>> neutron.mass[defaultLabel].uncertainty = uncertainty.uncertainty(
     standard.standard( uncertainty.double(4.9e-10) ) )
 
-.. _note:: Helper methods may be introduced in the future to facilitate adding uncertainty.
+.. note:: Helper methods may be introduced in the future to facilitate adding uncertainty.
 
 The uncertainty is assumed to have the same units as its associated value.
 

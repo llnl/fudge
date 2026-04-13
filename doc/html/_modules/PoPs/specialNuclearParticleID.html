@@ -1,47 +1,43 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PoPs.specialNuclearParticleID &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
-    
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../_static/gnd-20121206-favicon.ico"/>
+    <title>PoPs.specialNuclearParticleID &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">PoPs.specialNuclearParticleID</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for PoPs.specialNuclearParticleID</h1><div class="highlight"><pre>
 <span></span><span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
@@ -50,17 +46,20 @@
 <span class="sd">atom is &quot;a&quot; (for alpha particle). The nucleus id for &quot;a&quot; is &quot;he4&quot; and the nuclide id is &quot;He4&quot;.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">IDs</span> <span class="k">as</span> <span class="n">IDsModule</span>
-<span class="kn">from</span> <span class="nn">.families</span> <span class="kn">import</span> <span class="n">nuclide</span> <span class="k">as</span> <span class="n">nuclideModule</span>
-<span class="kn">from</span> <span class="nn">.families</span> <span class="kn">import</span> <span class="n">nucleus</span> <span class="k">as</span> <span class="n">nucleusModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">IDs</span> <span class="k">as</span> <span class="n">IDsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.families</span><span class="w"> </span><span class="kn">import</span> <span class="n">nuclide</span> <span class="k">as</span> <span class="n">nuclideModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.families</span><span class="w"> </span><span class="kn">import</span> <span class="n">nucleus</span> <span class="k">as</span> <span class="n">nucleusModule</span>
 
-<div class="viewcode-block" id="Mode"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.Mode">[docs]</a><span class="k">class</span> <span class="nc">Mode</span><span class="p">(</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+<div class="viewcode-block" id="Mode">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.Mode">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Mode</span><span class="p">(</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
 
     <span class="n">familiar</span> <span class="o">=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">auto</span><span class="p">()</span>
     <span class="n">nucleus</span> <span class="o">=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">auto</span><span class="p">()</span>
     <span class="n">nuclide</span> <span class="o">=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">auto</span><span class="p">()</span></div>
+
 
 <span class="n">lightParticleIDs</span> <span class="o">=</span> <span class="p">[{</span><span class="n">IDsModule</span><span class="o">.</span><span class="n">familiarProton</span><span class="p">:</span>   <span class="n">Mode</span><span class="o">.</span><span class="n">familiar</span><span class="p">,</span> <span class="s1">&#39;h1&#39;</span><span class="p">:</span>  <span class="n">Mode</span><span class="o">.</span><span class="n">nucleus</span><span class="p">,</span> <span class="s1">&#39;H1&#39;</span><span class="p">:</span>  <span class="n">Mode</span><span class="o">.</span><span class="n">nuclide</span><span class="p">},</span>
                     <span class="p">{</span><span class="n">IDsModule</span><span class="o">.</span><span class="n">familiarDeuteron</span><span class="p">:</span> <span class="n">Mode</span><span class="o">.</span><span class="n">familiar</span><span class="p">,</span> <span class="s1">&#39;h2&#39;</span><span class="p">:</span>  <span class="n">Mode</span><span class="o">.</span><span class="n">nucleus</span><span class="p">,</span> <span class="s1">&#39;H2&#39;</span><span class="p">:</span>  <span class="n">Mode</span><span class="o">.</span><span class="n">nuclide</span><span class="p">},</span>
@@ -71,7 +70,9 @@
 <span class="n">orderedLightParticles</span> <span class="o">=</span> <span class="p">(</span><span class="n">IDsModule</span><span class="o">.</span><span class="n">photon</span><span class="p">,</span> <span class="n">IDsModule</span><span class="o">.</span><span class="n">neutron</span><span class="p">,</span> <span class="n">IDsModule</span><span class="o">.</span><span class="n">proton</span><span class="p">,</span> <span class="n">IDsModule</span><span class="o">.</span><span class="n">familiarDeuteron</span><span class="p">,</span> 
                          <span class="n">IDsModule</span><span class="o">.</span><span class="n">familiarTriton</span><span class="p">,</span> <span class="n">IDsModule</span><span class="o">.</span><span class="n">familiarHelion</span><span class="p">,</span> <span class="n">IDsModule</span><span class="o">.</span><span class="n">familiarAlpha</span><span class="p">)</span>
 
-<div class="viewcode-block" id="sortLightParticle"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.sortLightParticle">[docs]</a><span class="k">def</span> <span class="nf">sortLightParticle</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+<div class="viewcode-block" id="sortLightParticle">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.sortLightParticle">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sortLightParticle</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    From a list of particle *ids*, this function returns the ids sorted. The sorting order is &#39;n&#39;, &#39;p&#39;, &#39;d&#39;, &#39;t&#39;, &#39;h&#39;, &#39;a&#39;, &#39;g&#39;, </span>
 <span class="sd">    (i.e., &#39;photon&#39;). Other ids in the list are return after the ones mentioned and in the order they appear in the list.</span>
@@ -96,7 +97,10 @@
 
     <span class="k">return</span> <span class="p">[</span><span class="n">mapping</span><span class="p">[</span><span class="n">id1</span><span class="p">]</span> <span class="k">for</span> <span class="n">id1</span> <span class="ow">in</span> <span class="n">orderedIDs</span> <span class="o">+</span> <span class="n">photon</span> <span class="o">+</span> <span class="n">ids</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="findID"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.findID">[docs]</a><span class="k">def</span> <span class="nf">findID</span><span class="p">(</span><span class="n">a_id</span><span class="p">):</span>
+
+<div class="viewcode-block" id="findID">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.findID">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">findID</span><span class="p">(</span><span class="n">a_id</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    For internal use. Returns the dictionary from *lightParticleIDs* that contain *a_id* as a key. </span>
 <span class="sd">    If no match is found **None** is returned.</span>
@@ -110,8 +114,11 @@
         <span class="k">if</span> <span class="n">a_id</span> <span class="ow">in</span> <span class="n">lightPartcleID</span><span class="p">:</span> <span class="k">return</span> <span class="n">lightPartcleID</span>
 
     <span class="k">return</span> <span class="kc">None</span></div>
+
     
-<div class="viewcode-block" id="familiarID"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.familiarID">[docs]</a><span class="k">def</span> <span class="nf">familiarID</span><span class="p">(</span><span class="n">a_id</span><span class="p">):</span>
+<div class="viewcode-block" id="familiarID">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.familiarID">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">familiarID</span><span class="p">(</span><span class="n">a_id</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the &quot;familiar&quot; id for *a_id*. If no match is found, **None** is returned. Mainly for internal use.</span>
 
@@ -125,7 +132,10 @@
     <span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="n">lightPartcleID</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">lightPartcleID</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">familiar</span><span class="p">:</span> <span class="k">return</span> <span class="n">pid</span></div>
 
-<div class="viewcode-block" id="nucleusID"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.nucleusID">[docs]</a><span class="k">def</span> <span class="nf">nucleusID</span><span class="p">(</span><span class="n">a_id</span><span class="p">):</span>
+
+<div class="viewcode-block" id="nucleusID">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.nucleusID">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">nucleusID</span><span class="p">(</span><span class="n">a_id</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the &quot;nucleus&quot; id for *a_id*. If no match is found, **None** is returned. Mainly for internal use.</span>
 
 <span class="sd">    :param a_id:    The GNDS PoPs id of the particle to look up in the *lightParticleIDs* data set.</span>
@@ -138,7 +148,10 @@
     <span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="n">lightPartcleID</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">lightPartcleID</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">nucleus</span><span class="p">:</span> <span class="k">return</span> <span class="n">pid</span></div>
 
-<div class="viewcode-block" id="nuclideID"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.nuclideID">[docs]</a><span class="k">def</span> <span class="nf">nuclideID</span><span class="p">(</span><span class="n">a_id</span><span class="p">):</span>
+
+<div class="viewcode-block" id="nuclideID">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.nuclideID">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">nuclideID</span><span class="p">(</span><span class="n">a_id</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the &quot;nuclide&quot; id for *a_id*. If no match is found, **None** is returned. Mainly for internal use.</span>
 
 <span class="sd">    :param a_id:    The GNDS PoPs id of the particle to look up in the *lightParticleIDs* data set.</span>
@@ -151,7 +164,10 @@
     <span class="k">for</span> <span class="n">pid</span> <span class="ow">in</span> <span class="n">lightPartcleID</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">lightPartcleID</span><span class="p">[</span><span class="n">pid</span><span class="p">]</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">nuclide</span><span class="p">:</span> <span class="k">return</span> <span class="n">pid</span></div>
 
-<div class="viewcode-block" id="specialNuclearParticleID"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.specialNuclearParticleID">[docs]</a><span class="k">def</span> <span class="nf">specialNuclearParticleID</span><span class="p">(</span><span class="n">a_id</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">Mode</span><span class="o">.</span><span class="n">familiar</span><span class="p">,</span> <span class="n">pops</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="specialNuclearParticleID">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.specialNuclearParticleID">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">specialNuclearParticleID</span><span class="p">(</span><span class="n">a_id</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">Mode</span><span class="o">.</span><span class="n">familiar</span><span class="p">,</span> <span class="n">pops</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the special nuclear particle id per the specified *a_id* and *mode*. Note, if *pops* is not **None** </span>
 <span class="sd">    and *a_id* is the id for a nuclide or nucleus, then the id specified by *mode* is returned. For example, if</span>
@@ -191,55 +207,102 @@
 
     <span class="k">return</span> <span class="n">pid</span></div>
 
-<div class="viewcode-block" id="sameSpecialNuclearParticle"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.sameSpecialNuclearParticle">[docs]</a><span class="k">def</span> <span class="nf">sameSpecialNuclearParticle</span><span class="p">(</span><span class="n">id1</span><span class="p">,</span> <span class="n">id2</span><span class="p">):</span>
+
+<div class="viewcode-block" id="sameSpecialNuclearParticle">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.specialNuclearParticleID.sameSpecialNuclearParticle">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sameSpecialNuclearParticle</span><span class="p">(</span><span class="n">id1</span><span class="p">,</span> <span class="n">id2</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns **True** is *id1* specified the same particle as *id2*. The function **specialNuclearParticleID** is called with **Mode.familiar**</span>
 <span class="sd">    for path partcile.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">specialNuclearParticleID</span><span class="p">(</span><span class="n">id1</span><span class="p">,</span> <span class="n">Mode</span><span class="o">.</span><span class="n">familiar</span><span class="p">)</span> <span class="o">==</span> <span class="n">specialNuclearParticleID</span><span class="p">(</span><span class="n">id2</span><span class="p">,</span> <span class="n">Mode</span><span class="o">.</span><span class="n">familiar</span><span class="p">)</span></div>
+
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">PoPs.specialNuclearParticleID</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

@@ -1,56 +1,42 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>5. Processing GNDS files &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../_static/gnd-20121206-favicon.ico"/>
+    <title>5. Processing GNDS files &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="6. Other Fudge Examples" href="other-examples.html" />
-    <link rel="prev" title="4.8. Fudge idiosyncrasies" href="fudgeisms.html" /> 
+    <link rel="prev" title="4.8. Fudge idiosyncrasies" href="fudgeisms.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="other-examples.html" title="6. Other Fudge Examples"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="fudgeisms.html" title="4.8. Fudge idiosyncrasies"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">The Fudge Tutorial</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5. </span>Processing GNDS files</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <section id="processing-gnds-files">
-<h1><span class="section-number">5. </span>Processing GNDS files<a class="headerlink" href="#processing-gnds-files" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">5. </span>Processing GNDS files<a class="headerlink" href="#processing-gnds-files" title="Link to this heading">¶</a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">processProtare</span></code> script (in fudge/bin/processProtare.py) is the main driver for processing
 nuclear data evaluations. This script can be used to reconstruct resonances (if necessary),
 heat reaction cross sections to various temperatures, generate group-averaged cross sections and transfer matrices,
@@ -61,43 +47,41 @@ projectile and target.</p>
 <p>Processed data generated during processProtare are stored internally in Fudge data structures, and once processing
 is complete the resulting file is written back out as a GNDS/XML file.</p>
 <section id="options-for-processing">
-<h2><span class="section-number">5.1. </span>Options for processing<a class="headerlink" href="#options-for-processing" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.1. </span>Options for processing<a class="headerlink" href="#options-for-processing" title="Link to this heading">¶</a></h2>
 <p>processProtare supports many command-line options. Perhaps the most useful is the ‘-h’ or ‘–help’ option:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="n">python</span> <span class="n">processProtare</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">h</span>
+<span class="n">usage</span><span class="p">:</span> <span class="n">processProtare</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">pid</span> <span class="n">PID</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">tid</span> <span class="n">TID</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">noLazyParse</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">exit</span> <span class="n">EXIT</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">tag</span> <span class="n">TAG</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUTPUT</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">writeConvertedUnits</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">energyUnit</span> <span class="n">ENERGYUNIT</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">CoulombPlusNuclearMuCutOff</span> <span class="n">COULOMBPLUSNUCLEARMUCUTOFF</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">doNotAddNuclearPlusInterference</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">t</span> <span class="n">TEMPERATURES</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">temperatureUnit</span> <span class="n">TEMPERATUREUNIT</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">legendreMax</span> <span class="n">LEGENDREMAX</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">mg</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">up</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">skipMultiGroupSums</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">mc</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">fluxFile</span> <span class="n">FLUXFILE</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">fluxID</span> <span class="n">FLUXID</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">groupFile</span> <span class="n">GROUPFILE</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">g</span> <span class="n">GID</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">formatVersion</span> <span class="p">{</span><span class="mf">1.10</span><span class="p">,</span><span class="mf">2.0</span><span class="p">}]</span> <span class="p">[</span><span class="o">--</span><span class="n">cullProcessedData</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">threads</span> <span class="n">THREADS</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">v</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">reconAccuracy</span> <span class="n">RECONACCURACY</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">restart</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">preProcessLabel</span> <span class="n">PREPROCESSLABEL</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">prefixRecon</span> <span class="n">PREFIXRECON</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">prefixMuCutoff</span> <span class="n">PREFIXMUCUTOFF</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">prefixAEP</span> <span class="n">PREFIXAEP</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">prefixHeated</span> <span class="n">PREFIXHEATED</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">prefixMultiGroup</span> <span class="n">PREFIXMULTIGROUP</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">prefixMonteCarlo</span> <span class="n">PREFIXMONTECARLO</span><span class="p">]</span>
+                 <span class="p">[</span><span class="o">--</span><span class="n">prefixUpScatter</span> <span class="n">PREFIXUPSCATTER</span><span class="p">]</span>
+                 <span class="n">mapOrProtareFileName</span> <span class="p">[</span><span class="n">outputFile</span><span class="p">]</span>
 </pre></div>
 </div>
-<dl class="simple">
-<dt>usage: processProtare.py [-h] [–pid PID] [–tid TID] [–noLazyParse]</dt><dd><p>[–exit EXIT] [–tag TAG] [-o OUTPUT]
-[–writeConvertedUnits] [–energyUnit ENERGYUNIT]
-[–CoulombPlusNuclearMuCutOff COULOMBPLUSNUCLEARMUCUTOFF]
-[–doNotAddNuclearPlusInterference] [-t TEMPERATURES]
-[–temperatureUnit TEMPERATUREUNIT]
-[–legendreMax LEGENDREMAX] [-mg] [-up]
-[–skipMultiGroupSums] [-mc] [–fluxFile FLUXFILE]
-[–fluxID FLUXID] [–groupFile GROUPFILE] [-g GID]
-[–formatVersion {1.10,2.0}] [–cullProcessedData]
-[–threads THREADS] [-v]
-[–reconAccuracy RECONACCURACY] [–restart]
-[–preProcessLabel PREPROCESSLABEL]
-[–prefixRecon PREFIXRECON]
-[–prefixMuCutoff PREFIXMUCUTOFF]
-[–prefixAEP PREFIXAEP] [–prefixHeated PREFIXHEATED]
-[–prefixMultiGroup PREFIXMULTIGROUP]
-[–prefixMonteCarlo PREFIXMONTECARLO]
-[–prefixUpScatter PREFIXUPSCATTER]
-mapOrProtareFileName [outputFile]</p>
-</dd>
-</dl>
 <p>This script processes all data in a GNDS file as requested by input arguments. In addition to entering arguments on the comannd
 line, arguments can also be read from an input file by specifying an input file on the command line. The character ‘&#64;’ must prefix
-the input file’s name. For example, to include the arguments in a file named pp.input execute this script as</p>
-<blockquote>
-<div><p>processProtare.py -mc &#64;pp.input -vvv -up eval.xml proc.xml</p>
-</div></blockquote>
+the input file’s name. For example, to include the arguments in a file named pp.input execute this script as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">processProtare</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">mc</span> <span class="nd">@pp</span><span class="o">.</span><span class="n">input</span> <span class="o">-</span><span class="n">vvv</span> <span class="o">-</span><span class="n">up</span> <span class="nb">eval</span><span class="o">.</span><span class="n">xml</span> <span class="n">proc</span><span class="o">.</span><span class="n">xml</span>
+</pre></div>
+</div>
 <p>…</p>
 </section>
 <section id="sample-usage">
-<h2><span class="section-number">5.2. </span>Sample usage<a class="headerlink" href="#sample-usage" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.2. </span>Sample usage<a class="headerlink" href="#sample-usage" title="Link to this heading">¶</a></h2>
 <p>processProtare takes a GNDS file as input. It also currently requires a LLNL-specific file called ‘bdfls’, which contains a database of
 group boundaries and fluxes.</p>
 <p>After translating an ENDF file into GNDS, you can do simple processing by:</p>
@@ -134,7 +118,7 @@ corresponding to the energy/momentum calculations.</p>
 The resulting processed GNDS file will contain grouped cross sections and transfer matrices at both 300 and 600 K.</p>
 </section>
 <section id="to-do-list">
-<h2><span class="section-number">5.3. </span>To-do list<a class="headerlink" href="#to-do-list" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">5.3. </span>To-do list<a class="headerlink" href="#to-do-list" title="Link to this heading">¶</a></h2>
 <p>processProtare is not yet complete. Some functionality yet to be implemented:</p>
 <ul class="simple">
 <li><p>generating probability tables from unresolved resonance parameters</p></li>
@@ -146,81 +130,94 @@ The resulting processed GNDS file will contain grouped cross sections and transf
 </section>
 
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-  <div>
-    <h3><a href="../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">5. Processing GNDS files</a><ul>
-<li><a class="reference internal" href="#options-for-processing">5.1. Options for processing</a></li>
-<li><a class="reference internal" href="#sample-usage">5.2. Sample usage</a></li>
-<li><a class="reference internal" href="#to-do-list">5.3. To-do list</a></li>
-</ul>
-</li>
-</ul>
+<h1 class="logo"><a href="../index.html">Fudge and GNDS</a></h1>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="fudgeisms.html"
-                          title="previous chapter"><span class="section-number">4.8. </span><code class="docutils literal notranslate"><span class="pre">Fudge</span></code> idiosyncrasies</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="other-examples.html"
-                          title="next chapter"><span class="section-number">6. </span>Other Fudge Examples</a></p>
-  </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/tutorial/processing.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">The Fudge Tutorial</a><ul>
+      <li>Previous: <a href="fudgeisms.html" title="previous chapter"><span class="section-number">4.8. </span><code class="docutils literal notranslate"><span class="pre">Fudge</span></code> idiosyncrasies</a></li>
+      <li>Next: <a href="other-examples.html" title="next chapter"><span class="section-number">6. </span>Other Fudge Examples</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="other-examples.html" title="6. Other Fudge Examples"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="fudgeisms.html" title="4.8. Fudge idiosyncrasies"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >The Fudge Tutorial</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">5. </span>Processing GNDS files</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/tutorial/processing.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

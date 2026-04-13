@@ -1,47 +1,43 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>xData.multiD_XYs &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
-    
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../_static/gnd-20121206-favicon.ico"/>
+    <title>xData.multiD_XYs &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">xData.multiD_XYs</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for xData.multiD_XYs</h1><div class="highlight"><pre>
 <span></span><span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
@@ -90,21 +86,23 @@
 <span class="sd">    plot</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">abc</span>
 
-<span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
 
-<span class="kn">from</span> <span class="nn">fudge</span> <span class="kn">import</span> <span class="n">GNDS_formatVersion</span> <span class="k">as</span> <span class="n">GNDS_formatVersionModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge</span><span class="w"> </span><span class="kn">import</span> <span class="n">GNDS_formatVersion</span> <span class="k">as</span> <span class="n">GNDS_formatVersionModule</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">base</span> <span class="k">as</span> <span class="n">baseModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">axes</span> <span class="k">as</span> <span class="n">axesModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">regions</span> <span class="k">as</span> <span class="n">regionsModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">series1d</span> <span class="k">as</span> <span class="n">series1dModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">xs_pdf_cdf</span> <span class="k">as</span> <span class="n">xs_pdf_cdfMoudle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">base</span> <span class="k">as</span> <span class="n">baseModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">axes</span> <span class="k">as</span> <span class="n">axesModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">regions</span> <span class="k">as</span> <span class="n">regionsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">series1d</span> <span class="k">as</span> <span class="n">series1dModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">xs_pdf_cdf</span> <span class="k">as</span> <span class="n">xs_pdf_cdfMoudle</span>
 
-<div class="viewcode-block" id="flatInterpolationToLinearPoint"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.flatInterpolationToLinearPoint">[docs]</a><span class="k">def</span> <span class="nf">flatInterpolationToLinearPoint</span><span class="p">(</span> <span class="n">lowerDomain</span><span class="p">,</span> <span class="n">upperDomain</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">epsilon</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="flatInterpolationToLinearPoint">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.flatInterpolationToLinearPoint">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">flatInterpolationToLinearPoint</span><span class="p">(</span> <span class="n">lowerDomain</span><span class="p">,</span> <span class="n">upperDomain</span><span class="p">,</span> <span class="n">domain</span><span class="p">,</span> <span class="n">epsilon</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function returns a domain for converting the flat interpolation function into a smeared pointwise lin-lin interpolation function.</span>
 <span class="sd">    The new point will be in the range (*lowerDomain*, *upperDomain*).  For internal use.</span>
@@ -128,8 +126,11 @@
         <span class="k">if</span><span class="p">(</span> <span class="p">(</span> <span class="n">domain</span> <span class="o">&lt;=</span> <span class="n">lowerDomain</span> <span class="p">)</span> <span class="ow">or</span> <span class="p">(</span> <span class="n">domain</span> <span class="o">&gt;=</span> <span class="n">upperDomain</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="n">domain</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span> <span class="n">lowerDomain</span> <span class="o">+</span> <span class="n">upperDomain</span> <span class="p">)</span>
 
     <span class="k">return</span><span class="p">(</span> <span class="n">domain</span> <span class="p">)</span></div>
+
             
-<div class="viewcode-block" id="XYsnd"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd">[docs]</a><span class="k">class</span> <span class="nc">XYsnd</span><span class="p">(</span> <span class="n">baseModule</span><span class="o">.</span><span class="n">XDataFunctional</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="XYsnd">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">XYsnd</span><span class="p">(</span> <span class="n">baseModule</span><span class="o">.</span><span class="n">XDataFunctional</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class is the base class for classes :py:class:`XYs2d` and :py:class:`XYs3d`. These classes store a function</span>
 <span class="sd">    as a list of (domain-value, lower dimentional function). For example, let :math:`f_d` be a function of dimension</span>
@@ -162,7 +163,7 @@
 <span class="sd">    +---------------------------+---------------------------------------------------------------+</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">linlin</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">linlin</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">valueType</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">ValueType</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
             <span class="n">interpolationQualifier</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">InterpolationQualifier</span><span class="o">.</span><span class="n">none</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -187,7 +188,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__functionals</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the number of sub-functions *self* contains.</span>
 
@@ -196,7 +197,7 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__functionals</span> <span class="p">)</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the number of sub-functions (i.e., function of one less dimension) that *self* contains.</span>
 
@@ -207,7 +208,7 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__functionals</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">functional</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">functional</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method adds *functional* to *self* at the specified index.</span>
 
@@ -222,7 +223,7 @@
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span> <span class="s1">&#39;functional.outerDomainValue = </span><span class="si">%s</span><span class="s1"> is &gt;= next functional.outerDomainValue = </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="n">functional1</span><span class="o">.</span><span class="n">outerDomainValue</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__functionals</span><span class="p">[</span><span class="n">index1</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">outerDomainValue</span> <span class="p">)</span> <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__functionals</span><span class="p">[</span><span class="n">index1</span><span class="p">]</span> <span class="o">=</span> <span class="n">functional1</span>
 
-    <span class="k">def</span>  <span class="fm">__mul__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w">  </span><span class="fm">__mul__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method multiplies *self* by *other* and returns a new instance with the results.</span>
 
@@ -245,7 +246,7 @@
     <span class="fm">__rmul__</span> <span class="o">=</span> <span class="fm">__mul__</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">domainMin</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainMin</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the minimum domain value for *self*.</span>
 
@@ -255,7 +256,7 @@
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__functionals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">outerDomainValue</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">domainMax</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainMax</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the maximum domain value for *self*.</span>
 
@@ -265,7 +266,7 @@
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__functionals</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">outerDomainValue</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">domainUnit</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainUnit</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the domain unit for *self*.</span>
 
@@ -275,7 +276,7 @@
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAxisUnitSafely</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimension</span> <span class="p">)</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">domainGrid</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainGrid</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns all domain values for *self* as a python list.</span>
 
@@ -285,7 +286,7 @@
         <span class="k">return</span><span class="p">(</span> <span class="p">[</span> <span class="n">functional</span><span class="o">.</span><span class="n">outerDomainValue</span> <span class="k">for</span> <span class="n">functional</span> <span class="ow">in</span> <span class="bp">self</span> <span class="p">]</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">rangeMin</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rangeMin</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the minimum range value for *self*.</span>
 
@@ -295,7 +296,7 @@
         <span class="k">return</span><span class="p">(</span> <span class="nb">min</span><span class="p">(</span> <span class="p">[</span> <span class="n">func</span><span class="o">.</span><span class="n">rangeMin</span> <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="bp">self</span> <span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">rangeMax</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rangeMax</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the maximum range value for *self*.</span>
 
@@ -305,7 +306,7 @@
         <span class="k">return</span><span class="p">(</span> <span class="nb">max</span><span class="p">(</span> <span class="p">[</span> <span class="n">func</span><span class="o">.</span><span class="n">rangeMax</span> <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="bp">self</span> <span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">rangeUnit</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rangeUnit</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the range unit for *self*.</span>
 
@@ -315,7 +316,7 @@
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAxisUnitSafely</span><span class="p">(</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">functionals</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">functionals</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a reference to self&#39;s __functionals which is currently a python list.</span>
 
@@ -325,7 +326,7 @@
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__functionals</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">functionNdsName</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">functionNdsName</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the node name for the child &quot;function#ds&quot; which depends on the dimension of *self*.</span>
 
@@ -334,7 +335,9 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="s2">&quot;function</span><span class="si">%d</span><span class="s2">ds&quot;</span> <span class="o">%</span> <span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimension</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">)</span>
 
-<div class="viewcode-block" id="XYsnd.append"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">functional</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="XYsnd.append">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.append">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">append</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">functional</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Thie method appends *functional* to the list of self&#39;s functions by calling the :py:func:`insert` method.</span>
 
@@ -343,7 +346,10 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span> <span class="bp">self</span> <span class="p">),</span> <span class="n">functional</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.insert"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">functional</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="XYsnd.insert">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.insert">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">insert</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">functional</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Inserts *functional* at *index*. If *outerDomainValue* is None, outerDomainValue is take from the outerDomainValue of *functional*.</span>
 
@@ -361,7 +367,10 @@
                 <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span> <span class="s1">&#39;outerDomainValue = </span><span class="si">%s</span><span class="s1"> is &gt;= next functionals.outerDomainValue = </span><span class="si">%s</span><span class="s1">. index = </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="n">outerDomainValue</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__functionals</span><span class="p">[</span><span class="n">index1</span><span class="p">]</span><span class="o">.</span><span class="n">outerDomainValue</span><span class="p">,</span> <span class="n">index1</span> <span class="p">)</span> <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__functionals</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span> <span class="n">index1</span><span class="p">,</span> <span class="n">functional1</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.insertAtValue"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.insertAtValue">[docs]</a>    <span class="k">def</span> <span class="nf">insertAtValue</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">functional</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="XYsnd.insertAtValue">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.insertAtValue">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">insertAtValue</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">functional</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method inserts *functional* at the appropriate index for *outerDomainValue*. If *outerDomainValue* is not None,</span>
 <span class="sd">        the inserted functional instance will have outerDomainValue set to *outerDomainValue*, even if functional has an outerDomainValue.</span>
@@ -384,7 +393,10 @@
                 <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span> <span class="n">index</span><span class="p">,</span> <span class="n">functional</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="n">outerDomainValue</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.pop"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span> <span class="p">):</span>
+
+<div class="viewcode-block" id="XYsnd.pop">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.pop">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span> <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method removes (pops) the function at *index*.</span>
 
@@ -395,7 +407,8 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__functionals</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span> <span class="n">index</span> <span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_set_insertCommon</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="p">,</span> <span class="n">functional</span> <span class="p">)</span> <span class="p">:</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_set_insertCommon</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="p">,</span> <span class="n">functional</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method checks if it is valid to add *functional* to *self*.</span>
 <span class="sd">        If (None, None) is returned, then this method added *functional* to self and no further action is needed;</span>
@@ -434,7 +447,9 @@
             <span class="k">return</span><span class="p">(</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="p">(</span> <span class="n">index1</span><span class="p">,</span> <span class="n">functional</span> <span class="p">)</span> <span class="p">)</span>
 
-<div class="viewcode-block" id="XYsnd.convertUnits"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.convertUnits">[docs]</a>    <span class="k">def</span> <span class="nf">convertUnits</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="XYsnd.convertUnits">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.convertUnits">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convertUnits</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts all data in *self* per *unitMap*.</span>
 
@@ -447,7 +462,10 @@
         <span class="n">factors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">convertUnits</span><span class="p">(</span> <span class="n">unitMap</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fixValuePerUnitChange</span><span class="p">(</span> <span class="n">factors</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.copy"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="XYsnd.copy">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.copy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a copy of *self*.</span>
 
@@ -460,9 +478,12 @@
         <span class="k">for</span> <span class="n">i1</span><span class="p">,</span> <span class="n">functional</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span> <span class="n">multid_xys</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span> <span class="o">=</span> <span class="n">functional</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">multid_xys</span> <span class="p">)</span></div>
 
+
     <span class="n">__copy__</span> <span class="o">=</span> <span class="n">copy</span>
 
-<div class="viewcode-block" id="XYsnd.copyDataToNestedLists"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.copyDataToNestedLists">[docs]</a>    <span class="k">def</span> <span class="nf">copyDataToNestedLists</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="XYsnd.copyDataToNestedLists">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.copyDataToNestedLists">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copyDataToNestedLists</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the data in *self* as a nested list of python lists. The depth of the nesting is *self*&#39;s dimension + 1.</span>
 
@@ -471,7 +492,10 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="p">[</span> <span class="p">[</span> <span class="n">subData</span><span class="o">.</span><span class="n">outerDomainValue</span><span class="p">,</span> <span class="n">subData</span><span class="o">.</span><span class="n">copyDataToNestedLists</span><span class="p">(</span> <span class="p">)</span> <span class="p">]</span> <span class="k">for</span> <span class="n">subData</span> <span class="ow">in</span> <span class="bp">self</span> <span class="p">]</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.evaluate"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainValue</span><span class="p">,</span> <span class="n">extrapolation</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Extrapolation</span><span class="o">.</span><span class="n">none</span><span class="p">,</span> <span class="n">interpolationQualifier</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XYsnd.evaluate">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.evaluate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainValue</span><span class="p">,</span> <span class="n">extrapolation</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Extrapolation</span><span class="o">.</span><span class="n">none</span><span class="p">,</span> <span class="n">interpolationQualifier</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Thid method evaluates the *self* at the domain point *domainValue*.</span>
 <span class="sd">        *Self*&#39;s Interpolation is used if domainValue is between two sub-functions. However, if one of the</span>
@@ -601,9 +625,11 @@
                                     <span class="n">function2</span><span class="o">.</span><span class="n">outerDomainValue</span><span class="p">,</span> <span class="n">function2partial</span><span class="o">.</span><span class="n">nf_pointwiseXY</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span>
                                 <span class="n">function</span> <span class="o">=</span> <span class="n">function1partial</span><span class="o">.</span><span class="n">returnAsClass</span><span class="p">(</span> <span class="n">function1partial</span><span class="p">,</span> <span class="n">xypartial</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="n">outerDomainValue</span><span class="p">,</span> <span class="n">interpolation</span> <span class="o">=</span> <span class="n">function1</span><span class="o">.</span><span class="n">interpolation</span> <span class="p">)</span>
                                 <span class="n">xylist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
-                            <span class="k">if</span> <span class="p">(</span><span class="n">function1</span><span class="o">.</span><span class="n">interpolation</span> <span class="o">==</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">flat</span><span class="p">):</span>
-                                <span class="n">firstbin</span> <span class="o">=</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">),(</span><span class="n">xylist</span><span class="o">.</span><span class="n">copyDataToXsAndYs</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">xylist</span><span class="o">.</span><span class="n">copyDataToXsAndYs</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])],</span><span class="n">dataForm</span><span class="o">=</span><span class="s2">&quot;xys&quot;</span><span class="p">)</span>
-                                <span class="n">xylist</span><span class="o">.</span><span class="n">prepend</span><span class="p">(</span><span class="n">firstbin</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">function1</span><span class="o">.</span><span class="n">interpolation</span> <span class="o">==</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">flat</span><span class="p">:</span>
+                                <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">xylist</span><span class="o">.</span><span class="n">copyDataToXsAndYs</span><span class="p">()</span>
+                                <span class="k">if</span> <span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">:</span>
+                                    <span class="n">firstbin</span> <span class="o">=</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">),</span> <span class="p">(</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ys</span><span class="p">[</span><span class="mi">0</span><span class="p">])],</span> <span class="n">dataForm</span><span class="o">=</span><span class="s2">&quot;xys&quot;</span><span class="p">)</span>
+                                    <span class="n">xylist</span><span class="o">.</span><span class="n">prepend</span><span class="p">(</span><span class="n">firstbin</span><span class="p">)</span>
                             <span class="n">xy</span> <span class="o">=</span> <span class="n">xylist</span><span class="o">.</span><span class="n">toPointwise_withLinearXYs</span><span class="p">(</span><span class="n">lowerEps</span><span class="o">=</span><span class="mf">1e-15</span><span class="p">)</span>
                         <span class="k">else</span> <span class="p">:</span>
                             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span> <span class="s2">&quot;CorrespondingPoints interpolate of </span><span class="si">%d</span><span class="s2"> dimensional function not supported.&quot;</span> <span class="o">%</span> <span class="n">function1</span><span class="o">.</span><span class="n">dimension</span> <span class="p">)</span>
@@ -638,7 +664,10 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="n">function</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.findInstancesOfClassInChildren"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.findInstancesOfClassInChildren">[docs]</a>    <span class="k">def</span> <span class="nf">findInstancesOfClassInChildren</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="mi">9999</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="XYsnd.findInstancesOfClassInChildren">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.findInstancesOfClassInChildren">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">findInstancesOfClassInChildren</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="mi">9999</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method finds all instances of class *cls* in self&#39;s children, grand-children, etc.</span>
 
@@ -657,7 +686,10 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="n">foundInstances</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.integrate"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.integrate">[docs]</a>    <span class="k">def</span> <span class="nf">integrate</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">limits</span> <span class="p">):</span>
+
+<div class="viewcode-block" id="XYsnd.integrate">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.integrate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">integrate</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">limits</span> <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the integral of *self* over the domain defined in *limits*. Supports limits for each axis.</span>
 
@@ -693,7 +725,10 @@
 
         <span class="k">return</span> <span class="n">value</span></div>
 
-<div class="viewcode-block" id="XYsnd.interpolateAtValue"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.interpolateAtValue">[docs]</a>    <span class="k">def</span> <span class="nf">interpolateAtValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">unitBase</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">extrapolation</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Extrapolation</span><span class="o">.</span><span class="n">none</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XYsnd.interpolateAtValue">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.interpolateAtValue">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">interpolateAtValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">unitBase</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">extrapolation</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Extrapolation</span><span class="o">.</span><span class="n">none</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a functional with dimension one less than self that is the interpolation of self at value. </span>
 <span class="sd">        If value is outside the domain of *self* and *extrapolation* is none, a raise is executed. Otherwise,</span>
@@ -740,7 +775,10 @@
         <span class="n">xyp</span> <span class="o">=</span> <span class="n">functional1</span><span class="o">.</span><span class="n">returnAsClass</span><span class="p">(</span> <span class="n">functional1</span><span class="p">,</span> <span class="n">xy</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="n">value</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">xyp</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.getBoundingSubFunctions"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.getBoundingSubFunctions">[docs]</a>    <span class="k">def</span> <span class="nf">getBoundingSubFunctions</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="XYsnd.getBoundingSubFunctions">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.getBoundingSubFunctions">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getBoundingSubFunctions</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the two sub-functions of *self* whose outerDomainValues bound *value*.</span>
 <span class="sd">        Additonal information is also returned.</span>
@@ -792,7 +830,10 @@
         <span class="n">frac</span> <span class="o">=</span> <span class="p">(</span> <span class="n">value</span> <span class="o">-</span> <span class="n">functional1</span><span class="o">.</span><span class="n">outerDomainValue</span> <span class="p">)</span> <span class="o">/</span> <span class="p">(</span> <span class="n">functional2</span><span class="o">.</span><span class="n">outerDomainValue</span> <span class="o">-</span> <span class="n">functional1</span><span class="o">.</span><span class="n">outerDomainValue</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">functional1</span><span class="p">,</span> <span class="n">functional2</span><span class="p">,</span> <span class="n">frac</span><span class="p">,</span> <span class="n">interpolation</span><span class="p">,</span> <span class="n">interpolationQualifier</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.normalize"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">insitu</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dimension</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="XYsnd.normalize">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.normalize">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">normalize</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">insitu</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dimension</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method normalizes the data in *self* at dimension. If *dimension* is greater than or equal to *self*&#39;s dimension,</span>
 <span class="sd">        then *self* is normalized. Otherwise, normalize is called on each sub-fuction of *self*.</span>
@@ -816,7 +857,10 @@
             <span class="k">for</span> <span class="n">functional</span> <span class="ow">in</span> <span class="n">multid_xys</span><span class="o">.</span><span class="n">__functionals</span> <span class="p">:</span> <span class="n">functional</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span> <span class="n">insitu</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dimension</span> <span class="o">=</span> <span class="n">dimension</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">multid_xys</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.domainUnitConversionFactor"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.domainUnitConversionFactor">[docs]</a>    <span class="k">def</span> <span class="nf">domainUnitConversionFactor</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitTo</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="XYsnd.domainUnitConversionFactor">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.domainUnitConversionFactor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainUnitConversionFactor</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitTo</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the factor needed to convert self&#39;s domain to unit *unitTo*.</span>
 
@@ -828,7 +872,10 @@
         <span class="k">if</span><span class="p">(</span> <span class="n">unitTo</span> <span class="ow">is</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span> <span class="k">return</span><span class="p">(</span> <span class="mf">1.</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">PQUModule</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="s1">&#39;1 &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainUnit</span> <span class="p">)</span><span class="o">.</span><span class="n">getValueAs</span><span class="p">(</span> <span class="n">unitTo</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.domainSlice"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.domainSlice">[docs]</a>    <span class="k">def</span> <span class="nf">domainSlice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">domainMax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dullEps</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XYsnd.domainSlice">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.domainSlice">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainSlice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">domainMax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dullEps</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a new instance with self sliced between ``domainMin`` and ``domainMax``.</span>
 
@@ -876,7 +923,10 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="n">newMultiD</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.fixDomains"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.fixDomains">[docs]</a>    <span class="k">def</span> <span class="nf">fixDomains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMin</span><span class="p">,</span> <span class="n">domainMax</span><span class="p">,</span> <span class="n">fixToDomain</span><span class="p">,</span> <span class="n">tweakLower</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XYsnd.fixDomains">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.fixDomains">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fixDomains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMin</span><span class="p">,</span> <span class="n">domainMax</span><span class="p">,</span> <span class="n">fixToDomain</span><span class="p">,</span> <span class="n">tweakLower</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method calls :py:func:`domainSlice` to trim the domain of *self* per the arguments.</span>
 
@@ -913,7 +963,10 @@
         <span class="k">if</span> <span class="n">OldDomainMin</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainMin</span> <span class="ow">and</span> <span class="n">OldDomainMax</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainMax</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="mi">1</span></div>
 
-<div class="viewcode-block" id="XYsnd.rangeUnitConversionFactor"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.rangeUnitConversionFactor">[docs]</a>    <span class="k">def</span> <span class="nf">rangeUnitConversionFactor</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitTo</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="XYsnd.rangeUnitConversionFactor">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.rangeUnitConversionFactor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rangeUnitConversionFactor</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitTo</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the scale factor needed to convert the *self*&#39;s range to unit *unitTo*.</span>
 
@@ -923,7 +976,10 @@
         <span class="k">if</span><span class="p">(</span> <span class="n">unitTo</span> <span class="ow">is</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span> <span class="k">return</span><span class="p">(</span> <span class="mf">1.</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">PQUModule</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="s1">&#39;1 &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">rangeUnit</span> <span class="p">)</span><span class="o">.</span><span class="n">getValueAs</span><span class="p">(</span> <span class="n">unitTo</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.scaleDependent"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.scaleDependent">[docs]</a>    <span class="k">def</span> <span class="nf">scaleDependent</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">insitu</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="XYsnd.scaleDependent">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.scaleDependent">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">scaleDependent</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">insitu</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method scales the range of *self* by *value*. If *insitu* is True, *self* is scaled and returned; otherwise, a </span>
 <span class="sd">        copy of *self* is scaled and returned.</span>
@@ -938,7 +994,10 @@
         <span class="k">if</span><span class="p">(</span> <span class="ow">not</span><span class="p">(</span> <span class="n">insitu</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="n">multid_xys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span> <span class="p">)</span>
         <span class="k">for</span> <span class="n">functional</span> <span class="ow">in</span> <span class="n">multid_xys</span> <span class="p">:</span> <span class="n">functional</span><span class="o">.</span><span class="n">scaleDependent</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="n">insitu</span> <span class="o">=</span> <span class="kc">True</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.toLinearXYsClass"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.toLinearXYsClass">[docs]</a>    <span class="k">def</span> <span class="nf">toLinearXYsClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XYsnd.toLinearXYsClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.toLinearXYsClass">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toLinearXYsClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns self.__class__ since that is the linear class for this dimensional data.</span>
 
@@ -947,7 +1006,10 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span></div>
 
-<div class="viewcode-block" id="XYsnd.toPointwiseLinear"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.toPointwiseLinear">[docs]</a>    <span class="k">def</span> <span class="nf">toPointwiseLinear</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="XYsnd.toPointwiseLinear">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.toPointwiseLinear">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toPointwiseLinear</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns an instance of *self*&#39;s that is lin-lin interpolable. This method only works in *self*&#39;s</span>
 <span class="sd">        interpolation is &quot;lin-lin&quot; or &quot;flat&quot; and executes a raise if not..</span>
@@ -1001,7 +1063,10 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="n">pointwiseLinear</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.toPointwise_withLinearXYs"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.toPointwise_withLinearXYs">[docs]</a>    <span class="k">def</span> <span class="nf">toPointwise_withLinearXYs</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="XYsnd.toPointwise_withLinearXYs">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.toPointwise_withLinearXYs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toPointwise_withLinearXYs</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function returns a instance of *self*&#39;s class with the lowest independent axis converted to an XYs1d instance.</span>
 
@@ -1024,7 +1089,10 @@
 
         <span class="k">return</span> <span class="n">newMultiD</span></div>
 
-<div class="viewcode-block" id="XYsnd.toXML_strList"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XYsnd.toXML_strList">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of str instances representing the XML lines of *self*.</span>
 
@@ -1069,8 +1137,11 @@
 
         <span class="k">return</span> <span class="n">XML_strList</span></div>
 
-<div class="viewcode-block" id="XYsnd.parseNodeUsingClass"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="XYsnd.parseNodeUsingClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parse *node* into an instance of *cls*.</span>
 
@@ -1112,8 +1183,11 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="n">multid_xys</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="XYsnd.defaultAxes"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.defaultAxes">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">defaultAxes</span><span class="p">(</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">labelsUnits</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="XYsnd.defaultAxes">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYsnd.defaultAxes">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">defaultAxes</span><span class="p">(</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">labelsUnits</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This class method returns an :py:class:`axesModule.Axes` suitable for class *cls* whose labels and units can be</span>
 <span class="sd">        set via *labelsUnits*. See :py:class:`axesModule.Axes` for how to use *labelsUnits*.</span>
@@ -1124,9 +1198,13 @@
 <span class="sd">        :return: new axes instance</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="n">axesModule</span><span class="o">.</span><span class="n">Axes</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">dimension</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">labelsUnits</span> <span class="o">=</span> <span class="n">labelsUnits</span> <span class="p">)</span> <span class="p">)</span></div></div>
+        <span class="k">return</span><span class="p">(</span> <span class="n">axesModule</span><span class="o">.</span><span class="n">Axes</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">dimension</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">labelsUnits</span> <span class="o">=</span> <span class="n">labelsUnits</span> <span class="p">)</span> <span class="p">)</span></div>
+</div>
 
-<div class="viewcode-block" id="XYs2d"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYs2d">[docs]</a><span class="k">class</span> <span class="nc">XYs2d</span><span class="p">(</span> <span class="n">XYsnd</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="XYs2d">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYs2d">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">XYs2d</span><span class="p">(</span> <span class="n">XYsnd</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This classes represents a 2d function :math:`f(x,y)` effective as a list of :math:`x_i, f_i(y)` objects where :math:`x_i &lt; x_{i+1}` and</span>
 <span class="sd">    :math:`f_i(y)` is a 1d function for :math:`f(x,y)` at :math:`x_i`. The :math:`x_i` is stored as the outerDomainValue of :math:`f_i(y)`.</span>
@@ -1136,13 +1214,19 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;XYs2d&#39;</span>
     <span class="n">dimension</span> <span class="o">=</span> <span class="mi">2</span>
 
-<div class="viewcode-block" id="XYs2d.allowedSubElements"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYs2d.allowedSubElements">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">allowedSubElements</span><span class="p">():</span>
+<div class="viewcode-block" id="XYs2d.allowedSubElements">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYs2d.allowedSubElements">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">allowedSubElements</span><span class="p">():</span>
 
         <span class="k">return</span> <span class="p">(</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="p">,</span> <span class="n">series1dModule</span><span class="o">.</span><span class="n">LegendreSeries</span><span class="p">,</span> <span class="n">series1dModule</span><span class="o">.</span><span class="n">Polynomial1d</span><span class="p">,</span> <span class="n">series1dModule</span><span class="o">.</span><span class="n">LinearSpline1d</span><span class="p">,</span> 
-                <span class="n">regionsModule</span><span class="o">.</span><span class="n">Regions1d</span><span class="p">,</span> <span class="n">xs_pdf_cdfMoudle</span><span class="o">.</span><span class="n">Xs_pdf_cdf1d</span> <span class="p">)</span></div></div>
+                <span class="n">regionsModule</span><span class="o">.</span><span class="n">Regions1d</span><span class="p">,</span> <span class="n">xs_pdf_cdfMoudle</span><span class="o">.</span><span class="n">Xs_pdf_cdf1d</span> <span class="p">)</span></div>
+</div>
 
-<div class="viewcode-block" id="XYs3d"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYs3d">[docs]</a><span class="k">class</span> <span class="nc">XYs3d</span><span class="p">(</span> <span class="n">XYsnd</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="XYs3d">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYs3d">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">XYs3d</span><span class="p">(</span> <span class="n">XYsnd</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This classes represents a 3function :math:`f(x,y,z)` effective as a list of :math:`x_i, f_i(y,z)` objects where :math:`x_i &lt; x_{i+1}` and</span>
 <span class="sd">    :math:`f_i(y,z)` is a 2d function for :math:`f(x,y,z)` at :math:`x_i`. The :math:`x_i` is stored as the outerDomainValue of :math:`f_i(y,z)`.</span>
@@ -1152,52 +1236,99 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;XYs3d&#39;</span>
     <span class="n">dimension</span> <span class="o">=</span> <span class="mi">3</span>
 
-<div class="viewcode-block" id="XYs3d.allowedSubElements"><a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYs3d.allowedSubElements">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">allowedSubElements</span><span class="p">(</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="XYs3d.allowedSubElements">
+<a class="viewcode-back" href="../../xData/index.html#xData.multiD_XYs.XYs3d.allowedSubElements">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">allowedSubElements</span><span class="p">(</span> <span class="p">)</span> <span class="p">:</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="p">(</span> <span class="n">XYs2d</span><span class="p">,</span> <span class="n">regionsModule</span><span class="o">.</span><span class="n">Regions2d</span> <span class="p">)</span> <span class="p">)</span></div></div>
+        <span class="k">return</span><span class="p">(</span> <span class="p">(</span> <span class="n">XYs2d</span><span class="p">,</span> <span class="n">regionsModule</span><span class="o">.</span><span class="n">Regions2d</span> <span class="p">)</span> <span class="p">)</span></div>
+</div>
+
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">xData.multiD_XYs</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

@@ -1,57 +1,42 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.4. Fission &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../_static/gnd-20121206-favicon.ico"/>
+    <title>4.4. Fission &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.5. Summed Reactions" href="summedReactions.html" />
-    <link rel="prev" title="4.3. Outgoing Distributions" href="outgoingDistributions.html" /> 
+    <link rel="prev" title="4.3. Outgoing Distributions" href="outgoingDistributions.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="summedReactions.html" title="4.5. Summed Reactions"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="outgoingDistributions.html" title="4.3. Outgoing Distributions"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >The Fudge Tutorial</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="diggingDeeper.html" accesskey="U"><span class="section-number">4. </span>Digging deeper in <code class="docutils literal notranslate"><span class="pre">Fudge</span></code></a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">4.4. </span>Fission</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <section id="fission">
-<h1><span class="section-number">4.4. </span>Fission<a class="headerlink" href="#fission" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">4.4. </span>Fission<a class="headerlink" href="#fission" title="Link to this heading">¶</a></h1>
 <p>While fission is treated as a single reaction in both ENDF and GNDS, in reality it is composed of many different reactions each of which produces a different set of outgoing particles. Fission poses a special challenge for GNDS since, unlike most other reactions, we cannot explicitly list all the outgoing products. Instead we list average values for outgoing neutrons and gammas, and ignore the fission fragments (except to give the average energy deposited in them).</p>
 <p>A neutron-induced fission channel generally contains several outgoing products:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">A</span> <span class="n">prompt</span> <span class="n">neutron</span>
@@ -61,7 +46,7 @@
 </div>
 <p>In each case the multiplicity is generally a function of incident energy.</p>
 <section id="first-second-third-chance">
-<h2><span class="section-number">4.4.1. </span>First, second, third chance, …<a class="headerlink" href="#first-second-third-chance" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">4.4.1. </span>First, second, third chance, …<a class="headerlink" href="#first-second-third-chance" title="Link to this heading">¶</a></h2>
 <p>For most evaluations in major libraries, total fission (MT=18) contains a full description of the cross section,
 product multiplicities and distributions. Additional fission cross sections like first-chance, 2nd-chance, etc.
 are often also listed, but do not contain any description of outgoing products.
@@ -69,13 +54,13 @@ GNDS (and Fudge) handle these with the <code class="docutils literal notranslate
 and Q-value but not necessarily a list of products.</p>
 </section>
 <section id="the-cross-section">
-<h2><span class="section-number">4.4.2. </span>The cross section<a class="headerlink" href="#the-cross-section" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">4.4.2. </span>The cross section<a class="headerlink" href="#the-cross-section" title="Link to this heading">¶</a></h2>
 <p>Fission cross sections behave like all other reaction cross sections. For non-threshold fissioners,
 part of the cross section is typically described by resonance parameters, so the cross section requires
 reconstruction.</p>
 </section>
 <section id="nubar">
-<h2><span class="section-number">4.4.3. </span>nubar<a class="headerlink" href="#nubar" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">4.4.3. </span>nubar<a class="headerlink" href="#nubar" title="Link to this heading">¶</a></h2>
 <p>The average neutron multiplicity ‘nubar’ is stored as the multiplicity of outgoing fission neutrons.
 Nubar is typically separated into two components: ‘prompt’, for neutrons produced during the fission process,
 and ‘delayed’ for beta-delayed neutrons emitted by the fission fragments.
@@ -85,7 +70,7 @@ we typically see multiple delayed neutrons with multiplicities that link back to
 the <code class="docutils literal notranslate"><span class="pre">reference</span></code> multiplicity class.</p>
 </section>
 <section id="pfns">
-<h2><span class="section-number">4.4.4. </span>PFNS<a class="headerlink" href="#pfns" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">4.4.4. </span>PFNS<a class="headerlink" href="#pfns" title="Link to this heading">¶</a></h2>
 <p>The prompt fission neutron spectrum (PFNS) is stored within the <code class="docutils literal notranslate"><span class="pre">distribution</span></code> information for the prompt neutron
 product. All existing evaluations make the assumption that the outgoing angles and energies are uncoupled (or only
 weakly coupled), and can be represented using <code class="docutils literal notranslate"><span class="pre">uncorrelated</span></code> energy and angle distributions.
@@ -101,102 +86,111 @@ The outgoing energy distribution can be stored in several different ways:</p>
 for the PFNS, with a Legendre expansion given for each combination of incident and outgoing energy.</p>
 </section>
 <section id="gammas">
-<h2><span class="section-number">4.4.5. </span>Gammas<a class="headerlink" href="#gammas" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">4.4.5. </span>Gammas<a class="headerlink" href="#gammas" title="Link to this heading">¶</a></h2>
 <p>TBD: expand documentation</p>
 </section>
 <section id="energy-release">
-<h2><span class="section-number">4.4.6. </span>Energy release<a class="headerlink" href="#energy-release" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">4.4.6. </span>Energy release<a class="headerlink" href="#energy-release" title="Link to this heading">¶</a></h2>
 </section>
 <section id="delayed-neutrons">
-<h2><span class="section-number">4.4.7. </span>Delayed neutrons<a class="headerlink" href="#delayed-neutrons" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">4.4.7. </span>Delayed neutrons<a class="headerlink" href="#delayed-neutrons" title="Link to this heading">¶</a></h2>
 </section>
 <section id="fission-product-yields">
-<h2><span class="section-number">4.4.8. </span>Fission product yields<a class="headerlink" href="#fission-product-yields" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">4.4.8. </span>Fission product yields<a class="headerlink" href="#fission-product-yields" title="Link to this heading">¶</a></h2>
 </section>
 </section>
 
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-  <div>
-    <h3><a href="../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">4.4. Fission</a><ul>
-<li><a class="reference internal" href="#first-second-third-chance">4.4.1. First, second, third chance, …</a></li>
-<li><a class="reference internal" href="#the-cross-section">4.4.2. The cross section</a></li>
-<li><a class="reference internal" href="#nubar">4.4.3. nubar</a></li>
-<li><a class="reference internal" href="#pfns">4.4.4. PFNS</a></li>
-<li><a class="reference internal" href="#gammas">4.4.5. Gammas</a></li>
-<li><a class="reference internal" href="#energy-release">4.4.6. Energy release</a></li>
-<li><a class="reference internal" href="#delayed-neutrons">4.4.7. Delayed neutrons</a></li>
-<li><a class="reference internal" href="#fission-product-yields">4.4.8. Fission product yields</a></li>
-</ul>
-</li>
-</ul>
+<h1 class="logo"><a href="../index.html">Fudge and GNDS</a></h1>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="outgoingDistributions.html"
-                          title="previous chapter"><span class="section-number">4.3. </span>Outgoing Distributions</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="summedReactions.html"
-                          title="next chapter"><span class="section-number">4.5. </span>Summed Reactions</a></p>
-  </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/tutorial/fission.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">The Fudge Tutorial</a><ul>
+  <li><a href="diggingDeeper.html"><span class="section-number">4. </span>Digging deeper in <code class="docutils literal notranslate"><span class="pre">Fudge</span></code></a><ul>
+      <li>Previous: <a href="outgoingDistributions.html" title="previous chapter"><span class="section-number">4.3. </span>Outgoing Distributions</a></li>
+      <li>Next: <a href="summedReactions.html" title="next chapter"><span class="section-number">4.5. </span>Summed Reactions</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="summedReactions.html" title="4.5. Summed Reactions"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="outgoingDistributions.html" title="4.3. Outgoing Distributions"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >The Fudge Tutorial</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="diggingDeeper.html" ><span class="section-number">4. </span>Digging deeper in <code class="docutils literal notranslate"><span class="pre">Fudge</span></code></a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">4.4. </span>Fission</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/tutorial/fission.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

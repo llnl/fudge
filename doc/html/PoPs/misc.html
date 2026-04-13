@@ -1,69 +1,62 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Particle IDs &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../_static/gnd-20121206-favicon.ico"/>
+    <title>Particle IDs &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="isotopicAbundances" href="../isotopicAbundances/index.html" />
-    <link rel="prev" title="Fission fragment data" href="fissionFragmentData.html" /> 
+    <link rel="prev" title="Fission fragment data" href="fissionFragmentData.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="../isotopicAbundances/index.html" title="isotopicAbundances"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="fissionFragmentData.html" title="Fission fragment data"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Properties of Particles (PoPs)</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Particle IDs</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <section id="module-PoPs.IDs">
-<span id="particle-ids"></span><span id="misc"></span><h1>Particle IDs<a class="headerlink" href="#module-PoPs.IDs" title="Permalink to this heading">¶</a></h1>
+<span id="particle-ids"></span><span id="misc"></span><h1>Particle IDs<a class="headerlink" href="#module-PoPs.IDs" title="Link to this heading">¶</a></h1>
 <p>Define some common particle ids</p>
-<span class="target" id="module-PoPs.specialNuclearParticleID"></span><p>The modules help convert a special nuclear particle id (i.e., name) between its familiar id, its nucleus id and its 
+<p id="module-PoPs.specialNuclearParticleID">The modules help convert a special nuclear particle id (i.e., name) between its familiar id, its nucleus id and its 
 nuclide id.  The familiar ids are “p”, “d”, “t”, “h” and “a”. For example, the familiar id for the nucleus of a “He4” 
 atom is “a” (for alpha particle). The nucleus id for “a” is “he4” and the nuclide id is “He4”.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.specialNuclearParticleID.Mode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">Mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#Mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.Mode" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">Mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#Mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.Mode" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../LUPY/index.html#LUPY.enums.Enum" title="LUPY.enums.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PoPs.specialNuclearParticleID.Mode._generate_next_value_">
+<span class="sig-name descname"><span class="pre">_generate_next_value_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PoPs.specialNuclearParticleID.Mode._generate_next_value_" title="Link to this definition">¶</a></dt>
+<dd><p>For internal use per <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code> design. That is, an <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code> hook that allows the 
+<code class="xref py py-func docutils literal notranslate"><span class="pre">enum.auto()</span></code> to assign the name of the enum to its value.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PoPs.specialNuclearParticleID.familiarID">
-<span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">familiarID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#familiarID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.familiarID" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">familiarID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#familiarID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.familiarID" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the “familiar” id for <em>a_id</em>. If no match is found, <strong>None</strong> is returned. Mainly for internal use.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -77,7 +70,7 @@ atom is “a” (for alpha particle). The nucleus id for “a” is “he4” an
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PoPs.specialNuclearParticleID.findID">
-<span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">findID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#findID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.findID" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">findID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#findID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.findID" title="Link to this definition">¶</a></dt>
 <dd><p>For internal use. Returns the dictionary from <em>lightParticleIDs</em> that contain <em>a_id</em> as a key. 
 If no match is found <strong>None</strong> is returned.</p>
 <dl class="field-list simple">
@@ -92,7 +85,7 @@ If no match is found <strong>None</strong> is returned.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PoPs.specialNuclearParticleID.nucleusID">
-<span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">nucleusID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#nucleusID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.nucleusID" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">nucleusID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#nucleusID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.nucleusID" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the “nucleus” id for <em>a_id</em>. If no match is found, <strong>None</strong> is returned. Mainly for internal use.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -106,7 +99,7 @@ If no match is found <strong>None</strong> is returned.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PoPs.specialNuclearParticleID.nuclideID">
-<span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">nuclideID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#nuclideID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.nuclideID" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">nuclideID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#nuclideID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.nuclideID" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the “nuclide” id for <em>a_id</em>. If no match is found, <strong>None</strong> is returned. Mainly for internal use.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -120,14 +113,14 @@ If no match is found <strong>None</strong> is returned.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PoPs.specialNuclearParticleID.sameSpecialNuclearParticle">
-<span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">sameSpecialNuclearParticle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#sameSpecialNuclearParticle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.sameSpecialNuclearParticle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">sameSpecialNuclearParticle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#sameSpecialNuclearParticle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.sameSpecialNuclearParticle" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> is <em>id1</em> specified the same particle as <em>id2</em>. The function <strong>specialNuclearParticleID</strong> is called with <strong>Mode.familiar</strong>
 for path partcile.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PoPs.specialNuclearParticleID.sortLightParticle">
-<span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">sortLightParticle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#sortLightParticle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.sortLightParticle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">sortLightParticle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#sortLightParticle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.sortLightParticle" title="Link to this definition">¶</a></dt>
 <dd><p>From a list of particle <em>ids</em>, this function returns the ids sorted. The sorting order is ‘n’, ‘p’, ‘d’, ‘t’, ‘h’, ‘a’, ‘g’, 
 (i.e., ‘photon’). Other ids in the list are return after the ones mentioned and in the order they appear in the list.
 Note, an id will only appear once in the list even it appears more than once in <em>ids</em>.</p>
@@ -143,7 +136,7 @@ Note, an id will only appear once in the list even it appears more than once in 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PoPs.specialNuclearParticleID.specialNuclearParticleID">
-<span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">specialNuclearParticleID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Mode.familiar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#specialNuclearParticleID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.specialNuclearParticleID" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PoPs.specialNuclearParticleID.</span></span><span class="sig-name descname"><span class="pre">specialNuclearParticleID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Mode.familiar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/specialNuclearParticleID.html#specialNuclearParticleID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.specialNuclearParticleID.specialNuclearParticleID" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the special nuclear particle id per the specified <em>a_id</em> and <em>mode</em>. Note, if <em>pops</em> is not <strong>None</strong> 
 and <em>a_id</em> is the id for a nuclide or nucleus, then the id specified by <em>mode</em> is returned. For example, if
 <em>a_id</em> is “O16” and <em>mode</em> is <strong>Mode.nucleus</strong>, the “o16” is returned.</p>
@@ -163,14 +156,14 @@ and <em>a_id</em> is the id for a nuclide or nucleus, then the id specified by <
 
 </section>
 <section id="module-PoPs.styles">
-<span id="styles"></span><h1>Styles<a class="headerlink" href="#module-PoPs.styles" title="Permalink to this heading">¶</a></h1>
+<span id="styles"></span><h1>Styles<a class="headerlink" href="#module-PoPs.styles" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.styles.Evaluated">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.styles.</span></span><span class="sig-name descname"><span class="pre">Evaluated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">derivedFrom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">library</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Evaluated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Evaluated" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.styles.</span></span><span class="sig-name descname"><span class="pre">Evaluated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">derivedFrom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">library</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Evaluated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Evaluated" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#PoPs.styles.Style" title="PoPs.styles.Style"><code class="xref py py-class docutils literal notranslate"><span class="pre">Style</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.styles.Evaluated.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Evaluated.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Evaluated.copy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Evaluated.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Evaluated.copy" title="Link to this definition">¶</a></dt>
 <dd><p>Uses deepcopy to make a copy of self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -181,7 +174,7 @@ and <em>a_id</em> is the id for a nuclide or nucleus, then the id specified by <
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.styles.Evaluated.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Evaluated.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Evaluated.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Evaluated.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Evaluated.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>This method must be overrwritten by the derived class.
 The overrwritten method must construct a class of instance <em>cls</em> using <em>node</em></p>
 <dl class="field-list simple">
@@ -198,7 +191,7 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.styles.Evaluated.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Evaluated.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Evaluated.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Evaluated.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Evaluated.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>This methods must be overwritten by the derived class. It must return a Python list of strings that are the XML representation of <em>self</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -211,36 +204,36 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.styles.Style">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.styles.</span></span><span class="sig-name descname"><span class="pre">Style</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">derivedFrom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Style"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Style" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.styles.</span></span><span class="sig-name descname"><span class="pre">Style</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">derivedFrom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Style"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Style" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../LUPY/index.html#LUPY.ancestry.AncestryIO" title="LUPY.ancestry.AncestryIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">AncestryIO</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>Abstract base class for all ‘style’ classes in PoPs</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.styles.Style.XMLCommonAttributes">
-<span class="sig-name descname"><span class="pre">XMLCommonAttributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Style.XMLCommonAttributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Style.XMLCommonAttributes" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">XMLCommonAttributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Style.XMLCommonAttributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Style.XMLCommonAttributes" title="Link to this definition">¶</a></dt>
 <dd><p>Helper function for writing to XML</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.styles.Style.date">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">date</span></span><a class="headerlink" href="#PoPs.styles.Style.date" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">date</span></span><a class="headerlink" href="#PoPs.styles.Style.date" title="Link to this definition">¶</a></dt>
 <dd><p>Returns date when style was generated</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.styles.Style.derivedFrom">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">derivedFrom</span></span><a class="headerlink" href="#PoPs.styles.Style.derivedFrom" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">derivedFrom</span></span><a class="headerlink" href="#PoPs.styles.Style.derivedFrom" title="Link to this definition">¶</a></dt>
 <dd><p>Returns string label of the style that self derives from</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.styles.Style.derivedFromStyle">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">derivedFromStyle</span></span><a class="headerlink" href="#PoPs.styles.Style.derivedFromStyle" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">derivedFromStyle</span></span><a class="headerlink" href="#PoPs.styles.Style.derivedFromStyle" title="Link to this definition">¶</a></dt>
 <dd><p>Returns style instance that self derives from</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.styles.Style.findDerivedFromStyle">
-<span class="sig-name descname"><span class="pre">findDerivedFromStyle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Style.findDerivedFromStyle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Style.findDerivedFromStyle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">findDerivedFromStyle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Style.findDerivedFromStyle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Style.findDerivedFromStyle" title="Link to this definition">¶</a></dt>
 <dd><p>This method searches backwards through the chain of derived styles to find an instance of the specified
 class (which should inherit from the base style class).</p>
 <dl class="field-list simple">
@@ -255,7 +248,7 @@ class (which should inherit from the base style class).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.styles.Style.findFormMatchingDerivedStyle">
-<span class="sig-name descname"><span class="pre">findFormMatchingDerivedStyle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">styleFilter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Style.findFormMatchingDerivedStyle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Style.findFormMatchingDerivedStyle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">findFormMatchingDerivedStyle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">styleFilter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Style.findFormMatchingDerivedStyle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Style.findFormMatchingDerivedStyle" title="Link to this definition">¶</a></dt>
 <dd><p>This method searches backwards through the chain of derived styles to find a matching form in
 the specified component. It starts with the style that self derives from, then the style that derives from, etc.
 The first form matching one of those styles is returned (unless styleFilter is used to screen out some styles).</p>
@@ -275,13 +268,13 @@ take a style as input and return False if that style should be omitted from matc
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.styles.Style.parseBaseNodeCommons">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseBaseNodeCommons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Style.parseBaseNodeCommons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Style.parseBaseNodeCommons" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseBaseNodeCommons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Style.parseBaseNodeCommons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Style.parseBaseNodeCommons" title="Link to this definition">¶</a></dt>
 <dd><p>Parse <em>label</em>, <em>derivedFrom</em> and <em>date</em> that are common to all style nodes. Also, set xPath.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.styles.Style.sibling">
-<span class="sig-name descname"><span class="pre">sibling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Style.sibling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Style.sibling" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">sibling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Style.sibling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Style.sibling" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the sibling of self with label.</p>
 </dd></dl>
 
@@ -289,12 +282,12 @@ take a style as input and return False if that style should be omitted from matc
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.styles.Styles">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.styles.</span></span><span class="sig-name descname"><span class="pre">Styles</span></span><a class="reference internal" href="../_modules/PoPs/styles.html#Styles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Styles" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.styles.</span></span><span class="sig-name descname"><span class="pre">Styles</span></span><a class="reference internal" href="../_modules/PoPs/styles.html#Styles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Styles" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../LUPY/index.html#LUPY.ancestry.AncestryIO_base" title="LUPY.ancestry.AncestryIO_base"><code class="xref py py-class docutils literal notranslate"><span class="pre">AncestryIO_base</span></code></a></p>
 <p>Stores the list of PoPs styles that appear inside a database.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.styles.Styles.add">
-<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_style</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Styles.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Styles.add" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_style</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Styles.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Styles.add" title="Link to this definition">¶</a></dt>
 <dd><p>Append a style to the list of styles.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -305,20 +298,20 @@ take a style as input and return False if that style should be omitted from matc
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.styles.Styles.convertUnits">
-<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Styles.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Styles.convertUnits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Styles.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Styles.convertUnits" title="Link to this definition">¶</a></dt>
 <dd><p>See database.convertUnits</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.styles.Styles.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_style</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Styles.remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Styles.remove" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_style</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Styles.remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Styles.remove" title="Link to this definition">¶</a></dt>
 <dd><p>Remove the specified style. Raises KeyError if specified style not found.
 :param _style: may be a string or a style instance</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.styles.Styles.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Styles.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Styles.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/styles.html#Styles.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.styles.Styles.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>This methods must be overwritten by the derived class. It must return a Python list of strings that are the XML representation of <em>self</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -331,14 +324,14 @@ take a style as input and return False if that style should be omitted from matc
 
 </section>
 <section id="module-PoPs.suite">
-<span id="suite"></span><h1>Suite<a class="headerlink" href="#module-PoPs.suite" title="Permalink to this heading">¶</a></h1>
+<span id="suite"></span><h1>Suite<a class="headerlink" href="#module-PoPs.suite" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.suite.SortedSuite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.suite.</span></span><span class="sig-name descname"><span class="pre">SortedSuite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allowedClasses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#SortedSuite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.SortedSuite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.suite.</span></span><span class="sig-name descname"><span class="pre">SortedSuite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allowedClasses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#SortedSuite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.SortedSuite" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#PoPs.suite.Suite" title="PoPs.suite.Suite"><code class="xref py py-class docutils literal notranslate"><span class="pre">Suite</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.suite.SortedSuite.addIndex">
-<span class="sig-name descname"><span class="pre">addIndex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#SortedSuite.addIndex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.SortedSuite.addIndex" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">addIndex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#SortedSuite.addIndex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.SortedSuite.addIndex" title="Link to this definition">¶</a></dt>
 <dd><p>Find the location to insert item into a sorted suite.
 :param item: instance to add. Must define a ‘sortCompare’ method (used to determine insertion point).
 :return: tuple(insertion index (int), whether to replace existing item at that index (boolean))</p>
@@ -348,7 +341,7 @@ take a style as input and return False if that style should be omitted from matc
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.suite.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.suite.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allowedClasses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.suite.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">allowedClasses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../LUPY/index.html#LUPY.ancestry.AncestryIO_bare" title="LUPY.ancestry.AncestryIO_bare"><code class="xref py py-class docutils literal notranslate"><span class="pre">AncestryIO_bare</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <p>Abstract base class for holding a list of objects that can be indexed by an integer or a string.
 For integer indexing, the indexing is by order in which an object was put into the array or,
@@ -358,7 +351,7 @@ For string indexing, this class acts like the python dictionary.</p>
 The allowedClasses must be passed in as an argument to the constructor.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.suite.Suite.add">
-<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.add" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.add" title="Link to this definition">¶</a></dt>
 <dd><p>Attempt to add item to self.
 Raises TypeError if item is not an instance of any class in self.allowedClasses
 Raises KeyError if self.replace == False and the item shares a key with another item already in the suite.</p>
@@ -371,38 +364,38 @@ Raises KeyError if self.replace == False and the item shares a key with another 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.suite.Suite.addIndex">
-<span class="sig-name descname"><span class="pre">addIndex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.addIndex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.addIndex" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">addIndex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.addIndex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.addIndex" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the index at which item will be added to self.
 Raises KeyError if self.replace == False and the item shares a key with another item already in the suite.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.suite.Suite.allowedClasses">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">allowedClasses</span></span><a class="headerlink" href="#PoPs.suite.Suite.allowedClasses" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">allowedClasses</span></span><a class="headerlink" href="#PoPs.suite.Suite.allowedClasses" title="Link to this definition">¶</a></dt>
 <dd><p>Return the tuple of classes that are allowed in this suite.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.suite.Suite.check">
-<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.check" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.check" title="Link to this definition">¶</a></dt>
 <dd><p>See documentation in database.check</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.suite.Suite.convertUnits">
-<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.convertUnits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.convertUnits" title="Link to this definition">¶</a></dt>
 <dd><p>See documentation in database.convertUnits</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.suite.Suite.keys">
-<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.keys" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.keys" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the list of all keys in <em>self</em>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.suite.Suite.parseNode">
-<span class="sig-name descname"><span class="pre">parseNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.parseNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.parseNode" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">parseNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.parseNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.parseNode" title="Link to this definition">¶</a></dt>
 <dd><p>This method must be overrwritten by the derived class.
 The overrwritten method must fill in <em>self</em> with data in <em>node</em>.</p>
 <dl class="field-list simple">
@@ -419,7 +412,7 @@ The overrwritten method must fill in <em>self</em> with data in <em>node</em>.</
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.suite.Suite.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.pop" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.pop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.pop" title="Link to this definition">¶</a></dt>
 <dd><p>Removes item with key <em>key</em> and returns it. If item is not found, a raise KeyError is executed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -433,20 +426,20 @@ The overrwritten method must fill in <em>self</em> with data in <em>node</em>.</
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.suite.Suite.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.remove" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.remove" title="Link to this definition">¶</a></dt>
 <dd><p>Remove object with specified key from the suite.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.suite.Suite.replicate">
-<span class="sig-name descname"><span class="pre">replicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.replicate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.replicate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">replicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.replicate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.replicate" title="Link to this definition">¶</a></dt>
 <dd><p>Add copies of all items in other to self.
 :param other: suite or other iterable</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.suite.Suite.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>This methods must be overwritten by the derived class. It must return a Python list of strings that are the XML representation of <em>self</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -457,7 +450,7 @@ The overrwritten method must fill in <em>self</em> with data in <em>node</em>.</
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.suite.Suite.uniqueLabel">
-<span class="sig-name descname"><span class="pre">uniqueLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.uniqueLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.uniqueLabel" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">uniqueLabel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/suite.html#Suite.uniqueLabel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.suite.Suite.uniqueLabel" title="Link to this definition">¶</a></dt>
 <dd><p>If item’s key is the same as another item’s key in self, construct a new unique key
 based on item’s key appended with ‘__’ and one or more lower case letters (i.e., ‘a’ to ‘z’).</p>
 </dd></dl>
@@ -466,21 +459,21 @@ based on item’s key appended with ‘__’ and one or more lower case letters 
 
 </section>
 <section id="module-PoPs.alias">
-<span id="aliases"></span><h1>Aliases<a class="headerlink" href="#module-PoPs.alias" title="Permalink to this heading">¶</a></h1>
+<span id="aliases"></span><h1>Aliases<a class="headerlink" href="#module-PoPs.alias" title="Link to this heading">¶</a></h1>
 <p>This module contains the alias classes.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.alias.Alias">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.alias.</span></span><span class="sig-name descname"><span class="pre">Alias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#Alias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.Alias" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.alias.</span></span><span class="sig-name descname"><span class="pre">Alias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#Alias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.Alias" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#PoPs.alias.BaseAlias" title="PoPs.alias.BaseAlias"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseAlias</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.alias.Alias.intid">
-<span class="sig-name descname"><span class="pre">intid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intidDB</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#Alias.intid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.Alias.intid" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">intid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intidDB</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#Alias.intid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.Alias.intid" title="Link to this definition">¶</a></dt>
 <dd><p>Converts the particle id into a unique integer dubbed an INTeger ID (INTID).</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.alias.Alias.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#Alias.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.Alias.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#Alias.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.Alias.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>This method must be overrwritten by the derived class.
 The overrwritten method must construct a class of instance <em>cls</em> using <em>node</em></p>
 <dl class="field-list simple">
@@ -499,11 +492,11 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.alias.BaseAlias">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.alias.</span></span><span class="sig-name descname"><span class="pre">BaseAlias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#BaseAlias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.BaseAlias" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.alias.</span></span><span class="sig-name descname"><span class="pre">BaseAlias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#BaseAlias"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.BaseAlias" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#PoPs.misc.ClassWithIDKey" title="PoPs.misc.ClassWithIDKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassWithIDKey</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.alias.BaseAlias.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#BaseAlias.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.BaseAlias.copy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#BaseAlias.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.BaseAlias.copy" title="Link to this definition">¶</a></dt>
 <dd><p>Uses deepcopy to make a copy of self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -514,7 +507,7 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.alias.BaseAlias.getMass">
-<span class="sig-name descname"><span class="pre">getMass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#BaseAlias.getMass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.BaseAlias.getMass" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getMass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#BaseAlias.getMass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.BaseAlias.getMass" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the mass of the final particle referenced by pid.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -528,7 +521,7 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.alias.BaseAlias.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#BaseAlias.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.BaseAlias.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#BaseAlias.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.BaseAlias.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>This methods must be overwritten by the derived class. It must return a Python list of strings that are the XML representation of <em>self</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -541,11 +534,11 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.alias.MetaStable">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.alias.</span></span><span class="sig-name descname"><span class="pre">MetaStable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metaStableIndex</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#MetaStable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.MetaStable" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.alias.</span></span><span class="sig-name descname"><span class="pre">MetaStable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metaStableIndex</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#MetaStable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.MetaStable" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#PoPs.alias.BaseAlias" title="PoPs.alias.BaseAlias"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseAlias</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.alias.MetaStable.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#MetaStable.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.MetaStable.copy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#MetaStable.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.MetaStable.copy" title="Link to this definition">¶</a></dt>
 <dd><p>Uses deepcopy to make a copy of self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -556,13 +549,13 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.alias.MetaStable.intid">
-<span class="sig-name descname"><span class="pre">intid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intidDB</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#MetaStable.intid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.MetaStable.intid" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">intid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intidDB</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#MetaStable.intid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.MetaStable.intid" title="Link to this definition">¶</a></dt>
 <dd><p>Converts the particle id into a unique integer dubbed an INTeger ID (INTID).</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.alias.MetaStable.nuclideNameAndMetaStableIndexFromName">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nuclideNameAndMetaStableIndexFromName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#MetaStable.nuclideNameAndMetaStableIndexFromName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.MetaStable.nuclideNameAndMetaStableIndexFromName" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nuclideNameAndMetaStableIndexFromName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#MetaStable.nuclideNameAndMetaStableIndexFromName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.MetaStable.nuclideNameAndMetaStableIndexFromName" title="Link to this definition">¶</a></dt>
 <dd><p>This function returns the nuclide name and meta-stable index from its argument name. If name does not appear to be a 
 meta-stable, ( name, 0 ) are returned. This function splits on the string ‘_m’. If the number of sub-strings returned 
 is not 2, the name is considered not to be a meta-stable and ( name, 0 ) are returned. For example, name = ‘O16’ will 
@@ -571,7 +564,7 @@ return ( ‘O16’, 0 ), name = ‘Am242_m1’ will return ( ‘Am242_m1’, 1 )
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.alias.MetaStable.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#MetaStable.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.MetaStable.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#MetaStable.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.MetaStable.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>This method must be overrwritten by the derived class.
 The overrwritten method must construct a class of instance <em>cls</em> using <em>node</em></p>
 <dl class="field-list simple">
@@ -588,7 +581,7 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.alias.MetaStable.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#MetaStable.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.MetaStable.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#MetaStable.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.MetaStable.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>This methods must be overwritten by the derived class. It must return a Python list of strings that are the XML representation of <em>self</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -601,17 +594,17 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.alias.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.alias.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/alias.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.alias.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/alias.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.Suite" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#PoPs.suite.Suite" title="PoPs.suite.Suite"><code class="xref py py-class docutils literal notranslate"><span class="pre">Suite</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.alias.Suite.has_pid">
-<span class="sig-name descname"><span class="pre">has_pid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ParticleID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#Suite.has_pid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.Suite.has_pid" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">has_pid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ParticleID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#Suite.has_pid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.Suite.has_pid" title="Link to this definition">¶</a></dt>
 <dd><p>Returns True if one of the aliases has pid equal to ParticleID and False otherwise.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.alias.Suite.parseNode">
-<span class="sig-name descname"><span class="pre">parseNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#Suite.parseNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.Suite.parseNode" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">parseNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/alias.html#Suite.parseNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.alias.Suite.parseNode" title="Link to this definition">¶</a></dt>
 <dd><p>This method must be overrwritten by the derived class.
 The overrwritten method must fill in <em>self</em> with data in <em>node</em>.</p>
 <dl class="field-list simple">
@@ -630,15 +623,15 @@ The overrwritten method must fill in <em>self</em> with data in <em>node</em>.</
 
 </section>
 <section id="id1">
-<h1>Misc<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h1>
-<span class="target" id="module-PoPs.misc"></span><p>Define some helper methods and some base classes. These are mostly meant for internal use by the PoPs module.</p>
+<h1>Misc<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h1>
+<p id="module-PoPs.misc">Define some helper methods and some base classes. These are mostly meant for internal use by the PoPs module.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.misc.ClassWithIDKey">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">ClassWithIDKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#ClassWithIDKey"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.ClassWithIDKey" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">ClassWithIDKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#ClassWithIDKey"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.ClassWithIDKey" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../LUPY/index.html#LUPY.ancestry.AncestryIO" title="LUPY.ancestry.AncestryIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">AncestryIO</span></code></a></p>
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.misc.ClassWithIDKey.keyValue">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">keyValue</span></span><a class="headerlink" href="#PoPs.misc.ClassWithIDKey.keyValue" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">keyValue</span></span><a class="headerlink" href="#PoPs.misc.ClassWithIDKey.keyValue" title="Link to this definition">¶</a></dt>
 <dd><p>Returns self’s keyValue. If keyName is <em>None</em>, then <em>None</em> is returned.</p>
 </dd></dl>
 
@@ -646,31 +639,31 @@ The overrwritten method must fill in <em>self</em> with data in <em>node</em>.</
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.misc.ClassWithIndexKey">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">ClassWithIndexKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#ClassWithIndexKey"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.ClassWithIndexKey" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">ClassWithIndexKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#ClassWithIndexKey"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.ClassWithIndexKey" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../LUPY/index.html#LUPY.ancestry.AncestryIO" title="LUPY.ancestry.AncestryIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">AncestryIO</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.misc.ClassWithLabelKey">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">ClassWithLabelKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#ClassWithLabelKey"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.ClassWithLabelKey" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">ClassWithLabelKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#ClassWithLabelKey"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.ClassWithLabelKey" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../LUPY/index.html#LUPY.ancestry.AncestryIO" title="LUPY.ancestry.AncestryIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">AncestryIO</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.misc.ClassWithSubshellKey">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">ClassWithSubshellKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subshell</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#ClassWithSubshellKey"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.ClassWithSubshellKey" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">ClassWithSubshellKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subshell</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#ClassWithSubshellKey"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.ClassWithSubshellKey" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../LUPY/index.html#LUPY.ancestry.AncestryIO" title="LUPY.ancestry.AncestryIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">AncestryIO</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.misc.ClassWithSymbolKey">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">ClassWithSymbolKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#ClassWithSymbolKey"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.ClassWithSymbolKey" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">ClassWithSymbolKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#ClassWithSymbolKey"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.ClassWithSymbolKey" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../LUPY/index.html#LUPY.ancestry.AncestryIO" title="LUPY.ancestry.AncestryIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">AncestryIO</span></code></a></p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PoPs.misc.baseAntiFromID">
-<span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">baseAntiFromID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#baseAntiFromID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.baseAntiFromID" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">baseAntiFromID</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#baseAntiFromID"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.baseAntiFromID" title="Link to this definition">¶</a></dt>
 <dd><p>This function returns the base and anti parts of a PoPs GNDS id for <em>pid</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -684,7 +677,7 @@ The overrwritten method must fill in <em>self</em> with data in <em>node</em>.</
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PoPs.misc.idWithQualifierRemoved">
-<span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">idWithQualifierRemoved</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#idWithQualifierRemoved"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.idWithQualifierRemoved" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">idWithQualifierRemoved</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#idWithQualifierRemoved"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.idWithQualifierRemoved" title="Link to this definition">¶</a></dt>
 <dd><p>This function returns the PoPs GNDS id for <em>pid</em> with the qualifer part removed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -698,21 +691,29 @@ The overrwritten method must fill in <em>self</em> with data in <em>node</em>.</
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PoPs.misc.parseParticleList">
-<span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">parseParticleList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">particleList</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#parseParticleList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.parseParticleList" title="Permalink to this definition">¶</a></dt>
-<dd><p>Breaks a particle list where each particle id can have a leading integer multiplicity into an equivalen list of 
+<span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">parseParticleList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">particleList</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#parseParticleList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.parseParticleList" title="Link to this definition">¶</a></dt>
+<dd><p>Breaks a particle list where each particle id can have a leading integer multiplicity into an equivalent list of 
 particle ids.  That is, each particle in <em>particleList</em> to be of the form “id” or “#id” where “#” is an integer.
 Examples of the form “#id” include “2n” and “3n”. For example, the paticle list [“2n”, “Pu238”] is returned as [“n”, “n”, “Pu238”].</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="PoPs.misc.returnAntiParticleIDFromId">
+<span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">returnAntiParticleIDFromId</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">particleID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#returnAntiParticleIDFromId"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.returnAntiParticleIDFromId" title="Link to this definition">¶</a></dt>
+<dd><p>This function returns the anti particle id of <strong>particleID</strong>. Note, if <strong>particleID</strong> is the id of an anti particle, 
+then the particle id is returned. For example, if <strong>particleID</strong> is ‘O16’, ‘O16_anti’ is returned, but if 
+<strong>particleID</strong> is ‘O16_anti then ‘O16’ is returned’.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="PoPs.misc.toLimitedString">
-<span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">toLimitedString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#toLimitedString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.toLimitedString" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">PoPs.misc.</span></span><span class="sig-name descname"><span class="pre">toLimitedString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxLength</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/misc.html#toLimitedString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.misc.toLimitedString" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a str instance of object that is truncated to no more than 32 characters.</p>
 </dd></dl>
 
 </section>
 <section id="module-PoPs.warning">
-<span id="warnings"></span><h1>Warnings<a class="headerlink" href="#module-PoPs.warning" title="Permalink to this heading">¶</a></h1>
+<span id="warnings"></span><h1>Warnings<a class="headerlink" href="#module-PoPs.warning" title="Link to this heading">¶</a></h1>
 <p>Store and report warnings and errors in a PoPs database.
 PoPs.check() returns a nested list of warning objects:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">warnings</span> <span class="o">=</span> <span class="n">PoPs</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
@@ -730,19 +731,19 @@ filter() returns a new context instance:</p>
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.warning.AliasToNonExistentParticle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.warning.</span></span><span class="sig-name descname"><span class="pre">AliasToNonExistentParticle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#AliasToNonExistentParticle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.AliasToNonExistentParticle" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.warning.</span></span><span class="sig-name descname"><span class="pre">AliasToNonExistentParticle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#AliasToNonExistentParticle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.AliasToNonExistentParticle" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#PoPs.warning.Warning" title="PoPs.warning.Warning"><code class="xref py py-class docutils literal notranslate"><span class="pre">Warning</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.warning.Context">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.warning.</span></span><span class="sig-name descname"><span class="pre">Context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warningList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#Context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.Context" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.warning.</span></span><span class="sig-name descname"><span class="pre">Context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warningList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#Context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.Context" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Store warnings in context. This class contains location information (reactionSuite, reaction, etc)
 plus a nested list of warnings or other context instances</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.warning.Context.filter">
-<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#Context.filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.Context.filter" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#Context.filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.Context.filter" title="Link to this definition">¶</a></dt>
 <dd><p>Filter warning list to only include (or exclude) specific classes of warning. For example:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">newWarnings</span> <span class="o">=</span> <span class="n">warnings</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="n">DiscreteLevelsOutOfOrder</span><span class="p">])</span>
 </pre></div>
@@ -752,7 +753,7 @@ plus a nested list of warnings or other context instances</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.warning.Context.flatten">
-<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#Context.flatten"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.Context.flatten" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#Context.flatten"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.Context.flatten" title="Link to this definition">¶</a></dt>
 <dd><p>From a nested hierarchy of warnings, get back a flat list for easier searching:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">w</span> <span class="o">=</span> <span class="n">PoPs</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">warningList</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
@@ -767,7 +768,7 @@ plus a nested list of warnings or other context instances</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.warning.Context.toStringList">
-<span class="sig-name descname"><span class="pre">toStringList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dIndent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span>&#160;&#160;&#160; <span class="pre">'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#Context.toStringList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.Context.toStringList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toStringList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dIndent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span>&#160;&#160;&#160; <span class="pre">'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#Context.toStringList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.Context.toStringList" title="Link to this definition">¶</a></dt>
 <dd><p>Format warnings for printing. Returns a list of warning strings with indentation.</p>
 </dd></dl>
 
@@ -775,37 +776,31 @@ plus a nested list of warnings or other context instances</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.warning.DiscreteLevelsOutOfOrder">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.warning.</span></span><span class="sig-name descname"><span class="pre">DiscreteLevelsOutOfOrder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lidx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#DiscreteLevelsOutOfOrder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.DiscreteLevelsOutOfOrder" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.warning.</span></span><span class="sig-name descname"><span class="pre">DiscreteLevelsOutOfOrder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lidx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#DiscreteLevelsOutOfOrder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.DiscreteLevelsOutOfOrder" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#PoPs.warning.Warning" title="PoPs.warning.Warning"><code class="xref py py-class docutils literal notranslate"><span class="pre">Warning</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.warning.NotImplemented">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.warning.</span></span><span class="sig-name descname"><span class="pre">NotImplemented</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#NotImplemented"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.NotImplemented" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.warning.</span></span><span class="sig-name descname"><span class="pre">NotImplemented</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#NotImplemented"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.NotImplemented" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#PoPs.warning.Warning" title="PoPs.warning.Warning"><code class="xref py py-class docutils literal notranslate"><span class="pre">Warning</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.warning.UnknownEnergy">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.warning.</span></span><span class="sig-name descname"><span class="pre">UnknownEnergy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nucleus</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#UnknownEnergy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.UnknownEnergy" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.warning.</span></span><span class="sig-name descname"><span class="pre">UnknownEnergy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nucleus</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#UnknownEnergy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.UnknownEnergy" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#PoPs.warning.Warning" title="PoPs.warning.Warning"><code class="xref py py-class docutils literal notranslate"><span class="pre">Warning</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.warning.UnnormalizedDecayProbabilities">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.warning.</span></span><span class="sig-name descname"><span class="pre">UnnormalizedDecayProbabilities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">branchingSum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#UnnormalizedDecayProbabilities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.UnnormalizedDecayProbabilities" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#PoPs.warning.Warning" title="PoPs.warning.Warning"><code class="xref py py-class docutils literal notranslate"><span class="pre">Warning</span></code></a></p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="PoPs.warning.UnphysicalProbability">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.warning.</span></span><span class="sig-name descname"><span class="pre">UnphysicalProbability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">probability</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#UnphysicalProbability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.UnphysicalProbability" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.warning.</span></span><span class="sig-name descname"><span class="pre">UnnormalizedDecayProbabilities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">branchingSum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#UnnormalizedDecayProbabilities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.UnnormalizedDecayProbabilities" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#PoPs.warning.Warning" title="PoPs.warning.Warning"><code class="xref py py-class docutils literal notranslate"><span class="pre">Warning</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.warning.Warning">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.warning.</span></span><span class="sig-name descname"><span class="pre">Warning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#Warning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.Warning" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.warning.</span></span><span class="sig-name descname"><span class="pre">Warning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/warning.html#Warning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.warning.Warning" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>General warning class. Contains link to problem object,
 xpath in case the object leaves memory,
@@ -815,81 +810,94 @@ and information about the warning or error.</p>
 </section>
 
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-  <div>
-    <h3><a href="../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">Particle IDs</a></li>
-<li><a class="reference internal" href="#module-PoPs.styles">Styles</a></li>
-<li><a class="reference internal" href="#module-PoPs.suite">Suite</a></li>
-<li><a class="reference internal" href="#module-PoPs.alias">Aliases</a></li>
-<li><a class="reference internal" href="#id1">Misc</a></li>
-<li><a class="reference internal" href="#module-PoPs.warning">Warnings</a></li>
-</ul>
+<h1 class="logo"><a href="../index.html">Fudge and GNDS</a></h1>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="fissionFragmentData.html"
-                          title="previous chapter">Fission fragment data</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="../isotopicAbundances/index.html"
-                          title="next chapter">isotopicAbundances</a></p>
-  </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/PoPs/misc.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Properties of Particles (PoPs)</a><ul>
+      <li>Previous: <a href="fissionFragmentData.html" title="previous chapter">Fission fragment data</a></li>
+      <li>Next: <a href="../isotopicAbundances/index.html" title="next chapter">isotopicAbundances</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="../isotopicAbundances/index.html" title="isotopicAbundances"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="fissionFragmentData.html" title="Fission fragment data"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Properties of Particles (PoPs)</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Particle IDs</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/PoPs/misc.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

@@ -1,47 +1,43 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>xData.series1d &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
-    
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../_static/gnd-20121206-favicon.ico"/>
+    <title>xData.series1d &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">xData.series1d</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for xData.series1d</h1><div class="highlight"><pre>
 <span></span><span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 
 <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
@@ -70,24 +66,26 @@
 <span class="sd">    +-------------------+-------------------------------------------------------------------------------------------------------+</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">abc</span>
-<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">abc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 
-<span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
 
-<span class="kn">from</span> <span class="nn">numericalFunctions</span> <span class="kn">import</span> <span class="n">pointwiseXY_C</span> <span class="k">as</span> <span class="n">pointwiseXY_CModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numericalFunctions</span><span class="w"> </span><span class="kn">import</span> <span class="n">pointwiseXY_C</span> <span class="k">as</span> <span class="n">pointwiseXY_CModule</span>
 <span class="n">floatToShortestString</span> <span class="o">=</span> <span class="n">pointwiseXY_CModule</span><span class="o">.</span><span class="n">floatToShortestString</span>
 
-<span class="kn">from</span> <span class="nn">numericalFunctions</span> <span class="kn">import</span> <span class="n">Legendre</span> <span class="k">as</span> <span class="n">Legendre_C</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numericalFunctions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Legendre</span> <span class="k">as</span> <span class="n">Legendre_C</span>
 <span class="n">maxLegendreOrder</span> <span class="o">=</span> <span class="n">Legendre_C</span><span class="o">.</span><span class="n">maxMaxOrder</span><span class="p">(</span> <span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">base</span> <span class="k">as</span> <span class="n">baseModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">values</span> <span class="k">as</span> <span class="n">valuesModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">axes</span> <span class="k">as</span> <span class="n">axesModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">base</span> <span class="k">as</span> <span class="n">baseModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">values</span> <span class="k">as</span> <span class="n">valuesModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">axes</span> <span class="k">as</span> <span class="n">axesModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
 
-<div class="viewcode-block" id="Legendre"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Legendre">[docs]</a><span class="k">def</span> <span class="nf">Legendre</span><span class="p">(</span> <span class="n">n</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">checkXRange</span> <span class="o">=</span> <span class="kc">True</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="Legendre">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Legendre">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">Legendre</span><span class="p">(</span> <span class="n">n</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">checkXRange</span> <span class="o">=</span> <span class="kc">True</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Thid function returns the value of the Legendre polynomial of order *n* at *mu* using the recursive relationship.</span>
 
@@ -114,7 +112,10 @@
     <span class="k">return</span><span class="p">(</span> <span class="n">Pnp1</span> <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Series1d"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d">[docs]</a><span class="k">class</span> <span class="nc">Series1d</span><span class="p">(</span> <span class="n">baseModule</span><span class="o">.</span><span class="n">XDataFunctional</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Series1d">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Series1d</span><span class="p">(</span> <span class="n">baseModule</span><span class="o">.</span><span class="n">XDataFunctional</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class is the base class for storing a 1d function as a polynomial series. The function store the </span>
 <span class="sd">    polynomial coefficients and has methods for manipulations of the coefficients that are generic to</span>
@@ -156,7 +157,7 @@
     <span class="n">dimension</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">ancestryMembers</span> <span class="o">=</span> <span class="n">baseModule</span><span class="o">.</span><span class="n">XDataFunctional</span><span class="o">.</span><span class="n">ancestryMembers</span> <span class="c1"># + ( &#39;coefficients&#39;, )</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">,</span> <span class="n">domainMin</span><span class="p">,</span> <span class="n">domainMax</span><span class="p">,</span> <span class="n">lowerIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">,</span> <span class="n">domainMin</span><span class="p">,</span> <span class="n">domainMax</span><span class="p">,</span> <span class="n">lowerIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">valueType</span> <span class="o">=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">ValueType</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param coefficients:        This is the list of coefficients for the 1d polymonial function.</span>
@@ -178,7 +179,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span> <span class="o">=</span> <span class="n">coefficients</span>
 
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the number of coefficients in the instance (e.g., for Legendre series it is lMax + 1).</span>
 
@@ -187,7 +188,7 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__coefficients</span> <span class="p">)</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">l</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">l</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the (l+1)^th coefficient.</span>
 
@@ -198,7 +199,7 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__coefficients</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">c_l</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">c_l</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method sets the (l+1)^th coefficient to c_l. l must be less than or equal to lMax.</span>
 
@@ -211,7 +212,7 @@
         <span class="k">else</span> <span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__coefficients</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span> <span class="n">c_l</span> <span class="p">)</span> 
 
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a series that is the sum of *self* and *other*. *Other* must be a number or the same type as *self*.</span>
 
@@ -232,7 +233,7 @@
             <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">c_l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span> <span class="n">c_l2</span> <span class="p">)</span> <span class="p">:</span> <span class="n">c_ls</span><span class="o">.</span><span class="n">coefficients</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">+=</span> <span class="n">c_l</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">c_ls</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__sub__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a series that is the difference of *self* and *other*. *Other* must be a number or the same type as *self*.</span>
 
@@ -253,7 +254,7 @@
             <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">c_l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span> <span class="n">c_l2</span> <span class="p">)</span> <span class="p">:</span> <span class="n">c_ls</span><span class="o">.</span><span class="n">coefficients</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">+=</span> <span class="n">c_l</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">c_ls</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__mul__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a new series that is each coefficient of self multiplied by *value*. *Value* must be convertible to a float.</span>
 
@@ -269,7 +270,7 @@
 
     <span class="fm">__rmul__</span> <span class="o">=</span> <span class="fm">__mul__</span>
 
-    <span class="k">def</span> <span class="nf">__div__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__div__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a new series that is each coefficient of *self* divided by *value*. *Value* must be convertible to a float.</span>
 
@@ -284,7 +285,7 @@
             <span class="n">c_ls</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">/=</span> <span class="n">value</span>
         <span class="k">return</span> <span class="n">c_ls</span> 
 
-    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns True if *self* and *other* have the same coefficients, domain and lowerIndex, and False otherwise.</span>
 
@@ -295,7 +296,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">areDomainsMutual</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">lowerIndex</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">lowerIndex</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">coefficients</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a string representation of the coefficients of *self*.</span>
 
@@ -305,7 +306,7 @@
         <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%g</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">c_l</span> <span class="k">for</span> <span class="n">c_l</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__coefficients</span><span class="p">])</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">coefficients</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">coefficients</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a reference to *self*&#39;s coefficients.</span>
 
@@ -315,7 +316,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__coefficients</span>
 
     <span class="nd">@coefficients</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">coefficients</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">coefficients</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method sets *self*&#39;s coefficients to *coefficients*.</span>
 
@@ -324,14 +325,16 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__coefficients</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Series1d.asXYs1d"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.asXYs1d">[docs]</a>    <span class="k">def</span> <span class="nf">asXYs1d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">asLinLin</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">lowerEps</span><span class="p">,</span> <span class="n">upperEps</span><span class="p">,</span> <span class="n">biSectionMax</span><span class="o">=</span><span class="mi">16</span><span class="p">):</span>
+<div class="viewcode-block" id="Series1d.asXYs1d">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.asXYs1d">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">asXYs1d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">asLinLin</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">lowerEps</span><span class="p">,</span> <span class="n">upperEps</span><span class="p">,</span> <span class="n">biSectionMax</span><span class="o">=</span><span class="mi">16</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a representation of the data in *self* as an :py:class:`XYs1dModule.XYs1d` instance. </span>
 
 <span class="sd">        :param asLinLin:    If **True**, the data have lin-lin interpolation.</span>
 <span class="sd">        :param accuracy:    Used to determine the accuracy if converting data to lin-lin interpolated data.</span>
-<span class="sd">        :param lowerEps     Used to dull the lower point for &quot;flat&quot; interpolation.</span>
-<span class="sd">        :param upperEps     Used to dull the upper point for &quot;flat&quot; interpolation.</span>
+<span class="sd">        :param lowerEps:    Used to dull the lower point for &quot;flat&quot; interpolation.</span>
+<span class="sd">        :param upperEps:    Used to dull the upper point for &quot;flat&quot; interpolation.</span>
 
 <span class="sd">        :returns:           A :py:class:`XYs1dModule.XYs1d` instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -340,7 +343,10 @@
 
         <span class="k">return</span> <span class="n">xys1d</span></div>
 
-<div class="viewcode-block" id="Series1d.areDomainsMutual"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.areDomainsMutual">[docs]</a>    <span class="k">def</span> <span class="nf">areDomainsMutual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Series1d.areDomainsMutual">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.areDomainsMutual">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">areDomainsMutual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns True if the domain minimum for *self* and *other* are the same, and if the domain maximum for *self* and *other*</span>
 <span class="sd">        are the same. It returns False otherwise.</span>
@@ -352,7 +358,10 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainMin</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">domainMin</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainMax</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">domainMax</span></div>
 
-<div class="viewcode-block" id="Series1d.evaluate"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Series1d.evaluate">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.evaluate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the results of the series evaluated at the mu.</span>
 
@@ -366,7 +375,10 @@
             <span class="n">total</span> <span class="o">+=</span> <span class="n">c</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluateBasisFunction</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">total</span></div>
 
-<div class="viewcode-block" id="Series1d.evaluateBasisFunction"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.evaluateBasisFunction">[docs]</a>    <span class="k">def</span> <span class="nf">evaluateBasisFunction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Series1d.evaluateBasisFunction">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.evaluateBasisFunction">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluateBasisFunction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This is a dummy method that needs to be overwritten by the derived class.</span>
 
@@ -376,7 +388,10 @@
 
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Implement in derived classes&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Series1d.checkSameSeriesType"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.checkSameSeriesType">[docs]</a>    <span class="k">def</span> <span class="nf">checkSameSeriesType</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">operator</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Series1d.checkSameSeriesType">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.checkSameSeriesType">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">checkSameSeriesType</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">operator</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method executes a raise if *self* and *other* not the same type of series.</span>
 
@@ -387,7 +402,10 @@
         <span class="k">if</span><span class="p">(</span> <span class="ow">not</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">other</span><span class="p">,</span> <span class="n">Series1d</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span> <span class="s1">&#39;other of type &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span> <span class="n">other</span> <span class="p">)</span> <span class="p">)</span>
         <span class="k">if</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">moniker</span> <span class="o">!=</span> <span class="n">other</span><span class="o">.</span><span class="n">moniker</span> <span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span> <span class="s1">&#39;Cannot </span><span class="si">%s</span><span class="s1"> series </span><span class="si">%s</span><span class="s1"> to series </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="n">operator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">moniker</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">moniker</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Series1d.convertUnits"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.convertUnits">[docs]</a>    <span class="k">def</span> <span class="nf">convertUnits</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Series1d.convertUnits">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.convertUnits">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convertUnits</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts all data in *self* per *unitMap*.</span>
 
@@ -409,7 +427,10 @@
 
         <span class="k">if</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span> <span class="p">)</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">convertUnits</span><span class="p">(</span> <span class="n">unitMap</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Series1d.copy"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Series1d.copy">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.copy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Thie method creates a new series that is a copy of *self*.</span>
 
@@ -418,10 +439,11 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">returnAsClass</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__coefficients</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outerDomainValue</span> <span class="p">)</span> <span class="p">)</span></div>
 
+
     <span class="n">__copy__</span> <span class="o">=</span> <span class="n">copy</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">domainMin</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainMin</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the minimum domain value for *self*.</span>
 
@@ -431,7 +453,7 @@
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__domainMin</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">domainMax</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainMax</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the maximum domain value for *self*.</span>
 
@@ -441,7 +463,7 @@
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__domainMax</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">lowerIndex</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">lowerIndex</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the lowerIndex for *self*.</span>
 
@@ -451,7 +473,7 @@
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__lowerIndex</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">upperIndex</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">upperIndex</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the upper index for *self* which is lowerIndex plus the number of coefficients of *self*.</span>
 
@@ -461,7 +483,9 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__lowerIndex</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">)</span>
 
-<div class="viewcode-block" id="Series1d.domainUnitConversionFactor"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.domainUnitConversionFactor">[docs]</a>    <span class="k">def</span> <span class="nf">domainUnitConversionFactor</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitTo</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="Series1d.domainUnitConversionFactor">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.domainUnitConversionFactor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainUnitConversionFactor</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitTo</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the factor needed to convert self&#39;s domain to unit *unitTo*.</span>
 
@@ -473,7 +497,10 @@
         <span class="k">if</span><span class="p">(</span> <span class="n">unitTo</span> <span class="ow">is</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span> <span class="k">return</span><span class="p">(</span> <span class="mf">1.</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">PQUModule</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="s1">&#39;1 &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainUnit</span> <span class="p">)</span><span class="o">.</span><span class="n">getValueAs</span><span class="p">(</span> <span class="n">unitTo</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Series1d.getCoefficientSafely"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.getCoefficientSafely">[docs]</a>    <span class="k">def</span> <span class="nf">getCoefficientSafely</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">l</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Series1d.getCoefficientSafely">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.getCoefficientSafely">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getCoefficientSafely</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">l</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the (l+1)^th coefficient or 0 if *l* is greater than the number of coefficients of *self*. This is like</span>
 <span class="sd">        __getitem__ but allows for *l* to be greater than the number of coefficients of *self*.</span>
@@ -482,7 +509,10 @@
         <span class="k">if</span><span class="p">(</span> <span class="n">l</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="k">return</span><span class="p">(</span> <span class="mf">0.</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__coefficients</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Series1d.hasData"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.hasData">[docs]</a>    <span class="k">def</span> <span class="nf">hasData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Series1d.hasData">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.hasData">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hasData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns True if the length of self&#39;s coefficients is greater than 0.</span>
 
@@ -491,7 +521,10 @@
 
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__coefficients</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
 
-<div class="viewcode-block" id="Series1d.invert"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.invert">[docs]</a>    <span class="k">def</span> <span class="nf">invert</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Series1d.invert">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.invert">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">invert</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a series instance that is the mirror of self about x1 = 0 (i.e., negates all odd coefficients).</span>
 <span class="sd">        For example, for a Legendre series return equilavent of pdf(-mu).</span>
@@ -503,7 +536,10 @@
         <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span> <span class="n">series_</span> <span class="p">),</span> <span class="mi">2</span> <span class="p">)</span> <span class="p">:</span> <span class="n">series_</span><span class="o">.</span><span class="n">coefficients</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">series_</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Series1d.setData"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.setData">[docs]</a>    <span class="k">def</span> <span class="nf">setData</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Series1d.setData">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.setData">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setData</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">data</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method sets *self* coefficients to *data*.</span>
 
@@ -512,8 +548,9 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__coefficients</span> <span class="o">=</span> <span class="n">data</span></div>
 
+
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">rangeMin</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rangeMin</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method should return the miminum range of *self*; however, since this depends on the type of polynomial series, this</span>
 <span class="sd">        method just executes a raise. Ergo, this method needs to be overwritten by the derived class.</span>
@@ -524,7 +561,7 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">rangeMax</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rangeMax</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method should return the maxinum range of *self*; however, since this depends on the type of polynomial series, this</span>
 <span class="sd">        method just executes a raise. Ergo, this method needs to be overwritten by the derived class.</span>
@@ -534,7 +571,9 @@
 
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span> <span class="p">)</span>
 
-<div class="viewcode-block" id="Series1d.toString"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.toString">[docs]</a>    <span class="k">def</span> <span class="nf">toString</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="Series1d.toString">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.toString">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toString</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a simple string representation of *self*.</span>
 
@@ -544,7 +583,10 @@
         <span class="nb">str</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> </span><span class="si">%16.8g</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span> <span class="n">l</span><span class="p">,</span> <span class="n">coefficient</span> <span class="p">)</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">coefficient</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__coefficients</span> <span class="p">)</span> <span class="p">]</span>
         <span class="k">return</span><span class="p">(</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span> <span class="nb">str</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Series1d.toXML_strList"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Series1d.toXML_strList">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of str instances representing the XML lines of *self*.</span>
 
@@ -580,8 +622,11 @@
 
         <span class="k">return</span> <span class="n">XML_strList</span></div>
 
-<div class="viewcode-block" id="Series1d.returnAsClass"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.returnAsClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">returnAsClass</span><span class="p">(</span> <span class="bp">cls</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Series1d.returnAsClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.returnAsClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">returnAsClass</span><span class="p">(</span> <span class="bp">cls</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns an instance of *cls* that gets *domainMin*, *domainMax*, *lowerIndex*, *axes*, *label and *valueType* from *self*.</span>
 <span class="sd">        This is for internal use.</span>
@@ -598,8 +643,11 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">coefficients</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainMin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainMax</span><span class="p">,</span> <span class="n">lowerIndex</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lowerIndex</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> 
                 <span class="n">valueType</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">valueType</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="n">outerDomainValue</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Series1d.parseNodeUsingClass"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Series1d.parseNodeUsingClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method parses *node* into an instance of *cls*.</span>
 
@@ -635,17 +683,24 @@
 
         <span class="k">return</span> <span class="n">series</span></div>
 
-<div class="viewcode-block" id="Series1d.fixedDomain"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.fixedDomain">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">fixedDomain</span><span class="p">(</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Series1d.fixedDomain">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Series1d.fixedDomain">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fixedDomain</span><span class="p">(</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method does nothing.</span>
 
 <span class="sd">        :returns:           (None, None).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span> <span class="p">)</span></div></div>
+        <span class="k">return</span><span class="p">(</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span> <span class="p">)</span></div>
+</div>
 
-<div class="viewcode-block" id="LegendreSeries"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries">[docs]</a><span class="k">class</span> <span class="nc">LegendreSeries</span><span class="p">(</span> <span class="n">Series1d</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="LegendreSeries">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">LegendreSeries</span><span class="p">(</span> <span class="n">Series1d</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class represent a polynomial with Legendre functions as the base functions. Ergo, the function :math:`f(\mu)` as:</span>
 
@@ -664,7 +719,7 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;Legendre&#39;</span>
     <span class="n">dimension</span> <span class="o">=</span> <span class="mi">1</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">,</span> <span class="n">domainMin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">domainMax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">lowerIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">,</span> <span class="n">domainMin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">domainMax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">lowerIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
             <span class="n">valueType</span> <span class="o">=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">ValueType</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        See method :py:func:`Series1d.__init__` for definition of arguments.</span>
@@ -675,7 +730,7 @@
         <span class="n">Series1d</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> <span class="n">valueType</span> <span class="o">=</span> <span class="n">valueType</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="n">outerDomainValue</span><span class="p">,</span> 
                 <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method interates over the coefficients.</span>
 
@@ -686,7 +741,9 @@
         <span class="k">for</span> <span class="n">i1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span> <span class="n">length</span> <span class="p">)</span> <span class="p">:</span>
             <span class="k">yield</span> <span class="bp">self</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span>
 
-<div class="viewcode-block" id="LegendreSeries.evaluate"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">mu</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="LegendreSeries.evaluate">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.evaluate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">mu</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the value of *self* at :math:`\mu`.</span>
 
@@ -697,7 +754,10 @@
         <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">c_l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span> <span class="p">)</span> <span class="p">:</span> <span class="n">P</span> <span class="o">+=</span> <span class="p">(</span> <span class="n">l</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="p">)</span> <span class="o">*</span> <span class="n">c_l</span> <span class="o">*</span> <span class="n">Legendre</span><span class="p">(</span> <span class="n">l</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">checkXRange</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> 
         <span class="k">return</span><span class="p">(</span> <span class="n">P</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="LegendreSeries.evaluateBasisFunction"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.evaluateBasisFunction">[docs]</a>    <span class="k">def</span> <span class="nf">evaluateBasisFunction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LegendreSeries.evaluateBasisFunction">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.evaluateBasisFunction">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluateBasisFunction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns :math:`( l + 0.5 ) \, P_l(\mu)` evaluated at *mu*.</span>
 
@@ -709,7 +769,10 @@
 
         <span class="k">return</span> <span class="p">(</span> <span class="n">l</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="p">)</span> <span class="o">*</span> <span class="n">Legendre</span><span class="p">(</span> <span class="n">l</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">checkXRange</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="LegendreSeries.integrate"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.integrate">[docs]</a>    <span class="k">def</span> <span class="nf">integrate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">domainMax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LegendreSeries.integrate">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.integrate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">integrate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">domainMax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the integral of *self* from *domainMin* to *domainMax*.</span>
 
@@ -761,7 +824,10 @@
         
         <span class="k">return</span> <span class="n">sign</span> <span class="o">*</span> <span class="n">integral</span></div>
 
-<div class="viewcode-block" id="LegendreSeries.isIsotropic"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.isIsotropic">[docs]</a>    <span class="k">def</span> <span class="nf">isIsotropic</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="LegendreSeries.isIsotropic">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.isIsotropic">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">isIsotropic</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns True if self is isotropic and False otherwise.</span>
 
@@ -772,7 +838,10 @@
             <span class="k">if</span><span class="p">(</span> <span class="n">coefficient</span> <span class="o">!=</span> <span class="mf">0.</span> <span class="p">)</span> <span class="p">:</span> <span class="k">return</span><span class="p">(</span> <span class="kc">False</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="kc">True</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="LegendreSeries.normalize"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">insitu</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">dimension</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="LegendreSeries.normalize">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.normalize">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">normalize</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">insitu</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">dimension</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns an instance of class *self* that is normalized.</span>
 <span class="sd">        The *dimension* argument is ignored as it is only here to be compatable with other normalize methods.</span>
@@ -790,7 +859,10 @@
             <span class="k">return</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">returnAsClass</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="LegendreSeries.toLinearXYsClass"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.toLinearXYsClass">[docs]</a>    <span class="k">def</span> <span class="nf">toLinearXYsClass</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="LegendreSeries.toLinearXYsClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.toLinearXYsClass">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toLinearXYsClass</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the class that is used to represent *self* as a 1d pointwise function, which is always :py:class:`XYs1dModule.XYs1d`.</span>
 
@@ -799,7 +871,10 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="LegendreSeries.toPointwiseLinear"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.toPointwiseLinear">[docs]</a>    <span class="k">def</span> <span class="nf">toPointwiseLinear</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="LegendreSeries.toPointwiseLinear">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.toPointwiseLinear">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toPointwiseLinear</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a representation of *self* as an :py:class:`XYs1dModule.XYs1d` instance (i.e., a pointwise :math:`P(\mu)`). </span>
 <span class="sd">        The accuracy of the reconstruction is determined by kwargs[&#39;accuracy&#39;].</span>
@@ -833,7 +908,10 @@
         <span class="n">P</span> <span class="o">=</span> <span class="n">Pclass</span><span class="p">(</span> <span class="n">P</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outerDomainValue</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">P</span><span class="o">.</span><span class="n">thin</span><span class="p">(</span> <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="LegendreSeries.toPointwise_withLinearXYs"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.toPointwise_withLinearXYs">[docs]</a>    <span class="k">def</span> <span class="nf">toPointwise_withLinearXYs</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="LegendreSeries.toPointwise_withLinearXYs">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.toPointwise_withLinearXYs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toPointwise_withLinearXYs</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the results of calling :py:func:`toPointwiseLinear`.</span>
 
@@ -844,8 +922,11 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">toPointwiseLinear</span><span class="p">(</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="LegendreSeries.fixedDomain"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.fixedDomain">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">fixedDomain</span><span class="p">(</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="LegendreSeries.fixedDomain">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.fixedDomain">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fixedDomain</span><span class="p">(</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the domain of *self* which is always [-1, 1].A</span>
 
@@ -854,15 +935,18 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="LegendreSeries.fromXYs1d"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.fromXYs1d">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">fromXYs1d</span><span class="p">(</span> <span class="n">xys1d</span><span class="p">,</span> <span class="n">maxOrder</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="LegendreSeries.fromXYs1d">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LegendreSeries.fromXYs1d">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fromXYs1d</span><span class="p">(</span> <span class="n">xys1d</span><span class="p">,</span> <span class="n">maxOrder</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns an instance of :py:class:`LegendreSeries` that represents *xys1d* as:</span>
 
 <span class="sd">        ..math::</span>
 <span class="sd">            C_l = \int_{-1}^1 d\mu \, P_l(\mu) \, f(\mu)</span>
 
-<span class="sd">        where *xys1d*is the poinwise representation of :math:`f(\mu)`.</span>
+<span class="sd">        where *xys1d* is the poinwise representation of :math:`f(\mu)`.</span>
 
 <span class="sd">        :param xys1d:       An instance of :py:class:`XYs1dModule.XYs1d`.</span>
 <span class="sd">        :param maxOrder:    The maximum Legendre order of the returned instance.</span>
@@ -874,9 +958,13 @@
         <span class="k">if</span><span class="p">(</span> <span class="n">xys1d</span><span class="o">.</span><span class="n">domainMax</span> <span class="o">!=</span>  <span class="mi">1</span> <span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span> <span class="s2">&quot;Domain max must be 1. It is </span><span class="si">%e</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">xys1d</span><span class="o">.</span><span class="n">domainMax</span> <span class="p">)</span>
 
         <span class="n">axes</span> <span class="o">=</span> <span class="n">xys1d</span><span class="o">.</span><span class="n">axes</span>
-        <span class="k">return</span><span class="p">(</span> <span class="n">LegendreSeries</span><span class="p">(</span> <span class="n">Legendre_C</span><span class="o">.</span><span class="n">from_pointwiseXY_C</span><span class="p">(</span> <span class="n">xys1d</span><span class="o">.</span><span class="n">nf_pointwiseXY</span><span class="p">,</span> <span class="n">maxOrder</span> <span class="p">),</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span> <span class="p">)</span> <span class="p">)</span></div></div>
+        <span class="k">return</span><span class="p">(</span> <span class="n">LegendreSeries</span><span class="p">(</span> <span class="n">Legendre_C</span><span class="o">.</span><span class="n">from_pointwiseXY_C</span><span class="p">(</span> <span class="n">xys1d</span><span class="o">.</span><span class="n">nf_pointwiseXY</span><span class="p">,</span> <span class="n">maxOrder</span> <span class="p">),</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span> <span class="p">)</span> <span class="p">)</span></div>
+</div>
 
-<div class="viewcode-block" id="Polynomial1d"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Polynomial1d">[docs]</a><span class="k">class</span> <span class="nc">Polynomial1d</span><span class="p">(</span> <span class="n">Series1d</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Polynomial1d">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Polynomial1d">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Polynomial1d</span><span class="p">(</span> <span class="n">Series1d</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class represent a polynomial with as a simple power series in the domain variable. This is, for the</span>
 <span class="sd">    function :math:`f(x)` the polynomial :math:`\sum_{i=0}^{\rm iMax} C_i \, x^i`.</span>
@@ -887,7 +975,7 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;polynomial1d&#39;</span>
     <span class="n">dimension</span> <span class="o">=</span> <span class="mi">1</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">,</span> <span class="n">domainMin</span><span class="p">,</span> <span class="n">domainMax</span><span class="p">,</span> <span class="n">lowerIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">,</span> <span class="n">domainMin</span><span class="p">,</span> <span class="n">domainMax</span><span class="p">,</span> <span class="n">lowerIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
             <span class="n">valueType</span> <span class="o">=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">ValueType</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        See method :py:func:`Series1d.__init__` for definition of arguments.</span>
@@ -896,20 +984,22 @@
         <span class="n">Series1d</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">,</span> <span class="n">domainMin</span><span class="p">,</span> <span class="n">domainMax</span><span class="p">,</span> <span class="n">lowerIndex</span> <span class="o">=</span> <span class="n">lowerIndex</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> 
                 <span class="n">valueType</span> <span class="o">=</span> <span class="n">valueType</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="n">outerDomainValue</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">label</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__findExtrema</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__findExtrema</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the list of domain values that are the roots of the polynomial.</span>
 
 <span class="sd">        :returns:   A python list of numbers that may be complex.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">numpy.polynomial.polynomial</span> <span class="kn">import</span> <span class="n">Polynomial</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">numpy.polynomial.polynomial</span><span class="w"> </span><span class="kn">import</span> <span class="n">Polynomial</span>
         <span class="n">p1</span> <span class="o">=</span> <span class="n">Polynomial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domainMin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainMax</span><span class="p">),</span>
             <span class="n">window</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">domainMin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainMax</span><span class="p">))</span>
         <span class="n">pprimeroots</span> <span class="o">=</span> <span class="n">p1</span><span class="o">.</span><span class="n">deriv</span><span class="p">()</span><span class="o">.</span><span class="n">roots</span><span class="p">()</span>
         <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">domainMin</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">pprimeroots</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">domainMax</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Polynomial1d.evaluate"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Polynomial1d.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">x</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="Polynomial1d.evaluate">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Polynomial1d.evaluate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">x</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the value of *self* evaluated at *x*.</span>
 
@@ -922,7 +1012,10 @@
         <span class="k">for</span> <span class="n">c_l</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span> <span class="p">)</span> <span class="p">:</span> <span class="n">P</span> <span class="o">=</span> <span class="n">c_l</span>  <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="n">P</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">P</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Polynomial1d.evaluateBasisFunction"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Polynomial1d.evaluateBasisFunction">[docs]</a>    <span class="k">def</span> <span class="nf">evaluateBasisFunction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Polynomial1d.evaluateBasisFunction">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Polynomial1d.evaluateBasisFunction">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluateBasisFunction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns that basis function evaluated at *x* which is :math:`x^i`.</span>
 
@@ -934,8 +1027,9 @@
 
         <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">i</span><span class="p">)</span></div>
 
+
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">rangeMin</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rangeMin</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the minimum range value for *self*.</span>
 
@@ -946,7 +1040,7 @@
         <span class="k">return</span> <span class="nb">min</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">extrema</span><span class="p">])</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">rangeMax</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rangeMax</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the maximum range value for *self*.</span>
 
@@ -956,7 +1050,9 @@
         <span class="n">extrema</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__findExtrema</span><span class="p">()</span>
         <span class="k">return</span> <span class="nb">max</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">extrema</span><span class="p">])</span>
 
-<div class="viewcode-block" id="Polynomial1d.fixDomains"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Polynomial1d.fixDomains">[docs]</a>    <span class="k">def</span> <span class="nf">fixDomains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMin</span><span class="p">,</span> <span class="n">domainMax</span><span class="p">,</span> <span class="n">fixToDomain</span><span class="p">):</span>
+<div class="viewcode-block" id="Polynomial1d.fixDomains">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Polynomial1d.fixDomains">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fixDomains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMin</span><span class="p">,</span> <span class="n">domainMax</span><span class="p">,</span> <span class="n">fixToDomain</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method sets the domain minimum and maximum per the arguments.</span>
 
@@ -983,7 +1079,10 @@
         <span class="k">if</span> <span class="n">OldDomainMin</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainMin</span> <span class="ow">and</span> <span class="n">OldDomainMax</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainMax</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="mi">1</span></div>
 
-<div class="viewcode-block" id="Polynomial1d.toLinearXYsClass"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Polynomial1d.toLinearXYsClass">[docs]</a>    <span class="k">def</span> <span class="nf">toLinearXYsClass</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Polynomial1d.toLinearXYsClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Polynomial1d.toLinearXYsClass">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toLinearXYsClass</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the class that is used to represent *self* as a 1d pointwise function, which is always :py:class:`XYs1dModule.XYs1d`.</span>
 
@@ -992,7 +1091,10 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Polynomial1d.toPointwiseLinear"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Polynomial1d.toPointwiseLinear">[docs]</a>    <span class="k">def</span> <span class="nf">toPointwiseLinear</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Polynomial1d.toPointwiseLinear">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Polynomial1d.toPointwiseLinear">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toPointwiseLinear</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a representation of *self* as an :py:class:`XYs1dModule.XYs1d` instance (i.e., a pointwise :math:`y(x)`).</span>
 <span class="sd">        The accuracy of the reconstruction is determined by kwargs[&#39;accuracy&#39;].  Currently, accuracy is not fully implemented.</span>
@@ -1017,7 +1119,10 @@
         <span class="n">P</span> <span class="o">=</span> <span class="n">Pclass</span><span class="p">(</span> <span class="n">P</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outerDomainValue</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">P</span><span class="o">.</span><span class="n">thin</span><span class="p">(</span> <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Polynomial1d.toPointwise_withLinearXYs"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.Polynomial1d.toPointwise_withLinearXYs">[docs]</a>    <span class="k">def</span> <span class="nf">toPointwise_withLinearXYs</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Polynomial1d.toPointwise_withLinearXYs">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.Polynomial1d.toPointwise_withLinearXYs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toPointwise_withLinearXYs</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the results of calling the method :py:func:`toPointwiseLinear`.</span>
 
@@ -1026,9 +1131,13 @@
 <span class="sd">        :returns:           An instance of :py:class:`XYs1dModule.XYs1d`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">toPointwiseLinear</span><span class="p">(</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">)</span></div></div>
+        <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">toPointwiseLinear</span><span class="p">(</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">)</span></div>
+</div>
 
-<div class="viewcode-block" id="LinearSpline1d"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LinearSpline1d">[docs]</a><span class="k">class</span> <span class="nc">LinearSpline1d</span><span class="p">(</span> <span class="n">Series1d</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="LinearSpline1d">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LinearSpline1d">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">LinearSpline1d</span><span class="p">(</span> <span class="n">Series1d</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class is a simple linear spline.  It basically wraps the XYs1d class.</span>
 <span class="sd">    Linear interpolation uses the linear spline or the &quot;hat&quot; basis.  The first basis function looks like this::</span>
@@ -1051,7 +1160,7 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;linearSpline1d&#39;</span>
     <span class="n">dimension</span> <span class="o">=</span> <span class="mi">1</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">valueType</span> <span class="o">=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">ValueType</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">valueType</span> <span class="o">=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">ValueType</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        See method :py:func:`Series1d.__init__` for definition of arguments.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1064,7 +1173,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">basis</span> <span class="o">=</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">)),</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">linlin</span><span class="p">)</span>
 
-<div class="viewcode-block" id="LinearSpline1d.evaluateBasisFunction"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LinearSpline1d.evaluateBasisFunction">[docs]</a>    <span class="k">def</span> <span class="nf">evaluateBasisFunction</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">i</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="LinearSpline1d.evaluateBasisFunction">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LinearSpline1d.evaluateBasisFunction">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluateBasisFunction</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">i</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the value of the basis function of order *i* evaluated at *x*.</span>
 
@@ -1079,7 +1190,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">basis</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">basis</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="LinearSpline1d.toLinearXYsClass"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LinearSpline1d.toLinearXYsClass">[docs]</a>    <span class="k">def</span> <span class="nf">toLinearXYsClass</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="LinearSpline1d.toLinearXYsClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LinearSpline1d.toLinearXYsClass">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toLinearXYsClass</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the class that is used to represent *self* as a 1d pointwise function, which is always :py:class:`XYs1dModule.XYs1d`.</span>
 
@@ -1088,7 +1202,10 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="LinearSpline1d.toPointwiseLinear"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LinearSpline1d.toPointwiseLinear">[docs]</a>    <span class="k">def</span> <span class="nf">toPointwiseLinear</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="LinearSpline1d.toPointwiseLinear">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LinearSpline1d.toPointwiseLinear">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toPointwiseLinear</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a representation of *self* as an :py:class:`XYs1dModule.XYs1d` instance (i.e., a pointwise :math:`y(x)`).</span>
 <span class="sd">        The accuracy of the reconstruction is determined by kwargs[&#39;accuracy&#39;].  </span>
@@ -1105,7 +1222,10 @@
 
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="LinearSpline1d.toPointwise_withLinearXYs"><a class="viewcode-back" href="../../xData/index.html#xData.series1d.LinearSpline1d.toPointwise_withLinearXYs">[docs]</a>    <span class="k">def</span> <span class="nf">toPointwise_withLinearXYs</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="LinearSpline1d.toPointwise_withLinearXYs">
+<a class="viewcode-back" href="../../xData/index.html#xData.series1d.LinearSpline1d.toPointwise_withLinearXYs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toPointwise_withLinearXYs</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the restuls of Calling :py:class:`toPointwiseLinear` method.</span>
 
@@ -1114,49 +1234,94 @@
 <span class="sd">        :returns:           An instance of :py:class:`XYs1dModule.XYs1d`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">toPointwiseLinear</span><span class="p">(</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">)</span></div></div>
+        <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">toPointwiseLinear</span><span class="p">(</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">)</span></div>
+</div>
+
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">xData.series1d</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>
