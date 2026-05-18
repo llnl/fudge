@@ -1,56 +1,42 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Particle properties &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../_static/gnd-20121206-favicon.ico"/>
+    <title>Particle properties &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Atomic" href="atomic.html" />
-    <link rel="prev" title="Particle groups" href="groups.html" /> 
+    <link rel="prev" title="Particle groups" href="groups.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="atomic.html" title="Atomic"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="groups.html" title="Particle groups"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Properties of Particles (PoPs)</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Particle properties</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <section id="particle-properties">
-<span id="quantities"></span><h1>Particle properties<a class="headerlink" href="#particle-properties" title="Permalink to this heading">¶</a></h1>
+<span id="quantities"></span><h1>Particle properties<a class="headerlink" href="#particle-properties" title="Link to this heading">¶</a></h1>
 <p>PoPs includes several classes for storing different types of physical quantities.
 These are all organized inside the PoPs.quantities module.</p>
 <p>Each particle property container derives from the base class called ‘quantity’.
@@ -61,16 +47,16 @@ make a list of possible assignments. Thus each quantity (like ‘mass’, ‘spi
 actually a suite of possible assignments. The first item in the suite should be the
 recommended value, as it will be used as the default unless another assignment is explicitly chosen.</p>
 <section id="module-PoPs.quantities.quantity">
-<span id="quantity"></span><h2>quantity<a class="headerlink" href="#module-PoPs.quantities.quantity" title="Permalink to this heading">¶</a></h2>
+<span id="quantity"></span><h2>quantity<a class="headerlink" href="#module-PoPs.quantities.quantity" title="Link to this heading">¶</a></h2>
 <p>Contains the abstract base class for storing a physical quantity (e.g., mass, spin or halflife).
 Also defines specific classes for various types of quantity, i.e. integer, float, fraction or string.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Double">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Double" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Double" title="Link to this definition">¶</a></dt>
 <dd><p>This class is used to represent a (physical) quantity whose value must be a float.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Double.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Double.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Double.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Double.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Double.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -85,7 +71,7 @@ Also defines specific classes for various types of quantity, i.e. integer, float
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Double.convertUnits">
-<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Double.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Double.convertUnits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Double.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Double.convertUnits" title="Link to this definition">¶</a></dt>
 <dd><p>See convertUnits documentation in PoPs.database</p>
 </dd></dl>
 
@@ -93,12 +79,12 @@ Also defines specific classes for various types of quantity, i.e. integer, float
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Fraction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">Fraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Fraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Fraction" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">Fraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Fraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Fraction" title="Link to this definition">¶</a></dt>
 <dd><p>This class is used to represent a (physical) quantity whose value must be a rational number
 (e.g., a fraction like 1/2, 3, 5/6).</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Fraction.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Fraction.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Fraction.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Fraction.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Fraction.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -115,23 +101,23 @@ Also defines specific classes for various types of quantity, i.e. integer, float
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Integer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">Integer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Integer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Integer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">Integer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Integer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Integer" title="Link to this definition">¶</a></dt>
 <dd><p>This class is used to represent a (physical) quantity whose value must be an integer.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Number">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">Number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Number" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">Number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Number" title="Link to this definition">¶</a></dt>
 <dd><p>This is an abstract base class for numberic quantities. This class adds the pqu and float methods.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Number.float">
-<span class="sig-name descname"><span class="pre">float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Number.float"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Number.float" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Number.float"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Number.float" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a float instance of self’s value in units of unit.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Number.pqu">
-<span class="sig-name descname"><span class="pre">pqu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Number.pqu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Number.pqu" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pqu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Number.pqu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Number.pqu" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a PQU instance of self’s value in units of unit. If unit is None, self’s unit is used.</p>
 </dd></dl>
 
@@ -139,18 +125,18 @@ Also defines specific classes for various types of quantity, i.e. integer, float
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.NumberSuite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">NumberSuite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#NumberSuite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.NumberSuite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">NumberSuite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#NumberSuite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.NumberSuite" title="Link to this definition">¶</a></dt>
 <dd><p>This is an abstract base class for a number suite. This class adds the pqu and float methods.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.NumberSuite.float">
-<span class="sig-name descname"><span class="pre">float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#NumberSuite.float"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.NumberSuite.float" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#NumberSuite.float"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.NumberSuite.float" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a float instance of self’s recommended value in units of unit.
 :param unit: desired unit (string)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.NumberSuite.pqu">
-<span class="sig-name descname"><span class="pre">pqu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#NumberSuite.pqu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.NumberSuite.pqu" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pqu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#NumberSuite.pqu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.NumberSuite.pqu" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a PQU instance of self’s recommended value in units of unit. If unit is None, self’s unit is used.
 :param unit: desired unit (string)</p>
 </dd></dl>
@@ -159,12 +145,12 @@ Also defines specific classes for various types of quantity, i.e. integer, float
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Quantity">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">Quantity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Quantity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Quantity" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">Quantity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Quantity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Quantity" title="Link to this definition">¶</a></dt>
 <dd><p>This class is used to represent a physical quantity (e.g., mass, spin or halflife).
 A quantity has required members label, value and unit and optional members documentation and uncertainty.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Quantity.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Quantity.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Quantity.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Quantity.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Quantity.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -179,19 +165,19 @@ A quantity has required members label, value and unit and optional members docum
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Quantity.__str__">
-<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Quantity.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Quantity.__str__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Quantity.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Quantity.__str__" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the xpath of <em>self</em>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Quantity.convertUnits">
-<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Quantity.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Quantity.convertUnits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Quantity.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Quantity.convertUnits" title="Link to this definition">¶</a></dt>
 <dd><p>See convertUnits documentation in PoPs.database</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Quantity.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Quantity.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Quantity.copy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Quantity.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Quantity.copy" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>deep copy of self</p>
@@ -201,7 +187,7 @@ A quantity has required members label, value and unit and optional members docum
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Quantity.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Quantity.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Quantity.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Quantity.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Quantity.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>This method must be overrwritten by the derived class.
 The overrwritten method must construct a class of instance <em>cls</em> using <em>node</em></p>
 <dl class="field-list simple">
@@ -218,7 +204,7 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Quantity.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Quantity.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Quantity.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Quantity.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Quantity.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>This methods must be overwritten by the derived class. It must return a Python list of strings that are the XML representation of <em>self</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -231,16 +217,16 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.String">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">String</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#String"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.String" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">String</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#String"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.String" title="Link to this definition">¶</a></dt>
 <dd><p>This is an abstract base class for string quantities.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.quantity.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Suite" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.quantities.quantity.Suite.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Suite.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/quantity.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.quantity.Suite.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -257,60 +243,60 @@ having the same key.</p></li>
 
 </section>
 <section id="module-PoPs.quantities.mass">
-<span id="mass"></span><h2>mass<a class="headerlink" href="#module-PoPs.quantities.mass" title="Permalink to this heading">¶</a></h2>
+<span id="mass"></span><h2>mass<a class="headerlink" href="#module-PoPs.quantities.mass" title="Link to this heading">¶</a></h2>
 <p>This module contains the mass classes.
 Particle masses are typically stored in units like ‘amu’, ‘MeV/c**2’ or possibly ‘kg’</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.mass.Double">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.mass.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/mass.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.mass.Double" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.mass.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/mass.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.mass.Double" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.mass.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.mass.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/mass.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.mass.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.mass.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/mass.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.mass.Suite" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </section>
 <section id="module-PoPs.quantities.charge">
-<span id="charge"></span><h2>charge<a class="headerlink" href="#module-PoPs.quantities.charge" title="Permalink to this heading">¶</a></h2>
+<span id="charge"></span><h2>charge<a class="headerlink" href="#module-PoPs.quantities.charge" title="Link to this heading">¶</a></h2>
 <p>This module contains the charge classes.
 Charge is typically given in units of the electron charge ‘e’.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.charge.Integer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.charge.</span></span><span class="sig-name descname"><span class="pre">Integer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/charge.html#Integer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.charge.Integer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.charge.</span></span><span class="sig-name descname"><span class="pre">Integer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/charge.html#Integer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.charge.Integer" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.charge.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.charge.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/charge.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.charge.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.charge.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/charge.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.charge.Suite" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </section>
 <section id="module-PoPs.quantities.spin">
-<span id="spin"></span><h2>spin<a class="headerlink" href="#module-PoPs.quantities.spin" title="Permalink to this heading">¶</a></h2>
+<span id="spin"></span><h2>spin<a class="headerlink" href="#module-PoPs.quantities.spin" title="Link to this heading">¶</a></h2>
 <p>This module contains the spin classes.
 Spins are typically stored in units of hbar.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.spin.Fraction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.spin.</span></span><span class="sig-name descname"><span class="pre">Fraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/spin.html#Fraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.spin.Fraction" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.spin.</span></span><span class="sig-name descname"><span class="pre">Fraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/spin.html#Fraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.spin.Fraction" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.spin.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.spin.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/spin.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.spin.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.spin.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/spin.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.spin.Suite" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </section>
 <section id="module-PoPs.quantities.parity">
-<span id="parity"></span><h2>parity<a class="headerlink" href="#module-PoPs.quantities.parity" title="Permalink to this heading">¶</a></h2>
+<span id="parity"></span><h2>parity<a class="headerlink" href="#module-PoPs.quantities.parity" title="Link to this heading">¶</a></h2>
 <p>This module contains the parity classes.
 Parity is unitless, and is stored as an integer: +1 for positive parity, -1 for negative.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.parity.Integer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.parity.</span></span><span class="sig-name descname"><span class="pre">Integer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/parity.html#Integer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.parity.Integer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.parity.</span></span><span class="sig-name descname"><span class="pre">Integer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/parity.html#Integer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.parity.Integer" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.quantities.parity.Integer.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/parity.html#Integer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.parity.Integer.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/parity.html#Integer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.parity.Integer.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -327,144 +313,152 @@ Parity is unitless, and is stored as an integer: +1 for positive parity, -1 for 
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.parity.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.parity.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/parity.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.parity.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.parity.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/parity.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.parity.Suite" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </section>
 <section id="module-PoPs.quantities.halflife">
-<span id="halflife"></span><h2>halflife<a class="headerlink" href="#module-PoPs.quantities.halflife" title="Permalink to this heading">¶</a></h2>
+<span id="halflife"></span><h2>halflife<a class="headerlink" href="#module-PoPs.quantities.halflife" title="Link to this heading">¶</a></h2>
 <p>This module contains the halflife classes.
 Halflife may be given as a value with units of time (i.e. ‘4.523 ms’),
 or as one of the strings ‘stable’ or ‘unstable’</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.halflife.Double">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.halflife.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/halflife.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.halflife.Double" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.halflife.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/halflife.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.halflife.Double" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.halflife.String">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.halflife.</span></span><span class="sig-name descname"><span class="pre">String</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/halflife.html#String"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.halflife.String" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.halflife.</span></span><span class="sig-name descname"><span class="pre">String</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/halflife.html#String"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.halflife.String" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.halflife.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.halflife.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/halflife.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.halflife.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.halflife.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/halflife.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.halflife.Suite" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </section>
 <section id="module-PoPs.quantities.nuclearEnergyLevel">
-<span id="nuclearenergylevel"></span><h2>nuclearEnergyLevel<a class="headerlink" href="#module-PoPs.quantities.nuclearEnergyLevel" title="Permalink to this heading">¶</a></h2>
+<span id="nuclearenergylevel"></span><h2>nuclearEnergyLevel<a class="headerlink" href="#module-PoPs.quantities.nuclearEnergyLevel" title="Link to this heading">¶</a></h2>
 <p>This module contains the nuclear energy level classes.
 Energy levels are typically given in units of eV.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.nuclearEnergyLevel.Double">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.nuclearEnergyLevel.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/nuclearEnergyLevel.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.nuclearEnergyLevel.Double" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.nuclearEnergyLevel.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/nuclearEnergyLevel.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.nuclearEnergyLevel.Double" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.nuclearEnergyLevel.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.nuclearEnergyLevel.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/nuclearEnergyLevel.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.nuclearEnergyLevel.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.nuclearEnergyLevel.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/nuclearEnergyLevel.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.nuclearEnergyLevel.Suite" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </section>
 <section id="module-PoPs.quantities.bindingEnergy">
-<span id="bindingenergy"></span><h2>bindingEnergy<a class="headerlink" href="#module-PoPs.quantities.bindingEnergy" title="Permalink to this heading">¶</a></h2>
+<span id="bindingenergy"></span><h2>bindingEnergy<a class="headerlink" href="#module-PoPs.quantities.bindingEnergy" title="Link to this heading">¶</a></h2>
 <p>This module contains the binding energy classes.
 Binding energy is typically stored in units of eV.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.bindingEnergy.Double">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.bindingEnergy.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/bindingEnergy.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.bindingEnergy.Double" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.bindingEnergy.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/quantities/bindingEnergy.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.bindingEnergy.Double" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.quantities.bindingEnergy.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.bindingEnergy.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/bindingEnergy.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.bindingEnergy.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.quantities.bindingEnergy.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/quantities/bindingEnergy.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.quantities.bindingEnergy.Suite" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </section>
 </section>
 
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-  <div>
-    <h3><a href="../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">Particle properties</a><ul>
-<li><a class="reference internal" href="#module-PoPs.quantities.quantity">quantity</a></li>
-<li><a class="reference internal" href="#module-PoPs.quantities.mass">mass</a></li>
-<li><a class="reference internal" href="#module-PoPs.quantities.charge">charge</a></li>
-<li><a class="reference internal" href="#module-PoPs.quantities.spin">spin</a></li>
-<li><a class="reference internal" href="#module-PoPs.quantities.parity">parity</a></li>
-<li><a class="reference internal" href="#module-PoPs.quantities.halflife">halflife</a></li>
-<li><a class="reference internal" href="#module-PoPs.quantities.nuclearEnergyLevel">nuclearEnergyLevel</a></li>
-<li><a class="reference internal" href="#module-PoPs.quantities.bindingEnergy">bindingEnergy</a></li>
-</ul>
-</li>
-</ul>
+<h1 class="logo"><a href="../index.html">Fudge and GNDS</a></h1>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="groups.html"
-                          title="previous chapter">Particle groups</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="atomic.html"
-                          title="next chapter">Atomic</a></p>
-  </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/PoPs/quantities.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Properties of Particles (PoPs)</a><ul>
+      <li>Previous: <a href="groups.html" title="previous chapter">Particle groups</a></li>
+      <li>Next: <a href="atomic.html" title="next chapter">Atomic</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="atomic.html" title="Atomic"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="groups.html" title="Particle groups"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Properties of Particles (PoPs)</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Particle properties</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/PoPs/quantities.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

@@ -144,6 +144,3 @@ class Contributors(suiteModule.Suite):
 
     def __init__(self):
         suiteModule.Suite.__init__(self, [Contributor])
-
-    def toXML(self, indent='', **kwargs):
-        return '\n'.join(self.toXML_strList(**kwargs))

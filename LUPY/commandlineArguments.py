@@ -11,7 +11,7 @@ and two functions for reading and writing data to the computerCodes member of a 
 """
 
 import argparse
-import os
+import getpass
 import socket
 
 import fudge
@@ -122,7 +122,7 @@ def commandLineArgumentsToDocumentation(codeName, commandLineArguments, document
     computerCode = computerCodeModule.ComputerCode(codeName, codeName, fudge.__version__)
     computerCode.executionArguments.body = ' '.join(commandLineArguments)
 
-    computerCode.note.body = f'Code {codeName} executed by {os.getlogin()} on platform {socket.gethostname()}.'
+    computerCode.note.body = f'Code {codeName} executed by {getpass.getuser()} on platform {socket.gethostname()}.'
 
     documentation.computerCodes.add(computerCode)
 

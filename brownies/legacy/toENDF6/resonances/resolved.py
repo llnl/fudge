@@ -27,7 +27,7 @@ def toENDF6(self, flags, targetInfo, verbosityIndent=''):
     """
 
     endf = []
-    AP = self.getScatteringRadius()
+    AP = self.hardSphereRadius or self.getScatteringRadius()
     if AP.isEnergyDependent():
         scatRadius = AP.evaluated
         NR, NP = 1, len(scatRadius)
@@ -295,8 +295,8 @@ def writeAsLRF3(RMatrix, flags, targetInfo, verbosityIndent=''):
     APLs = {}
     for sg in RMatrix.spinGroups:
         elasticChan, = [chan for chan in sg.channels if chan.resonanceReaction == elastic.label]
-        if elasticChan.scatteringRadius:
-            APL = elasticChan.scatteringRadius.getValueAs('10*fm')
+        if elasticChan.hardSphereRadius:
+            APL = elasticChan.hardSphereRadius.getValueAs('10*fm')
             if APL != AP: APLs[elasticChan.L] = APL
         J = float(sg.spin)
         if 'ignoreChannelSpin' not in targetInfo["ENDFconversionFlags"].get(RMatrix, ""):
@@ -320,7 +320,7 @@ def writeAsLRF3(RMatrix, flags, targetInfo, verbosityIndent=''):
     if APLs and 0 not in APLs:
         APLs[0] = AP
     LAD = int(RMatrix.supportsAngularReconstruction)
-    NLSC = 0
+    NLSC = RMatrix.LValuesNeededForAngularConvergence or 0
     conversionFlags = targetInfo['ENDFconversionFlags'].get(RMatrix, "")
     if 'LvaluesNeededForConvergence' in conversionFlags:
         NLSC = int(conversionFlags.split('LvaluesNeededForConvergence=')[1].split(',')[0])

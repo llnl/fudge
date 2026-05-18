@@ -819,10 +819,9 @@ class IndividualPlotOptions(QWidget):
 
         # rows of widgets for each individual plot
         self.widgetList = []
-        for i in range(len(self.axisHandle.lines)):
+        for i, (line, legendLabel) in enumerate(zip(*self.axisHandle.get_legend_handles_labels())):
             irow = i + 1
             # row variables
-            legendLabel = self.axisHandle.legend_.legendHandles[i].get_label()
             rowName = '%3.3d%s' % (i, legendLabel)
 
             # checkbox: toggle plot selection
@@ -836,30 +835,30 @@ class IndividualPlotOptions(QWidget):
             self.widgetList.append(widget)
 
             # dropdown list for plot line color selection
-            comboBox = self.addLineColorDropDown(rowName, self.axisHandle.lines[i].get_color(), availableColors)
+            comboBox = self.addLineColorDropDown(rowName, line.get_color(), availableColors)
             formLayout.addWidget(comboBox, irow, 2)
             self.widgetList.append(comboBox)
 
             # dropdown list for plot line style selection
-            comboBox = self.addDropDownList(self.xSizeLineStyle, rowName, self.axisHandle.lines[i].get_linestyle(),
+            comboBox = self.addDropDownList(self.xSizeLineStyle, rowName, line.get_linestyle(),
                                             self.lineStyleDictionary, self.changeLineStyle, irow, 'line stye')
             formLayout.addWidget(comboBox, irow, 3)
             self.widgetList.append(comboBox)
 
             # textbox for plot linewidth
-            textBox = self.addTextBox(self.xSizeLineWidth, rowName, '%.2f' % self.axisHandle.lines[i].get_linewidth(),
+            textBox = self.addTextBox(self.xSizeLineWidth, rowName, '%.2f' % line.get_linewidth(),
                                       self.changeLineWidth, setValidator=QDoubleValidator(0.0, 20.0, 3))
             formLayout.addWidget(textBox, irow, 4)
             self.widgetList.append(textBox)
 
             # dropdown list for marker style
-            comboBox = self.addDropDownList(self.xSizeLineStyle, rowName, self.axisHandle.lines[i].get_marker(),
+            comboBox = self.addDropDownList(self.xSizeLineStyle, rowName, line.get_marker(),
                                             self.markerStyleDictionary, self.changeMarkerStyle, irow, 'marker style')
             formLayout.addWidget(comboBox, irow, 5)
             self.widgetList.append(comboBox)
 
             # textbox for plot marker size
-            textBox = self.addTextBox(self.xSizeLineWidth, rowName, '%.2f' % self.axisHandle.lines[i].get_markersize(),
+            textBox = self.addTextBox(self.xSizeLineWidth, rowName, '%.2f' % line.get_markersize(),
                                       self.changeMarkerSize, setValidator=QDoubleValidator(0.0, 20.0, 3))
             formLayout.addWidget(textBox, irow, 6)
             self.widgetList.append(textBox)

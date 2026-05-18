@@ -1,59 +1,44 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.1. Cross sections &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../_static/gnd-20121206-favicon.ico"/>
+    <title>4.1. Cross sections &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.2. Resonances" href="resonances.html" />
-    <link rel="prev" title="4. Digging deeper in Fudge" href="diggingDeeper.html" /> 
+    <link rel="prev" title="4. Digging deeper in Fudge" href="diggingDeeper.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="resonances.html" title="4.2. Resonances"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="diggingDeeper.html" title="4. Digging deeper in Fudge"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >The Fudge Tutorial</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="diggingDeeper.html" accesskey="U"><span class="section-number">4. </span>Digging deeper in <code class="docutils literal notranslate"><span class="pre">Fudge</span></code></a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">4.1. </span>Cross sections</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <section id="cross-sections">
-<h1><span class="section-number">4.1. </span>Cross sections<a class="headerlink" href="#cross-sections" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">4.1. </span>Cross sections<a class="headerlink" href="#cross-sections" title="Link to this heading">¶</a></h1>
 <section id="types-of-cross-section-data">
-<h2><span class="section-number">4.1.1. </span>Types of cross section data<a class="headerlink" href="#types-of-cross-section-data" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">4.1.1. </span>Types of cross section data<a class="headerlink" href="#types-of-cross-section-data" title="Link to this heading">¶</a></h2>
 <p>Cross section data can be stored in several forms in GNDS. The simplest form is <em>XYs1d</em> with <em>lin-lin</em> interpolation,
 a single region using the same interpolation rule throughout.
 An ‘XYs1d’ cross-section may use any supported interpolation rule: <em>lin-lin</em>, <em>lin-log</em>, <em>log-lin</em>, <em>log-log</em>,
@@ -67,11 +52,11 @@ computed from resonance plus the tabulated ‘background’ cross section (which
 This type of data is stored in GNDS as a <em>resonancesWithBackground</em> cross-section form.</p>
 </section>
 <section id="plotting">
-<h2><span class="section-number">4.1.2. </span>Plotting<a class="headerlink" href="#plotting" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">4.1.2. </span>Plotting<a class="headerlink" href="#plotting" title="Link to this heading">¶</a></h2>
 <p>The plotting tools included with <code class="docutils literal notranslate"><span class="pre">Fudge</span></code> require that the cross section first be converted to a single, lin-lin interpolated region.
 This can be achieved using the ‘toPointwise_withLinearXYs()’ function. Thus, if you have a
 fudge.reactionData.crossSection.Form instance, you can plot it like this (assuming you have installed matplotlib):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span> <span class="o">=</span> <span class="n">crossSection</span><span class="o">.</span><span class="n">toPointwise_withLinearXYs</span><span class="p">()</span><span class="o">.</span><span class="n">copyDataToXsAndYs</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pyplot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)</span>
 </pre></div>
@@ -84,88 +69,102 @@ fudge.reactionData.crossSection.Form instance, you can plot it like this (assumi
 <p>See the next section for details on how to reconstruct resonances.</p>
 </section>
 <section id="integral-checks">
-<h2><span class="section-number">4.1.3. </span>Integral checks<a class="headerlink" href="#integral-checks" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">4.1.3. </span>Integral checks<a class="headerlink" href="#integral-checks" title="Link to this heading">¶</a></h2>
 <p>Not yet implemented.</p>
 </section>
 </section>
 
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-  <div>
-    <h3><a href="../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">4.1. Cross sections</a><ul>
-<li><a class="reference internal" href="#types-of-cross-section-data">4.1.1. Types of cross section data</a></li>
-<li><a class="reference internal" href="#plotting">4.1.2. Plotting</a></li>
-<li><a class="reference internal" href="#integral-checks">4.1.3. Integral checks</a></li>
-</ul>
-</li>
-</ul>
+<h1 class="logo"><a href="../index.html">Fudge and GNDS</a></h1>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="diggingDeeper.html"
-                          title="previous chapter"><span class="section-number">4. </span>Digging deeper in <code class="docutils literal notranslate"><span class="pre">Fudge</span></code></a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="resonances.html"
-                          title="next chapter"><span class="section-number">4.2. </span>Resonances</a></p>
-  </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/tutorial/crossSections.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">The Fudge Tutorial</a><ul>
+  <li><a href="diggingDeeper.html"><span class="section-number">4. </span>Digging deeper in <code class="docutils literal notranslate"><span class="pre">Fudge</span></code></a><ul>
+      <li>Previous: <a href="diggingDeeper.html" title="previous chapter"><span class="section-number">4. </span>Digging deeper in <code class="docutils literal notranslate"><span class="pre">Fudge</span></code></a></li>
+      <li>Next: <a href="resonances.html" title="next chapter"><span class="section-number">4.2. </span>Resonances</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="resonances.html" title="4.2. Resonances"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="diggingDeeper.html" title="4. Digging deeper in Fudge"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >The Fudge Tutorial</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="diggingDeeper.html" ><span class="section-number">4. </span>Digging deeper in <code class="docutils literal notranslate"><span class="pre">Fudge</span></code></a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">4.1. </span>Cross sections</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/tutorial/crossSections.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

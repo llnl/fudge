@@ -5,7 +5,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # <<END-copyright>>
 
-from xml.etree import cElementTree
+from xml.etree import ElementTree
 
 from PoPs import database as databaseModule
 from PoPs import alias as aliasModule
@@ -16,7 +16,7 @@ from PoPs.chemicalElements import chemicalElement as chemicalElementModule
 
 pops = databaseModule.Database( 'LLNL', '0.0.1' )
 
-element = cElementTree.parse( 'pops.xml' )
+element = ElementTree.parse( 'pops.xml' )
 element = element.getroot( )
 
 def aliases( element ) :
@@ -33,12 +33,12 @@ def gaugeBosons( element ) :
 def baryons( element ) :
 
     for child in element :
-        pops.add baryonModule.Particle.parseNodeUsingClass(child , [], [ ))
+        pops.add(baryonModule.Particle.parseNodeUsingClass(child , [], []))
  
 def chemicalElements( element ) :
 
     for child in element :
-        pops.add chemicalElementModule.Suite.parseNodeUsingClass(child, [], []))
+        pops.add(chemicalElementModule.Suite.parseNodeUsingClass(child, [], []))
  
 for child in element :
     if( child.tag == 'aliases' ) :

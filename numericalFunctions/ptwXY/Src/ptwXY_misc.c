@@ -242,7 +242,7 @@ static nfu_status ptwXY_applyFunctionZeroCrossing( statusMessageReporting *smr, 
 
     int i;
     double y, x1 = p1->x, x2 = p2->x, nY1 = p1->y, nY2 = p2->y, refY = 0.5 * ( fabs( p1->y ) + fabs( p2->y ) );
-    ptwXYPoint p;
+    ptwXYPoint p = { 0.5 * ( p1->x + p2->x ), 0.0 };
     nfu_status status;
 
     for( i = 0; i < 6; i++ ) {
@@ -342,4 +342,21 @@ void ptwXY_simpleWrite( ptwXYPoints *ptwXY, FILE *f, char const *format ) {
 void ptwXY_simplePrint( ptwXYPoints *ptwXY, char const *format ) {
 
     ptwXY_simpleWrite( ptwXY, stdout, format );
+}
+
+/*
+************************************************************
+*/
+nfu_status ptwXY_simpleSaveToFile( statusMessageReporting *smr, ptwXYPoints *ptwXY, char const *path, char const *format ) {
+
+    FILE *fOut = fopen( path, "w" );
+    if( fOut == NULL ) {
+        smr_setReportError2( smr, nfu_SMR_libraryID, nfu_Error, "Error opening file = '%s'.", path );
+        return( nfu_Error );
+    }
+
+    ptwXY_simpleWrite( ptwXY, fOut, format );
+    fclose( fOut );
+
+    return( nfu_Okay );
 }

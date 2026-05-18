@@ -1,59 +1,44 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>4.2. Resonances &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../_static/gnd-20121206-favicon.ico"/>
+    <title>4.2. Resonances &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4.3. Outgoing Distributions" href="outgoingDistributions.html" />
-    <link rel="prev" title="4.1. Cross sections" href="crossSections.html" /> 
+    <link rel="prev" title="4.1. Cross sections" href="crossSections.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="outgoingDistributions.html" title="4.3. Outgoing Distributions"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="crossSections.html" title="4.1. Cross sections"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >The Fudge Tutorial</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="diggingDeeper.html" accesskey="U"><span class="section-number">4. </span>Digging deeper in <code class="docutils literal notranslate"><span class="pre">Fudge</span></code></a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">4.2. </span>Resonances</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <section id="resonances">
-<h1><span class="section-number">4.2. </span>Resonances<a class="headerlink" href="#resonances" title="Permalink to this heading">¶</a></h1>
+<h1><span class="section-number">4.2. </span>Resonances<a class="headerlink" href="#resonances" title="Link to this heading">¶</a></h1>
 <section id="resolved">
-<h2><span class="section-number">4.2.1. </span>Resolved<a class="headerlink" href="#resolved" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">4.2.1. </span>Resolved<a class="headerlink" href="#resolved" title="Link to this heading">¶</a></h2>
 <p>In the resolved resonance region, each resonance is listed along with partial widths for the various open outgoing
 reaction channels. From these parameters, cross sections for each open channel can be reconstructed.</p>
 <dl class="simple">
@@ -68,7 +53,7 @@ this parameterization are present anymore in ENDF/B-VII.0 or later libraries. GN
 resonance parameters.</p>
 </section>
 <section id="unresolved">
-<h2><span class="section-number">4.2.2. </span>Unresolved<a class="headerlink" href="#unresolved" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">4.2.2. </span>Unresolved<a class="headerlink" href="#unresolved" title="Link to this heading">¶</a></h2>
 <p>In the unresolved resonance region, the density of available excited nuclear states increases and resonances begin to
 overlap. Here, average widths and level densities are given as a function of resonance L and J values for each energy
 interval. From these parameters, an average cross section for each open channel can be reconstructed.</p>
@@ -77,10 +62,10 @@ the Single-Level Breit Wigner approximation. GNDS always stores unresolved param
 widths and level spacings for each energy interval, for each combination of resonance L and J.</p>
 </section>
 <section id="resonance-reconstruction">
-<h2><span class="section-number">4.2.3. </span>Resonance reconstruction<a class="headerlink" href="#resonance-reconstruction" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">4.2.3. </span>Resonance reconstruction<a class="headerlink" href="#resonance-reconstruction" title="Link to this heading">¶</a></h2>
 <p>Resonance reconstruction in <code class="docutils literal notranslate"><span class="pre">Fudge</span></code> is simple: starting with a reactionSuite instance, we use the
 ‘reconstructResonances’ method. For example:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fudge</span> <span class="kn">import</span> <span class="n">reactionSuite</span><span class="p">,</span> <span class="n">styles</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">fudge</span><span class="w"> </span><span class="kn">import</span> <span class="n">reactionSuite</span><span class="p">,</span> <span class="n">styles</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">RS</span> <span class="o">=</span> <span class="n">reactionSuite</span><span class="o">.</span><span class="n">read</span><span class="p">(</span> <span class="s2">&quot;gnds_formatted_file.xml&quot;</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">evalStyle</span> <span class="o">=</span> <span class="n">RS</span><span class="o">.</span><span class="n">styles</span><span class="o">.</span><span class="n">getEvaluatedStyle</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reconStyle</span> <span class="o">=</span> <span class="n">styles</span><span class="o">.</span><span class="n">CrossSectionReconstructed</span><span class="p">(</span> <span class="s2">&quot;reconstructed&quot;</span><span class="p">,</span> <span class="n">derivedFrom</span><span class="o">=</span><span class="n">evalStyle</span><span class="o">.</span><span class="n">label</span> <span class="p">)</span>
@@ -103,7 +88,7 @@ that module uses numpy, multiprocessing, and also some compiled extensions, writ
 computationally intensive tasks.</p>
 </section>
 <section id="angular-distributions-from-resonances">
-<h2><span class="section-number">4.2.4. </span>Angular distributions from resonances<a class="headerlink" href="#angular-distributions-from-resonances" title="Permalink to this heading">¶</a></h2>
+<h2><span class="section-number">4.2.4. </span>Angular distributions from resonances<a class="headerlink" href="#angular-distributions-from-resonances" title="Link to this heading">¶</a></h2>
 <p>Modern resonance parameterizations can be used to describe not only the cross section as a function of incident
 energy, but also the outgoing angular distributions for products. For more detail, see section D.1.7.2 of the
 ENDF-6 manual (available at <a class="reference external" href="https://www.nndc.bnl.gov/csewg/docs/endf-manual.pdf">https://www.nndc.bnl.gov/csewg/docs/endf-manual.pdf</a>).</p>
@@ -113,83 +98,96 @@ see the <cite>examples/reconstructAngDists.py</cite> script for a demonstration.
 </section>
 
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-  <div>
-    <h3><a href="../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">4.2. Resonances</a><ul>
-<li><a class="reference internal" href="#resolved">4.2.1. Resolved</a></li>
-<li><a class="reference internal" href="#unresolved">4.2.2. Unresolved</a></li>
-<li><a class="reference internal" href="#resonance-reconstruction">4.2.3. Resonance reconstruction</a></li>
-<li><a class="reference internal" href="#angular-distributions-from-resonances">4.2.4. Angular distributions from resonances</a></li>
-</ul>
-</li>
-</ul>
+<h1 class="logo"><a href="../index.html">Fudge and GNDS</a></h1>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="crossSections.html"
-                          title="previous chapter"><span class="section-number">4.1. </span>Cross sections</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="outgoingDistributions.html"
-                          title="next chapter"><span class="section-number">4.3. </span>Outgoing Distributions</a></p>
-  </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/tutorial/resonances.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">The Fudge Tutorial</a><ul>
+  <li><a href="diggingDeeper.html"><span class="section-number">4. </span>Digging deeper in <code class="docutils literal notranslate"><span class="pre">Fudge</span></code></a><ul>
+      <li>Previous: <a href="crossSections.html" title="previous chapter"><span class="section-number">4.1. </span>Cross sections</a></li>
+      <li>Next: <a href="outgoingDistributions.html" title="next chapter"><span class="section-number">4.3. </span>Outgoing Distributions</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="outgoingDistributions.html" title="4.3. Outgoing Distributions"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="crossSections.html" title="4.1. Cross sections"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >The Fudge Tutorial</a> &#187;</li>
-          <li class="nav-item nav-item-2"><a href="diggingDeeper.html" ><span class="section-number">4. </span>Digging deeper in <code class="docutils literal notranslate"><span class="pre">Fudge</span></code></a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href=""><span class="section-number">4.2. </span>Resonances</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/tutorial/resonances.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

@@ -140,6 +140,10 @@ class Styles(ancestryModule.AncestryIO_base):
         self.__styles.append( _style )
         _style.setAncestor(self)
 
+    def keys(self):
+        """ Returns a list of all style labels. """
+        return [style.label for style in self]
+
     def chains( self, ends = False, _styles = None ) :
         """For self, determine the derived from chains for each style. If ends is True, trains which are a part of a longer train are removed from the list."""
 
@@ -166,23 +170,26 @@ class Styles(ancestryModule.AncestryIO_base):
                 if( style.label == label ) : return( chain )
         raise ValueError( 'No style with label = "%s" found.' % label )
 
-    def preProcessingHeadInChainWithLabel( self, label ) :
+    def preProcessingHeadInChainWithLabel(self, label, include_reconstructed=True):
         """
         Returns the pre-processing head of the chain containing the label *label*.
         """
 
         chain = self.chainWithLabel( label )
-        preProcessingStyles = self.preProcessingStyles( )
+        preProcessingStyles = self.preProcessingStyles(include_reconstructed)
         for style in chain :
             if( style.__class__ in preProcessingStyles ) : return( style )
         raise ValueError( 'No pre-processing style in chain with label = "%s" found.' % label )
 
-    def preProcessingOnly( self ) :
+    def preProcessingOnly(self, include_reconstructed=True) :
         """
         Returns True if self only contains pre-processed styles and False otherwise.
+
+        @param include_reconstructed: whether to count reconstructed resonances as pre-processed styles
+        @type include_reconstructed: bool
         """
 
-        preProcessingStyles = self.preProcessingStyles( )
+        preProcessingStyles = self.preProcessingStyles(include_reconstructed)
         clean = True                            # True means no processed data.
         for style in self :
             if( not( isinstance( style, preProcessingStyles ) ) ) :
@@ -219,23 +226,18 @@ class Styles(ancestryModule.AncestryIO_base):
                         return chain[0]
             raise Exception('No pre-processing chain containing label "%s" found.' % label)
 
-    def preProcessingChains( self, ends = True ) :
+    def preProcessingChains(self, ends=True):
         """
         Returns chains for each style that can be processed (i.e., Evaluated, CrossSectionReconstructed, 
         AngularDistributionReconstructed and Realization).
         """
 
-        preProcessingStyles = self.preProcessingStyles( )
+        preProcessingStyles = self.preProcessingStyles(include_reconstructed=True)
         preProcessingStyleInstances = []
         for style in self :
-            if( isinstance( style, preProcessingStyles ) ) : preProcessingStyleInstances.append( style )
+            if isinstance(style, preProcessingStyles): preProcessingStyleInstances.append(style)
 
-        return( self.chains( ends = ends, _styles = preProcessingStyleInstances ) )
-
-    def preProcessingStyles( self ) :
-        """Returns the list of style classes that can be processed. These are known as pre-processed styles."""
-
-        return( Evaluated, CrossSectionReconstructed, AngularDistributionReconstructed, Realization )
+        return self.chains(ends=ends, _styles=preProcessingStyleInstances)
 
     def projectileEnergyDomain(self):
         """
@@ -440,15 +442,23 @@ class Styles(ancestryModule.AncestryIO_base):
         xPath.pop()
 
     @staticmethod
-    def preProcessingStyles( ) :
-        """Returns the list of style classes that can be processed. These are known as pre-processed styles."""
+    def preProcessingStyles(include_reconstructed):
+        """
+        Returns the list of style classes that can be processed. These are known as pre-processed styles.
 
-        return( Evaluated, CrossSectionReconstructed, AngularDistributionReconstructed, Realization )
+        @param include_reconstructed: whether to include CrossSectionReconstructed and AngularDistributionReconstructed
+        @type include_reconstructed: bool
+        """
+
+        preprocessed_styles = [Evaluated, Realization]
+        if include_reconstructed:
+            preprocessed_styles += [CrossSectionReconstructed, AngularDistributionReconstructed]
+        return tuple(preprocessed_styles)
 
     @staticmethod
-    def heatedProcessedStyles( ) :
+    def heatedProcessedStyles():
 
-        return( Heated, GriddedCrossSection, URR_probabilityTables, HeatedMultiGroup, SnElasticUpScatter )
+        return (Heated, GriddedCrossSection, URR_probabilityTables, HeatedMultiGroup, SnElasticUpScatter)
 
 class Style(ancestryModule.AncestryIO, abc.ABC):
     """

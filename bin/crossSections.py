@@ -7,6 +7,7 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # <<END-copyright>>
 
+import sys
 import pathlib
 import shutil
 import argparse
@@ -52,10 +53,15 @@ protare = singleProtareArguments.protare(args, verbosity=args.verbose, lazyParsi
 if args.energyUnit != protare.domainUnit: protare.convertUnits({protare.domainUnit: args.energyUnit})
 protareLabel = '%s+%s' % (protare.projectile, protare.target)
 
+if protare.interaction == enumsModule.Interaction.TNSL:
+    if not args.processed:
+        print('For TNSL need to include "--processed" option as only processed cross sections at specific temperatures are defined.')
+        sys.exit()
+
 labelsToWrite = []
 if args.processed:
     for style in protare.styles:
-        if isinstance(style, (stylesModule.Heated, stylesModule.HeatedMultiGroup)):
+        if isinstance(style, (stylesModule.Heated, stylesModule.HeatedMultiGroup, stylesModule.CoulombPlusNuclearElasticMuCutoff)):
             labelsToWrite.append(style.label)
 
 outputDir = args.outputDir
@@ -175,17 +181,23 @@ if args.verbose > 0: print(protare.sourcePath)
 total = crossSectionModule.XYs1d(axes=crossSectionModule.defaultAxes(energyUnit=protare.domainUnit))
 for reactionCounter, reaction in enumerate(protare.reactions):
     if args.verbose > 1: print('    %s' % reaction)
-    crossSection = reaction.crossSection.toPointwise_withLinearXYs(lowerEps=1e-6, upperEps=1e-6)
-    if not crossSection.areDomainsMutual(total):
-        if args.verbose > 2: print('        Mutualifing domains.')
-        total, crossSection = total.mutualify(1e-6, -1e-6, True, crossSection, 1e-6, -1e-6, True)
-    crossSection.plotLabel = str(reaction)
-    crossSections.append(crossSection)
-    total = total + crossSection
-    if outputDir is not None:
-        outputLog.write('%5d  %3d  %s\n' % (reactionCounter, reaction.ENDF_MT, str(reaction)))
-        output(reaction.ENDF_MT, str(reaction), '%3.3d' % reactionCounter, crossSection, 'Cross section')
+    if protare.interaction != enumsModule.Interaction.TNSL:
+        try:
+            crossSection = reaction.crossSection.toPointwise_withLinearXYs(lowerEps=1e-6, upperEps=1e-6)
+        except:
+            print('WARNING: cross section lookup failed for reaction "%s".' % reaction)
+        else:
+            if not crossSection.areDomainsMutual(total):
+                if args.verbose > 2: print('        Mutualifing domains.')
+                total, crossSection = total.mutualify(1e-6, -1e-6, True, crossSection, 1e-6, -1e-6, True)
+            crossSection.plotLabel = str(reaction)
+            crossSections.append(crossSection)
+            total = total + crossSection
+            if outputDir is not None:
+                outputLog.write('%5d  %3d  %s\n' % (reactionCounter, reaction.ENDF_MT, str(reaction)))
+                output(reaction.ENDF_MT, str(reaction), '%3.3d' % reactionCounter, crossSection, 'Cross section')
 
+    if outputDir is not None:
         for labelToWrite in labelsToWrite:
             if labelToWrite in reaction.crossSection:
                 outputLabel(reaction.crossSection[labelToWrite], reaction.ENDF_MT, str(reaction), '%3.3d' % reactionCounter)

@@ -6,8 +6,6 @@
 # <<END-copyright>>
 
 # python to calculate the E_out energy bins in terms of E_in and mu
-from __future__ import print_function
-
 E0 = 2.5   # value of E_in at mu = 1
 E_out = 0.2
 m_e = 0.511  # electron rest mass

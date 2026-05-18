@@ -1,0 +1,69 @@
+[build-system]
+requires = ["setuptools", "versioningit", "wheel", "numpy>=1.15"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fudge"
+dynamic = ["version", "dependencies"]
+authors = [
+    {name = "Nuclear Data and Theory Group, LLNL", email = "mattoon1@llnl.gov"},
+]
+description = "FUDGE (For Updating Data and Generating Evaluations) is a Python library for managing, processing and visualizing nuclear data."
+readme = "README.md"
+requires-python = ">=3.7"
+license = {file = "LICENSE"}
+
+[tool.versioningit.tag2version]
+regex = "^(?P<prefix>fudge)(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)?$"
+
+[tool.versioningit.write]
+file = "fudge/fudgeVersion.py"
+
+[tool.setuptools]
+packages = [
+    "fudge",
+    "fudge.gnds",
+    "fudge.core",
+    "fudge.core.math",
+    "fudge.core.math.test",
+    "fudge.core.utilities",
+    "fudge",
+    "fudge.outputChannelData",
+    "fudge.outputChannelData.fissionFragmentData",
+    "fudge.covariances",
+    "fudge.covariances.test",
+    "fudge.productData",
+    "fudge.productData.distributions",
+    "fudge.productData.distributions.test",
+    "fudge.reactionData",
+    "fudge.reactionData.test",
+    "fudge.reactionData.doubleDifferentialCrossSection",
+    "fudge.reactionData.doubleDifferentialCrossSection.chargedParticleElastic",
+    "fudge.reactionData.doubleDifferentialCrossSection.photonScattering",
+    "fudge.reactionData.doubleDifferentialCrossSection.thermalNeutronScatteringLaw",
+    "fudge.reactions",
+    "fudge.resonances",
+    "fudge.processing",
+    "fudge.processing.deterministic",
+    "fudge.processing.montecarlo",
+    "fudge.processing.resonances",
+    "fudge.processing.resonances.test",
+    "fudge.vis",
+    "fudge.vis.gnuplot",
+    "fudge.vis.matplotlib",
+    "LUPY",
+    "isotopicAbundances",
+    "isotopicAbundances.bin"
+]
+package-dir = {"" = "."}
+
+[tool.setuptools.package-data]
+"fudge.legacy.endl.test" = ["testdb/ascii/yi01/za001001/y*", "testdb/ascii/yi01/za001001/*.txt", "testdb/ascii/yi01/za001001/*xml"]
+"fudge.processing.resonances.test" = ["*.py"]
+"fudge.legacy.endl" = ["bdfls"]
+"fudge" = ["gnds.xsd"]
+"fudge.covariances.test" = ["*.py"]
+
+[project.urls]
+"Homepage" = "http://nuclear.llnl.gov/fudge"
+"Repository" = "https://github.com/LLNL/fudge"

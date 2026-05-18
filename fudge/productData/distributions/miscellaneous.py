@@ -101,8 +101,14 @@ def energyAngularSpectrumFromCOMSpectrumToLabAtEnergy( self, energyIn, energySpe
     residualZA = projectileZA + targetZA - productZA
     residualMass = self.residualMass( reactionSuite.PoPs, residualZA, massUnit, compoundMass, product )
 
-    projectileSpeed = math.sqrt( 2.0 * energyIn / projectileMass )
-    COM_speed = projectileMass / ( projectileMass + targetMass ) * projectileSpeed      # Speed of the center-of-mass.
+    if productMass == 0.0:
+        raise Exception('Product "%s" is massless which is currently not supported.' % product.pid)
+
+    if projectileMass == 0.0:
+        COM_speed = energyIn / ( energyIn + targetMass )
+    else:
+        projectileSpeed = math.sqrt( 2.0 * energyIn / projectileMass )
+        COM_speed = projectileMass / ( projectileMass + targetMass ) * projectileSpeed      # Speed of the center-of-mass.
     productEnergyWithCOM_speed = 0.5 * productMass * COM_speed * COM_speed
 
     spectrum = energyAngularModule.XYs2d( axes = energyAngularModule.defaultAxes( energyUnit ), outerDomainValue = energyIn )

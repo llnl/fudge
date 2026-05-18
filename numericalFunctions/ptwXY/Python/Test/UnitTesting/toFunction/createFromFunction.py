@@ -20,7 +20,7 @@ if( 'CHECKOPTIONS' in os.environ ) :
 
 CPATH = '../../../../Test/UnitTesting/toFunction'
 
-os.system( 'cd %s; createFromFunction -v > v' % CPATH )
+os.system( 'cd %s; ./createFromFunction -v > v' % CPATH )
 f = open( os.path.join( CPATH, 'v' ) )
 ls = f.readlines( )
 f.close( )

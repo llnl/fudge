@@ -8,14 +8,12 @@
 */
 
 #include <stdlib.h>
-#include <math.h>
 #include <ctype.h>
 
 #include "nf_utilities.h"
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <float.h>
-#define isfinite _finite
 #endif
 
 #define numberOfStaticDoubles ( 100 * 1000 )

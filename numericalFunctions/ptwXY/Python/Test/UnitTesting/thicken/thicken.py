@@ -15,7 +15,7 @@ if( 'CHECKOPTIONS' in os.environ ) :
 
 CPATH = '../../../../Test/UnitTesting/thicken'
 
-os.system( 'cd %s; thicken -v > v' % CPATH )
+os.system( 'cd %s; ./thicken -v > v' % CPATH )
 f = open( os.path.join( CPATH, 'v' ) )
 ls = f.readlines( )
 f.close( )

@@ -425,7 +425,7 @@ class Regions( baseModule.XDataFunctional ) :
             regions.integrate( energy_in = ('1e-5 eV', '10 eV'), energy_out = ('1 keV', '10 keV') )
 
         :param limits: dictionary containing limits for each independent axis (keyed by axis label or index).
-        If an independent axis is missing from the dictionary, integrate over the entire domain of that axis.
+                       If an independent axis is missing from the dictionary, integrate over the entire domain of that axis.
 
         :return: float
         """
@@ -564,6 +564,22 @@ class Regions1d( Regions ) :
         return( _regions1d )
 
     __rmul__ = __mul__
+
+    def asXYs1d(self, asLinLin, accuracy, lowerEps, upperEps, biSectionMax=16):
+        """
+        This method returns a representation of the data in *self* as an :py:class:`XYs1dModule.XYs1d` instance.
+
+        :param asLinLin:    If **True**, the data have lin-lin interpolation.
+        :param accuracy:    Used to determine the accuracy if converting data to lin-lin interpolated data.
+        :param lowerEps:    Used to dull the lower point between two regions.
+        :param upperEps:    Used to dull the upper point between two regions.
+
+        :returns:           A :py:class:`XYs1dModule.XYs1d` instance.
+        """
+
+        xys1d = self.toPointwiseLinear(accuracy=accuracy, lowerEps=lowerEps, upperEps=upperEps)
+
+        return xys1d
 
     def copyToCommonRegions(self, other, epsilon = domainEpsilon):
         """
@@ -738,16 +754,17 @@ class Regions1d( Regions ) :
         """
         This method converts the regions of *self* into a single :py:class:`XYs1dModule.XYs1d` instance that has 'lin-lin' interpolation. At the
         boundary between two abutting regions, the x-values are the same, which is not allowed for an :py:class:`XYs1dModule.XYs1d` instance
-        so some points may be added or removed as speicfied by data in the argument *kwargs* as described in the following:
+        so some points may be added or removed as specified by data in the argument *kwargs* as described in the following:
 
-            -) accuracy:    This controls how many points are added when switching interpolation.
-            -) lowerEps and upperEps: These arguments are used to smear the x-values at a boundary as follows. Let :math:`(x, y_l)` and
-                            :math:`(x, y_u)` be the abutting points for two abutting regions. If :math:`y_l = y_u` then the 
-                            point :math:`(x, y_u)` is removed.  Otherwise, if( lowerEps > 0 ) the point :math:`(x, y_l)` is 
-                            moved to :math:`x' = x * ( 1 - lowerEps )` (or :math:`x' = x * ( 1 + lowerEps )` if :math:`x < 0`) 
-                            and the :math:`y` value is interpolated at :math:`x'`. If :math:`x'` is less than the x-value of the point 
-                            below :math:`(x', y_l)` and ``removeOverAdjustedPoints`` is True then the point :math:`(x, y_l)` is removed; 
-                            otherwise, a raise is executed. Similarly for upperEps and the point :math:`(x, y_u)`.
+            - accuracy:    This controls how many points are added when switching interpolation.
+            - lowerEps:    Along with 'upperEps', used to smear the x-values at a boundary as follows. Let :math:`(x, y_l)`
+                           and :math:`(x, y_u)` be the abutting points for two abutting regions. If :math:`y_l = y_u` then the 
+                           point :math:`(x, y_u)` is removed.  Otherwise, if( lowerEps > 0 ) the point :math:`(x, y_l)` is 
+                           moved to :math:`x' = x * ( 1 - lowerEps )` (or :math:`x' = x * ( 1 + lowerEps )` if :math:`x < 0`) 
+                           and the :math:`y` value is interpolated at :math:`x'`. If :math:`x'` is less than the x-value of the point 
+                           below :math:`(x', y_l)` and ``removeOverAdjustedPoints`` is True then the point :math:`(x, y_l)` is removed; 
+                           otherwise, a raise is executed. Similarly for upperEps and the point :math:`(x, y_u)`.
+            - upperEps:    See description of lowerEps above.
 
         :param kwargs:      A dictionary of data needed by *self*.
 

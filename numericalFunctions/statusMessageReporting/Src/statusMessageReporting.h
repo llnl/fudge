@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-#ifdef WIN32
+#ifdef _WIN32
 #define __func__ __FUNCTION__
 #endif
 

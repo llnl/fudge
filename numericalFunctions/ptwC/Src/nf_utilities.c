@@ -9,15 +9,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 #include "nf_utilities.h"
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <float.h>
-#define isnan(a) _isnan(a)
-#define INFINITY (DBL_MAX+DBL_MAX)
-#define NAN (INFINITY-INFINITY)
 #endif
 
 static const char Okay_message[] = "all is okay";

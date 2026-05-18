@@ -115,7 +115,8 @@ def protareProductInfo2(protare, indent, format=Formats.v1_0):
                     if crossSection.uncertainty.data is not None:
                         hasCovariance = 'covariance'
 
-        lines.append('%s%-32s: %-12s : %-10s : %s : %s : %s' % (indent, label, effectiveThreshold, intermediate, 
+# All outputted ':' must be surrounded by spaces (i.e., ' : ') for parsing as some RIS files contain the process "ENDL:S2". This requirement was added 20/Aug/2025.
+        lines.append('%s%-31s : %-12s : %-10s : %s : %s : %s' % (indent, label, effectiveThreshold, intermediate, 
                 fmtProcess % process, fmtLabel % reaction.label, hasCovariance))
 
     return lines

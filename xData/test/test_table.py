@@ -6,7 +6,7 @@
 # <<END-copyright>>
 
 import unittest
-from xml.etree import cElementTree as parser
+from xml.etree import ElementTree as parser
 
 from xData import table as tableModule
 

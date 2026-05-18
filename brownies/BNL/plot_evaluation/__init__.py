@@ -310,12 +310,6 @@ def getEXFORSets(sym, A, metastable, reaction=None, quantity="SIG", nox4evals=Tr
         print('WARNING: x4i not successfully imported (check your PYTHONPATH?), so EXFOR data not plotted')
         return exforData
 
-    def barnsConverter(x):
-        if x == 'barns':
-            return 'b'
-        else:
-            return x
-
     db = exfor_manager.X4DBManagerPlainFS()
     i = 0
     M = ""
@@ -357,30 +351,24 @@ def getEXFORSets(sym, A, metastable, reaction=None, quantity="SIG", nox4evals=Tr
             legend = ds[d].legend()
             if verbose:
                 print('       ', d, legend)
-            dat = []
-            unc = []
-            for line in ds[d].data:
-                if len(line) != 4:
-                    continue
-                if line[0] is None or line[1] is None:
-                    continue
-                dx = 0.0
-                dy = 0.0
-                if line[2] is not None:
-                    dx = line[2]
-                if line[3] is not None:
-                    dy = line[3]
-                dat.append([line[0], line[1]])
-                unc.append([dx, dy])
-                if None in unc[-1]:
-                    unc[-1][unc[-1].index(None)] = 0.0
-            if len(dat) > 0:
+            if 'Energy' in ds[d].data and 'Data' in ds[d].data:
+                dat = ds[d].data[['Energy', 'Data']].pint.dequantify().values.tolist()
+                try:
+                    unc = ds[d].data[['d(Energy)', 'd(Data)']].pint.dequantify().values.tolist()
+                except KeyError as err:  # There was a problem getting uncertainties, so skip it
+                    unc = None
+                xUnit = str(ds[d].data['Energy'].pint.units)
+                yUnit = str(ds[d].data['Data'].pint.units)
+                if yUnit == 'b/sr':
+                    yUnit='b'  # newish strange choice in EXFOR management
                 if e.startswith('V') or not suppressEXFORLegend:
                     theLegend = legend + ' (' + str(d[0]) + '.' + str(d[1][-3:]) + ')'
                 else:
                     theLegend = '_noLegend_'
                 exforData.append(
-                    DataSet2d(data=dat, uncertainty=unc, xUnit=ds[d].units[0], yUnit=barnsConverter(ds[d].units[1]),
+                    DataSet2d(data=dat, uncertainty=unc, 
+                              xUnit=xUnit, 
+                              yUnit=yUnit,
                               legend=theLegend, lineStyle=' ', symbol=plotstyles.getPlotSymbol(i),
                               color=plotstyles.getPlotColor(theLegend, False)))
                 i += 1
@@ -913,6 +901,7 @@ def makeMultiplicityPlot(gndsMap=None, xyData=None, xydyData=None, xdxydyData=No
                          figsize=(20, 10),
                          outFile=None, plotStyle=None, useBokeh=False):
     import collections
+    from fudge.outputChannelData.fissionFragmentData import delayedNeutron
 
     # Defaults
     if gndsMap is None:
@@ -949,16 +938,18 @@ def makeMultiplicityPlot(gndsMap=None, xyData=None, xydyData=None, xdxydyData=No
         reactionSuite, covarianceSuite = gndsMap[endf]
 
         # Extract the data from the endf file & give the data rational names (esp. for nubar)
-        thisChannel = getReactions(reactionSuite, mt)[0].outputChannel
+        thisReaction = getReactions(reactionSuite, mt)[0]
+        thisChannel = thisReaction.outputChannel
         products = collections.OrderedDict()
         delayedTimeGroupIndex = 0
         for p in thisChannel.getProductsWithName(product):
-            if thisChannel.isFission():
-                if p.attributes['emissionMode'] == 'prompt':
-                    label = 'prompt'
-                else:
-                    label = 'delayed[timegroup #%i (%s)]' % (delayedTimeGroupIndex, p.attributes['decayRate'])
+            if thisReaction.isFission():
+                if isinstance(p, delayedNeutron.Product):
+                    rate = p.findAttributeInAncestry("rate")[evaluationStyle].float('1/s')
+                    label = 'delayed[timegroup #%i (%s)]' % (delayedTimeGroupIndex, rate)
                     delayedTimeGroupIndex += 1
+                else:
+                    label = 'prompt'
             else:
                 label = p.label
             products[label] = p.multiplicity.evaluated.toPointwise_withLinearXYs()
@@ -968,7 +959,7 @@ def makeMultiplicityPlot(gndsMap=None, xyData=None, xydyData=None, xdxydyData=No
 
         # The ENDF data to plot
         totalLegend = endf  # thisSetStyle['legend']
-        if thisChannel.isFission():
+        if thisReaction.isFission():
             totalLegend += ' (total nubar)'
         endfData.append(
             DataSet2d(
@@ -1298,8 +1289,8 @@ def makeAngDistMubarPlot(gndsMap={}, xyData={}, xydyData={}, xdxydyData={},
                      xdxydyData=xdxydyData,
                      plotStyle=plotStyle,
                      suggestTitle=getSuggestTitle(target, projectile, reactionName, mt),
-                     suggestXLog=(mt in [1, 2, 18, 102] + range(501, 574)),
-                     suggestYLog=(mt in [1, 2, 18, 102] + range(501, 574)),
+                     suggestXLog=(mt in [1, 2, 18, 102] + list(range(501, 574))),
+                     suggestYLog=(mt in [1, 2, 18, 102] + list(range(501, 574))),
                      suggestFrame=suggestFrame,
                      figsize=figsize,
                      useBokeh=useBokeh)

@@ -1,58 +1,56 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PoPs.misc &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
-    
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../_static/gnd-20121206-favicon.ico"/>
+    <title>PoPs.misc &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">PoPs.misc</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for PoPs.misc</h1><div class="highlight"><pre>
 <span></span><span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Define some helper methods and some base classes. These are mostly meant for internal use by the PoPs module.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
 
 <span class="n">maxLength</span> <span class="o">=</span> <span class="mi">32</span>
 <span class="n">antiSuffix</span> <span class="o">=</span> <span class="s1">&#39;_anti&#39;</span>
 
-<div class="viewcode-block" id="toLimitedString"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.toLimitedString">[docs]</a><span class="k">def</span> <span class="nf">toLimitedString</span><span class="p">(</span> <span class="nb">object</span><span class="p">,</span> <span class="n">maxLength</span> <span class="o">=</span> <span class="n">maxLength</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="toLimitedString">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.toLimitedString">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">toLimitedString</span><span class="p">(</span> <span class="nb">object</span><span class="p">,</span> <span class="n">maxLength</span> <span class="o">=</span> <span class="n">maxLength</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a str instance of object that is truncated to no more than 32 characters.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -61,9 +59,12 @@
     <span class="k">if</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span> <span class="n">string</span> <span class="p">)</span> <span class="o">&lt;=</span> <span class="n">maxLength</span> <span class="p">)</span> <span class="p">:</span> <span class="k">return</span><span class="p">(</span> <span class="n">string</span> <span class="p">)</span>
     <span class="k">return</span><span class="p">(</span> <span class="n">string</span><span class="p">[:</span><span class="n">maxLength</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; ...&#39;</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="parseParticleList"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.parseParticleList">[docs]</a><span class="k">def</span> <span class="nf">parseParticleList</span><span class="p">(</span><span class="n">particleList</span><span class="p">):</span>
+
+<div class="viewcode-block" id="parseParticleList">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.parseParticleList">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">parseParticleList</span><span class="p">(</span><span class="n">particleList</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Breaks a particle list where each particle id can have a leading integer multiplicity into an equivalen list of </span>
+<span class="sd">    Breaks a particle list where each particle id can have a leading integer multiplicity into an equivalent list of </span>
 <span class="sd">    particle ids.  That is, each particle in *particleList* to be of the form &quot;id&quot; or &quot;#id&quot; where &quot;#&quot; is an integer.</span>
 <span class="sd">    Examples of the form &quot;#id&quot; include &quot;2n&quot; and &quot;3n&quot;. For example, the paticle list [&quot;2n&quot;, &quot;Pu238&quot;] is returned as [&quot;n&quot;, &quot;n&quot;, &quot;Pu238&quot;].</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -80,7 +81,8 @@
     <span class="k">return</span> <span class="n">particles</span></div>
 
 
-<span class="k">def</span> <span class="nf">baseAntiQualifierFromID</span><span class="p">(</span> <span class="nb">id</span><span class="p">,</span> <span class="n">qualifierAllowed</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">baseAntiQualifierFromID</span><span class="p">(</span> <span class="nb">id</span><span class="p">,</span> <span class="n">qualifierAllowed</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
 
     <span class="k">if</span><span class="p">(</span> <span class="ow">not</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="nb">id</span><span class="p">,</span> <span class="nb">str</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span> <span class="s1">&#39;id is not a str: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span> <span class="nb">id</span> <span class="p">)</span> <span class="p">)</span>
     <span class="n">anti</span><span class="p">,</span> <span class="n">qualifier</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span>
@@ -100,7 +102,9 @@
 
     <span class="k">return</span><span class="p">(</span> <span class="n">base</span><span class="p">,</span> <span class="n">anti</span><span class="p">,</span> <span class="n">qualifier</span> <span class="p">)</span>
 
-<div class="viewcode-block" id="baseAntiFromID"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.baseAntiFromID">[docs]</a><span class="k">def</span> <span class="nf">baseAntiFromID</span><span class="p">(</span> <span class="nb">id</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="baseAntiFromID">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.baseAntiFromID">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">baseAntiFromID</span><span class="p">(</span> <span class="nb">id</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This function returns the base and anti parts of a PoPs GNDS id for *pid*.</span>
 
@@ -113,7 +117,10 @@
 
     <span class="k">return</span><span class="p">(</span> <span class="n">base</span><span class="p">,</span> <span class="n">anti</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="idWithQualifierRemoved"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.idWithQualifierRemoved">[docs]</a><span class="k">def</span> <span class="nf">idWithQualifierRemoved</span><span class="p">(</span><span class="n">pid</span><span class="p">):</span>
+
+<div class="viewcode-block" id="idWithQualifierRemoved">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.idWithQualifierRemoved">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">idWithQualifierRemoved</span><span class="p">(</span><span class="n">pid</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This function returns the PoPs GNDS id for *pid* with the qualifer part removed.</span>
 
@@ -126,18 +133,19 @@
 
     <span class="k">return</span> <span class="n">base</span> <span class="o">+</span> <span class="n">anti</span></div>
 
-<span class="k">def</span> <span class="nf">buildParticleFromRawData</span><span class="p">(</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">ID</span><span class="p">,</span> <span class="n">mass</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">spin</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">parity</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">charge</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">halflife</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">buildParticleFromRawData</span><span class="p">(</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">ID</span><span class="p">,</span> <span class="n">mass</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">spin</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">parity</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">charge</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">halflife</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">nucleus</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">energy</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">generation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span> <span class="p">)</span> <span class="p">:</span>
 
-    <span class="kn">from</span> <span class="nn">.quantities</span> <span class="kn">import</span> <span class="n">quantity</span> <span class="k">as</span> <span class="n">quantityModule</span>
-    <span class="kn">from</span> <span class="nn">.quantities</span> <span class="kn">import</span> <span class="n">charge</span> <span class="k">as</span> <span class="n">chargeModule</span>
-    <span class="kn">from</span> <span class="nn">.quantities</span> <span class="kn">import</span> <span class="n">nuclearEnergyLevel</span> <span class="k">as</span> <span class="n">nuclearEnergyLevelModule</span>
-    <span class="kn">from</span> <span class="nn">.families</span> <span class="kn">import</span> <span class="n">particle</span> <span class="k">as</span> <span class="n">particleModule</span>
-    <span class="kn">from</span> <span class="nn">.families</span> <span class="kn">import</span> <span class="n">lepton</span> <span class="k">as</span> <span class="n">leptonModule</span>
-    <span class="kn">from</span> <span class="nn">.families</span> <span class="kn">import</span> <span class="n">nucleus</span> <span class="k">as</span> <span class="n">nucleusModule</span>
-    <span class="kn">from</span> <span class="nn">.families</span> <span class="kn">import</span> <span class="n">nuclide</span> <span class="k">as</span> <span class="n">nuclideModule</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.quantities</span><span class="w"> </span><span class="kn">import</span> <span class="n">quantity</span> <span class="k">as</span> <span class="n">quantityModule</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.quantities</span><span class="w"> </span><span class="kn">import</span> <span class="n">charge</span> <span class="k">as</span> <span class="n">chargeModule</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.quantities</span><span class="w"> </span><span class="kn">import</span> <span class="n">nuclearEnergyLevel</span> <span class="k">as</span> <span class="n">nuclearEnergyLevelModule</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.families</span><span class="w"> </span><span class="kn">import</span> <span class="n">particle</span> <span class="k">as</span> <span class="n">particleModule</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.families</span><span class="w"> </span><span class="kn">import</span> <span class="n">lepton</span> <span class="k">as</span> <span class="n">leptonModule</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.families</span><span class="w"> </span><span class="kn">import</span> <span class="n">nucleus</span> <span class="k">as</span> <span class="n">nucleusModule</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">.families</span><span class="w"> </span><span class="kn">import</span> <span class="n">nuclide</span> <span class="k">as</span> <span class="n">nuclideModule</span>
 
-    <span class="k">def</span> <span class="nf">getUnit</span><span class="p">(</span> <span class="n">unit</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getUnit</span><span class="p">(</span> <span class="n">unit</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">if</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">unit</span><span class="p">,</span> <span class="nb">str</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="n">unit</span> <span class="o">=</span> <span class="n">quantityModule</span><span class="o">.</span><span class="n">stringToPhysicalUnit</span><span class="p">(</span> <span class="n">unit</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">unit</span> <span class="p">)</span>
@@ -165,21 +173,33 @@
 
     <span class="k">return</span><span class="p">(</span> <span class="n">particle</span> <span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">returnAntiParticleIDFromId</span><span class="p">(</span> <span class="n">particleID</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="returnAntiParticleIDFromId">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.returnAntiParticleIDFromId">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">returnAntiParticleIDFromId</span><span class="p">(</span><span class="n">particleID</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function returns the anti particle id of **particleID**. Note, if **particleID** is the id of an anti particle, </span>
+<span class="sd">    then the particle id is returned. For example, if **particleID** is &#39;O16&#39;, &#39;O16_anti&#39; is returned, but if </span>
+<span class="sd">    **particleID** is &#39;O16_anti then &#39;O16&#39; is returned&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">n1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span> <span class="n">antiSuffix</span> <span class="p">)</span>
-    <span class="k">if</span><span class="p">(</span> <span class="n">particleID</span><span class="p">[</span><span class="o">-</span><span class="n">n1</span><span class="p">:]</span> <span class="o">==</span> <span class="n">antiSuffix</span> <span class="p">)</span> <span class="p">:</span> <span class="k">return</span><span class="p">(</span> <span class="n">particleID</span><span class="p">[</span><span class="o">-</span><span class="n">n1</span><span class="p">:]</span> <span class="p">)</span>
-    <span class="k">return</span><span class="p">(</span> <span class="n">particleID</span> <span class="o">+</span> <span class="n">antiSuffix</span> <span class="p">)</span>
+    <span class="n">n1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">antiSuffix</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">particleID</span><span class="p">[</span><span class="o">-</span><span class="n">n1</span><span class="p">:]</span> <span class="o">==</span> <span class="n">antiSuffix</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">particleID</span><span class="p">[</span><span class="o">-</span><span class="n">n1</span><span class="p">:]</span>
 
-<span class="k">def</span> <span class="nf">returnAntiParticleID</span><span class="p">(</span> <span class="n">particle</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">return</span> <span class="n">particleID</span> <span class="o">+</span> <span class="n">antiSuffix</span></div>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">returnAntiParticleID</span><span class="p">(</span> <span class="n">particle</span> <span class="p">)</span> <span class="p">:</span>
 
     <span class="k">return</span><span class="p">(</span> <span class="n">returnAntiParticleIDFromId</span><span class="p">(</span> <span class="n">particle</span><span class="o">.</span><span class="n">ID</span> <span class="p">)</span> <span class="p">)</span>
 
-<div class="viewcode-block" id="ClassWithIDKey"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.ClassWithIDKey">[docs]</a><span class="k">class</span> <span class="nc">ClassWithIDKey</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>   <span class="c1"># FIXME should classes below all be declared abstract?</span>
+<div class="viewcode-block" id="ClassWithIDKey">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.ClassWithIDKey">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ClassWithIDKey</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>   <span class="c1"># FIXME should classes below all be declared abstract?</span>
 
     <span class="n">__keyName</span> <span class="o">=</span> <span class="s1">&#39;id&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="nb">id</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="nb">id</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
@@ -187,28 +207,28 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__id</span> <span class="o">=</span> <span class="nb">id</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__id</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">key</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__id</span> <span class="p">)</span>
 
     <span class="nd">@key</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">key</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">if</span><span class="p">(</span> <span class="ow">not</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="nb">str</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span> <span class="s1">&#39;id must be a string instance.&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__id</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">keyName</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keyName</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__keyName</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">keyValue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keyValue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns self&#39;s keyValue. If keyName is *None*, then *None* is returned.&#39;&#39;&#39;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">keyName</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -216,11 +236,14 @@
 
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">keyName</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClassWithSymbolKey"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.ClassWithSymbolKey">[docs]</a><span class="k">class</span> <span class="nc">ClassWithSymbolKey</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ClassWithSymbolKey">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.ClassWithSymbolKey">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ClassWithSymbolKey</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
 
     <span class="n">__keyName</span> <span class="o">=</span> <span class="s1">&#39;symbol&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
@@ -228,31 +251,34 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__symbol</span> <span class="o">=</span> <span class="n">symbol</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">symbol</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">symbol</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__symbol</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">key</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__symbol</span> <span class="p">)</span>
 
     <span class="nd">@key</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">key</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">if</span><span class="p">(</span> <span class="ow">not</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="nb">str</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span> <span class="s1">&#39;symbol must be a string instance.&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__symbol</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">keyName</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keyName</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__keyName</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClassWithLabelKey"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.ClassWithLabelKey">[docs]</a><span class="k">class</span> <span class="nc">ClassWithLabelKey</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ClassWithLabelKey">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.ClassWithLabelKey">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ClassWithLabelKey</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
 
     <span class="n">__keyName</span> <span class="o">=</span> <span class="s1">&#39;label&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">label</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">label</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
@@ -260,36 +286,39 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__label</span> <span class="o">=</span> <span class="n">label</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
     
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__label</span> <span class="p">)</span>
 
     <span class="nd">@label</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">key</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
     
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__label</span> <span class="p">)</span>
         
     <span class="nd">@key</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">key</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">if</span><span class="p">(</span> <span class="ow">not</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="nb">str</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span> <span class="s1">&#39;label must be a string instance.&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__label</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">keyName</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keyName</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__keyName</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClassWithIndexKey"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.ClassWithIndexKey">[docs]</a><span class="k">class</span> <span class="nc">ClassWithIndexKey</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ClassWithIndexKey">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.ClassWithIndexKey">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ClassWithIndexKey</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
 
     <span class="n">__keyName</span> <span class="o">=</span> <span class="s1">&#39;index&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
@@ -297,31 +326,34 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">index</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">index</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">index</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__index</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">key</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__index</span> <span class="p">)</span>
 
     <span class="nd">@key</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">key</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">if</span><span class="p">(</span> <span class="ow">not</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="nb">str</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span> <span class="s1">&#39;indexmust be a string instance.&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__index</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">keyName</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keyName</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__keyName</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ClassWithSubshellKey"><a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.ClassWithSubshellKey">[docs]</a><span class="k">class</span> <span class="nc">ClassWithSubshellKey</span><span class="p">(</span> <span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ClassWithSubshellKey">
+<a class="viewcode-back" href="../../PoPs/misc.html#PoPs.misc.ClassWithSubshellKey">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ClassWithSubshellKey</span><span class="p">(</span> <span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
 
     <span class="n">__keyName</span> <span class="o">=</span> <span class="s1">&#39;subshell&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">subshell</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">subshell</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
@@ -329,67 +361,111 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__subshell</span> <span class="o">=</span> <span class="n">subshell</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">subshell</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">subshell</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__subshell</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">key</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__subshell</span> <span class="p">)</span>
 
     <span class="nd">@key</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">key</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">key</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">if</span><span class="p">(</span> <span class="ow">not</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="nb">str</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span> <span class="s1">&#39;subshell must be a string instance.&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__subshell</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">keyName</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keyName</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__keyName</span> <span class="p">)</span></div>
+
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">PoPs.misc</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

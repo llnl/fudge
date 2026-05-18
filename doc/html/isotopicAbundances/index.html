@@ -1,55 +1,42 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>isotopicAbundances &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../_static/gnd-20121206-favicon.ico"/>
+    <title>isotopicAbundances &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Thanks" href="../thanks.html" />
-    <link rel="prev" title="Particle IDs" href="../PoPs/misc.html" /> 
+    <link rel="prev" title="Particle IDs" href="../PoPs/misc.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="../thanks.html" title="Thanks"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="../PoPs/misc.html" title="Particle IDs"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">isotopicAbundances</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <section id="isotopicabundances">
-<h1>isotopicAbundances<a class="headerlink" href="#isotopicabundances" title="Permalink to this heading">¶</a></h1>
+<h1>isotopicAbundances<a class="headerlink" href="#isotopicabundances" title="Link to this heading">¶</a></h1>
 <p>This sub-package supports isotopic abundance data stored in an <em>isotopicAbundancesByChemicalElement</em> node.
 Basically, the <em>isotopicAbundancesByChemicalElement</em> node is a list of chemical elements where each
 chemical element is a list of “natural” occurring isotopes for that chemical element. Each isotope
@@ -140,7 +127,7 @@ information about the available isotopic abundance databases. The <strong>iam</s
 </div></blockquote>
 <p>The following Python code shows how to read in an evaluated isotopic abundance file “NIST.iam”,
 get the isotopic abundance data for Oxygen:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">isotopicAbundances</span> <span class="kn">import</span> <span class="n">isotopicAbundances</span> <span class="k">as</span> <span class="n">isotopicAbundancesModule</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">isotopicAbundances</span><span class="w"> </span><span class="kn">import</span> <span class="n">isotopicAbundances</span> <span class="k">as</span> <span class="n">isotopicAbundancesModule</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">NIST</span> <span class="o">=</span> <span class="n">isotopicAbundancesModule</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;NIST.iam&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">NIST</span><span class="o">.</span><span class="n">evaluation</span>
 <span class="go">&#39;NIST&#39;</span>
@@ -153,7 +140,7 @@ get the isotopic abundance data for Oxygen:</p>
 </pre></div>
 </div>
 <p>The following shows how to get the same data via an <strong>iam</strong> file which has access to four evaluations:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">isotopicAbundances</span> <span class="kn">import</span> <span class="n">iam</span> <span class="k">as</span> <span class="n">iamModule</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">isotopicAbundances</span><span class="w"> </span><span class="kn">import</span> <span class="n">iam</span> <span class="k">as</span> <span class="n">iamModule</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">iam</span> <span class="o">=</span> <span class="n">iamModule</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;all.iam&#39;</span><span class="p">)</span><span class="n">iam</span> <span class="o">=</span> <span class="n">iamModule</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;all.iam&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">iam</span><span class="o">.</span><span class="n">evaluations</span><span class="p">()</span>                       <span class="c1"># Prints a list of available evaluatioins.</span>
 <span class="go">[&#39;NIST&#39;, &#39;FUDGE&#39;, &#39;COGZA2a&#39;, &#39;CIAAW&#39;]</span>
@@ -165,11 +152,11 @@ get the isotopic abundance data for Oxygen:</p>
 <div class="toctree-wrapper compound">
 </div>
 <section id="module-isotopicAbundances.iam">
-<span id="isotopicabundances-iam-module"></span><h2>isotopicAbundances.iam module<a class="headerlink" href="#module-isotopicAbundances.iam" title="Permalink to this heading">¶</a></h2>
+<span id="isotopicabundances-iam-module"></span><h2>isotopicAbundances.iam module<a class="headerlink" href="#module-isotopicAbundances.iam" title="Link to this heading">¶</a></h2>
 <p>This module contains the classes needed to represent the nodes for an isotopic abundance map (iam) instance.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Base">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.iam.</span></span><span class="sig-name descname"><span class="pre">Base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checksum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Base"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Base" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.iam.</span></span><span class="sig-name descname"><span class="pre">Base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">checksum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Base"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Base" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../LUPY/index.html#LUPY.ancestry.AncestryIO" title="LUPY.ancestry.AncestryIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">AncestryIO</span></code></a></p>
 <p>Base class used by all other iam (Isotopic Abundance Map) related classes. Inherits class ancestryModule.AncestryIO, 
 and adds checksum and algorithm properties.</p>
@@ -191,25 +178,25 @@ and adds checksum and algorithm properties.</p>
 </table>
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Base.algorithm">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">algorithm</span></span><a class="headerlink" href="#isotopicAbundances.iam.Base.algorithm" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">algorithm</span></span><a class="headerlink" href="#isotopicAbundances.iam.Base.algorithm" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the algorithm used to compute the checksum for this entry.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Base.checksum">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checksum</span></span><a class="headerlink" href="#isotopicAbundances.iam.Base.checksum" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">checksum</span></span><a class="headerlink" href="#isotopicAbundances.iam.Base.checksum" title="Link to this definition">¶</a></dt>
 <dd><p>Returns self’s checksum.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Base.fileName">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fileName</span></span><a class="headerlink" href="#isotopicAbundances.iam.Base.fileName" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fileName</span></span><a class="headerlink" href="#isotopicAbundances.iam.Base.fileName" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the file name for the location of self. Unlike path, this will always be the absolute path.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Base.standardXML_attributes">
-<span class="sig-name descname"><span class="pre">standardXML_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Base.standardXML_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Base.standardXML_attributes" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">standardXML_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Base.standardXML_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Base.standardXML_attributes" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the XML attribute string for <em>checksum</em> and <em>algorithm</em>. For internal use.</p>
 </dd></dl>
 
@@ -217,7 +204,7 @@ and adds checksum and algorithm properties.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.EntryBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.iam.</span></span><span class="sig-name descname"><span class="pre">EntryBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checksum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#EntryBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.EntryBase" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.iam.</span></span><span class="sig-name descname"><span class="pre">EntryBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checksum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#EntryBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.EntryBase" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#isotopicAbundances.iam.Base" title="isotopicAbundances.iam.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
 <p>Base class for all <strong>Iam</strong> entry classes.</p>
 <p>The following table list the primary members of this class:</p>
@@ -243,7 +230,7 @@ and adds checksum and algorithm properties.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.EntryBase.buildFileName">
-<span class="sig-name descname"><span class="pre">buildFileName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iamDirectory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#EntryBase.buildFileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.EntryBase.buildFileName" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">buildFileName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iamDirectory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#EntryBase.buildFileName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.EntryBase.buildFileName" title="Link to this definition">¶</a></dt>
 <dd><p>This method is designed to aid in building an iam file when the iam file does not reside in its final resting place.
 The value of <em>iamDirectory</em> should be the final resting place (i.e., directory) of the iam file.
 Otherwise, this method returns the file name as the method <em>fileName</em>.</p>
@@ -256,19 +243,19 @@ Otherwise, this method returns the file name as the method <em>fileName</em>.</p
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.EntryBase.path">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">path</span></span><a class="headerlink" href="#isotopicAbundances.iam.EntryBase.path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">path</span></span><a class="headerlink" href="#isotopicAbundances.iam.EntryBase.path" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the path of the file. This may be absolute or relative.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.EntryBase.standardXML_attributes">
-<span class="sig-name descname"><span class="pre">standardXML_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#EntryBase.standardXML_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.EntryBase.standardXML_attributes" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">standardXML_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#EntryBase.standardXML_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.EntryBase.standardXML_attributes" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the XML attribute string for <em>this</em>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.EntryBase.updateChecksum">
-<span class="sig-name descname"><span class="pre">updateChecksum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sha1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iamDirectory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#EntryBase.updateChecksum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.EntryBase.updateChecksum" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">updateChecksum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sha1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iamDirectory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#EntryBase.updateChecksum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.EntryBase.updateChecksum" title="Link to this definition">¶</a></dt>
 <dd><p>Compute the checksum of the file specified by the <em>path</em> member and stores it into the <em>checksum</em> member.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -284,12 +271,12 @@ Otherwise, this method returns the file name as the method <em>fileName</em>.</p
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.iam.</span></span><span class="sig-name descname"><span class="pre">Iam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">library</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Format.version_2_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checksum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.iam.</span></span><span class="sig-name descname"><span class="pre">Iam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">library</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Format.version_2_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checksum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#isotopicAbundances.iam.Base" title="isotopicAbundances.iam.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></a></p>
 <p>This class represents an Isotopic Abundance Map (iam) instance.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam.append">
-<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.append"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.append" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.append"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.append" title="Link to this definition">¶</a></dt>
 <dd><p>Appends <em>entry</em> to self. <em>entry</em> must be an instance of <strong>EntryBase</strong>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -300,7 +287,7 @@ Otherwise, this method returns the file name as the method <em>fileName</em>.</p
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam.evaluations">
-<span class="sig-name descname"><span class="pre">evaluations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.evaluations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.evaluations" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">evaluations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.evaluations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.evaluations" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a list of available evaluations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -311,7 +298,7 @@ Otherwise, this method returns the file name as the method <em>fileName</em>.</p
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam.find">
-<span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evaluation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.find"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.find" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evaluation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.find"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.find" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the first entry matching a chemical elememnt’s <em>symbol</em>. Searches each entry in the order they
 were appended and dives into imported iams.</p>
 <dl class="field-list simple">
@@ -329,20 +316,20 @@ were appended and dives into imported iams.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam.findEvaluation">
-<span class="sig-name descname"><span class="pre">findEvaluation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evaluation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.findEvaluation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.findEvaluation" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">findEvaluation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evaluation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.findEvaluation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.findEvaluation" title="Link to this definition">¶</a></dt>
 <dd><p>Returns an IsotopicAbundancesByChemicalElement instance from the module isotopicAbundances.py matching <em>evaluation</em> or 
 None if no match is found.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam.format">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">format</span></span><a class="headerlink" href="#isotopicAbundances.iam.Iam.format" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">format</span></span><a class="headerlink" href="#isotopicAbundances.iam.Iam.format" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the format for self.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam.insert">
-<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.insert" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.insert" title="Link to this definition">¶</a></dt>
 <dd><p>Inserts <em>entry</em> into self at <em>index</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -356,24 +343,24 @@ None if no match is found.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam.iterate">
-<span class="sig-name descname"><span class="pre">iterate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.iterate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.iterate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">iterate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.iterate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.iterate" title="Link to this definition">¶</a></dt>
 <dd><p>Iterates over all IsotopicAbundancesByChemicalElement in <em>self</em>. Dives into import entries.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam.library">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">library</span></span><a class="headerlink" href="#isotopicAbundances.iam.Iam.library" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">library</span></span><a class="headerlink" href="#isotopicAbundances.iam.Iam.library" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the library name for self.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam.moniker">
-<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'iam'</span></em><a class="headerlink" href="#isotopicAbundances.iam.Iam.moniker" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'iam'</span></em><a class="headerlink" href="#isotopicAbundances.iam.Iam.moniker" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>Creates a Iam instance from an iam node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -392,14 +379,14 @@ None if no match is found.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam.path">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">path</span></span><a class="headerlink" href="#isotopicAbundances.iam.Iam.path" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">path</span></span><a class="headerlink" href="#isotopicAbundances.iam.Iam.path" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the path <em>self</em> was read from or may be written to. It may be absolute or relative, 
 depending on how it was initialize.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam.read">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.read" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.read" title="Link to this definition">¶</a></dt>
 <dd><p>Reads in the file named <em>fileName</em> and returns a <strong>Iam</strong> instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -416,7 +403,7 @@ depending on how it was initialize.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a list of str instances representing the XML lines of <em>self</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -433,7 +420,7 @@ depending on how it was initialize.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam.updateAllChecksums">
-<span class="sig-name descname"><span class="pre">updateAllChecksums</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sha1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iamDirectory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.updateAllChecksums"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.updateAllChecksums" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">updateAllChecksums</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sha1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iamDirectory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.updateAllChecksums"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.updateAllChecksums" title="Link to this definition">¶</a></dt>
 <dd><p>Calls <em>updateChecksum</em> on all entries and then updates <em>self</em>’s <em>checksum</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -447,7 +434,7 @@ depending on how it was initialize.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Iam.updateChecksum">
-<span class="sig-name descname"><span class="pre">updateChecksum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sha1'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.updateChecksum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.updateChecksum" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">updateChecksum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sha1'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Iam.updateChecksum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Iam.updateChecksum" title="Link to this definition">¶</a></dt>
 <dd><p>Computes <em>self’s</em> checksum: concatenate checksums for all entries into a string and compute the checksum
 of that string.</p>
 <dl class="field-list simple">
@@ -461,7 +448,7 @@ of that string.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Import">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.iam.</span></span><span class="sig-name descname"><span class="pre">Import</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checksum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Import"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Import" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.iam.</span></span><span class="sig-name descname"><span class="pre">Import</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checksum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Import"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Import" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#isotopicAbundances.iam.EntryBase" title="isotopicAbundances.iam.EntryBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">EntryBase</span></code></a></p>
 <p>This class represents an import instance within an Isotopic Abundance Map (IAM) instance.</p>
 <p>The following table list the primary members of this class:</p>
@@ -490,13 +477,13 @@ of that string.</p>
 </div></blockquote>
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Import.derivedPath">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">derivedPath</span></span><a class="headerlink" href="#isotopicAbundances.iam.Import.derivedPath" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">derivedPath</span></span><a class="headerlink" href="#isotopicAbundances.iam.Import.derivedPath" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the parent directory of the Iam instance containing <em>self</em>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Import.find">
-<span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evaluation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Import.find"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Import.find" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evaluation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Import.find"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Import.find" title="Link to this definition">¶</a></dt>
 <dd><p>Calls find on self.__iam and returns its results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -513,24 +500,24 @@ of that string.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Import.iam">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iam</span></span><a class="headerlink" href="#isotopicAbundances.iam.Import.iam" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">iam</span></span><a class="headerlink" href="#isotopicAbundances.iam.Import.iam" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a reference to self.__iam.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Import.iterate">
-<span class="sig-name descname"><span class="pre">iterate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Import.iterate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Import.iterate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">iterate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Import.iterate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Import.iterate" title="Link to this definition">¶</a></dt>
 <dd><p>Iterates over all entries of self’s iam.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Import.moniker">
-<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'import'</span></em><a class="headerlink" href="#isotopicAbundances.iam.Import.moniker" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'import'</span></em><a class="headerlink" href="#isotopicAbundances.iam.Import.moniker" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Import.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Import.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Import.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Import.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Import.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>Creates an <strong>Import</strong> instance from an import node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -549,13 +536,13 @@ of that string.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Import.readIam">
-<span class="sig-name descname"><span class="pre">readIam</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Import.readIam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Import.readIam" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">readIam</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Import.readIam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Import.readIam" title="Link to this definition">¶</a></dt>
 <dd><p>Reads in the iam file pointed to by self if not already read in. <em>Self</em> only reads its iam file when needed.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.Import.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Import.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Import.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#Import.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.Import.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a list of str instances representing the XML lines of self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -574,7 +561,7 @@ of that string.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.IsotopicAbundancesByChemicalElement">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.iam.</span></span><span class="sig-name descname"><span class="pre">IsotopicAbundancesByChemicalElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evaluation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checksum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#IsotopicAbundancesByChemicalElement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.iam.</span></span><span class="sig-name descname"><span class="pre">IsotopicAbundancesByChemicalElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evaluation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checksum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#IsotopicAbundancesByChemicalElement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#isotopicAbundances.iam.EntryBase" title="isotopicAbundances.iam.EntryBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">EntryBase</span></code></a></p>
 <p>This class represents an isotopicAbundancesByChemicalElement instance within an Isotopic Abundance Map (IAM) instance.</p>
 <p>The following table list the primary members of this class:</p>
@@ -606,7 +593,7 @@ of that string.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.adaptable">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adaptable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#IsotopicAbundancesByChemicalElement.adaptable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.adaptable" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">adaptable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#IsotopicAbundancesByChemicalElement.adaptable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.adaptable" title="Link to this definition">¶</a></dt>
 <dd><p>Returns True whenever item2 is None, or when item1 and item2 are the same. For internal use.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -620,19 +607,19 @@ of that string.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.derivedPath">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">derivedPath</span></span><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.derivedPath" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">derivedPath</span></span><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.derivedPath" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the parent directory of the instance containing <em>self</em>.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.evaluation">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluation</span></span><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.evaluation" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluation</span></span><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.evaluation" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the self’s evaluation string.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.find">
-<span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evaluation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#IsotopicAbundancesByChemicalElement.find"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.find" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evaluation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#IsotopicAbundancesByChemicalElement.find"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.find" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the entry matching a chemical elememnt’s <em>symbol</em>. If one is not found, None is returned.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -649,18 +636,18 @@ of that string.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.isotopicAbundancesByChemicalElement">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isotopicAbundancesByChemicalElement</span></span><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.isotopicAbundancesByChemicalElement" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isotopicAbundancesByChemicalElement</span></span><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.isotopicAbundancesByChemicalElement" title="Link to this definition">¶</a></dt>
 <dd><p>Returns self.__isotopicAbundancesByChemicalElement.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.moniker">
-<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'isotopicAbundancesByChemicalElement'</span></em><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.moniker" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'isotopicAbundancesByChemicalElement'</span></em><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.moniker" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#IsotopicAbundancesByChemicalElement.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#IsotopicAbundancesByChemicalElement.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>Creates a IsotopicAbundancesByChemicalElement instance from a isotopicAbundancesByChemicalElement node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -679,13 +666,13 @@ of that string.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.readIsotopicAbundancesByChemicalElement">
-<span class="sig-name descname"><span class="pre">readIsotopicAbundancesByChemicalElement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#IsotopicAbundancesByChemicalElement.readIsotopicAbundancesByChemicalElement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.readIsotopicAbundancesByChemicalElement" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">readIsotopicAbundancesByChemicalElement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#IsotopicAbundancesByChemicalElement.readIsotopicAbundancesByChemicalElement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.readIsotopicAbundancesByChemicalElement" title="Link to this definition">¶</a></dt>
 <dd><p>Reads in the isotopicAbundancesByChemicalElement file pointed to by self if not already read in.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#IsotopicAbundancesByChemicalElement.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#IsotopicAbundancesByChemicalElement.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.IsotopicAbundancesByChemicalElement.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a list of str instances representing the XML lines of self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -704,7 +691,7 @@ of that string.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="isotopicAbundances.iam.read">
-<span class="sig-prename descclassname"><span class="pre">isotopicAbundances.iam.</span></span><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">isotopicAbundances.iam.</span></span><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/iam.html#read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.iam.read" title="Link to this definition">¶</a></dt>
 <dd><p>Reads in the file name <em>fileName</em> and returns an <strong>Ian</strong> instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -718,7 +705,7 @@ of that string.</p>
 
 </section>
 <section id="module-isotopicAbundances.isotopicAbundances">
-<span id="isotopicabundances-isotopicabundances-module"></span><h2>isotopicAbundances.isotopicAbundances module<a class="headerlink" href="#module-isotopicAbundances.isotopicAbundances" title="Permalink to this heading">¶</a></h2>
+<span id="isotopicabundances-isotopicabundances-module"></span><h2>isotopicAbundances.isotopicAbundances module<a class="headerlink" href="#module-isotopicAbundances.isotopicAbundances" title="Link to this heading">¶</a></h2>
 <p>This module contains the classes needed to represent the nodes of an isotopic abundance library.
 An isotopic abundance library is a list of chemical elements with each chemical element having 
 a unique list of natural occurring isotopes for that chemical element.  Each isotope in the library
@@ -726,7 +713,7 @@ has an atom fraction and uncertainly. If the uncertainly for an isotope is not k
 value must be -1.0.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.ChemicalElement">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.isotopicAbundances.</span></span><span class="sig-name descname"><span class="pre">ChemicalElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#ChemicalElement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.isotopicAbundances.</span></span><span class="sig-name descname"><span class="pre">ChemicalElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#ChemicalElement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../LUPY/index.html#LUPY.ancestry.AncestryIO" title="LUPY.ancestry.AncestryIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">AncestryIO</span></code></a></p>
 <p>This class represents a chemical element which has a list of isotopes with “natural” abundance data
 for this chemical element and a documentation member.</p>
@@ -753,7 +740,7 @@ for this chemical element and a documentation member.</p>
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.ChemicalElement.atomFractionSum">
-<span class="sig-name descname"><span class="pre">atomFractionSum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#ChemicalElement.atomFractionSum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.atomFractionSum" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">atomFractionSum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#ChemicalElement.atomFractionSum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.atomFractionSum" title="Link to this definition">¶</a></dt>
 <dd><p>Calculations the sum of the atom factions of the isotopes in <em>self</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -764,30 +751,30 @@ for this chemical element and a documentation member.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.ChemicalElement.documentation">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">documentation</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.documentation" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">documentation</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.documentation" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a reference to <em>self</em>’s documentation.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.ChemicalElement.isotopes">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isotopes</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.isotopes" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isotopes</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.isotopes" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a reference to <em>self</em>’s list of isotopes.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.ChemicalElement.keyName">
-<span class="sig-name descname"><span class="pre">keyName</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'symbol'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.keyName" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">keyName</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'symbol'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.keyName" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.ChemicalElement.label">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.label" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.label" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the label (i.e., symbol) for <em>self</em>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.ChemicalElement.mass">
-<span class="sig-name descname"><span class="pre">mass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pops</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'amu'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#ChemicalElement.mass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.mass" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">mass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pops</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'amu'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#ChemicalElement.mass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.mass" title="Link to this definition">¶</a></dt>
 <dd><p>Calculates the element mass for <em>self</em> from the isotope atomFractions data in <em>self</em>
 and the isotope masses given in <em>pops</em>.</p>
 <dl class="field-list simple">
@@ -805,12 +792,12 @@ and the isotope masses given in <em>pops</em>.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.ChemicalElement.moniker">
-<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'chemicalElement'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.moniker" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'chemicalElement'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.moniker" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.ChemicalElement.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#ChemicalElement.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#ChemicalElement.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>Class method that parses a XML representation of a chemicalElement node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -827,13 +814,13 @@ and the isotope masses given in <em>pops</em>.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.ChemicalElement.symbol">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">symbol</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.symbol" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">symbol</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.symbol" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the symbol for <em>self</em>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.ChemicalElement.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#ChemicalElement.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#ChemicalElement.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElement.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>Converts <em>this</em> to a list of XML strings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -849,42 +836,42 @@ and the isotope masses given in <em>pops</em>.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.ChemicalElements">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.isotopicAbundances.</span></span><span class="sig-name descname"><span class="pre">ChemicalElements</span></span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#ChemicalElements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElements" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.isotopicAbundances.</span></span><span class="sig-name descname"><span class="pre">ChemicalElements</span></span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#ChemicalElements"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElements" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../fudge/fudge.html#fudge.suites.ExclusiveSuite" title="fudge.suites.ExclusiveSuite"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExclusiveSuite</span></code></a></p>
 <p>This class represents an chemicalElements instanse which contains a list of <strong>ChemicalElement</strong> instances.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.ChemicalElements.keyName">
-<span class="sig-name descname"><span class="pre">keyName</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'symbol'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElements.keyName" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">keyName</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'symbol'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElements.keyName" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.ChemicalElements.moniker">
-<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'chemicalElements'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElements.moniker" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'chemicalElements'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.ChemicalElements.moniker" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.Format">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.isotopicAbundances.</span></span><span class="sig-name descname"><span class="pre">Format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#Format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Format" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.isotopicAbundances.</span></span><span class="sig-name descname"><span class="pre">Format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#Format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Format" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../LUPY/index.html#LUPY.enums.Enum" title="LUPY.enums.Enum"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
 <p>This enum class represents the allowed formats for the IsotopicAbundancesByChemicalElement class.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.Format.default">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#Format.default"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Format.default" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">default</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#Format.default"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Format.default" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the current default format.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.Format.version_2_0">
-<span class="sig-name descname"><span class="pre">version_2_0</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'2.0'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Format.version_2_0" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">version_2_0</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'2.0'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Format.version_2_0" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.Isotope">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.isotopicAbundances.</span></span><span class="sig-name descname"><span class="pre">Isotope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atomFraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uncertainty</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#Isotope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.isotopicAbundances.</span></span><span class="sig-name descname"><span class="pre">Isotope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atomFraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uncertainty</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#Isotope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../LUPY/index.html#LUPY.ancestry.AncestryIO" title="LUPY.ancestry.AncestryIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">AncestryIO</span></code></a></p>
 <p>This class represents an iam <em>isotope</em> node and stores the atom fraction and its uncertainty for an isotope.</p>
 <p>The following table list the primary members of this class:</p>
@@ -910,35 +897,35 @@ and the isotope masses given in <em>pops</em>.</p>
 </div></blockquote>
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.Isotope.atomFraction">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">atomFraction</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.atomFraction" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">atomFraction</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.atomFraction" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the atom fraction for <em>self</em>.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.Isotope.id">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.id" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.id" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the id for <em>self</em>.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.Isotope.keyName">
-<span class="sig-name descname"><span class="pre">keyName</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'id'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.keyName" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">keyName</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'id'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.keyName" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.Isotope.label">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.label" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.label" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the label (i.e., id) for <em>self</em>.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.Isotope.moniker">
-<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'isotope'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.moniker" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'isotope'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.moniker" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.Isotope.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#Isotope.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#Isotope.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>Class method that parses a XML representation of an isotope node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -955,7 +942,7 @@ and the isotope masses given in <em>pops</em>.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.Isotope.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#Isotope.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#Isotope.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>Converts <em>this</em> to a list of XML strings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -969,7 +956,7 @@ and the isotope masses given in <em>pops</em>.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.Isotope.uncertainty">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">uncertainty</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.uncertainty" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">uncertainty</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotope.uncertainty" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the uncertainty for <em>self</em>.</p>
 </dd></dl>
 
@@ -977,24 +964,24 @@ and the isotope masses given in <em>pops</em>.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.Isotopes">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.isotopicAbundances.</span></span><span class="sig-name descname"><span class="pre">Isotopes</span></span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#Isotopes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotopes" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.isotopicAbundances.</span></span><span class="sig-name descname"><span class="pre">Isotopes</span></span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#Isotopes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotopes" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../fudge/fudge.html#fudge.suites.ExclusiveSuite" title="fudge.suites.ExclusiveSuite"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExclusiveSuite</span></code></a></p>
 <p>This class represents an isotopes instanse.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.Isotopes.keyName">
-<span class="sig-name descname"><span class="pre">keyName</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'id'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotopes.keyName" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">keyName</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'id'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotopes.keyName" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.Isotopes.moniker">
-<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'isotopes'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotopes.moniker" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'isotopes'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.Isotopes.moniker" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.isotopicAbundances.</span></span><span class="sig-name descname"><span class="pre">IsotopicAbundancesByChemicalElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evaluation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Format.version_2_0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#IsotopicAbundancesByChemicalElement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">isotopicAbundances.isotopicAbundances.</span></span><span class="sig-name descname"><span class="pre">IsotopicAbundancesByChemicalElement</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evaluation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Format.version_2_0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#IsotopicAbundancesByChemicalElement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../LUPY/index.html#LUPY.ancestry.AncestryIO" title="LUPY.ancestry.AncestryIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">AncestryIO</span></code></a></p>
 <p>The classes represents an evaluation with a list of chemical elements evaluated.</p>
 <p>The following table list the primary members of this class:</p>
@@ -1023,46 +1010,46 @@ and the isotope masses given in <em>pops</em>.</p>
 </div></blockquote>
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.chemicalElements">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">chemicalElements</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.chemicalElements" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">chemicalElements</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.chemicalElements" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a reference to <em>self</em>’s chemicalElements.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.documentation">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">documentation</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.documentation" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">documentation</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.documentation" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a reference to <em>self</em>’s documentation.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.evaluation">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluation</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.evaluation" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">evaluation</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.evaluation" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a reference to <em>self</em>’s evaluation.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.format">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">format</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.format" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">format</span></span><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.format" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a reference to <em>self</em>’s format.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.getIsotope">
-<span class="sig-name descname"><span class="pre">getIsotope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#IsotopicAbundancesByChemicalElement.getIsotope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.getIsotope" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getIsotope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#IsotopicAbundancesByChemicalElement.getIsotope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.getIsotope" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.keyName">
-<span class="sig-name descname"><span class="pre">keyName</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'evaluation'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.keyName" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">keyName</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'evaluation'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.keyName" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.moniker">
-<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'isotopicAbundancesByChemicalElement'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.moniker" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">moniker</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'isotopicAbundancesByChemicalElement'</span></em><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.moniker" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#IsotopicAbundancesByChemicalElement.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#IsotopicAbundancesByChemicalElement.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>Class method that parses a XML representation of an isotopicAbundancesByChemicalElement node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1079,7 +1066,7 @@ and the isotope masses given in <em>pops</em>.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.read">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#IsotopicAbundancesByChemicalElement.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.read" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#IsotopicAbundancesByChemicalElement.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.read" title="Link to this definition">¶</a></dt>
 <dd><p>Reads in the file named <em>fileName</em> and returns a <strong>IsotopicAbundancesByChemicalElement</strong> instance of it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1093,13 +1080,13 @@ and the isotope masses given in <em>pops</em>.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.symbols">
-<span class="sig-name descname"><span class="pre">symbols</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#IsotopicAbundancesByChemicalElement.symbols"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.symbols" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">symbols</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#IsotopicAbundancesByChemicalElement.symbols"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.symbols" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a list of available chemical elements in <em>self</em>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#IsotopicAbundancesByChemicalElement.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#IsotopicAbundancesByChemicalElement.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>Converts <em>this</em> to a list of XML strings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1115,7 +1102,7 @@ and the isotope masses given in <em>pops</em>.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="isotopicAbundances.isotopicAbundances.read">
-<span class="sig-prename descclassname"><span class="pre">isotopicAbundances.isotopicAbundances.</span></span><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">isotopicAbundances.isotopicAbundances.</span></span><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fileName</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/isotopicAbundances/isotopicAbundances.html#read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#isotopicAbundances.isotopicAbundances.read" title="Link to this definition">¶</a></dt>
 <dd><p>Reads in the file named <em>fileName</em> and returns a <strong>IsotopicAbundancesByChemicalElement</strong> instance of it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1131,79 +1118,92 @@ and the isotope masses given in <em>pops</em>.</p>
 </section>
 
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-  <div>
-    <h3><a href="../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">isotopicAbundances</a><ul>
-<li><a class="reference internal" href="#module-isotopicAbundances.iam">isotopicAbundances.iam module</a></li>
-<li><a class="reference internal" href="#module-isotopicAbundances.isotopicAbundances">isotopicAbundances.isotopicAbundances module</a></li>
-</ul>
-</li>
-</ul>
+<h1 class="logo"><a href="../index.html">Fudge and GNDS</a></h1>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="../PoPs/misc.html"
-                          title="previous chapter">Particle IDs</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="../thanks.html"
-                          title="next chapter">Thanks</a></p>
-  </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/isotopicAbundances/index.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../PoPs/misc.html" title="previous chapter">Particle IDs</a></li>
+      <li>Next: <a href="../thanks.html" title="next chapter">Thanks</a></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="../thanks.html" title="Thanks"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="../PoPs/misc.html" title="Particle IDs"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">isotopicAbundances</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/isotopicAbundances/index.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

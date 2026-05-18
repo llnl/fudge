@@ -5,8 +5,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # <<END-copyright>>
 
-from xml.etree import cElementTree
-
 from PoPs import database as databaseModule
 
 from PoPs import misc as miscModule

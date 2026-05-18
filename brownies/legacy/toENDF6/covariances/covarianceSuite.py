@@ -45,15 +45,16 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
         mf,mt,covar = zipList[idx]
         thisMFMT = [a[2] for a in zipList if a[:2]==(mf,mt)]
         idx += len(thisMFMT)
+        endf = []
 
         if mf in (31,33):
-            endf = [endfFormatsModule.endfHeadLine( ZAM, AWT, 0, MTL, 0, len(thisMFMT) )]
+            endf += [endfFormatsModule.endfHeadLine(ZAM, AWT, 0, MTL, 0, len(thisMFMT))]
         elif mf==34:
             LTT = 1
             if any([slice.domainValue == 0 for section in thisMFMT for slice in section.rowData.slices]):
                 LTT = 3
             NMT1 = 1    # cross-reaction terms not yet supported
-            endf = [endfFormatsModule.endfHeadLine( ZAM, AWT, 0, LTT, 0, NMT1 )]
+            endf += [(endfFormatsModule.endfHeadLine( ZAM, AWT, 0, LTT, 0, NMT1))]
             MAT1 = 0
             MT1 = mt
             L1s, L2s = [],[]
@@ -65,11 +66,11 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
                     L2s.append( L1s[-1] )
             NL = len(set(L1s))
             NL1 = len(set(L2s))
-            endf += [ endfFormatsModule.endfHeadLine( 0.0, 0.0, MAT1, MT1, NL, NL1 ) ]
+            endf += [endfFormatsModule.endfHeadLine(0.0, 0.0, MAT1, MT1, NL, NL1)]
         elif mf==35:
-            endf = [endfFormatsModule.endfHeadLine( ZAM, AWT, 0, MTL, len(thisMFMT), 0 )]
+            endf += [endfFormatsModule.endfHeadLine(ZAM, AWT, 0, MTL, len(thisMFMT), 0)]
         elif mf==40:
-            endf = [endfFormatsModule.endfHeadLine( ZAM, AWT, 0, 0, len(thisMFMT), 0 )]
+            endf += [endfFormatsModule.endfHeadLine(ZAM, AWT, 0, 0, len(thisMFMT), 0)]
         for section_ in thisMFMT:
             MAT1 = 0
             form = gndsToENDF6Module.getForm( targetInfo['style'], section_ )
@@ -98,7 +99,7 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
                 endf += [ endfFormatsModule.endfHeadLine( 0.0, 0.0, L1, L2, LCT, NI ) ]
             if mf==40:
                 rowData = section_.rowData
-                if( isinstance( rowData, str ) ) :
+                if isinstance(rowData, str):
                     raise Exception( "Don't string me along!" ) # FIXME
                 else:
                     quant = rowData.link

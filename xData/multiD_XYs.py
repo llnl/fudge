@@ -562,9 +562,11 @@ class XYsnd( baseModule.XDataFunctional ) :
                                     function2.outerDomainValue, function2partial.nf_pointwiseXY, 1 )
                                 function = function1partial.returnAsClass( function1partial, xypartial, outerDomainValue = outerDomainValue, interpolation = function1.interpolation )
                                 xylist.append(function)
-                            if (function1.interpolation == enumsModule.Interpolation.flat):
-                                firstbin = XYs1dModule.XYs1d(data=[(0.,0.),(xylist.copyDataToXsAndYs()[0][0],xylist.copyDataToXsAndYs()[1][0])],dataForm="xys")
-                                xylist.prepend(firstbin)
+                            if function1.interpolation == enumsModule.Interpolation.flat:
+                                xs, ys = xylist.copyDataToXsAndYs()
+                                if xs[0] != 0.0:
+                                    firstbin = XYs1dModule.XYs1d(data=[(0.,0.), (xs[0], ys[0])], dataForm="xys")
+                                    xylist.prepend(firstbin)
                             xy = xylist.toPointwise_withLinearXYs(lowerEps=1e-15)
                         else :
                             raise ValueError( "CorrespondingPoints interpolate of %d dimensional function not supported." % function1.dimension )

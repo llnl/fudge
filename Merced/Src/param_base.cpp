@@ -94,7 +94,7 @@ void Pbase::param_base::setup_bin( int Ein_bin, const Ddvec::dd_vector& sigma_,
   next_sigma = first_ladder_sigma;
   ++next_sigma;
   sigma_end = sigma_.end( );
-  while( ( next_sigma->x <= *Ein_ptr ) && ( next_sigma != sigma_end ) )
+  while( ( next_sigma != sigma_end ) && ( next_sigma->x <= *Ein_ptr ) )
   {
     first_ladder_sigma = next_sigma;
     ++next_sigma;

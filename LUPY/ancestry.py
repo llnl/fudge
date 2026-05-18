@@ -40,7 +40,7 @@ import numpy
 import pathlib
 import inspect
 
-from xml.etree import cElementTree
+from xml.etree import ElementTree
 
 from LUPY import xmlNode as xmlNodeMode        # Wrapper around the xml parser.
 from LUPY import checksums as checksumsModule
@@ -416,7 +416,7 @@ class Ancestry(abc.ABC):
         except XPathNotFound:
             raise XPathNotFound("Cannot locate path '%s'" % xPath)
 
-    def printNewMembers(self, cls2=None, exclude=False, width=3):
+    def printMembers(self, cls2=None, exclude=False, width=3):
         """
         This method prints the type of *self* and then prints all the member added since the base class *cls2*. That is, 
         those members which are not defined in by base class *cls2*.
@@ -433,7 +433,9 @@ class Ancestry(abc.ABC):
             raise TypeError('self is not a derived fom class cls2')
 
         print(type(self))
-        for cls in inspect.getmro(self.__class__):
+        for index, cls in enumerate(inspect.getmro(self.__class__)):
+            if index == 0:
+                continue
             print('  %s' % cls)
 
         members = []
@@ -446,9 +448,11 @@ class Ancestry(abc.ABC):
             members.append(item)
 
         width = max(1, width)
-        fmt = '%%-%ds' % max(map(len, members))
+        if len(members) > 0:
+            fmt = '%%-%ds' % max(map(len, members))
         counter = 0
         sep = '   '
+        print()
         for member in members:
             print(sep, fmt % member, end='')
             sep = ''
@@ -459,28 +463,31 @@ class Ancestry(abc.ABC):
         if counter % width != 0:
             print()
 
+    def printNewMembers(self, exclude=False, width=3):
+        """
+        This method is deprecated, please use the method **printMembers** instead.
+        """
+
+        self.printMembers(Ancestry, exclude=exclude, width=width)
+
     def printNonAncestryMembers(self, exclude=False, width=3):
         """
-        This method prints the type of *self* and then prints all the member added by the derived class. That is, 
-        those members which are not defined by the :py:class:`Ancestry` class.
-
-        :param exclude:     If True, any member starting with an underscore (i.e., '_') is also not printed.
-        :param width:       The number of members printed per line.
+        This method is deprecated, please use the method **printMembers** instead.
         """
 
-        self.printNewMembers(Ancestry, exclude=exclude, width=width)
+        self.printMembers(Ancestry, exclude=exclude, width=width)
 
 class AncestryIO_base(Ancestry):
     """This class adds methods to read and write *self* to a file. Currently, its supports reading and writing to an XML file."""
 
     def toXML(self, indent = '', **kwargs):
-        """
+        r"""
         Calls self.toXML_strList and joins its returned list with '\n'.
 
         :param indent:              Amount of starting indentation.
         :param kwargs:              A dictionary that contains data to control the way this method acts.
 
-        :returns:                   XML representation of *self*.
+        :return:                    XML representation of *self*.
         """
 
         return '\n'.join(self.toXML_strList(indent=indent, **kwargs))
@@ -648,7 +655,7 @@ class AncestryIO_base(Ancestry):
 
         if not isinstance(string, str): raise TypeError('Invalid string.')
 
-        node = cElementTree.fromstring(string)
+        node = ElementTree.fromstring(string)
         node = xmlNodeMode.XML_node(node, xmlNodeMode.XML_node.etree)
 
         instance = cls.parseNodeUsingClass(node, [], {}, **kwargs)
@@ -672,7 +679,7 @@ class AncestryIO_base(Ancestry):
             fileName = str(fileName)
         if not isinstance(fileName, str): raise TypeError('Invalid file name.')
 
-        node = cElementTree.parse(fileName).getroot()
+        node = ElementTree.parse(fileName).getroot()
         node = xmlNodeMode.XML_node(node, xmlNodeMode.XML_node.etree)
 
         if node.tag != cls.moniker:

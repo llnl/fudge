@@ -1,47 +1,43 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PoPs.database &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
-    
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../_static/gnd-20121206-favicon.ico"/>
+    <title>PoPs.database &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">PoPs.database</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for PoPs.database</h1><div class="highlight"><pre>
 <span></span><span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
@@ -86,36 +82,38 @@
 <span class="sd">for one or more particles).</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 
-<span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
 
-<span class="kn">from</span> <span class="nn">xData.Documentation</span> <span class="kn">import</span> <span class="n">documentation</span> <span class="k">as</span> <span class="n">documentationModule</span>
-<span class="kn">from</span> <span class="nn">fudge</span> <span class="kn">import</span> <span class="n">GNDS_formatVersion</span> <span class="k">as</span> <span class="n">GNDS_formatVersionModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData.Documentation</span><span class="w"> </span><span class="kn">import</span> <span class="n">documentation</span> <span class="k">as</span> <span class="n">documentationModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge</span><span class="w"> </span><span class="kn">import</span> <span class="n">GNDS_formatVersion</span> <span class="k">as</span> <span class="n">GNDS_formatVersionModule</span>
 
-<span class="kn">from</span> <span class="nn">.chemicalElements</span> <span class="kn">import</span> <span class="n">chemicalElements</span> <span class="k">as</span> <span class="n">chemicalElementsModule</span>
-<span class="kn">from</span> <span class="nn">.chemicalElements</span> <span class="kn">import</span> <span class="n">chemicalElement</span> <span class="k">as</span> <span class="n">chemicalElementModule</span>
-<span class="kn">from</span> <span class="nn">.chemicalElements</span> <span class="kn">import</span> <span class="n">isotope</span> <span class="k">as</span> <span class="n">isotopeModule</span>
-<span class="kn">from</span> <span class="nn">.chemicalElements</span> <span class="kn">import</span> <span class="n">misc</span> <span class="k">as</span> <span class="n">chemicalElementsMiscModule</span>
-<span class="kn">from</span> <span class="nn">.families</span> <span class="kn">import</span> <span class="n">particle</span> <span class="k">as</span> <span class="n">particleModule</span>
-<span class="kn">from</span> <span class="nn">.families</span> <span class="kn">import</span> <span class="n">gaugeBoson</span> <span class="k">as</span> <span class="n">gaugeBosonModule</span>
-<span class="kn">from</span> <span class="nn">.families</span> <span class="kn">import</span> <span class="n">lepton</span> <span class="k">as</span> <span class="n">leptonModule</span>
-<span class="kn">from</span> <span class="nn">.families</span> <span class="kn">import</span> <span class="n">baryon</span> <span class="k">as</span> <span class="n">baryonModule</span>
-<span class="kn">from</span> <span class="nn">.families</span> <span class="kn">import</span> <span class="n">nuclide</span> <span class="k">as</span> <span class="n">nuclideModule</span>
-<span class="kn">from</span> <span class="nn">.families</span> <span class="kn">import</span> <span class="n">nucleus</span> <span class="k">as</span> <span class="n">nucleusModule</span>
-<span class="kn">from</span> <span class="nn">.families</span> <span class="kn">import</span> <span class="n">unorthodox</span> <span class="k">as</span> <span class="n">unorthodoxModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.chemicalElements</span><span class="w"> </span><span class="kn">import</span> <span class="n">chemicalElements</span> <span class="k">as</span> <span class="n">chemicalElementsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.chemicalElements</span><span class="w"> </span><span class="kn">import</span> <span class="n">chemicalElement</span> <span class="k">as</span> <span class="n">chemicalElementModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.chemicalElements</span><span class="w"> </span><span class="kn">import</span> <span class="n">isotope</span> <span class="k">as</span> <span class="n">isotopeModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.chemicalElements</span><span class="w"> </span><span class="kn">import</span> <span class="n">misc</span> <span class="k">as</span> <span class="n">chemicalElementsMiscModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.families</span><span class="w"> </span><span class="kn">import</span> <span class="n">particle</span> <span class="k">as</span> <span class="n">particleModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.families</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaugeBoson</span> <span class="k">as</span> <span class="n">gaugeBosonModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.families</span><span class="w"> </span><span class="kn">import</span> <span class="n">lepton</span> <span class="k">as</span> <span class="n">leptonModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.families</span><span class="w"> </span><span class="kn">import</span> <span class="n">baryon</span> <span class="k">as</span> <span class="n">baryonModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.families</span><span class="w"> </span><span class="kn">import</span> <span class="n">nuclide</span> <span class="k">as</span> <span class="n">nuclideModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.families</span><span class="w"> </span><span class="kn">import</span> <span class="n">nucleus</span> <span class="k">as</span> <span class="n">nucleusModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.families</span><span class="w"> </span><span class="kn">import</span> <span class="n">unorthodox</span> <span class="k">as</span> <span class="n">unorthodoxModule</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">IDs</span> <span class="k">as</span> <span class="n">IDsModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">misc</span> <span class="k">as</span> <span class="n">miscModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">styles</span> <span class="k">as</span> <span class="n">stylesModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">alias</span> <span class="k">as</span> <span class="n">aliasModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">IDs</span> <span class="k">as</span> <span class="n">IDsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">misc</span> <span class="k">as</span> <span class="n">miscModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">styles</span> <span class="k">as</span> <span class="n">stylesModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">alias</span> <span class="k">as</span> <span class="n">aliasModule</span>
 
-<div class="viewcode-block" id="Database"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database">[docs]</a><span class="k">class</span> <span class="nc">Database</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
+<div class="viewcode-block" id="Database">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Database</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
 
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;PoPs&#39;</span>
     <span class="n">ancestryMembers</span> <span class="o">=</span> <span class="p">(</span> <span class="s1">&#39;styles&#39;</span><span class="p">,</span> <span class="s1">&#39;documentation&#39;</span><span class="p">,</span> <span class="s1">&#39;aliases&#39;</span><span class="p">,</span> <span class="s1">&#39;gaugeBosons&#39;</span><span class="p">,</span> <span class="s1">&#39;leptons&#39;</span><span class="p">,</span> <span class="s1">&#39;baryons&#39;</span><span class="p">,</span> <span class="s1">&#39;chemicalElements&#39;</span><span class="p">,</span> <span class="s1">&#39;unorthodoxes&#39;</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">formatVersion</span> <span class="o">=</span> <span class="n">GNDS_formatVersionModule</span><span class="o">.</span><span class="n">default</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">formatVersion</span> <span class="o">=</span> <span class="n">GNDS_formatVersionModule</span><span class="o">.</span><span class="n">default</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param name: string naming the database</span>
 <span class="sd">        :param version: database version</span>
@@ -154,7 +152,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__unorthodoxes</span> <span class="o">=</span> <span class="n">unorthodoxModule</span><span class="o">.</span><span class="n">Suite</span><span class="p">(</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__unorthodoxes</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">key</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">key</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">if</span><span class="p">(</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__aliases</span> <span class="p">)</span> <span class="p">:</span> <span class="k">return</span><span class="p">(</span> <span class="kc">True</span> <span class="p">)</span>
         <span class="k">if</span><span class="p">(</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__gaugeBosons</span> <span class="p">)</span> <span class="p">:</span> <span class="k">return</span><span class="p">(</span> <span class="kc">True</span> <span class="p">)</span>
@@ -167,7 +165,7 @@
             <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">parentDB</span>
         <span class="k">return</span><span class="p">(</span> <span class="kc">False</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">key</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">key</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param key: id or symbol of a particle or particle group</span>
 
@@ -177,7 +175,7 @@
         <span class="k">if</span><span class="p">(</span> <span class="s1">&#39;{&#39;</span> <span class="ow">in</span> <span class="n">key</span> <span class="p">)</span> <span class="p">:</span> <span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span> <span class="s1">&#39;{&#39;</span> <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__getitem</span><span class="p">(</span> <span class="n">key</span><span class="p">,</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__getitem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__getitem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">level</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;key must be a str&#39;</span><span class="p">)</span>
@@ -195,7 +193,7 @@
             <span class="k">return</span> <span class="n">parentDB</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;id = &quot;</span><span class="si">%s</span><span class="s1">&quot; not found&#39;</span> <span class="o">%</span> <span class="n">key</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Iterates over all particles in the database. Particle groups like the</span>
 <span class="sd">        chemicalElement and isotope classes are not included, although the particles they contain are.</span>
@@ -215,74 +213,79 @@
         <span class="k">if</span> <span class="n">parentDB</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">parentDB</span><span class="p">:</span> <span class="k">yield</span> <span class="n">item</span>    <span class="c1"># FIXME skip particles that are overridden in child database?</span>
 
-<div class="viewcode-block" id="Database.keys"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.keys">[docs]</a>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="Database.keys">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.keys">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keys</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a list of ids for all particles in self.&quot;&quot;&quot;</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="p">[</span> <span class="n">particle</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">particle</span> <span class="ow">in</span> <span class="bp">self</span> <span class="p">]</span> <span class="p">)</span></div>
 
+
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">format</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">format</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__format</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="p">)</span>
 
     <span class="nd">@name</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">if</span><span class="p">(</span> <span class="ow">not</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="nb">str</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span> <span class="s1">&#39;name must be a string&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__name</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">version</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__version</span> <span class="p">)</span>
 
     <span class="nd">@version</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">version</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">value</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">if</span><span class="p">(</span> <span class="ow">not</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">value</span><span class="p">,</span> <span class="nb">str</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span> <span class="s1">&#39;version must be a string&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__version</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">styles</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">styles</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__styles</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">gaugeBosons</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">gaugeBosons</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__gaugeBosons</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">leptons</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">leptons</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__leptons</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">baryons</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">baryons</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__baryons</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">chemicalElements</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">chemicalElements</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__chemicalElements</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">unorthodoxes</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">unorthodoxes</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__unorthodoxes</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">aliases</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">aliases</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__aliases</span> <span class="p">)</span>
 
-<div class="viewcode-block" id="Database.parentDatabase"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.parentDatabase">[docs]</a>    <span class="k">def</span> <span class="nf">parentDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Database.parentDatabase">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.parentDatabase">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parentDatabase</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Search up ancestry chain for another PoPs database.</span>
 <span class="sd">        Return PoPs.database if found, otherwise return None.</span>
@@ -297,13 +300,16 @@
 
         <span class="k">return</span> <span class="n">parentDB</span></div>
 
+
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">documentation</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">documentation</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the documentation instance.&quot;&quot;&quot;</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__documentation</span> <span class="p">)</span>
 
-<div class="viewcode-block" id="Database.add"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">particle</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="Database.add">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.add">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">particle</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a particle to the database, inside the appropriate particle family.</span>
 
@@ -327,7 +333,10 @@
         <span class="k">else</span> <span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span> <span class="s1">&#39;Unsupported particle family = &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="n">particle</span><span class="o">.</span><span class="n">moniker</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Database.addFile"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.addFile">[docs]</a>    <span class="k">def</span> <span class="nf">addFile</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">fileName</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Database.addFile">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.addFile">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">addFile</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">fileName</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">False</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Opens the file *fileName* and adds its particles to self. If replace is False, particles already in self are</span>
 <span class="sd">        not replaced.</span>
@@ -339,7 +348,10 @@
             <span class="k">if</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">particle</span><span class="p">,</span> <span class="n">nucleusModule</span><span class="o">.</span><span class="n">Particle</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="k">continue</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span> <span class="n">particle</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Database.check"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Database.check">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.check">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check for physics problems in the database</span>
 
@@ -347,7 +359,7 @@
 <span class="sd">        :return: list of warnings along with context about where they appear in the database</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">warning</span> <span class="k">as</span> <span class="n">warningModule</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">warning</span> <span class="k">as</span> <span class="n">warningModule</span>
 
         <span class="n">warnings</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">info</span> <span class="o">=</span> <span class="n">kwargs</span>
@@ -361,7 +373,10 @@
         <span class="n">result</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">info</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="Database.convertUnits"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.convertUnits">[docs]</a>    <span class="k">def</span> <span class="nf">convertUnits</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Database.convertUnits">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.convertUnits">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convertUnits</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Recursively searches for units within all sections, converting units that appear in the unitMap.</span>
 
@@ -375,7 +390,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__chemicalElements</span><span class="o">.</span><span class="n">convertUnits</span><span class="p">(</span> <span class="n">unitMap</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__unorthodoxes</span><span class="o">.</span><span class="n">convertUnits</span><span class="p">(</span> <span class="n">unitMap</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Database.copy"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Database.copy">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.copy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :return: deep copy of the entire database.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -392,7 +410,10 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="n">_database</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Database.estimateMass"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.estimateMass">[docs]</a>    <span class="k">def</span> <span class="nf">estimateMass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">maxASpan</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Database.estimateMass">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.estimateMass">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">estimateMass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">unit</span><span class="p">,</span> <span class="n">maxASpan</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Returns the mass of the particle specified by *pid* if it exists in *self* and has a mass; otherwise,</span>
 <span class="sd">        the mass is estimate if possible. Currenlty, estimates are only performed if *pid* is a nuclide. In </span>
@@ -460,7 +481,10 @@
 
         <span class="k">return</span> <span class="n">mass</span></div>
 
-<div class="viewcode-block" id="Database.final"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.final">[docs]</a>    <span class="k">def</span> <span class="nf">final</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">returnAtMetaStableAlias</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Database.final">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.final">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">final</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">returnAtMetaStableAlias</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the particle matching id. If id is an alias, will follow the alias pid until a non-alias particle is found and that particle is returned.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -472,7 +496,8 @@
 
         <span class="k">return</span> <span class="n">particle</span></div>
 
-    <span class="k">def</span> <span class="nf">hasAlias</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="nb">id</span> <span class="p">)</span> <span class="p">:</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">hasAlias</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="nb">id</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">if</span> <span class="nb">id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__aliases</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
@@ -481,7 +506,9 @@
             <span class="k">return</span> <span class="n">parentDB</span><span class="o">.</span><span class="n">hasAlias</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">False</span>
 
-<div class="viewcode-block" id="Database.QValue"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.QValue">[docs]</a>    <span class="k">def</span> <span class="nf">QValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ingoingParticles</span><span class="p">,</span> <span class="n">outgoingParticles</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;MeV&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Database.QValue">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.QValue">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">QValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ingoingParticles</span><span class="p">,</span> <span class="n">outgoingParticles</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;MeV&#39;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Calculates the Q value from the list of ingoing and outgoing particle ids.</span>
 
@@ -517,7 +544,10 @@
 
         <span class="k">return</span> <span class="n">Q</span></div>
 
-<div class="viewcode-block" id="Database.saveToFile"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.saveToFile">[docs]</a>    <span class="k">def</span> <span class="nf">saveToFile</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Database.saveToFile">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.saveToFile">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">saveToFile</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span> <span class="n">fileName</span> <span class="p">)</span>
         <span class="k">if</span><span class="p">(</span> <span class="n">dirname</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="p">)</span> <span class="p">:</span>
@@ -528,7 +558,10 @@
         <span class="n">fOut</span><span class="o">.</span><span class="n">write</span><span class="p">(</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="p">)</span>
         <span class="n">fOut</span><span class="o">.</span><span class="n">close</span><span class="p">(</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Database.toXML_strList"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Database.toXML_strList">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="n">indent2</span> <span class="o">=</span> <span class="n">indent</span> <span class="o">+</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;incrementalIndent&#39;</span><span class="p">,</span> <span class="s1">&#39;  &#39;</span><span class="p">)</span>
 
@@ -563,7 +596,8 @@
 
         <span class="k">return</span> <span class="n">xmlString</span></div>
 
-    <span class="k">def</span> <span class="nf">parseNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="n">xPath</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">element</span><span class="o">.</span><span class="n">tag</span> <span class="p">)</span>
 
@@ -602,8 +636,10 @@
 
         <span class="k">return</span> <span class="bp">self</span>
 
-<div class="viewcode-block" id="Database.parseNodeUsingClass"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Database.parseNodeUsingClass">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="n">formatVersion</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">get</span><span class="p">(</span> <span class="s1">&#39;format&#39;</span> <span class="p">)</span>
         <span class="k">if</span> <span class="n">formatVersion</span> <span class="ow">in</span> <span class="p">[</span><span class="n">GNDS_formatVersionModule</span><span class="o">.</span><span class="n">version_2_0_LLNL_3</span><span class="p">,</span> <span class="n">GNDS_formatVersionModule</span><span class="o">.</span><span class="n">version_2_0_LLNL_4</span><span class="p">]:</span>
@@ -617,62 +653,113 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">parseNode</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Database.read"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.read">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Database.read">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.Database.read">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reads in the file name *fileName* and returns a **database** instance.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="n">Database</span><span class="o">.</span><span class="n">readXML_file</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">Database</span><span class="o">.</span><span class="n">readXML_file</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
 
-<div class="viewcode-block" id="read"><a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.read">[docs]</a><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="read">
+<a class="viewcode-back" href="../../PoPs/database.html#PoPs.database.read">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reads in the file name *fileName* and returns a **database** instance.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">Database</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fileName</span><span class="p">)</span></div>
+
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">PoPs.database</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

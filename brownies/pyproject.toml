@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "brownies"
+version = "0.9.1"
+authors = [
+    {name = "David Brown", email = "dbrown@bnl.gov"},
+]
+description = "Fudge brownies"
+readme = "README.txt"
+requires-python = ">=3.7"
+keywords = ["ENDF", "Fudge"]
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Text Processing :: General",
+    "Topic :: Software Development :: Interpreters",
+    "Topic :: Scientific/Engineering",
+]
+
+[tool.setuptools]
+packages = [
+    "brownies.bin",
+    "brownies.BNL",
+    "brownies.BNL.utilities", "brownies.BNL.utilities.test",
+    "brownies.BNL.restools", "brownies.BNL.restools.test",
+    "brownies.BNL.plot_evaluation", "brownies.BNL.plot_evaluation.test",
+    "brownies.BNL.inter", "brownies.BNL.inter.spectra", "brownies.BNL.inter.test",
+    "brownies.BNL.reaclib",
+    "brownies.BNL.RIPL",
+    "brownies.LANL", "brownies.LANL.toACE",
+    "brownies.LLNL", "brownies.LLNL.fetePy",
+    "brownies.legacy",
+    "brownies.legacy.converting",
+    "brownies.legacy.converting.ENDFToGNDS",
+    "brownies.legacy.endl",
+    "brownies.legacy.endl.structure",
+    "brownies.legacy.endl.test",
+    "brownies.legacy.toENDL", "brownies.legacy.toENDL.productData", "brownies.legacy.toENDL.productData.distributions",
+    "brownies.legacy.toENDF6", "brownies.legacy.toENDF6.PoPs_toENDF6", "brownies.legacy.toENDF6.PoPs_toENDF6.atomic",
+    "brownies.legacy.toENDF6.PoPs_toENDF6.decays", "brownies.legacy.toENDF6.PoPs_toENDF6.fissionFragmentData",
+    "brownies.legacy.toENDF6.outputChannelData", "brownies.legacy.toENDF6.covariances", "brownies.legacy.toENDF6.differentialCrossSection",
+    "brownies.legacy.toENDF6.productData", "brownies.legacy.toENDF6.productData.distributions", "brownies.legacy.toENDF6.reactions",
+    "brownies.legacy.toENDF6.reactionData", "brownies.legacy.toENDF6.reactionData.chargedParticleElastic",
+    "brownies.legacy.toENDF6.reactionData.photonScattering", "brownies.legacy.toENDF6.resonances"
+]
+package-dir = {"brownies" = "."}
+
+[tool.setuptools.package-data]
+"brownies.BNL.inter" = ["README.txt", "*.json"]
+"brownies.BNL.inter.test" = ["*.endf"]
+"brownies.BNL.inter.spectra" = ["*.001", "README.txt", "*.dat", "*.json", "*.endf"]
+"brownies.BNL.reaclib" = ["SkyNetReaclib/*"]
+"brownies.BNL.plot_evaluation" = ["*.json", "*.DAT"]
+"brownies.LANL" = ["build_xsdir/*.py", "build_xsdir/*.dat", "dismemberACE/*.py"]
+
+[project.urls]
+"Homepage" = "http://www.nndc.bnl.gov"

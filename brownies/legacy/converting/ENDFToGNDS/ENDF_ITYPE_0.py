@@ -429,7 +429,7 @@ def ITYPE_0(MTDatas, info, reactionSuite, singleMTOnly, MTs2Skip, parseCrossSect
                          204: IDsPoPsModule.familiarDeuteron,
                          205: IDsPoPsModule.familiarTriton, 206: IDsPoPsModule.familiarHelion,
                          207: IDsPoPsModule.familiarAlpha}[MT]
-            incompleteReaction = incompleteReactionModule.IncompleteReaction(label, outputChannel.genre, ENDF_MT=MT)
+            productionReaction = productionModule.Production(label, outputChannel.genre, ENDF_MT=MT)
             crossSection, outputChannel, MFKeys, LRProducts = parseReaction(
                 info, info.target, info.projectileZA, info.targetZA, MT, MTDatas[MT], warningList,
                 parseCrossSectionOnly=parseCrossSectionOnly, channelProcess=channelProcess)
@@ -444,9 +444,10 @@ def ITYPE_0(MTDatas, info, reactionSuite, singleMTOnly, MTs2Skip, parseCrossSect
                 warningList.append('For reaction MT = %d, the following MFs were not converted: %s\n' % (MT, MFKeys))
             if LRProducts is not None:
                 warningList.append('For reaction MT = %d, LRProducts is not None\n')
-            incompleteReaction.crossSection.add(crossSection)
-            endf_endlModule.setReactionsOutputChannelFromOutputChannel(info, incompleteReaction, outputChannel)
-            incompleteReactions.append(incompleteReaction)
+            productionReaction.crossSection.add(crossSection)
+            endf_endlModule.setReactionsOutputChannelFromOutputChannel(info, productionReaction, outputChannel)
+            productions.append(productionReaction)
+            info.ENDFconversionFlags.add(productionReaction, 'MF3production')
             if verbose > 0:
                 print()  # put messages for each extraMT on a separate line
         elif MT in range(851, 871):
@@ -838,66 +839,11 @@ def ITYPE_0(MTDatas, info, reactionSuite, singleMTOnly, MTs2Skip, parseCrossSect
     else:
         covarianceSuite = None
 
-    def overridePoPsIfNecessary(AWRI, spinParity=None):
-        """
-        Resonance regions may use different particle properties than the rest of the evaluation.
-        If so, create a new PoPs database overriding values as necessary.
-        """
-        pops = None
-        massChanged = spinChanged = False
-
-        if AWRI != info.massTracker.getMostCommonMassAWR(info.targetZA):
-            massChanged = True
-        if spinParity is not None:
-            spinNow, parityNow = spinParity
-            commonSpin, commonParity = info.particleSpins[info.target]
-            if spinNow != commonSpin:
-                spinChanged = True
-            if parityNow is not None and parityNow != commonParity:
-                spinChanged = True
-
-        if massChanged or spinChanged:
-            from PoPs import database as PoPsDatabaseModule
-            from PoPs.families import nuclide as PoPsNuclideModule
-
-            pops = PoPsDatabaseModule.Database("resolved resonances", version="1.0", formatVersion=info.formatVersion)
-            target = info.PoPs[info.target]
-            if isinstance(target, aliasPoPsModule.MetaStable):
-                # metastable target. Mass goes with GS (adjusted for excitation energy), spin goes with actual level
-                target = info.PoPs.final(target.pid)
-                AWRI -= target.energy.float('amu*c**2') / info.massTracker.neutronMass
-                groundState = target.isotope[0].copy()
-                target = target.copy()
-            else:
-                target = target.copy()
-                groundState = target
-
-            if massChanged:
-                groundState.mass.add(
-                    massModule.Double(label=info.style, value=AWRI * info.massTracker.neutronMass, unit='amu')
-                )
-            else:
-                groundState.mass.add(
-                    massModule.Double(
-                        label=info.style,
-                        value=info.massTracker.getMostCommonMassAWR(info.targetZA) * info.massTracker.neutronMass,
-                        unit='amu'))
-
-            spin, parity = spinParity or info.particleSpins[info.target]
-            target.nucleus.spin.add(spinModule.Fraction(label=info.style, value=spin, unit='hbar'))
-            if parity:
-                target.nucleus.parity.add(parityModule.Integer(label=info.style, value=parity, unit=''))
-
-            pops.add(groundState)
-            if target is not groundState:
-                pops.add(target)
-
-        return pops
-
-    for key in info.PoPsOverrides:
-        popsDB = overridePoPsIfNecessary(*info.PoPsOverrides[key])
-        if popsDB is not None:
-            key.PoPs = popsDB
+    for sgTable in info.extraFissionWidths:
+        # remove 2nd fission width from resonance parameters. Must be done after processing MF32 covariances
+        channels = sgTable.findAttributeInAncestry('channels')
+        channels.pop(channels.labels()[-1])
+        sgTable.removeColumn('fission width_2')
 
     info.massTracker.useMostCommonAMUmasses()
 
@@ -966,6 +912,67 @@ def ITYPE_0(MTDatas, info, reactionSuite, singleMTOnly, MTs2Skip, parseCrossSect
                         info.ENDFconversionFlags.add(product, 'implicitProduct')
                         residual.outputChannel.products.add(product)
                         reaction.updateLabel()
+
+    def overridePoPsIfNecessary(AWRI, spinParity=None):
+        """
+        Resonance regions may use different particle properties than the rest of the evaluation.
+        If so, create a new PoPs database overriding values as necessary.
+        """
+        pops = None
+        massChanged = spinChanged = False
+
+        if AWRI != info.massTracker.getMostCommonMassAWR(info.targetZA):
+            massChanged = True
+        if spinParity is not None:
+            spinNow, parityNow = spinParity
+            commonSpin, commonParity = info.particleSpins[info.target]
+            if spinNow != commonSpin:
+                spinChanged = True
+            if parityNow is not None and parityNow != commonParity:
+                spinChanged = True
+
+        if massChanged or spinChanged:
+            from PoPs import database as PoPsDatabaseModule
+            from PoPs.families import nuclide as PoPsNuclideModule
+
+            pops = PoPsDatabaseModule.Database("resolved resonances", version="1.0", formatVersion=info.formatVersion)
+            target = info.PoPs[info.target]
+            if isinstance(target, aliasPoPsModule.MetaStable):
+                # metastable target. Mass goes with GS (adjusted for excitation energy), spin goes with actual level
+                target = info.PoPs.final(target.pid)
+                AWRI -= target.energy.float('amu*c**2') / info.massTracker.neutronMass
+                groundState = target.isotope[0].copy()
+                target = target.copy()
+            else:
+                target = target.copy()
+                groundState = target
+
+            if massChanged:
+                groundState.mass.add(
+                    massModule.Double(label=info.style, value=AWRI * info.massTracker.neutronMass, unit='amu')
+                )
+            else:
+                groundState.mass.add(
+                    massModule.Double(
+                        label=info.style,
+                        value=info.massTracker.getMostCommonMassAWR(info.targetZA) * info.massTracker.neutronMass,
+                        unit='amu'))
+
+            spin, parity = spinParity or info.particleSpins[info.target]
+            target.nucleus.spin.add(spinModule.Fraction(label=info.style, value=spin, unit='hbar'))
+            if parity:
+                target.nucleus.parity.add(parityModule.Integer(label=info.style, value=parity, unit=''))
+
+            pops.add(groundState)
+            if target is not groundState:
+                pops.add(target)
+
+        return pops
+
+    for key in info.PoPsOverrides:
+        popsDB = overridePoPsIfNecessary(*info.PoPsOverrides[key])
+        if popsDB is not None:
+            key.PoPs = popsDB
 
     if reconstructResonances and reactionSuite.resonances is not None and reactionSuite.resonances.reconstructCrossSection:
         info.logs.write('    Reconstructing resonances\n')

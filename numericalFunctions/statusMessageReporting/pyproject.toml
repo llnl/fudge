@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "statusMessageReporting"
+version = "1.0.0"
+authors = [
+    {name = "LLNL", email = "mattoon1@llnl.gov"},
+]
+description = "Status message reporting utility"
+readme = "README.md"
+requires-python = ">=3.7"
+
+[tool.setuptools]
+packages = ["statusMessageReporting"]
+package-dir = {"statusMessageReporting" = ""}
+
+[tool.setuptools.package-data]
+"statusMessageReporting" = ["Src/*.c", "Src/*.h"]

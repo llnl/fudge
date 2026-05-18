@@ -282,7 +282,7 @@ class XDataFunctional(XDataCoreMembers):
 
     def fixValuePerUnitChange(self, factors):
         """
-        This methods changes self's *outputDomainValue* per a unit change if theself's *outputDomainValue* is not None.
+        This methods changes self's *outerDomainValue* per a unit change if self's *outerDomainValue* is not None.
         This method is called from a sub-class's **convertUnits** method.
 
         :param factors:         A list of at least dimenstion + 2 floats that are the unit scaling factors..

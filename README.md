@@ -15,7 +15,7 @@ plus tools for testing, visualizing, and processing **GNDS** data.
 
 ## Getting Started:
 
-Installing **FUDGE** requires Python (version 3.7 or higher) and NumPy (version 1.15 or higher).
+Installing **FUDGE** requires Python (version 3.9 or higher) and NumPy (version 1.15 or higher).
 
 Optional packages matplotlib and PyQT5 are also recommended to support plotting. 
 
@@ -50,7 +50,7 @@ Optional packages matplotlib and PyQT5 are also recommended to support plotting.
       Or,
 
           # Install a tagged release:
-          pip install git+https://github.com/LLNL/fudge.git@fudge6.8.0
+          pip install git+https://github.com/LLNL/fudge.git@6.13.0
 
 
 - Installation by cloning the git repository and building with the unix `make` command: 
@@ -83,18 +83,22 @@ Optional packages matplotlib and PyQT5 are also recommended to support plotting.
 
             setenv PYTHONPATH $PYTHONPATH:<path_to_FUDGE>
 
-      - on Windows, the environment variable should be added to the registry (see for 
-          example <http://www.support.tabs3.com/main/R10463.htm>)
-
 ### Notes for Windows users:
 
-FUDGE installations are now regularly tested on Github CI using Windows with the MinGW environment.
-Compiling C extensions on Windows may require an extra step: if command 'cc.exe' is not available,
-locate a C compiler and set environment variable CC to that compiler.  For example,
+We recommend installing and using FUDGE with Windows Subsystem for Linux (WSL).
+When using WSL, be sure to install in a Linux-managed directory, e.g. /home/* instead of /mnt/c/*.
+
+FUDGE can also be installed using the MinGW environment, but some portions of the code are optimized for
+unix-style process management and perform best on WSL.
+Compiling C extensions on MinGW may require an extra step:
+if command 'cc.exe' is not available, locate a C compiler and set environment variable CC to that compiler
+before running 'make' or 'pip install'. For example,
 ```
 set CC=gcc
-pip install git+https://github.com/LLNL/fudge.git
+pip install ...
 ```
+
+When installing with MinGW, the PYTHONPATH should be amended in the registry (see for example <http://www.support.tabs3.com/main/R10463.htm>)
 
 Please let us know if you run into trouble installing or using FUDGE on Windows!
 
@@ -132,7 +136,7 @@ endf2gnds.py <originalFile.endf> <newFile.xml> --continuumSpectraFix
 
 The Python script **gnds2endf.py** translates a **GNDS** file to an **ENDF-6** file. This
 script will look for a corresponding covariance file and, if present, add its data to the **ENDF-6** 
-result. For example, the following translates the *n-001_H_001.xml* file generated in the **endf2gnds.py** comannd above 
+result. For example, the following translates the *n-001_H_001.xml* file generated in the **endf2gnds.py** command above 
 back into an **ENDF-6** file:
 ```
 python3 -m brownies.bin.gnds2endf.py n-001_H_001.xml

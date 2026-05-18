@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "numericalFunctions"
+version = "1.0.0"
+authors = [
+    {name = "LLNL", email = "mattoon1@llnl.gov"},
+]
+description = "A collection of numerical functions for scientific computing"
+readme = "README.md"
+requires-python = ">=3.7"
+
+[tool.setuptools]
+packages = ["numericalFunctions"]
+package-dir = {"numericalFunctions" = "."}
+
+[project.urls]
+"Homepage" = "https://github.com/LLNL/fudge"

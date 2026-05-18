@@ -1,72 +1,73 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>fudge.covariances.covarianceMatrix &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
-    
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../../_static/gnd-20121206-favicon.ico"/>
+    <title>fudge.covariances.covarianceMatrix &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">fudge.covariances.covarianceMatrix</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for fudge.covariances.covarianceMatrix</h1><div class="highlight"><pre>
 <span></span><span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 
 <span class="sd">&quot;&quot;&quot;Base classes for covariances: matrix, axes.&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">copy</span><span class="o">,</span> <span class="nn">numpy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">covarianceEnumsModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">base</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">covarianceEnumsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">base</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">mixed</span> <span class="k">as</span> <span class="n">mixedModule</span>
 
-<span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
 
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">xDataEnumsModule</span>
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">axes</span> <span class="k">as</span> <span class="n">axesModule</span>
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">gridded</span> <span class="k">as</span> <span class="n">griddedModule</span>
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">xDataArray</span> <span class="k">as</span> <span class="n">arrayModule</span>
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">link</span> <span class="k">as</span> <span class="n">linkModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">xDataEnumsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">axes</span> <span class="k">as</span> <span class="n">axesModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">gridded</span> <span class="k">as</span> <span class="n">griddedModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">xDataArray</span> <span class="k">as</span> <span class="n">arrayModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">link</span> <span class="k">as</span> <span class="n">linkModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">values</span> <span class="k">as</span> <span class="n">valuesModule</span>
 
-<span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span>
 
 <span class="n">lowerEps</span> <span class="o">=</span> <span class="mf">1e-8</span>
 <span class="n">upperEps</span> <span class="o">=</span> <span class="mf">1e-8</span>
 
 
-<div class="viewcode-block" id="CovarianceMatrix"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix">[docs]</a><span class="k">class</span> <span class="nc">CovarianceMatrix</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">Covariance</span><span class="p">):</span>
+<div class="viewcode-block" id="CovarianceMatrix">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CovarianceMatrix</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">Covariance</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Simplest form of covariance. covarianceMatrix contains a label, a covariance &#39;type&#39; which might be &#39;absolute&#39;,</span>
 <span class="sd">    &#39;relative&#39; or &#39;correlation&#39;, and an optional &#39;productFrame&#39; (for covariances on outgoing distributions).</span>
@@ -76,7 +77,7 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;covarianceMatrix&#39;</span>
     <span class="n">keyName</span> <span class="o">=</span> <span class="s1">&#39;label&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">covarianceEnumsModule</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">absolute</span><span class="p">,</span> <span class="n">matrix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">productFrame</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">covarianceEnumsModule</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">absolute</span><span class="p">,</span> <span class="n">matrix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">productFrame</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param label: refers either to a style (i.e., &#39;eval&#39;), or to the index inside a &#39;mixed&#39; covariance</span>
@@ -97,26 +98,26 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__label</span>
 
     <span class="nd">@label</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
             <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">))):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;label must be a string&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__label</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">domainUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainUnit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">productFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">productFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__productFrame</span>
 
     <span class="nd">@productFrame</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">productFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">productFrame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__productFrame</span> <span class="o">=</span> <span class="kc">None</span>
@@ -124,10 +125,64 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">__productFrame</span> <span class="o">=</span> <span class="n">xDataEnumsModule</span><span class="o">.</span><span class="n">Frame</span><span class="o">.</span><span class="n">checkEnumOrString</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__type</span>
 
-<div class="viewcode-block" id="CovarianceMatrix.getValue"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.getValue">[docs]</a>    <span class="k">def</span> <span class="nf">getValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="viewcode-block" id="CovarianceMatrix.constructFromData">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.constructFromData">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">constructFromData</span><span class="p">(</span><span class="n">energyUnit</span><span class="p">,</span> <span class="n">rowGrid</span><span class="p">,</span> <span class="n">columnGrid</span><span class="p">,</span> <span class="n">matrix</span><span class="p">,</span>
+                          <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">covarianceEnumsModule</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">relative</span><span class="p">,</span> <span class="n">matrixUnit</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct a CovarianceMatrix from raw data.</span>
+
+<span class="sd">        :param energyUnit: unit for the energy grids</span>
+<span class="sd">        :param rowGrid: grid for the rows (as a list of values)</span>
+<span class="sd">        :param columnGrid: grid for the columns (as a list of values). Use None if same as rowGrid</span>
+<span class="sd">        :param matrix: 2d list or numpy array containing the matrix values</span>
+<span class="sd">        :param label: label (e.g. &#39;eval&#39;)</span>
+<span class="sd">        :param type: type of the covariance matrix (relative or absolute)</span>
+<span class="sd">        :param matrixUnit: unit for covariance matrix elements</span>
+<span class="sd">        :return: CovarianceMatrix instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">rowGrid</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;rowGrid length must be matrix size + 1&quot;</span>
+        <span class="k">if</span> <span class="n">columnGrid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">columnGrid</span><span class="p">)</span> <span class="o">==</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;columnGrid length must be matrix size + 1&quot;</span>
+
+        <span class="n">axes</span> <span class="o">=</span> <span class="n">axesModule</span><span class="o">.</span><span class="n">Axes</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">labelsUnits</span><span class="o">=</span><span class="p">{</span>
+            <span class="mi">0</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;matrix_elements&#39;</span><span class="p">,</span> <span class="n">matrixUnit</span><span class="p">),</span>
+            <span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;column_energy_bounds&#39;</span><span class="p">,</span> <span class="n">energyUnit</span><span class="p">),</span>
+            <span class="mi">2</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;row_energy_bounds&#39;</span><span class="p">,</span> <span class="n">energyUnit</span><span class="p">)})</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">axesModule</span><span class="o">.</span><span class="n">Grid</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span><span class="p">,</span>
+                                <span class="n">style</span><span class="o">=</span><span class="n">xDataEnumsModule</span><span class="o">.</span><span class="n">GridStyle</span><span class="o">.</span><span class="n">boundaries</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">valuesModule</span><span class="o">.</span><span class="n">Values</span><span class="p">(</span><span class="n">rowGrid</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">columnGrid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">axesModule</span><span class="o">.</span><span class="n">Grid</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span><span class="p">,</span>
+                                    <span class="n">style</span><span class="o">=</span><span class="n">xDataEnumsModule</span><span class="o">.</span><span class="n">GridStyle</span><span class="o">.</span><span class="n">boundaries</span><span class="p">,</span>
+                                    <span class="n">values</span><span class="o">=</span><span class="n">valuesModule</span><span class="o">.</span><span class="n">Values</span><span class="p">(</span><span class="n">columnGrid</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">axesModule</span><span class="o">.</span><span class="n">Grid</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span><span class="p">,</span>
+                                    <span class="n">style</span><span class="o">=</span><span class="n">xDataEnumsModule</span><span class="o">.</span><span class="n">GridStyle</span><span class="o">.</span><span class="n">boundaries</span><span class="p">,</span>
+                                    <span class="n">values</span><span class="o">=</span><span class="n">linkModule</span><span class="o">.</span><span class="n">Link</span><span class="p">(</span><span class="n">link</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+        <span class="n">matrix</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">columnGrid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">array</span> <span class="o">=</span> <span class="n">arrayModule</span><span class="o">.</span><span class="n">Full</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                                    <span class="n">data</span><span class="o">=</span><span class="n">matrix</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+                                    <span class="n">symmetry</span><span class="o">=</span><span class="n">arrayModule</span><span class="o">.</span><span class="n">Symmetry</span><span class="o">.</span><span class="n">none</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># matrix is symmetric. Only store lower triangle</span>
+            <span class="n">triData</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">tril_indices</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">))]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="n">array</span> <span class="o">=</span> <span class="n">arrayModule</span><span class="o">.</span><span class="n">Full</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                                    <span class="n">data</span><span class="o">=</span><span class="n">triData</span><span class="p">,</span>
+                                    <span class="n">symmetry</span><span class="o">=</span><span class="n">arrayModule</span><span class="o">.</span><span class="n">Symmetry</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span>
+
+        <span class="n">gridded2d</span> <span class="o">=</span> <span class="n">griddedModule</span><span class="o">.</span><span class="n">Gridded2d</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">array</span><span class="o">=</span><span class="n">array</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">CovarianceMatrix</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span> <span class="n">matrix</span><span class="o">=</span><span class="n">gridded2d</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CovarianceMatrix.getValue">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.getValue">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getValue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="n">ix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">getIndexOfValue</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">linkModule</span><span class="o">.</span><span class="n">Link</span><span class="p">):</span>
             <span class="n">iy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">getIndexOfValue</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
@@ -135,14 +190,20 @@
             <span class="n">iy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getIndexOfValue</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">constructArray</span><span class="p">()[</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.rowBounds"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.rowBounds">[docs]</a>    <span class="k">def</span> <span class="nf">rowBounds</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="kc">None</span> <span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.rowBounds">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.rowBounds">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rowBounds</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="kc">None</span> <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the bounds of the row.  If unit is specified, return the bounds in that unit.&quot;&quot;&quot;</span>
         <span class="n">factor</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">unit</span><span class="p">:</span>
             <span class="n">factor</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span><span class="o">.</span><span class="n">getValueAs</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">factor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">factor</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.columnBounds"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.columnBounds">[docs]</a>    <span class="k">def</span> <span class="nf">columnBounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.columnBounds">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.columnBounds">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">columnBounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the bounds of the column.  If unit is specified, return the bounds in that unit.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">linkModule</span><span class="o">.</span><span class="n">Link</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rowBounds</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
         <span class="n">factor</span> <span class="o">=</span> <span class="mi">1</span>
@@ -150,7 +211,10 @@
             <span class="n">factor</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span><span class="o">.</span><span class="n">getValueAs</span><span class="p">(</span><span class="n">unit</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">factor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">factor</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.isSymmetric"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.isSymmetric">[docs]</a>    <span class="k">def</span> <span class="nf">isSymmetric</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.isSymmetric">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.isSymmetric">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">isSymmetric</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Simple test to determine if an underlying matrix is symmetric</span>
 <span class="sd">        :return: boolean</span>
@@ -163,7 +227,10 @@
         <span class="n">arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">constructArray</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">arr</span> <span class="o">==</span> <span class="n">arr</span><span class="o">.</span><span class="n">T</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.convertAxesToUnits"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.convertAxesToUnits">[docs]</a>    <span class="k">def</span> <span class="nf">convertAxesToUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.convertAxesToUnits">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.convertAxesToUnits">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convertAxesToUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts all the axes&#39; units.</span>
 <span class="sd">        The parameter ``units`` should be a list of units with the same length as self.axes</span>
@@ -180,11 +247,17 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.convertUnits"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.convertUnits">[docs]</a>    <span class="k">def</span> <span class="nf">convertUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.convertUnits">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.convertUnits">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convertUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">convertUnits</span><span class="p">(</span><span class="n">unitMap</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.domainSlice"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.domainSlice">[docs]</a>    <span class="k">def</span> <span class="nf">domainSlice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rowDomainBounds</span><span class="p">,</span> <span class="n">columnDomainBounds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.domainSlice">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.domainSlice">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainSlice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rowDomainBounds</span><span class="p">,</span> <span class="n">columnDomainBounds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return copy with a revised domain for rows and columns.</span>
 <span class="sd">        If requested domain extends beyond limits of self, add rows/columns of zeros to the new matrix.</span>
@@ -194,9 +267,7 @@
 <span class="sd">        :param label: string to label the result</span>
 <span class="sd">        :return: CovarianceMatrix</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">bisect</span>
-        <span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">values</span> <span class="k">as</span> <span class="n">valuesModule</span>
-        <span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">link</span> <span class="k">as</span> <span class="n">linkModule</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">bisect</span>
 
         <span class="k">if</span> <span class="n">columnDomainBounds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">columnDomainBounds</span> <span class="o">=</span> <span class="n">rowDomainBounds</span>
@@ -204,7 +275,7 @@
         <span class="k">if</span> <span class="n">rowDomainBounds</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">rowBounds</span><span class="p">()</span> <span class="ow">and</span> <span class="n">columnDomainBounds</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnBounds</span><span class="p">():</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
-        <span class="k">def</span> <span class="nf">getNewBinBoundaries</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">rowDomainBounds</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">getNewBinBoundaries</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">rowDomainBounds</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;Get revised bin boundaries between domain min/max. Also determine whether to pad matrix with zeros&quot;&quot;&quot;</span>
             <span class="n">matrixIndices</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>
@@ -271,7 +342,10 @@
 
         <span class="k">return</span> <span class="n">CovarianceMatrix</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">matrix</span><span class="o">=</span><span class="n">gridded</span><span class="p">,</span> <span class="n">productFrame</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">productFrame</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.toCovarianceMatrix"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.toCovarianceMatrix">[docs]</a>    <span class="k">def</span> <span class="nf">toCovarianceMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.toCovarianceMatrix">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.toCovarianceMatrix">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toCovarianceMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return copy of self (for consistency with toCovarianceMatrix behavior in summed.py / mixed.py)</span>
 <span class="sd">        :return:</span>
@@ -280,7 +354,10 @@
         <span class="n">cm</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestor</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cm</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.getCorrelationMatrix"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.getCorrelationMatrix">[docs]</a>    <span class="k">def</span> <span class="nf">getCorrelationMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.getCorrelationMatrix">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.getCorrelationMatrix">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getCorrelationMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the correlation matrix generated from self&#39;s covariance matrix.  This is</span>
 <span class="sd">        essentially a copy of self, but renormalized by the uncertainty:</span>
@@ -303,9 +380,9 @@
         <span class="n">theUncertainty</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">theCorrelationMatrix</span><span class="p">))</span>
         <span class="n">theUncertainty</span><span class="p">[</span><span class="n">theUncertainty</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="n">theUncertainty</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">theUncertainty</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">theCorrelationMatrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-            <span class="k">for</span> <span class="n">i2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">theCorrelationMatrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-                <span class="n">theCorrelationMatrix</span><span class="p">[</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">]</span> <span class="o">/=</span> <span class="p">(</span><span class="n">theUncertainty</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span> <span class="o">*</span> <span class="n">theUncertainty</span><span class="p">[</span><span class="n">i2</span><span class="p">])</span>
+        <span class="k">with</span> <span class="n">numpy</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
+            <span class="n">theCorrelationMatrix</span> <span class="o">/=</span> <span class="n">theUncertainty</span>
+            <span class="n">theCorrelationMatrix</span> <span class="o">/=</span> <span class="n">theUncertainty</span><span class="p">[:,</span><span class="n">numpy</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
 
         <span class="c1"># Return the result</span>
         <span class="n">tridata</span> <span class="o">=</span> <span class="n">theCorrelationMatrix</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">tri</span><span class="p">(</span><span class="n">theCorrelationMatrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -316,7 +393,10 @@
         <span class="n">correlation</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="k">return</span> <span class="n">correlation</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.toAbsolute"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.toAbsolute">[docs]</a>    <span class="k">def</span> <span class="nf">toAbsolute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rowData</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colData</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.toAbsolute">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.toAbsolute">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toAbsolute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rowData</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colData</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Rescales self (if it is a relative covariance) using XYs1d rowData and colData</span>
 <span class="sd">        to convert self into an absolute covariance matrix.</span>
@@ -347,19 +427,23 @@
         <span class="n">gRowData</span> <span class="o">=</span> <span class="n">rowData</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;dx&#39;</span><span class="p">)</span>
 
         <span class="c1"># Only generate the column rescaling if we need to</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">linkModule</span><span class="o">.</span><span class="n">Link</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">isSymmetric</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">linkModule</span><span class="o">.</span><span class="n">Link</span><span class="p">)):</span>
             <span class="k">if</span> <span class="n">colData</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">colData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAttributeInAncestry</span><span class="p">(</span><span class="s1">&#39;columnData&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">toPointwise_withLinearXYs</span><span class="p">(</span><span class="n">lowerEps</span><span class="o">=</span><span class="n">lowerEps</span><span class="p">,</span>
                                                                                                     <span class="n">upperEps</span><span class="o">=</span><span class="n">upperEps</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colData</span><span class="p">,</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;colData must be of type XYs1d, found </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">colData</span><span class="p">))</span>
-            <span class="n">gColData</span> <span class="o">=</span> <span class="n">colData</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;dx&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">linkModule</span><span class="o">.</span><span class="n">Link</span><span class="p">):</span>
+                <span class="n">columnGroups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">values</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">columnGroups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">gColData</span> <span class="o">=</span> <span class="n">colData</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">columnGroups</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;dx&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">colData</span> <span class="o">=</span> <span class="n">rowData</span>
             <span class="n">gColData</span> <span class="o">=</span> <span class="n">gRowData</span>
 
-        <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">outer</span>
-        <span class="n">new_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">constructArray</span><span class="p">()</span> <span class="o">*</span> <span class="n">outer</span><span class="p">(</span><span class="n">gRowData</span><span class="p">,</span> <span class="n">gColData</span><span class="p">)</span>
+        <span class="n">new_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">constructArray</span><span class="p">()</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">gRowData</span><span class="p">,</span> <span class="n">gColData</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">symmetry</span> <span class="o">==</span> <span class="n">arrayModule</span><span class="o">.</span><span class="n">Symmetry</span><span class="o">.</span><span class="n">lower</span><span class="p">:</span>
             <span class="n">new_data</span> <span class="o">=</span> <span class="n">new_data</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">tril_indices</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">new_data</span><span class="p">))]</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">symmetry</span> <span class="o">==</span> <span class="n">arrayModule</span><span class="o">.</span><span class="n">Symmetry</span><span class="o">.</span><span class="n">upper</span><span class="p">:</span>
@@ -390,7 +474,10 @@
 
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.toRelative"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.toRelative">[docs]</a>    <span class="k">def</span> <span class="nf">toRelative</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rowData</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colData</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.toRelative">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.toRelative">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toRelative</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rowData</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">colData</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Rescales self (if it is a absolute covariance) using XYs1d rowData and colData</span>
 <span class="sd">        to convert self into a relative covariance matrix.</span>
@@ -421,18 +508,22 @@
         <span class="n">gRowData</span> <span class="o">=</span> <span class="n">rowData</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;dx&#39;</span><span class="p">)</span>
 
         <span class="c1"># Only generate the column rescaling if we need to</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">linkModule</span><span class="o">.</span><span class="n">Link</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">isSymmetric</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">linkModule</span><span class="o">.</span><span class="n">Link</span><span class="p">)):</span>
             <span class="k">if</span> <span class="n">colData</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">colData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAttributeInAncestry</span><span class="p">(</span><span class="s1">&#39;columnData&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">toPointwise_withLinearXYs</span><span class="p">(</span><span class="n">lowerEps</span><span class="o">=</span><span class="n">lowerEps</span><span class="p">,</span>
                                                                                                     <span class="n">upperEps</span><span class="o">=</span><span class="n">upperEps</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">colData</span><span class="p">,</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;colData must be of type XYs1d, found </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">colData</span><span class="p">))</span>
-            <span class="n">gColData</span> <span class="o">=</span> <span class="n">colData</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;dx&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">linkModule</span><span class="o">.</span><span class="n">Link</span><span class="p">):</span>
+                <span class="n">columnGroups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">values</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">columnGroups</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">gColData</span> <span class="o">=</span> <span class="n">colData</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">columnGroups</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;dx&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">gColData</span> <span class="o">=</span> <span class="n">gRowData</span>
 
-        <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">outer</span>
-        <span class="n">denom</span> <span class="o">=</span> <span class="n">outer</span><span class="p">(</span><span class="n">gRowData</span><span class="p">,</span> <span class="n">gColData</span><span class="p">)</span>
+        <span class="n">denom</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">gRowData</span><span class="p">,</span> <span class="n">gColData</span><span class="p">)</span>
         <span class="n">denom</span><span class="p">[</span><span class="n">denom</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowerEps</span>  <span class="c1"># remove zeros</span>
         <span class="n">new_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">constructArray</span><span class="p">()</span> <span class="o">/</span> <span class="n">denom</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">symmetry</span> <span class="o">==</span> <span class="n">arrayModule</span><span class="o">.</span><span class="n">Symmetry</span><span class="o">.</span><span class="n">lower</span><span class="p">:</span>
@@ -460,27 +551,53 @@
 
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.copy"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.copy">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.copy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">return</span> <span class="n">CovarianceMatrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">productFrame</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.check"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.check">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.check">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if relative uncertainty is in the bounds passed into the checker,</span>
 <span class="sd">        and checks for negative eigenvalues or other issues.&quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">fudge</span> <span class="kn">import</span> <span class="n">warning</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">fudge</span><span class="w"> </span><span class="kn">import</span> <span class="n">warning</span>
         <span class="n">warnings</span> <span class="o">=</span> <span class="p">[]</span>
 
+        <span class="n">rowGrid</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">columnData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAttributeInAncestry</span><span class="p">(</span><span class="s1">&#39;columnData&#39;</span><span class="p">)</span>
+            <span class="n">columnGrid</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="n">columnData</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">columnGrid</span> <span class="o">=</span> <span class="n">rowGrid</span>
 
-        <span class="k">if</span> <span class="n">columnData</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;checkUncLimits&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">rowGrid</span> <span class="o">!=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">rowGrid</span><span class="p">)):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">warning</span><span class="o">.</span><span class="n">NonMonotonicGrid</span><span class="p">(</span><span class="s2">&quot;rows&quot;</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">columnData</span> <span class="ow">and</span> <span class="n">columnGrid</span> <span class="o">!=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">columnGrid</span><span class="p">)):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">warning</span><span class="o">.</span><span class="n">NonMonotonicGrid</span><span class="p">(</span><span class="s2">&quot;columns&quot;</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="p">))</span>
+
+        <span class="n">A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">constructArray</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rowGrid</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">columnGrid</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">warning</span><span class="o">.</span><span class="n">MatrixDimensionMismatch</span><span class="p">(</span>
+                <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">rowGrid</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">columnGrid</span><span class="p">)),</span> <span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAttributeInAncestry</span><span class="p">(</span><span class="s1">&#39;crossTerm&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;checkUncLimits&#39;</span><span class="p">]:</span>
+            <span class="c1"># remaining checks don&#39;t apply to cross-terms yet</span>
+            <span class="c1"># FIXME also test FULL matrix including cross-terms</span>
+            <span class="k">return</span> <span class="n">warnings</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">A</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="c1"># all matrix elements == 0. Warn unless self is inside a &lt;mixed&gt; section:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ancestor</span><span class="p">,</span> <span class="n">mixedModule</span><span class="o">.</span><span class="n">MixedForm</span><span class="p">):</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">warning</span><span class="o">.</span><span class="n">EmptyMatrix</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="bp">self</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">warnings</span>
 
         <span class="c1"># run variance and eigenvalue checks on original matrix, relative or absolute:</span>
-        <span class="n">A</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">constructArray</span><span class="p">()</span>
         <span class="n">variance</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span>
         <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">variance</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">badIndex</span> <span class="ow">in</span> <span class="n">numpy</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">variance</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">():</span>
@@ -495,12 +612,9 @@
             <span class="n">warnings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">warning</span><span class="o">.</span><span class="n">NegativeEigenvalues</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="n">vals</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]),</span> <span class="nb">min</span><span class="p">(</span><span class="n">vals</span><span class="p">),</span> <span class="bp">self</span><span class="p">))</span>
 
         <span class="c1"># Check that the condition number of the matrix is reasonable</span>
-        <span class="c1"># FIXME disabled this warning for now. Better option: add severity to each warning and make this low severity</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        minpos, maxpos = min(vals[vals &gt;= 0]), max(vals[vals &gt;= 0])</span>
-<span class="sd">        if A.size != 1 and minpos / maxpos &lt; info[&#39;eigenvalueRatioTolerance&#39;]:</span>
-<span class="sd">            warnings.append(warning.BadEigenvalueRatio(minpos / maxpos, self))</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">minpos</span><span class="p">,</span> <span class="n">maxpos</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="n">vals</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]),</span> <span class="nb">max</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="n">vals</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">A</span><span class="o">.</span><span class="n">size</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">minpos</span> <span class="o">/</span> <span class="n">maxpos</span> <span class="o">&lt;</span> <span class="n">info</span><span class="p">[</span><span class="s1">&#39;eigenvalueRatioTolerance&#39;</span><span class="p">]:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">warning</span><span class="o">.</span><span class="n">BadEigenvalueRatio</span><span class="p">(</span><span class="n">minpos</span> <span class="o">/</span> <span class="n">maxpos</span><span class="p">,</span> <span class="bp">self</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">covarianceEnumsModule</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">relative</span><span class="p">:</span>
             <span class="c1"># FIXME next line skips testing PFNS covariances</span>
@@ -527,7 +641,10 @@
 
         <span class="k">return</span> <span class="n">warnings</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.fix"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.fix">[docs]</a>    <span class="k">def</span> <span class="nf">fix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.fix">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.fix">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Fix uncertainty using the bounds passed into the fixer.</span>
 <span class="sd">        Requires specification of the data (&quot;theData&quot;) if the covariance is not relative.</span>
 <span class="sd">        I was not creative when I coded this, so it will fail when theData.getValue( x )</span>
@@ -579,7 +696,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">warnings</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">fix</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.group"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.group">[docs]</a>    <span class="k">def</span> <span class="nf">group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">groupBoundaries</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">groupUnit</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.group">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.group">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">groupBoundaries</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">groupUnit</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)):</span>
 <span class="w">        </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Group the matrix in self</span>
 
@@ -674,16 +794,20 @@
             <span class="n">axis1index</span> <span class="o">=</span> <span class="mi">1</span>
 
         <span class="c1"># setup the old axes in a form we can (ab)use in the XYs1d class</span>
-        <span class="n">axes2_</span> <span class="o">=</span> <span class="n">axesModule</span><span class="o">.</span><span class="n">Axes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">labelsUnits</span><span class="o">=</span><span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span><span class="p">),</span>
-                                                 <span class="mi">0</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;dummy&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)})</span>
+        <span class="n">axes2_</span> <span class="o">=</span> <span class="n">axesModule</span><span class="o">.</span><span class="n">Axes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">labelsUnits</span><span class="o">=</span><span class="p">{</span>
+            <span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span><span class="p">),</span>
+            <span class="mi">0</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;dummy&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)})</span>
         <span class="n">axes1_</span> <span class="o">=</span> <span class="n">axesModule</span><span class="o">.</span><span class="n">Axes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">labelsUnits</span><span class="o">=</span><span class="p">{</span>
-            <span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis1index</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis1index</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span><span class="p">),</span> <span class="mi">0</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;dummy&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)})</span>
+            <span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis1index</span><span class="p">]</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis1index</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span><span class="p">),</span>
+            <span class="mi">0</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;dummy&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)})</span>
 
         <span class="c1"># define basis functions for the rows and columns</span>
         <span class="n">basis2</span> <span class="o">=</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">axes2_</span><span class="p">,</span>
-                                   <span class="n">data</span><span class="o">=</span><span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;flat&#39;</span><span class="p">)</span>
+                                   <span class="n">data</span><span class="o">=</span><span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">],</span>
+                                   <span class="n">interpolation</span><span class="o">=</span><span class="n">xDataEnumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">flat</span><span class="p">)</span>
         <span class="n">basis1</span> <span class="o">=</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">axes1_</span><span class="p">,</span>
-                                   <span class="n">data</span><span class="o">=</span><span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis1index</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;flat&#39;</span><span class="p">)</span>
+                                   <span class="n">data</span><span class="o">=</span><span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">axis1index</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">],</span>
+                                   <span class="n">interpolation</span><span class="o">=</span><span class="n">xDataEnumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">flat</span><span class="p">)</span>
         <span class="n">basis2</span> <span class="o">=</span> <span class="n">basis2</span><span class="o">.</span><span class="n">convertAxisToUnit</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">groupUnit</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">basis1</span> <span class="o">=</span> <span class="n">basis1</span><span class="o">.</span><span class="n">convertAxisToUnit</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">groupUnit</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
@@ -703,18 +827,25 @@
 
         <span class="c1"># set up the regrouped covariance matrix</span>
         <span class="n">grouped</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">grouped</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">groupBoundaries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">grouped</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">groupBoundaries</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">grouped</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">groupBoundaries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">groupBoundaries</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">groupBoundaries</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">grouped</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">groupBoundaries</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">grouped</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="n">groupUnit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">grouped</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="n">groupUnit</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">odata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">constructArray</span><span class="p">()</span>
         <span class="n">gdata</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w0</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">odata</span><span class="p">,</span> <span class="n">w1</span><span class="p">))</span>
-        <span class="n">trigdata</span> <span class="o">=</span> <span class="n">gdata</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">tril_indices</span><span class="p">(</span><span class="n">gdata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
-        <span class="n">grouped</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="n">arrayModule</span><span class="o">.</span><span class="n">Full</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">gdata</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">trigdata</span><span class="p">,</span>
-                                                <span class="n">symmetry</span><span class="o">=</span><span class="n">arrayModule</span><span class="o">.</span><span class="n">Symmetry</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isSymmetric</span><span class="p">()</span> <span class="ow">and</span> <span class="n">groupBoundaries</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">groupBoundaries</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">trigdata</span> <span class="o">=</span> <span class="n">gdata</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">tril_indices</span><span class="p">(</span><span class="n">gdata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+            <span class="n">grouped</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="n">arrayModule</span><span class="o">.</span><span class="n">Full</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">gdata</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">trigdata</span><span class="p">,</span>
+                                                    <span class="n">symmetry</span><span class="o">=</span><span class="n">arrayModule</span><span class="o">.</span><span class="n">Symmetry</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">grouped</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="n">arrayModule</span><span class="o">.</span><span class="n">Full</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">gdata</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">gdata</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">grouped</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.removeExtraZeros"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.removeExtraZeros">[docs]</a>    <span class="k">def</span> <span class="nf">removeExtraZeros</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.removeExtraZeros">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.removeExtraZeros">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">removeExtraZeros</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove all extra zeros from the underlying matrix</span>
 <span class="sd">        :return:</span>
@@ -750,7 +881,10 @@
                                              <span class="n">data</span><span class="o">=</span><span class="n">theMatrix</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">tri</span><span class="p">(</span><span class="n">theMatrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
                                              <span class="n">symmetry</span><span class="o">=</span><span class="n">arrayModule</span><span class="o">.</span><span class="n">Symmetry</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.getUncertaintyVector"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.getUncertaintyVector">[docs]</a>    <span class="k">def</span> <span class="nf">getUncertaintyVector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theData</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.getUncertaintyVector">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.getUncertaintyVector">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getUncertaintyVector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theData</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">relative</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Get an XYs1d object containing uncertainty for this matrix.</span>
 <span class="sd">        Convert relative/absolute if requested (if so, must also pass central values as theData)</span>
@@ -777,30 +911,37 @@
         <span class="k">if</span> <span class="n">yunit</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>  <span class="c1"># get square root of the unit</span>
             <span class="n">yunit</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">yunit</span><span class="p">)</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span><span class="o">.</span><span class="n">getUnitSymbol</span><span class="p">()</span>
         <span class="n">axes_</span> <span class="o">=</span> <span class="n">axesModule</span><span class="o">.</span><span class="n">Axes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">labelsUnits</span><span class="o">=</span><span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;energy_in&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span><span class="p">),</span> <span class="mi">0</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;uncertainty&#39;</span><span class="p">,</span> <span class="n">yunit</span><span class="p">)})</span>
-        <span class="n">uncert</span> <span class="o">=</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">energies</span><span class="p">,</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">diag</span><span class="p">))),</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes_</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;flat&#39;</span><span class="p">)</span>
-        <span class="n">uncert</span> <span class="o">=</span> <span class="n">uncert</span><span class="o">.</span><span class="n">changeInterpolation</span><span class="p">(</span><span class="n">xDataEnumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">linlin</span><span class="p">,</span> <span class="n">accuracy</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">lowerEps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>
-                                            <span class="n">upperEps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)</span>
+        <span class="n">uncert</span> <span class="o">=</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">energies</span><span class="p">,</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">diag</span><span class="p">))),</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes_</span><span class="p">,</span>
+                                   <span class="n">interpolation</span><span class="o">=</span><span class="n">xDataEnumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">flat</span><span class="p">)</span>
+        <span class="n">uncert</span> <span class="o">=</span> <span class="n">uncert</span><span class="o">.</span><span class="n">changeInterpolation</span><span class="p">(</span><span class="n">xDataEnumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">linlin</span><span class="p">,</span>
+                                            <span class="n">accuracy</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">lowerEps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">upperEps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)</span>
 
         <span class="c1"># do we need to convert absolute-&gt;relative or vice versa?</span>
         <span class="k">if</span> <span class="p">(</span><span class="n">relative</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">covarianceEnumsModule</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">absolute</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
                 <span class="ow">not</span> <span class="n">relative</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">covarianceEnumsModule</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">relative</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">theData</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">theData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAttributeInAncestry</span><span class="p">(</span><span class="s1">&#39;rowData&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">toPointwise_withLinearXYs</span><span class="p">(</span><span class="n">lowerEps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>
-                                                                                                 <span class="n">upperEps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)</span>
+                <span class="n">theData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">findAttributeInAncestry</span><span class="p">(</span><span class="s1">&#39;rowData&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">toPointwise_withLinearXYs</span><span class="p">(</span>
+                    <span class="n">lowerEps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">upperEps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">theData</span><span class="o">.</span><span class="n">domainUnit</span> <span class="o">!=</span> <span class="n">uncert</span><span class="o">.</span><span class="n">domainUnit</span><span class="p">:</span>
+                    <span class="n">theData</span> <span class="o">=</span> <span class="n">theData</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                    <span class="n">theData</span><span class="o">.</span><span class="n">convertUnits</span><span class="p">({</span><span class="n">theData</span><span class="o">.</span><span class="n">domainUnit</span><span class="p">:</span> <span class="n">uncert</span><span class="o">.</span><span class="n">domainUnit</span><span class="p">})</span>
                 <span class="n">theData</span> <span class="o">=</span> <span class="n">theData</span><span class="o">.</span><span class="n">toPointwise_withLinearXYs</span><span class="p">(</span><span class="n">lowerEps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">upperEps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)</span>
                 <span class="n">uncert</span><span class="p">,</span> <span class="n">theData</span> <span class="o">=</span> <span class="n">uncert</span><span class="o">.</span><span class="n">mutualify</span><span class="p">(</span><span class="mf">1e-8</span><span class="p">,</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">theData</span><span class="p">,</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="mf">1e-8</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">relative</span><span class="p">:</span>  <span class="c1"># convert absolute to relative</span>
-                    <span class="n">uncert</span> <span class="o">/=</span> <span class="n">theData</span>
+                    <span class="n">uncert</span> <span class="o">=</span> <span class="n">uncert</span> <span class="o">/</span> <span class="n">theData</span>
                 <span class="k">else</span><span class="p">:</span>  <span class="c1"># relative to absolute</span>
-                    <span class="n">uncert</span> <span class="o">*=</span> <span class="n">theData</span>
+                    <span class="n">uncert</span> <span class="o">=</span> <span class="n">uncert</span> <span class="o">*</span> <span class="n">theData</span>
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">uncert</span><span class="p">),</span> <span class="n">uncert</span><span class="o">.</span><span class="n">copyDataToXYs</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">uncert</span><span class="o">.</span><span class="n">copyDataToXYs</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
                 <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">theData</span><span class="p">),</span> <span class="n">theData</span><span class="o">.</span><span class="n">copyDataToXYs</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">theData</span><span class="o">.</span><span class="n">copyDataToXYs</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">err</span>
         <span class="k">return</span> <span class="n">uncert</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.plot"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scalelabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xlog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ylog</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.plot">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.plot">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scalelabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xlog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ylog</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param title:</span>
@@ -811,9 +952,9 @@
 <span class="sd">        :param ylog:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-        <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-        <span class="kn">from</span> <span class="nn">matplotlib.collections</span> <span class="kn">import</span> <span class="n">QuadMesh</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">QuadMesh</span>
 
         <span class="c1"># determine where to get the settings for the potentially mirrored second axis</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">linkModule</span><span class="o">.</span><span class="n">Link</span><span class="p">):</span>
@@ -868,7 +1009,10 @@
             <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; covariance (&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.toXML_strList"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.toXML_strList">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param indent:</span>
@@ -888,8 +1032,11 @@
         <span class="n">xmlString</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/</span><span class="si">%s</span><span class="s1">&gt;&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">moniker</span>
         <span class="k">return</span> <span class="n">xmlString</span></div>
 
-<div class="viewcode-block" id="CovarianceMatrix.parseNodeUsingClass"><a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CovarianceMatrix.parseNodeUsingClass">
+<a class="viewcode-back" href="../../../fudge/fudge.covariances.html#fudge.covariances.covarianceMatrix.CovarianceMatrix.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Translate &lt;covarianceMatrix&gt; element from xml into python class.&quot;&quot;&quot;</span>
 
         <span class="n">xPath</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
@@ -900,49 +1047,94 @@
 
         <span class="n">xPath</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">CM</span></div></div>
+        <span class="k">return</span> <span class="n">CM</span></div>
+</div>
+
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../../index.html">
-              <img class="logo" src="../../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">fudge.covariances.covarianceMatrix</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

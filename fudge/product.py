@@ -404,38 +404,60 @@ class Product( ancestryModule.AncestryIO ) :
         self.distribution.processMC_cdf( style, tempInfo, indent )
         if( self.__outputChannel is not None ) : self.__outputChannel.processMC_cdf( style, tempInfo, indent2 )
 
-    def processMultiGroup( self, style, tempInfo, indent ) :
+    def processMultiGroup(self, style, tempInfo, indent):
 
         indent2 = indent + tempInfo['incrementalIndent']
         verbosity = tempInfo['verbosity']
 
-        tempInfo['workFile'].append( self.label )
+        tempInfo['workFile'].append(self.label)
 
-        doIt = not( isinstance( self.distribution[0], unspecifiedModule.Form ) )
-        if( doIt and ( self.pid in style.transportables ) ) :
-            if( verbosity > 1 ) :
-                print('%s%s: label = %s: multiGroup processing' % ( indent, self.pid, self.label ))
+        doIt = not isinstance(self.distribution[0], unspecifiedModule.Form)
+        if doIt and self.pid in style.transportables:
+            if verbosity > 1:
+                print('%s%s: label = %s: multiGroup processing' % (indent, self.pid, self.label))
 
             productMass = tempInfo['masses']['Product']             # Save to restore later
-            tempInfo['masses']['Product'] = self.getMass( tempInfo['massUnit'] )
+            tempInfo['masses']['Product'] = self.getMass(tempInfo['massUnit'])
             tempInfo['product'] = self
             tempInfo['multiplicity'] = self.multiplicity
 
             self.multiplicity.processMultiGroup( style, tempInfo, indent )
             self.averageProductEnergy.processMultiGroup( style, tempInfo, indent )
             self.averageProductMomentum.processMultiGroup( style, tempInfo, indent )
-            try :
-                self.distribution.processMultiGroup( style, tempInfo, indent )
-            except :
-                if( tempInfo['logFile'] is None ) :
-                    raise
-                else :
-                    import traceback
-                    tempInfo['logFile'].write( '\n' + self.toXLink() + ':\n' + traceback.format_exc( ) + '\n' )
-                    tempInfo['failures'] += 1
+
+            reprocessingOpts = tempInfo['partialReprocessingOptions']
+            if reprocessingOpts is not None and not (tempInfo['crossSectionModified'] or
+                        reprocessingOpts['preprocessingStyleLabel'] in self.multiplicity or
+                        reprocessingOpts['preprocessingStyleLabel'] in self.distribution):
+                # no changes: copy processed data from original processedDataSource
+                if verbosity > 1:
+                    print('%s%s: label = %s: copying transfer matrix from template file' % (indent, self.pid, self.label))
+
+                transferMatrix = reprocessingOpts['processedDataSource'].followXPath(
+                    self.toXLink()).distribution[reprocessingOpts['otherStyleLabel']]
+
+                # FIXME: should the copy method automatically skip copying self.ancestor?
+                ancestor = transferMatrix.ancestor
+                transferMatrix.setAncestor(None)
+                newMatrix = transferMatrix.copy()
+                transferMatrix.setAncestor(ancestor)
+
+                newMatrix.label = style.label
+                self.distribution.add(newMatrix)
+
+            else:
+                try:
+                    self.distribution.processMultiGroup( style, tempInfo, indent )
+                except:
+                    if tempInfo['logFile'] is None:
+                        raise
+                    else :
+                        import traceback
+                        tempInfo['logFile'].write( '\n' + self.toXLink() + ':\n' + traceback.format_exc( ) + '\n' )
+                        tempInfo['failures'] += 1
             tempInfo['masses']['Product'] = productMass
 
-        if( self.__outputChannel is not None ) : self.__outputChannel.processMultiGroup( style, tempInfo, indent2 )
+        if self.__outputChannel is not None: self.__outputChannel.processMultiGroup(style, tempInfo, indent2)
 
         del tempInfo['workFile'][-1]
 

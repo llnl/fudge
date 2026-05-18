@@ -20,8 +20,10 @@ import numpy
 
 from pqu import PQU as PQUModule
 
+
 from LUPY import ancestry as ancestryModule
 from LUPY.hdf5 import HDF5_present, h5py
+from fudge import fudgeVersion as fudgeVersionModule
 from fudge import GNDS_formatVersion as GNDS_formatVersionModule
 from LUPY import checksums as checksumsModule
 
@@ -60,6 +62,7 @@ from .reactionData import crossSection as crossSectionModule
 from .reactionData.doubleDifferentialCrossSection.chargedParticleElastic import CoulombPlusNuclearElastic as CoulombPlusNuclearElasticModule
 from .outputChannelData import Q as QModule
 from .productData import averageProductEnergy as averageProductEnergyModule
+from .productData import multiplicity as multiplicityModule
 from .productData.distributions import angular as angularModule
 
 from brownies.legacy.toENDF6 import ENDFconversionFlags as ENDFconversionFlagsModule
@@ -92,18 +95,17 @@ class ReactionSuite(ancestryModule.AncestryIO):
                                                  suitesModule.OrphanProducts.moniker,               sumsModule.Sums.moniker, 
                                                  suitesModule.FissionComponents.moniker,            suitesModule.Productions.moniker,
                                                  suitesModule.IncompleteReactions.moniker,          suitesModule.ApplicationData.moniker ),
-            GNDS_formatVersionModule.version_2_0_LLNL_4: (suitesModule.ExternalFiles.moniker,                 stylesModule.Styles.moniker,
-                                                        PoPsModule.Database.moniker,
-                                                        resonancesModule.Resonances.moniker,        suitesModule.Reactions.moniker, 
-                                                        suitesModule.OrphanProducts.moniker,                sumsModule.Sums.moniker, 
-                                                        suitesModule.FissionComponents.moniker,             suitesModule.Productions.moniker,
-                                                        suitesModule.IncompleteReactions.moniker,           suitesModule.ApplicationData.moniker),
             GNDS_formatVersionModule.version_2_0:      (suitesModule.ExternalFiles.moniker,                 stylesModule.Styles.moniker,
                                                         PoPsModule.Database.moniker,
                                                         resonancesModule.Resonances.moniker,        suitesModule.Reactions.moniker, 
                                                         suitesModule.OrphanProducts.moniker,                sumsModule.Sums.moniker, 
                                                         suitesModule.FissionComponents.moniker,             suitesModule.Productions.moniker,
                                                         suitesModule.IncompleteReactions.moniker,           suitesModule.ApplicationData.moniker)}
+    for formatVersion in (
+            GNDS_formatVersionModule.version_2_0_LLNL_4,
+            GNDS_formatVersionModule.version_2_1,
+            GNDS_formatVersionModule.version_2_2):
+        childNodeOrder[formatVersion] = childNodeOrder[GNDS_formatVersionModule.version_2_0]
 
     def __init__(self, projectile, target, evaluation, interaction=None, formatVersion=GNDS_formatVersionModule.default,
                  style=None, projectileFrame=xDataEnumsModule.Frame.lab, MAT=None, PoPs=None, sourcePath=None):
@@ -244,6 +246,14 @@ class ReactionSuite(ancestryModule.AncestryIO):
         """Returns self's evaluation."""
 
         return self.__evaluation
+
+    @evaluation.setter
+    def evaluation(self, value):
+
+        if not isinstance(value, str):
+            raise TypeError("Value must be a string")
+
+        self.__evaluation = value
 
     @property
     def interaction(self):
@@ -405,9 +415,13 @@ class ReactionSuite(ancestryModule.AncestryIO):
         self.orphanProducts.convertUnits(unitMap)
         self.sums.convertUnits(unitMap)
         self.productions.convertUnits(unitMap)
+        self.incompleteReactions.convertUnits(unitMap)
         self.PoPs.convertUnits(unitMap)
         self.fissionComponents.convertUnits(unitMap)
         self.applicationData.convertUnits(unitMap)
+        if self._loadedCovariances is not None:
+            for covariance in self._loadedCovariances:
+                covariance.convertUnits(unitMap)
 
     def fixDomains(self, energyMax):
         """
@@ -581,7 +595,8 @@ class ReactionSuite(ancestryModule.AncestryIO):
                 IDsPoPsModule.photon: '1 eV',
                 IDsPoPsModule.electron: '10 eV'
             }.get(self.projectile, '10 eV')
-        if PQUModule.PQU(self.domainMin, self.domainUnit) > PQUModule.PQU(expectedDomainMin):
+        expectedDomainMin = PQUModule.PQU(expectedDomainMin).inUnitsOf(self.domainUnit)
+        if PQUModule.PQU(self.domainMin, self.domainUnit) > expectedDomainMin:
             warnings.append(warning.EvaluationDomainMinTooHigh(expectedDomainMin, self))
 
         if self.resonances is not None:
@@ -1088,16 +1103,17 @@ class ReactionSuite(ancestryModule.AncestryIO):
 
         return( "%s%s + %s%s" % ( prefix, self.projectile, self.target, suffix ) )
 
-    def cullProcessedData(self):
+    def cullProcessedData(self, include_reconstructed_data=False):
         """
-        This method removes all processed data from *self*.
+        This method removes processed data from *self*.
+        If include_reconstructed_data is True, then reconstructed data is also removed.
         """
 
         from fudge import institution as institutionModule
         from fudge.resonances import probabilityTables as probabilityTablesModule
         from fudge.processing.deterministic import tokens as deterministicTokensModule
 
-        preProcessedStyles = self.styles.preProcessingStyles()
+        preProcessedStyles = self.styles.preProcessingStyles(not include_reconstructed_data)
 
         stylesToRemove = []
         for style in self.styles:
@@ -1240,10 +1256,11 @@ class ReactionSuite(ancestryModule.AncestryIO):
 
         return externalFiles
 
-    def loadCovariances(self):
+    def loadCovariances(self, skipConvertingUnits=False):
         """
         Load all external files of type 'covarianceSuite', and resolve links between self and covarianceSuites.
 
+        :param skipConvertingUnits:  If False (default), convert all covarianceSuites to have the same domain unit as self.
         :return: list of loaded covarianceSuites
         """
 
@@ -1254,6 +1271,8 @@ class ReactionSuite(ancestryModule.AncestryIO):
             self._loadedCovariances = []
             for covariance in self.covarianceExternalFiles():
                 covariance.instance = covarianceSuiteModule.read(covariance.realpath(), **kwargs)
+                if not skipConvertingUnits:
+                    covariance.instance.convertUnits({covariance.instance.domainUnit: self.domainUnit})
                 self._loadedCovariances.append(covariance.instance)
 
         return self._loadedCovariances
@@ -1296,19 +1315,16 @@ class ReactionSuite(ancestryModule.AncestryIO):
                 nuclearPlusCoulombInterference.reaction.crossSection.add( crossSection )
 
                 Q = reaction.outputChannel.Q[0].copy( )
-                Q.label = style.label
                 nuclearPlusCoulombInterference.reaction.outputChannel.Q.add( Q )
 
                 product1 = productModule.Product(firstProduct.pid, firstProduct.label)
                 product1.multiplicity.add( firstProduct.multiplicity[0].copy( ) )
-                product1.multiplicity[0].label = style.label
                 angularTwoBody1 = angularModule.TwoBody( crossSection.label, xDataEnumsModule.Frame.centerOfMass, function2d )
                 product1.distribution.add( angularTwoBody1 )
                 nuclearPlusCoulombInterference.reaction.outputChannel.products.add( product1 )
 
                 product2 = productModule.Product(secondProduct.pid, secondProduct.label)
                 product2.multiplicity.add( secondProduct.multiplicity[0].copy( ) )
-                product2.multiplicity[0].label = style.label
                 recoil = angularModule.Recoil( link = product1.distribution[style.label], relative = True )
                 angularTwoBody2 = angularModule.TwoBody( crossSection.label, xDataEnumsModule.Frame.centerOfMass, recoil )
                 product2.distribution.add( angularTwoBody2 )
@@ -1461,8 +1477,8 @@ class ReactionSuite(ancestryModule.AncestryIO):
             for reaction in reactions:
                 reaction.processGriddedCrossSections(style, verbosity=verbosity, indent=indent, incrementalIndent=incrementalIndent)
 
-    def processMultiGroup( self, style, legendreMax, verbosity = 0, indent = '', incrementalIndent = '  ', logFile = None, workDir = None,
-                restart = False, additionalReactions = [] ) :
+    def processMultiGroup(self, style, legendreMax, verbosity = 0, indent = '', incrementalIndent = '  ', logFile = None, workDir = None,
+                          restart = False, additionalReactions = [], partialReprocessingOptions = None):
         """
         Generate multi-group processed data, including cross sections, weighted multiplicities and Q-values and transfer matrices.
         Processed results will be stored as new forms inside the reactionSuite.
@@ -1475,41 +1491,58 @@ class ReactionSuite(ancestryModule.AncestryIO):
         :param logFile: open file where log will be written.  FIXME logFile is a required argument, but default value = None
         :param workDir: directory to save working files generated during processing. Note that this directory can become very large.
         :param restart: load previous Merced outputs (if found) rather than recomputing, useful if a processProtare run times out or crashes.
+        :param partialReprocessingOptions: optional dictionary with options to support partial reprocessing.
         :return: None, except ValueError is raised if any errors occurred during processing
         """
 
         from LUPY import times as timesModule
 
-        if( verbosity > 0 ) : print ('%s%s' % (indent, self.inputParticlesToReactionString(suffix=" -->")))
-        if( not( isinstance( style, stylesModule.HeatedMultiGroup ) ) ) : raise( 'Instance is not a HeatedMultiGroup style.' )
+        if verbosity > 0:
+            print('%s%s' % (indent, self.inputParticlesToReactionString(suffix=" -->")))
+        if not isinstance(style, stylesModule.HeatedMultiGroup):
+            raise TypeError('Instance is not a HeatedMultiGroup style.')
 
         t0 = timesModule.Times( )
 
-        kwargs = { 'reactionSuite' : self }
-        kwargs['failures'] = 0
-        if( len( self.reactions ) > 0 ) :
-            kwargs['verbosity'] = verbosity
-            kwargs['incrementalIndent'] = incrementalIndent
-            kwargs['logFile'] = logFile
-            kwargs['incidentEnergyUnit'] = self.domainUnit
-            kwargs['massUnit'] = kwargs['incidentEnergyUnit'] + '/c**2'
-            kwargs['restart'] = restart
-            kwargs['legendreMax'] = legendreMax
+        if partialReprocessingOptions is not None and 'crossSectionChanged' not in partialReprocessingOptions:
+            # any reaction with a modified cross section must be fully reprocessed:
+            preProcessLabel = partialReprocessingOptions['preprocessingStyleLabel']
+            crossSectionChanged = [reaction for reaction in self.reactions
+                                    if preProcessLabel in reaction.crossSection]
+            if self.supportsResonanceReconstruction() and self.resonances.containsStyle(preProcessLabel):
+                crossSectionChanged += [reaction for reaction in self.reactions if isinstance(
+                    reaction.crossSection.evaluated, crossSectionModule.ResonancesWithBackground)]
+            partialReprocessingOptions['crossSectionChanged'] = crossSectionChanged
+
+        kwargs = {
+            'reactionSuite': self,
+            'failures': 0,
+            'verbosity': verbosity,
+            'incrementalIndent': incrementalIndent,
+            'logFile': logFile,
+            'incidentEnergyUnit': self.domainUnit,
+            'legendreMax': legendreMax,
+            'restart': restart,
+            'partialReprocessingOptions': partialReprocessingOptions,
+            }
+
+        if len(self.reactions) > 0:
 
             projectile = self.PoPs[self.projectile]
+            kwargs['massUnit'] = kwargs['incidentEnergyUnit'] + '/c**2'
             kwargs['projectile'] = projectile
-            kwargs['projectileZA'] = chemicalElementMiscPoPsModule.ZA( projectile )
-            kwargs['projectileMass'] = projectile.getMass( kwargs['massUnit'] )
+            kwargs['projectileZA'] = chemicalElementMiscPoPsModule.ZA(projectile)
+            kwargs['projectileMass'] = projectile.getMass(kwargs['massUnit'])
 
             kwargs['targetMass'] = None
-            if( not( self.isThermalNeutronScatteringLaw( ) ) ) :
+            if not self.isThermalNeutronScatteringLaw():
                 target = self.PoPs[self.target]
-                kwargs['isInfiniteTargetMass'] = isinstance( target, chemicalElementPoPsModule.ChemicalElement )
-                if( not( isinstance( target, chemicalElementPoPsModule.ChemicalElement ) ) ) :
-                    if( target.id in self.PoPs.aliases ) : target = self.PoPs[target.pid]
-                    kwargs['targetMass'] = target.getMass( kwargs['massUnit'] )
+                kwargs['isInfiniteTargetMass'] = isinstance(target, chemicalElementPoPsModule.ChemicalElement)
+                if not isinstance(target, chemicalElementPoPsModule.ChemicalElement):
+                    if target.id in self.PoPs.aliases: target = self.PoPs[target.pid]
+                    kwargs['targetMass'] = target.getMass(kwargs['massUnit'])
                 kwargs['target'] = target
-                kwargs['targetZA'] = chemicalElementMiscPoPsModule.ZA( target )
+                kwargs['targetZA'] = chemicalElementMiscPoPsModule.ZA(target)
 
             kwargs['masses'] = { 'Projectile'   : kwargs['projectileMass'],
                                  'Product'      : None,
@@ -1519,45 +1552,46 @@ class ReactionSuite(ancestryModule.AncestryIO):
             kwargs['zeroPerTNSL'] = self.isThermalNeutronScatteringLaw( )
             projectileEnergyDomain = style.projectileEnergyDomain
             transportable = style.transportables[self.projectile]
-            for index, boundary in enumerate( transportable.group.boundaries.values ) :
-                if( boundary > projectileEnergyDomain.max ) : break
+            for index, boundary in enumerate(transportable.group.boundaries.values):
+                if boundary > projectileEnergyDomain.max: break
                 kwargs['maximumProjectileGroupIndex'] = index
 
-            if( workDir is None ) : workDir = 'Merced.work'
+            if workDir is None: workDir = 'Merced.work'
             kwargs['workDir'] = workDir
             kwargs['workFile'] = []
 
-            style.processMultiGroup( style, kwargs, indent + incrementalIndent )
-            kwargs['groupedFlux'] = [ x for x in style.multiGroupFlux.array.constructArray( )[:,0] ]
+            indent2 = indent + incrementalIndent
+            style.processMultiGroup(style, kwargs, indent2)
+            kwargs['groupedFlux'] = [x for x in style.multiGroupFlux.array.constructArray()[:,0]]
 
-# BRB FIXME, must have test to determine if reconstructResonances is needed.
-#        self.reconstructResonances( styleName = 'reconstructed', 1e-3, verbose = False )
             for i1, reaction in enumerate( self.reactions ) :
                 kwargs['reactionIndex'] = "%.4d" % i1
-                reaction.processMultiGroup( style, kwargs, indent + incrementalIndent )
+                reaction.processMultiGroup( style, kwargs, indent2 )
             for i1, reaction in enumerate( self.orphanProducts ) :
                 kwargs['reactionIndex'] = "o%.4d" % i1
-                reaction.processMultiGroup( style, kwargs, indent + incrementalIndent )
+                reaction.processMultiGroup( style, kwargs, indent2 )
             for i1, reaction in enumerate( self.productions ) :
                 kwargs['reactionIndex'] = "p%.4d" % i1
-                reaction.processMultiGroup( style, kwargs, indent + incrementalIndent )
+                reaction.processMultiGroup( style, kwargs, indent2 )
             for i1, reaction in enumerate( self.sums.crossSectionSums ) :
                 kwargs['reactionIndex'] = "s%.4d" % i1
-                reaction.processMultiGroup( style, kwargs, indent + incrementalIndent )
+                reaction.processMultiGroup( style, kwargs, indent2 )
             for i1, reaction in enumerate( self.fissionComponents ) :
                 kwargs['reactionIndex'] = "f%.4d" % i1
-                reaction.processMultiGroup( style, kwargs, indent + incrementalIndent )
+                reaction.processMultiGroup( style, kwargs, indent2 )
             for i1, reaction in enumerate( additionalReactions ) :
                 kwargs['reactionIndex'] = "a%.4d" % i1
-                reaction.processMultiGroup( style, kwargs, indent + incrementalIndent )
+                reaction.processMultiGroup( style, kwargs, indent2 )
 
             if institutionModule.photoAtomicIncoherentDoppler in self.applicationData:
                 reactions = self.applicationData[institutionModule.photoAtomicIncoherentDoppler][0]
                 for reaction in reactions:
-                    reaction.processMultiGroup(style, kwargs, indent + incrementalIndent)
+                    reaction.processMultiGroup(style, kwargs, indent2)
 
-        if logFile is not None: logFile.write( '    ' + str( t0 ) + '\n' )
-        if( kwargs['failures'] > 0 ) : raise ValueError( "kwargs['failures'] = %d  > 0" % kwargs['failures'] )
+        if logFile is not None:
+            logFile.write( '    ' + str( t0 ) + '\n' )
+        if kwargs['failures'] > 0:
+            raise ValueError( "kwargs['failures'] = %d  > 0" % kwargs['failures'] )
 
     def multiGroupVector(self, childSuite, multiGroupVectorMethod, multiGroupSettings, temperatureInfo, **kwargs):
         r"""
@@ -1859,64 +1893,173 @@ class ReactionSuite(ancestryModule.AncestryIO):
 
         addMultiGroupSumsModule.addMultiGroupSums(self, replace=replace)
 
-    def processSnElasticUpScatter( self, style, legendreMax, verbosity = 0, indent = '', incrementalIndent = '  ', logFile = None ) :
+    def fissionNeutrons(self):
+        """
+        This method returns the fission neutron data for all reactions that fission. The returned object is a list
+        with one element in the list for each reaction that fissions. Currently, all fissionable protares have only one 
+        fission reaction, hence for these protares the length of the returned list will be 1.
+        Each element of the returned list is a list length 4. The 4 elements of this inner list are:
 
-        if( self.target == IDsPoPsModule.neutron ) : return
+        * a list of prompt neutron produces of class Product, 
+        * a list of delayed neutron produces of class Product,
+        * a list of multiplicity sums for the prompt neutrons of class MultiplicitySum and
+        * a list of multiplicity sums for the delayed neutrons of class MultiplicitySum.
 
-        if( not( isinstance( style, stylesModule.SnElasticUpScatter ) ) ) : raise TypeError("style must be an instance of stylesModule.SnElasticUpScatter, not %s" % type(style))
+        Currently, all fissionable protares have at most one element for the first, third and fourth inner list.
+        This method does not calculate the MultiplicitySum; but instead, returns what is in the sums/multiplicitySum
+        node.
+        """
 
-        tempInfo = { 'reactionSuite' : self }
-        tempInfo['verbosity'] = verbosity
-        tempInfo['incrementalIndent'] = incrementalIndent
-        tempInfo['logFile'] = logFile
+        def getSums(products):
+            """
+            For internal use only. This function returns a list of total multiplicities for the list of products.
+
+            :param products:    The list of products.
+
+            :returns:           A python list.
+            """
+
+            sums = []
+            for summand0, multiplicitySum in multiplicitySums:
+                for product in products:
+                    if summand0.link == product.multiplicity:
+                        sums.append(multiplicitySum)
+                        break
+
+            return sums
+
+        multiplicitySums = []
+        for multiplicitySum in self.sums.multiplicitySums:
+            if len(multiplicitySum.summands.summands) > 0:
+                multiplicitySums.append([multiplicitySum.summands.summands[0], multiplicitySum])
+
+        reactions = []
+        for reaction in self.reactions:
+            if reaction.isFission():
+                prompts = reaction.outputChannel.getProductsWithName('n', delayedNeutrons=False)
+                delayeds = list(reaction.outputChannel.fissionFragmentData.iterateProducts())
+                totals = getSums(prompts)
+                delayedTotals = getSums(delayeds)
+
+                reactions.append([prompts, delayeds, totals, delayedTotals])
+
+        return reactions
+
+    def fissionNeutronMultiplicities(self, asXYs1d=False, asLinLin=True, accuracy=1e-4, lowerEps=1e-6, upperEps=1e-6, biSectionMax=16):
+        """
+        This method calls the method *fissionNeutrons* and returns the evaluated mulitplicity data for each inner most element 
+        returned from *fissionNeutrons*. If a multiplity suite is empty, a **None** is entered as its value.
+        If **asXYs1d** is **True** and a multiplicity is an instance of *Unspecified*, that instance is left as an *Unspecified* instance.
+        All other arguments are only used if **asXYs1d** is **True**.
+
+        :param asXYs1d:         If **True**, each multiplicty is returned as a XYx1d instance.
+        :param asLinLin:        See arguments for multiplicityModule.XYs1d.asXYs1d.
+        :param accuracy:        See arguments for multiplicityModule.XYs1d.asXYs1d.
+        :param lowerEps:        See arguments for multiplicityModule.XYs1d.asXYs1d.
+        :param upperEps:        See arguments for multiplicityModule.XYs1d.asXYs1d.
+        :param upperEps:        See arguments for multiplicityModule.XYs1d.asXYs1d.
+        :param biSectionMax:    See arguments for multiplicityModule.XYs1d.asXYs1d.
+        """
+
+        def getMultiplicities(_list):
+            """
+            For internal use only. This memthod gets the for multiplicity from each element of **_list** and returns them as a list.
+
+            :param _list:   The list of objects that contain a multiplicity suite.
+
+            :returns:       A python list.
+            """
+
+            multiplicities = []
+            for element in _list:
+                multiplicity = None
+                multiplicitySuite = element.multiplicity
+                if len(multiplicitySuite) != 0:
+                    multiplicity = multiplicitySuite[0]
+                    if asXYs1d:
+                        if not isinstance(multiplicity, (multiplicityModule.XYs1d, multiplicityModule.Unspecified)):
+                            multiplicity = multiplicity.asXYs1d(asLinLin=asLinLin, accuracy=accuracy, lowerEps=lowerEps, upperEps=upperEps, biSectionMax=biSectionMax)
+                multiplicities.append(multiplicity)
+
+            return multiplicities
+
+        reactions = []
+        _reactions = self.fissionNeutrons()
+        for _prompts, _delayeds, _totals, _delayedTotals in _reactions:
+            prompts = getMultiplicities(_prompts)
+            delayeds = getMultiplicities(_delayeds)
+            totals = getMultiplicities(_totals)
+            delayedTotals = getMultiplicities(_delayedTotals)
+            reactions.append([prompts, delayeds, totals, delayedTotals])
+
+        return reactions
+
+    def processSnElasticUpScatter(self, style, legendreMax, verbosity = 0, indent = '',
+                                  incrementalIndent = '  ', logFile = None, workDir = None,
+                                  restart = False):
+
+        if self.target == IDsPoPsModule.neutron: return
+
+        if not isinstance(style, stylesModule.SnElasticUpScatter):
+            raise TypeError("style must be an instance of stylesModule.SnElasticUpScatter, not %s"
+                            % type(style))
+
+        tempInfo = {
+            'reactionSuite' : self,
+            'verbosity': verbosity,
+            'incrementalIndent': incrementalIndent,
+            'logFile': logFile,
+            'temperature': style.temperature,
+            'legendreOrder': legendreMax,
+            'zeroPerTNSL': False,
+            'workDir': workDir,
+            'restart': restart,
+        }
+
         incidentEnergyUnit = self.domainUnit
-        tempInfo['temperature'] = style.temperature
-        tempInfo['legendreOrder'] = legendreMax
-
-        tempInfo['minEval'] = PQUModule.PQU( 1.e-11, 'MeV' ).getValueAs( incidentEnergyUnit )
-        tempInfo['maxEval'] = PQUModule.PQU( 20., 'MeV' ).getValueAs( incidentEnergyUnit )
+        tempInfo['minEval'] = PQUModule.PQU(1.e-11, 'MeV').getValueAs(incidentEnergyUnit)
+        tempInfo['maxEval'] = PQUModule.PQU(20., 'MeV').getValueAs(incidentEnergyUnit)
 
         massUnit = incidentEnergyUnit + '/c**2'
-        target = self.PoPs[self.target]
-        if( target.id in self.PoPs.aliases ) : target = self.PoPs[target.pid]
-        tempInfo['targetMassRatio'] = target.getMass( massUnit ) / self.PoPs[self.projectile].getMass( massUnit )
+        target = self.PoPs.final(self.target)
+        tempInfo['targetMassRatio'] = target.getMass(massUnit) / self.PoPs[self.projectile].getMass(massUnit)
         tempInfo['groupBoundaries'] = style.transportables[self.projectile].group
-        tempInfo['zeroPerTNSL'] = False
 
-        elasticReaction = self.getReaction( 'elastic' )
-        product = elasticReaction.outputChannel.getProductWithName( IDsPoPsModule.neutron )
+        elasticReaction = self.getReaction('elastic')
+        product = elasticReaction.outputChannel.getProductWithName(IDsPoPsModule.neutron)
 
-        TM_1, TM_E, averageEnergy, maxIncidentGroup = multiGroupUpScatterModule.SnElasticUpScatter( style, tempInfo, comment = '' )
+        TM_1, TM_E, averageEnergy, maxIncidentGroup = multiGroupUpScatterModule.SnElasticUpScatter(
+            style, tempInfo)
         style.upperCalculatedGroup = maxIncidentGroup
 
                 # multiply constant cross section into the distribution (upscatter code assumes sigma(E) = 1 )
-        groupedCrossSec = product.findAttributeInAncestry( 'crossSection' )[style.derivedFromStyle.label].array.values
-        TM_1 = multiGroupUpScatterModule.rescaleCrossSection( groupedCrossSec, TM_1 )
+        groupedCrossSec = product.findAttributeInAncestry('crossSection')[style.derivedFromStyle.label].array.values
+        TM_1 = multiGroupUpScatterModule.rescaleCrossSection(groupedCrossSec, TM_1)
 
         distribution = product.distribution                             # Put matrix into GNDS structures.
         derivedForm = distribution[style.derivedFrom]
         multiGroupSubform = derivedForm.multiGroupSubform
-        array = multiGroupSubform.array.constructArray( )
-        for incidentGroup in range( style.upperCalculatedGroup + 1, len( array ) ) :
-            if( incidentGroup not in TM_1 ) : TM_1[incidentGroup] = {}
-            for outgoingGroup in range( len( array[incidentGroup] ) ) :
-                if( outgoingGroup not in TM_1[incidentGroup] ) : TM_1[incidentGroup] = {}
-                TM_1[incidentGroup][outgoingGroup] = list( array[incidentGroup][outgoingGroup] )
+        array = multiGroupSubform.array.constructArray()
+        for incidentGroup in range(style.upperCalculatedGroup + 1, len(array)):
+            if incidentGroup not in TM_1: TM_1[incidentGroup] = {}
+            for outgoingGroup in range(len(array[incidentGroup])):
+                if outgoingGroup not in TM_1[incidentGroup]: TM_1[incidentGroup] = {}
+                TM_1[incidentGroup][outgoingGroup] = list(array[incidentGroup][outgoingGroup])
 
         tempInfo['productName'] = product.pid
-        tempInfo['groupedFlux'] = [ x for x in style.derivedFromStyle.multiGroupFlux.array.constructArray( )[:,0] ]
+        tempInfo['groupedFlux'] = [x for x in style.derivedFromStyle.multiGroupFlux.array.constructArray()[:,0]]
         tempInfo['incidentEnergyUnit'] = incidentEnergyUnit
-        tempInfo['crossSection']  = style.derivedFromStyle.findFormMatchingDerivedStyle( elasticReaction.crossSection )
-        multiGroup = groupModule.TMs2Form( style, tempInfo, TM_1, TM_E )
-        distribution.add( multiGroup )
+        tempInfo['crossSection']  = style.derivedFromStyle.findFormMatchingDerivedStyle(elasticReaction.crossSection)
+        multiGroup = groupModule.TMs2Form(style, tempInfo, TM_1, TM_E)
+        distribution.add(multiGroup)
 
         averageProductEnergy = product.averageProductEnergy
-        axes = averageProductEnergyModule.defaultAxes( energyUnit = incidentEnergyUnit )
-        averageEnergy = averageProductEnergyModule.XYs1d( data = averageEnergy, axes = axes, label = style.label )
-        averageEnergyMultiGroup = averageEnergy.processMultiGroup( style, tempInfo, indent )
-        grouped = averageEnergyMultiGroup.array.constructArray( )
-        array = averageProductEnergy[style.derivedFrom].array.constructArray( )
-        for incidentGroup in range( style.upperCalculatedGroup + 1, len( array ) ) : grouped[incidentGroup] = array[incidentGroup]
+        axes = averageProductEnergyModule.defaultAxes(energyUnit = incidentEnergyUnit)
+        averageEnergy = averageProductEnergyModule.XYs1d(data = averageEnergy, axes = axes, label = style.label)
+        averageEnergyMultiGroup = averageEnergy.processMultiGroup(style, tempInfo, indent)
+        grouped = averageEnergyMultiGroup.array.constructArray()
+        array = averageProductEnergy[style.derivedFrom].array.constructArray()
+        for incidentGroup in range(style.upperCalculatedGroup + 1, len(array)): grouped[incidentGroup] = array[incidentGroup]
         averageProductEnergy.add(groupModule.toMultiGroup1d(averageProductEnergyModule.Gridded1d, style, 
                 tempInfo, averageEnergyMultiGroup.axes, grouped, zeroPerTNSL=tempInfo['zeroPerTNSL']))
 
@@ -1957,39 +2100,47 @@ class ReactionSuite(ancestryModule.AncestryIO):
         :param verbose: boolean - turn on/off verbosity
         """
 
-        if( self.resonances is None ) : return
+        if self.resonances is None: return
         if not self.resonances.reconstructCrossSection:
             return # nothing to do
         from fudge.processing.resonances import reconstructResonances
+        from xData.Documentation import computerCode
 
-        if not isinstance( style, stylesModule.CrossSectionReconstructed ):
+        if not isinstance(style, stylesModule.CrossSectionReconstructed):
             raise TypeError("style must be an instance of CrossSectionReconstructed, not %s" % type(style))
 
-        xsecs = reconstructResonances.reconstructResonances(self, accuracy, verbose = verbose, significantDigits = significantDigits )
+        code_documentation = computerCode.ComputerCode("FUDGE", "reconstructResonances", fudgeVersionModule.__version__)
+        execution_args = ["accuracy: %r" % accuracy, "thin: %r" % thin]
+        if significantDigits:
+            execution_args.append("significantDigits: %r" % significantDigits)
+        code_documentation.executionArguments.body = "; ".join(execution_args)
+        style.documentation.computerCodes.add(code_documentation)
+
+        xsecs = reconstructResonances.reconstructResonances(self, accuracy, verbose = verbose, significantDigits = significantDigits)
         epsilon = 1e-8  # for joining multiple regions together
 
         # for each reaction, add tabulated pointwise data (ENDF MF=3) to reconstructed resonances:
         possibleChannels = { 'elastic' : False, 'capture' : True, 'fission' : True, 'total' : False, 'nonelastic' : False }
         derivedFromLabel = ''
         for reaction in self :
-            if isinstance( reaction, sumsModule.MultiplicitySum ): continue
+            if isinstance(reaction, sumsModule.MultiplicitySum): continue
             evaluatedCrossSection = reaction.crossSection.evaluated
-            if not isinstance( evaluatedCrossSection, crossSectionModule.ResonancesWithBackground ):
+            if not isinstance(evaluatedCrossSection, crossSectionModule.ResonancesWithBackground):
                 continue
             # which reconstructed cross section corresponds to this reaction?
-            if( derivedFromLabel == '' ) : derivedFromLabel = evaluatedCrossSection.label
-            if( derivedFromLabel != evaluatedCrossSection.label ) :
-                print ('WARNING derivedFromLabel = "%s" != "%s"' % (derivedFromLabel, evaluatedCrossSection.label))
+            if derivedFromLabel == '': derivedFromLabel = evaluatedCrossSection.label
+            if derivedFromLabel != evaluatedCrossSection.label:
+                print('WARNING derivedFromLabel = "%s" != "%s"' % (derivedFromLabel, evaluatedCrossSection.label))
             RRxsec = None
-            if str( reaction ) in xsecs:
-                RRxsec = xsecs[ str( reaction ) ]
-            else :
-                for possibleChannel in possibleChannels :
-                    if( possibleChannels[possibleChannel] ) :
-                        if( possibleChannel in str( reaction ) ) : RRxsec = xsecs[possibleChannel]
-                    if( RRxsec is None ) :
-                        if( reaction is self.getReaction( possibleChannel ) ) : RRxsec = xsecs[possibleChannel]
-                    if( RRxsec is not None ) : break
+            if str(reaction) in xsecs:
+                RRxsec = xsecs[ str(reaction) ]
+            else:
+                for possibleChannel in possibleChannels:
+                    if possibleChannels[possibleChannel]:
+                        if possibleChannel in str(reaction): RRxsec = xsecs[possibleChannel]
+                    if RRxsec is None:
+                        if reaction is self.getReaction(possibleChannel): RRxsec = xsecs[possibleChannel]
+                    if RRxsec is not None: break
             if RRxsec is None:
                 found = False
                 if isinstance(reaction, sumsModule.CrossSectionSum):
@@ -2016,12 +2167,12 @@ class ReactionSuite(ancestryModule.AncestryIO):
 
             background, RRxsec = background.mutualify(0,0,0, RRxsec, -epsilon,epsilon,True)
             RRxsec = background + RRxsec    # result is a crossSection.XYs1d instance
-            if( RRxsec.rangeMin < 0 ) :
+            if RRxsec.rangeMin < 0:
                 # turn any negative xsc to 0
                 RRxsec = RRxsec.clip( rangeMin=0 )
                 if verbose:
                     print( "Warning: negative cross section encountered for %s; changed to 0 b" % reaction )
-            if( RRxsec[0][1] == 0 ) :
+            if RRxsec[0][1] == 0:
                 # special handling for threshold reaction:
                 #  trim leading zeros + points with cross section < 1e-90 b,
                 #  thin aggressively up to xsc = 1e-10 b
@@ -2050,11 +2201,11 @@ class ReactionSuite(ancestryModule.AncestryIO):
                 RRxsec.setData(points)
 
             if thin:
-                RRxsec = RRxsec.thin( accuracy )
+                RRxsec = RRxsec.thin(accuracy)
             RRxsec.label = style.label
-            reaction.crossSection.add( RRxsec )
+            reaction.crossSection.add(RRxsec)
 
-        self.styles.add( style )
+        self.styles.add(style)
 
     def reconstructResonancesAngularDistributions( self, styleName, overwrite=False, accuracy = None, thin = False, verbose = False ):
         """
@@ -2183,7 +2334,7 @@ class ReactionSuite(ancestryModule.AncestryIO):
         if len(covariances) > 0:
             if self.sourcePath is None:                 # Self was generated directly, not parsed from a file. Add externalFiles before saving.
                 covariances[0].externalFiles.add(externalFileModule.ExternalFile("reactions", path=selfsPathInCovarianceFile))
-                covariances[0].saveToFile(covariancePath)
+                covariances[0].saveToFile(covariancePath, **kwargs)
                 covariancePaths.append(covariancePath)
 
                 sha1sum = checksumsModule.Sha1sum.from_file(covariancePath)
@@ -2192,13 +2343,15 @@ class ReactionSuite(ancestryModule.AncestryIO):
                 if len(covariances) > 1:
                     raise Exception('Currently, only one covariance file is supported.')
                 covarianceSuite = covariances[0]
+                if covarianceSuite.domainUnit != self.domainUnit:
+                    covarianceSuite.convertUnits({covarianceSuite.domainUnit: self.domainUnit})
 
                 selfsExternalFile4Covariance = None                                     # Self's ExternalFile that points to the covariance file.
                 for externalFile in self.externalFiles:
                     if externalFile.label == 'covariances':
                         selfsExternalFile4Covariance = externalFile
                 if selfsExternalFile4Covariance is None:
-                    raise Exception('Could not find externalFile for convarince in self.')
+                    raise Exception('Could not find externalFile for covariance in self.')
 
                 if not pathlib.Path(selfsExternalFile4Covariance.path).is_absolute():   # Only write if path to covariance file is not absolute.
                                                                                         # Probably should have option to write even if absolute.
@@ -2207,7 +2360,7 @@ class ReactionSuite(ancestryModule.AncestryIO):
                         if externalFile.label == 'reactions':
                             externalFile4ReactionSuite = externalFile
                     if externalFile4ReactionSuite is None:
-                        raise Exception('Could not find externalFile for self in convarince.')
+                        raise Exception('Could not find externalFile for self in covariance.')
 
                     originalPaths[externalFile4ReactionSuite] = externalFile4ReactionSuite.path
                     externalFile4ReactionSuite.path = selfsPathInCovarianceFile

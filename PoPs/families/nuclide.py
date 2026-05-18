@@ -144,10 +144,19 @@ class Particle( particleModule.Particle ) :
 
         return( False )
 
-    def sortCompare( self, other ) :
+    def sortCompare(self, other):
 
-        if( not( isinstance( other, Particle ) ) ) : raise TypeError( 'Invalid other.' )
-        return( self.index - other.index )
+        if not isinstance(other, Particle):
+            if isinstance(other, particleModule.Particle):
+                raise TypeError('Invalid other of instance %s is not an instance of %s.' % (other.moniker, self.moniker))
+            raise TypeError('Invalid other, not a particle.')
+
+        if self.index - other.index == 0:
+            if self.isAnti:
+                return 0 if other.isAnti else 1
+            return -1 if other.isAnti else 0
+
+        return self.index - other.index
 
     def particleCompare(self, other):
         """Compares *self* to particle *other* which can be from an particle family."""

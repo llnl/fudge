@@ -151,6 +151,22 @@ class Ys1d(baseModule.XDataFunctional):
 
         return self.__Ys
 
+    def asXYs1d(self, asLinLin, accuracy, lowerEps, upperEps, biSectionMax=16):
+        """
+        This method returns a representation of the data in *self* as an :py:class:`XYs1dModule.XYs1d` instance.
+
+        :param asLinLin:    If **True**, the data have lin-lin interpolation.
+        :param accuracy:    Used to determine the accuracy if converting data to lin-lin interpolated data.
+        :param lowerEps:    Used to dull the lower point for "flat" interpolation.
+        :param upperEps:    Used to dull the upper point for "flat" interpolation.
+
+        :returns:           A :py:class:`XYs1dModule.XYs1d` instance.
+        """
+
+        xys1d = self.toPointwise_withLinearXYs(accuracy=accuracy, lowerEps=lowerEps, upperEps=upperEps, cls=self.toLinearXYsClass())
+
+        return xys1d
+
     def convertUnits(self, unitMap):
         """
         Converts all data in *self* per *unitMap*.

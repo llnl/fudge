@@ -24,7 +24,7 @@ def toLimitedString( object, maxLength = maxLength ) :
 
 def parseParticleList(particleList):
     '''
-    Breaks a particle list where each particle id can have a leading integer multiplicity into an equivalen list of 
+    Breaks a particle list where each particle id can have a leading integer multiplicity into an equivalent list of 
     particle ids.  That is, each particle in *particleList* to be of the form "id" or "#id" where "#" is an integer.
     Examples of the form "#id" include "2n" and "3n". For example, the paticle list ["2n", "Pu238"] is returned as ["n", "n", "Pu238"].
     '''
@@ -126,11 +126,18 @@ def buildParticleFromRawData( cls, ID, mass = None, spin = None, parity = None, 
 
     return( particle )
 
-def returnAntiParticleIDFromId( particleID ) :
+def returnAntiParticleIDFromId(particleID):
+    """
+    This function returns the anti particle id of **particleID**. Note, if **particleID** is the id of an anti particle, 
+    then the particle id is returned. For example, if **particleID** is 'O16', 'O16_anti' is returned, but if 
+    **particleID** is 'O16_anti then 'O16' is returned'.
+    """
 
-    n1 = len( antiSuffix )
-    if( particleID[-n1:] == antiSuffix ) : return( particleID[-n1:] )
-    return( particleID + antiSuffix )
+    n1 = len(antiSuffix)
+    if particleID[-n1:] == antiSuffix:
+        return particleID[-n1:]
+
+    return particleID + antiSuffix
 
 def returnAntiParticleID( particle ) :
 

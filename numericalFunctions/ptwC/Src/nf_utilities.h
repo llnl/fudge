@@ -10,10 +10,12 @@
 #ifndef nf_utilities_h_included
 #define nf_utilities_h_included
 
+#define _USE_MATH_DEFINES
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
 #include <stdarg.h>
+#include <math.h>
 
 #include <statusMessageReporting.h>
 

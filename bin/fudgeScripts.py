@@ -36,11 +36,12 @@ def addScriptsInBin(binPath, summaryDocString):
                     print('        ', re.match(r'^summaryDocString__\s*=\s*.+$', line))
                 if re.match(r'^summaryDocString__[a-zA-Z]*\s*=\s*.+$', line):
                     variable = line.split('=')[0].strip()
-                    exec(line)
+                    locals = {}
+                    exec(line, None, locals)  # locals is only supported as kwarg starting in 3.13
                     subModule = line.split('=')[0].strip().split('__')[1]
                     if subModule not in summaryDocString:
                         summaryDocString[subModule] = {}
-                    summaryDocString[subModule][scriptPath.name] = locals()[variable]
+                    summaryDocString[subModule][scriptPath.name] = locals[variable]
                     break
 
 def printInfo(moduleName, scripts):
@@ -68,10 +69,10 @@ subModules = {}
 for binPath in binDir.parent.glob('**/bin'):
     addScriptsInBin(binPath, subModules)
 
-for subModule in ['FUDGE', 'PoPs', 'xData']:
+for subModule in ['FUDGE', 'PoPs', 'xData', 'Brownies']:
     if subModule not in subModules:
         continue
     printInfo(subModule, subModules.pop(subModule))
 
 for subModule in subModules:
-    printInfoo(subModule, subModulessubModule)
+    printInfo(subModule, subModules[subModule])

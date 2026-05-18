@@ -107,6 +107,7 @@ from xData import axes as axesModule
 from xData import XYs1d as XYs1dModule
 from xData import multiD_XYs as multiD_XYsModule
 from xData import regions as regionsModule
+from xData import series1d as series1dModule
 
 from fudge.productData.distributions import angular as angularModule
 from fudge.productData.distributions import energy as energyModule
@@ -576,8 +577,8 @@ def uncorrelated_EMuP_EEpP_TransferMatrix( style, tempInfo, crossSection, produc
 def discreteGammaAngularData(style, tempInfo, gammaEnergy, crossSection, angularData, multiplicity, comment = None):
     """
     This function calculates multi-group product matices for a discrete photon distribution.
-    Currently, only isotropic (i.e., l = 0) data are returned. That is, lMax and angularData are ignored. This routine is also used
-    for pair-production which pass angularData as None.
+    Currently, only isotropic (i.e., l = 0) data are returned. That is, lMax and angularData are ignored.
+    This routine is also used for processing branching3d distributions which pass angularData as None.
 
     :param style:               This is the multi-group style for the multi-group data.                                         
     :param tempInfo:            This is a dictionary with needed data.
@@ -598,14 +599,29 @@ def discreteGammaAngularData(style, tempInfo, gammaEnergy, crossSection, angular
     productName = tempInfo['productName']
     productGroupBoundaries = style.transportables[productName].group.boundaries.values
 
+    numberOfCoefficients = 1
+    ClsVsEnergyVsOrder = []
+    if angularData is not None and not angularData.isIsotropic():
+        numberOfCoefficients = tempInfo['legendreMax'] + 1
+        ClsVsEnergy = [[] for i in range(numberOfCoefficients)]
+        for func1d in angularData:
+            xys1d = func1d.toPointwise_withLinearXYs(accuracy=1e-3, lowerEps=1e-8)
+            Legendre = series1dModule.LegendreSeries.fromXYs1d(xys1d, tempInfo['legendreMax'])
+            for order, coefficient in enumerate(Legendre.coefficients):
+                ClsVsEnergy[order].append([func1d.outerDomainValue, coefficient])
+        for order in range(numberOfCoefficients):
+            ClsVsEnergyVsOrder.append(XYs1dModule.XYs1d(data=ClsVsEnergy[order]))
+    else:
+        ClsVsEnergyVsOrder.append(XYs1dModule.XYs1d(data=[[crossSection.domainMin, 1.0], [crossSection.domainMax, 1.0]]))
+
     nProj = len(projectileGroupBoundaries) - 1
     nProd = len(productGroupBoundaries) - 1
     TM_1, TM_E = {}, {}
     for i1 in range(nProj):
         TM_1_i1, TM_E_i1 = {}, {}
         for i2 in range(nProd):
-            TM_1_i1[i2] = [0.]
-            TM_E_i1[i2] = [0.]
+            TM_1_i1[i2] = numberOfCoefficients * [0.]
+            TM_E_i1[i2] = numberOfCoefficients * [0.]
         TM_1[i1] = TM_1_i1
         TM_E[i1] = TM_E_i1
 
@@ -617,15 +633,17 @@ def discreteGammaAngularData(style, tempInfo, gammaEnergy, crossSection, angular
     indexEp = min(max(indexEp, 0), nProd - 1)
 
     if multiplicity.domainMin < productGroupBoundaries[-1]:
-        xsecTimesMult = miscellaneousModule.groupTwoFunctionsAndFlux(style, tempInfo, crossSection, multiplicity, norm = tempInfo['groupedFlux'])
-        for indexE in range(nProj):
-            x = xsecTimesMult[indexE]
-            TM_1[indexE][indexEp] = [x]
-            TM_E[indexE][indexEp] = [x * gammaEnergy]
+        for order, ClVsEnergy in enumerate(ClsVsEnergyVsOrder):
+            xsecTimesMult = miscellaneousModule.groupThreeFunctionsAndFlux(style, tempInfo, crossSection, multiplicity, ClVsEnergy,
+                    norm = tempInfo['groupedFlux'])
+            for indexE in range(nProj):
+                x = xsecTimesMult[indexE]
+                TM_1[indexE][indexEp][order] = x
+                TM_E[indexE][indexEp][order] = x * gammaEnergy
 
     return TM_1, TM_E
 
-def primaryGammaAngularData( style, tempInfo, crossSection, energyData, angularData, multiplicity = 1, comment = None ) :
+def primaryGammaAngularData(style, tempInfo, crossSection, energyData, angularData, multiplicity, comment=None):
     r"""
     This function calculates multi-group product matrices for a primary photon distribution from a capture reaction.
     Currently, only isotropic (i.e., l = 0) data are returned. That is, lMax and angularData are ignored. massRatio is the
@@ -662,45 +680,55 @@ def primaryGammaAngularData( style, tempInfo, crossSection, energyData, angularD
     flux0 = style.flux.getFluxAtLegendreOrder( 0 )
     groupedFlux = tempInfo['groupedFlux']
 
-    bindingEnergy = energyData.value * energyData.axes[1].unitConversionFactor( tempInfo['incidentEnergyUnit'] )
+    if not isinstance(angularData, angularModule.Isotropic2d):
+        raise NotImplementedError("Non-isotropic angular distribution for primary gamma")
+
+    bindingEnergy = energyData.value * energyData.axes[1].unitConversionFactor(tempInfo['incidentEnergyUnit'])
     massRatio = energyData.massRatio
 
-    nProj = len( projectileGroupBoundaries ) - 1
-    nProd = len( productGroupBoundaries ) - 1
+    nProj = len(projectileGroupBoundaries) - 1
+    nProd = len(productGroupBoundaries) - 1
     TM_1, TM_E = {}, {}
-    for i1 in range( nProj ) :
+    for i1 in range(nProj):
         TM_1[i1] = {}
         TM_E[i1] = {}
-        for i2 in range( nProd ) :
-            TM_1[i1][i2] = [ 0. ]
-            TM_E[i1][i2] = [ 0. ]
+        for i2 in range(nProd):
+            TM_1[i1][i2] = [0.]
+            TM_E[i1][i2] = [0.]
     Eg2 = bindingEnergy + massRatio * projectileGroupBoundaries[0]
-    for indexEo, Eo in enumerate( productGroupBoundaries ) :
-        if( Eg2 <= Eo ) : break
-    indexEo = min( max( indexEo - 1, 0 ), nProd - 1 )
+    for indexEo, Eo in enumerate(productGroupBoundaries):
+        if Eg2 <= Eo: break
+    indexEo = min(max(indexEo - 1, 0), nProd - 1)
 
-    EMin, EMax = crossSection.domainMin, crossSection.domainMax
-    axes = axesModule.Axes(2, labelsUnits = {0: ('energy_out', tempInfo['incidentEnergyUnit']), 1: (crossSection.axes[1].label, crossSection.axes[1].unit)})
-    Egp = XYs1dModule.XYs1d( data = [ [ EMin, bindingEnergy + massRatio * EMin ], [ EMax, bindingEnergy + massRatio * EMax ] ], axes = axes )
+    if multiplicity.domainMin < productGroupBoundaries[-1]:
+        mult = multiplicity.toPointwise_withLinearXYs(lowerEps=1e-8)
+        crossSection, mult = crossSection.mutualify(1e-8, 1e-8, 0, mult, 1e-8, 1e-8, 0)
+        xsecTimesMult = crossSection * mult
+        EMin, EMax = xsecTimesMult.domainMin, xsecTimesMult.domainMax
+        # primary gamma energy varies linearly with incident energy:
+        Egp = XYs1dModule.XYs1d(data=[[EMin, bindingEnergy + massRatio * EMin],
+                                      [EMax, bindingEnergy + massRatio * EMax]],
+                                      axes=crossSection.axes)
 
-    for indexEi in range( nProj ) :
-        Ei2 = projectileGroupBoundaries[indexEi + 1]
-        Eg2 = bindingEnergy + massRatio * Ei2
-        EiMin = projectileGroupBoundaries[indexEi]
-        while( True ) :
-            incrementIndexEo, EiMax = 0, Ei2
-            if( indexEo < ( nProd - 1 ) ) :
-                if( Eg2 > productGroupBoundaries[indexEo + 1] ) :
-                    incrementIndexEo = 1
-                    EiMax = ( productGroupBoundaries[indexEo + 1] - bindingEnergy ) / massRatio
-            TM_1[indexEi][indexEo][0] = float( crossSection.integrateTwoFunctions( flux0, 
-                    domainMin = EiMin, domainMax = EiMax ) / groupedFlux[indexEi] )
-            TM_E[indexEi][indexEo][0] = float( crossSection.integrateThreeFunctions( flux0, Egp, 
-                    domainMin = EiMin, domainMax = EiMax ) / groupedFlux[indexEi] )
-            if( incrementIndexEo == 0 ) : break
-            EiMin = EiMax
-            if( indexEo < ( nProd - 1 ) ) : indexEo += 1
-    return( TM_1, TM_E )
+        for indexEi in range(nProj):
+            Ei2 = projectileGroupBoundaries[indexEi + 1]
+            Eg2 = bindingEnergy + massRatio * Ei2
+            EiMin = projectileGroupBoundaries[indexEi]
+            while True:
+                incrementIndexEo, EiMax = 0, Ei2
+                if indexEo < (nProd - 1):
+                    if Eg2 > productGroupBoundaries[indexEo + 1]:
+                        incrementIndexEo = 1
+                        EiMax = (productGroupBoundaries[indexEo + 1] - bindingEnergy) / massRatio
+                TM_1[indexEi][indexEo][0] = float(xsecTimesMult.integrateTwoFunctions(flux0,
+                        domainMin = EiMin, domainMax = EiMax) / groupedFlux[indexEi])
+                TM_E[indexEi][indexEo][0] = float(xsecTimesMult.integrateThreeFunctions(flux0, Egp,
+                        domainMin = EiMin, domainMax = EiMax) / groupedFlux[indexEi])
+                if incrementIndexEo == 0: break
+                EiMin = EiMax
+                if indexEo < (nProd - 1): indexEo += 1
+
+    return TM_1, TM_E
 
 def NBodyPhaseSpace( style, tempInfo, crossSection, numberOfProducts, mTotal, Q, multiplicity = 1, comment = None ) :
     """

@@ -13,6 +13,7 @@ from fudge.resonances import resonances as resonancesModule, \
 from pqu import PQU as PQUModule
 
 from fudge.covariances import covarianceSuite as covarianceSuiteModule
+from fudge.covariances import enums as covarianceEnumsModule
 from fudge.covariances import modelParameters as modelParametersModule
 
 from .. import endfFormats as endfFormatsModule
@@ -24,7 +25,6 @@ from ..resonances import resolved as resonancesRewriteModule
 # helper methods:
 #
 def writeLCOMP2(matrix, NDIGIT, NNN):
-    import numpy
     nints = 56 // (NDIGIT + 1)  # how many numbers fit on each line?
     if NDIGIT == 3: nints = 13  # special case
     rsd = numpy.sqrt(matrix.diagonal())
@@ -99,9 +99,8 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
     """
     Translate resolved resonance covariance back to ENDF-6
     """
-    import numpy
 
-    def swaprows(matrix, i1, i2, nrows):
+    def swap_rows(matrix, i1, i2, nrows):
         # may need to rearrange parameters: ENDF often sorts first by L rather than by energy
         rows = matrix[i1:i1+nrows].copy()
         matrix[i1:i1+nrows] = matrix[i2:i2+nrows]
@@ -153,9 +152,10 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
         MLS = 0
         if ISR:
             MLS = 1     # currently don't handle energy-dependent DAP
-            DAP = PQUModule.PQU(
-                numpy.sqrt(self.matrix.constructArray()[0, 0]),
-                self.parameters[0].link.evaluated.axes[0].unit).getValueAs('10*fm')
+            DAP = numpy.sqrt(self.matrix.constructArray()[0, 0])
+            if self.type is covarianceEnumsModule.Type.relative:
+                DAP *= self.parameters[0].link.evaluated.value
+            DAP = PQUModule.PQU(DAP, self.parameters[0].link.evaluated.axes[0].unit).getValueAs('10*fm')
             endf.append(endfFormatsModule.endfContLine(0, DAP, 0, 0, 0, 0))
 
         # MF32 repeats the resonance parameter information.
@@ -171,6 +171,13 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
             table[2] = Js
         table = list(zip(*table))
         matrix = self.matrix.constructArray()[MLS:, MLS:]
+        if self.type is covarianceEnumsModule.Type.relative:
+            parameters = []
+            for row in RPs.data:
+                parameters += row
+            matrix *= numpy.outer(parameters, parameters)
+            matrix[matrix == -0.0] = 0
+
         # toss out extra rows/columns of zeros (for column 'L')
         MPAR2 = len(matrix) // len(table)
         index = []
@@ -192,7 +199,7 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
             for i in range(len(elist1)):
                 i2 = elist2.index(elist1[i])
                 if i2 != i:
-                    swaprows(matrix, MPAR*i, MPAR*elist2.index(elist1[i]), MPAR)
+                    swap_rows(matrix, MPAR*i, MPAR*elist2.index(elist1[i]), MPAR)
                     val = elist2[i]
                     elist2[i] = elist2[i2]
                     elist2[i2] = val
@@ -288,8 +295,11 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
             assert len(DAP_default) <= 1
             if len(DAP_default) == 1:
                 index = DAP_default[0].matrixStartIndex
-                DAP.append(PQUModule.PQU(
-                    numpy.sqrt(matrix[index, index]), DAP_default[0].link.evaluated.axes[0].unit).getValueAs('10*fm'))
+                dap_now = numpy.sqrt(matrix[0, 0])
+                if self.type is covarianceEnumsModule.Type.relative:
+                    dap_now *= self.parameters[0].link.evaluated.value
+                dap_now = PQUModule.PQU(dap_now, DAP_default[0].link.evaluated.axes[0].unit).getValueAs('10*fm')
+                DAP.append(dap_now)
             else:
                 DAP.append(0)
 
@@ -300,9 +310,11 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
                     while L+1 > len(uncertaintyPerL):
                         uncertaintyPerL.append([])
                     index = radius.matrixStartIndex
-                    DAP_now = PQUModule.PQU(
-                        numpy.sqrt(matrix[index, index]), radius.link.evaluated.axes[0].unit).getValueAs('10*fm')
-                    uncertaintyPerL[L].append(DAP_now)
+                    dap_now = numpy.sqrt(matrix[index, index])
+                    if self.type is covarianceEnumsModule.Type.relative:
+                        dap_now *= self.parameters[index].link.evaluated.value
+                    dap_now = PQUModule.PQU(dap_now, DAP_default[0].link.evaluated.axes[0].unit).getValueAs('10*fm')
+                    uncertaintyPerL[L].append(dap_now)
                 for Lvals in uncertaintyPerL:
                     if not Lvals:
                         DAP.append(0)
@@ -316,6 +328,14 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
 
         index = self.parameters[len(radii)].matrixStartIndex
         matrix = matrix[index:, index:]
+        if self.type is covarianceEnumsModule.Type.relative:
+            parameters = []
+            for parameterLink in self.parameters[len(radii):]:
+                for row in parameterLink.link.data:
+                    parameters += row
+            matrix *= numpy.outer(parameters, parameters)
+            matrix[matrix == -0.0] = 0
+
         MPAR = len(matrix) // NRes
 
         if not sortByL:
@@ -327,13 +347,13 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
         for i in range(len(elist1)):
             i2 = elist2.index(elist1[i])
             if i2 != i:
-                swaprows(matrix, MPAR*i, MPAR*elist2.index(elist1[i]), MPAR)
+                swap_rows(matrix, MPAR*i, MPAR*elist2.index(elist1[i]), MPAR)
                 val = elist2[i]
                 elist2[i] = elist2[i2]
                 elist2[i2] = val
 
         for i1 in range(len(elist1)):   # switch order of elastic and capture widths
-            swaprows(matrix, MPAR * i1 + 1, MPAR * i1 + 2, 1)
+            swap_rows(matrix, MPAR * i1 + 1, MPAR * i1 + 2, 1)
 
         omitRow = numpy.sum(matrix, axis=1) == 0
 
@@ -404,8 +424,15 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
             endf += writeLCOMP2(matrix, NDIGIT, NRes*MPAR)
 
     else:   # LRF = 7
-        import numpy
         matrix = self.matrix.constructArray()
+        if self.type is covarianceEnumsModule.Type.relative:
+            parameters = []
+            for parameterLink in self.parameters:
+                for row in parameterLink.link.data:
+                    parameters += row
+            matrix *= numpy.outer(parameters, parameters)
+            matrix[matrix==-0] = 0
+
         RML = res.resolved.evaluated
 
         IFG = int(RML.reducedWidthAmplitudes)
@@ -414,18 +441,33 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
 
         if LCOMP == 1:
             AWRI, NSRS, NLRS = 0, 1, 0    # FIXME: hard-coded
-            NJSX = len(RML.spinGroups)
+            NJSX = len([sg for sg in RML.spinGroups if len(sg.resonanceParameters.table) > 0])
             NPARB = 0
 
             endf.append(endfFormatsModule.endfContLine(0, 0, 0, LCOMP, 0, ISR))
             endf.append(endfFormatsModule.endfContLine(AWRI, 0, 0, 0, NSRS, NLRS))
             endf.append(endfFormatsModule.endfContLine(0, 0, NJSX, 0, 0, 0))
+            # Skip writing resonances that have no parameter uncertainties
+            keepRows = numpy.zeros(len(matrix), dtype=bool)
             for spingrp in RML.spinGroups:
+                plinks = [p for p in self.parameters if p.link.findClassInAncestry(type(spingrp)) is spingrp]
+                if len(plinks) == 0:
+                    assert len(spingrp.resonanceParameters.table) == 0, "Non-empty spin group missing from MF32 covariance!"
+                    continue
+                elif len(plinks) > 1:
+                    raise NotImplementedError("MF32 LRF7 with multiple parameter links per spin group")
+                plink = plinks[0]
+                nonzero = numpy.any(matrix[plink.matrixStartIndex : plink.matrixStartIndex + plink.nParameters], axis=1)
+                includeResonance = nonzero.reshape(plink.link.nRows, plink.link.nColumns).any(axis=1)
+                for idx, keepval in enumerate(includeResonance):
+                    start = plink.matrixStartIndex + idx*plink.link.nColumns
+                    keepRows[start:start+plink.link.nColumns] = keepval
                 NCH = len(spingrp.channels)
-                NRB = len(spingrp.resonanceParameters.table)
+                NRB = includeResonance.sum()
                 NX = (NCH // 6 + 1) * NRB
                 endf.append(endfFormatsModule.endfContLine(0, 0, NCH, NRB, 6*NX, NX))
-                for res in spingrp.resonanceParameters.table:
+                for res, include in zip(spingrp.resonanceParameters.table, includeResonance):
+                    if not include: continue
                     for jidx in range(NCH // 6 + 1):
                         endfLine = res[jidx * 6:jidx * 6 + 6]
                         while len(endfLine) < 6: endfLine.append(0)
@@ -435,6 +477,7 @@ def toENDF6(self, endfMFList, flags, targetInfo, verbosityIndent=''):
                 NPARB += NRB * (NCH+1)
 
             # matrix header
+            matrix = matrix[keepRows][:,keepRows]
             N = (NPARB * (NPARB + 1)) // 2
             endf.append(endfFormatsModule.endfContLine(0, 0, 0, 0, N, NPARB))
             dataList = []

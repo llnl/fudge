@@ -138,11 +138,18 @@ class Resonances(ancestryModule.AncestryIO):
                 if warningList:
                     warnings.append(warning.Context(section.moniker, warningList))
         return warnings
-    
+
+    def containsStyle(self, styleLabel):
+        # FIXME: should search scatteringRadius and hardSphereRadius too after converting them to suites
+        for section in (self.resolved, self.unresolved):
+            if section is not None and styleLabel in section:
+                return True
+        return False
+
     def toXML_strList(self, indent='', **kwargs):
 
         indent2 = indent + kwargs.get('incrementalIndent', '  ')
-    
+
         xmlString = ['%s<%s>' % (indent, self.moniker)]
         for child in self.ancestryMembers:
             section = getattr(self, child)
@@ -210,7 +217,7 @@ class Resonances(ancestryModule.AncestryIO):
         res = cls(scatteringRadius=scatRadius, hardSphereRadius=hsRadius, resolved=RRR, unresolved=URR)
         xPath.pop()
         return res
-    
+
     def toString(self, simpleString=False):
         """Returns a string representation of self. If simpleString is True, 
         the string contains only an overview without listing resonances"""

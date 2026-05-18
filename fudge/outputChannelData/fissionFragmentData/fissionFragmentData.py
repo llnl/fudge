@@ -115,6 +115,13 @@ class FissionFragmentData(ancestryModule.AncestryIO_base):
 
         return self.__delayedNeutrons.fixDomains(labels, energyMin, energyMax)
 
+    def iterateProducts(self):
+        """
+        This is an iterator that returns each delayed neutron.
+        """
+
+        yield from self.__delayedNeutrons.iterateProducts()
+
     def listOfProducts(self, finalOnly=False, includeQualifier=True):
         '''
         Returns, as a python set, the list of PoPs ids for all products (i.e., outgoing particles) for *self*.

@@ -27,7 +27,7 @@ def runShellCommand(_shellCommand, returnSTDOUT=False):
 
 def defaultVersionNumber():
     if not os.path.isfile(versionOutputFile):
-        output = ['FUDGE_MAJORVERSION = 6', 'FUDGE_MINORVERSION = 8', 'FUDGE_RELEASECANDIDATE = \'\'', 'FUDGE_POSTRELEASE = \'\'', 'FUDGE_REPOIDENTIFIER = \'\'']
+        output = ['FUDGE_MAJORVERSION = 6', 'FUDGE_MINORVERSION = 13', 'FUDGE_RELEASECANDIDATE = \'\'', 'FUDGE_POSTRELEASE = \'\'', 'FUDGE_REPOIDENTIFIER = \'\'']
 
         with open(versionOutputFile, 'w') as fileObject:
             fileObject.write('\n'.join(output))
@@ -40,7 +40,7 @@ def getVersionNumber():
             gitDescribe = runShellCommand(['git', 'describe', '--abbrev=40', '--match', 'fudge[0-9].[0-9]*'], True)
             
             # see https://www.python.org/dev/peps/pep-0440/
-            regexGitDescribe = re.compile(r'^fudge(?P<major>\d+).(?P<minor>\d+)(?:-(?P<releaseCondidate>rc\d+)(-(?P<postRelease>\d+)-(?P<repoIdentifier>.+))?)?$')
+            regexGitDescribe = re.compile(r'^fudge(?P<major>\d+).(?P<minor>\d+).(?P<patchlevel>\d+)(-(?P<releaseCandidate>rc\d+))?(-(?P<postRelease>\d+))?(-(?P<repoIdentifier>.+))?$')
             regexMatch = regexGitDescribe.match(gitDescribe)
             if regexMatch:
                 regexMatch = regexMatch.groupdict()
@@ -51,11 +51,15 @@ def getVersionNumber():
                 else:
                     repoIdentifier = regexMatch["repoIdentifier"]
 
+                version = f"{regexMatch['major']}.{regexMatch['minor']}.{regexMatch['patchlevel']}.post{regexMatch['postRelease']}+{repoIdentifier[:9]}"
                 output = [f'FUDGE_MAJORVERSION = {regexMatch["major"]}', 
                           f'FUDGE_MINORVERSION = {regexMatch["minor"]}',
+                          f'FUDGE_PATCHLEVEL = {regexMatch["patchlevel"]}',
                           f'FUDGE_RELEASECANDIDATE = \'{regexMatch["releaseCondidate"] if regexMatch.get("releaseCondidate") else ""}\'',
                           f'FUDGE_POSTRELEASE = \'{regexMatch["postRelease"] if regexMatch.get("postRelease") else ""}\'',
-                          f'FUDGE_REPOIDENTIFIER = \'{repoIdentifier}\'']
+                          f'FUDGE_REPOIDENTIFIER = \'{repoIdentifier}\'',
+                          '',
+                          f'__version__ = \'{version}\'']
 
                 with open(versionOutputFile, 'w') as fileObject:
                     fileObject.write('\n'.join(output))

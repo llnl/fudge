@@ -285,6 +285,22 @@ class Series1d( baseModule.XDataFunctional ) :
 
         self.__coefficients = list(map(float, coefficients))
 
+    def asXYs1d(self, asLinLin, accuracy, lowerEps, upperEps, biSectionMax=16):
+        """
+        This method returns a representation of the data in *self* as an :py:class:`XYs1dModule.XYs1d` instance. 
+
+        :param asLinLin:    If **True**, the data have lin-lin interpolation.
+        :param accuracy:    Used to determine the accuracy if converting data to lin-lin interpolated data.
+        :param lowerEps:    Used to dull the lower point for "flat" interpolation.
+        :param upperEps:    Used to dull the upper point for "flat" interpolation.
+
+        :returns:           A :py:class:`XYs1dModule.XYs1d` instance.
+        """
+
+        xys1d = self.toPointwise_withLinearXYs(accuracy=accuracy, lowerEps=lowerEps, upperEps=upperEps, biSectionMax=biSectionMax)
+
+        return xys1d
+
     def areDomainsMutual(self, other):
         """
         This method returns True if the domain minimum for *self* and *other* are the same, and if the domain maximum for *self* and *other*
@@ -807,7 +823,7 @@ class LegendreSeries( Series1d ) :
         ..math::
             C_l = \int_{-1}^1 d\mu \, P_l(\mu) \, f(\mu)
 
-        where *xys1d*is the poinwise representation of :math:`f(\mu)`.
+        where *xys1d* is the poinwise representation of :math:`f(\mu)`.
 
         :param xys1d:       An instance of :py:class:`XYs1dModule.XYs1d`.
         :param maxOrder:    The maximum Legendre order of the returned instance.
@@ -1060,4 +1076,3 @@ class LinearSpline1d( Series1d ) :
         """
 
         return( self.toPointwiseLinear( **kwargs ) )
-

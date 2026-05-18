@@ -1,60 +1,46 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>pqu package &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../_static/gnd-20121206-favicon.ico"/>
+    <title>pqu package &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="xData" href="../xData/index.html" />
-    <link rel="prev" title="pqu" href="modules.html" /> 
+    <link rel="prev" title="pqu" href="modules.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="../xData/index.html" title="xData"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="modules.html" title="pqu"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">pqu</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">pqu package</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <section id="pqu-package">
-<h1>pqu package<a class="headerlink" href="#pqu-package" title="Permalink to this heading">¶</a></h1>
+<h1>pqu package<a class="headerlink" href="#pqu-package" title="Link to this heading">¶</a></h1>
 <section id="module-pqu.PQU">
-<span id="pqu-pqu-module"></span><h2>pqu.PQU module<a class="headerlink" href="#module-pqu.PQU" title="Permalink to this heading">¶</a></h2>
+<span id="pqu-pqu-module"></span><h2>pqu.PQU module<a class="headerlink" href="#module-pqu.PQU" title="Link to this heading">¶</a></h2>
 <section id="introduction">
-<h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">¶</a></h3>
+<h3>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h3>
 <p>This module contains classes and functions for representing and manipulating a value with units and uncertainty, 
 herein called a “Physical Quantity with Uncertainty” or <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a>. For example, if the distance between start and 
 finish lines is measured to be ‘100.1 m’ with an uncertainty of ‘0.4 m’, it can be inputted to <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> as the string
@@ -64,7 +50,7 @@ supports common math operations (e.g., addition, subtraction, multiplication) in
 the units and uncertainty. 
 For example, if a person races between the start and finish lines in a time of ‘16.3 +/- 0.1 s’, the <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> class can 
 be used to determine the person’s speed as:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">distance</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="s1">&#39;100.1(4) m&#39;</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">time</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="s1">&#39;16.3 +/- 0.1 s&#39;</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">speed</span> <span class="o">=</span> <span class="n">distance</span> <span class="o">/</span> <span class="n">time</span>
@@ -158,7 +144,7 @@ Some examples are (note - these are the same as the last examples, with uncertai
 </div></blockquote>
 </section>
 <section id="units-and-conversions">
-<h3>Units and conversions<a class="headerlink" href="#units-and-conversions" title="Permalink to this heading">¶</a></h3>
+<h3>Units and conversions<a class="headerlink" href="#units-and-conversions" title="Link to this heading">¶</a></h3>
 <p>This module uses the SI units along with units for angle and solid angle as its base units. The base units are:</p>
 <blockquote>
 <div><table class="docutils align-default">
@@ -219,7 +205,7 @@ with Joule (‘J’) and Watt-second (‘W * s’) but not Watt (‘W’).</p>
 PQU methods that operate on <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> objects do not attempt to simplify the units, even if the result is dimensionless.
 Note, to get rid of dimensionless units use the method <a class="reference internal" href="#pqu.PQU.PQU.simplify" title="pqu.PQU.PQU.simplify"><code class="xref py py-func docutils literal notranslate"><span class="pre">PQU.simplify()</span></code></a>
 For example, consider the division of ‘3.2 m’ by 11.2 km:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="s1">&#39;3.2 m&#39;</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="s1">&#39;11.2 km&#39;</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">slope</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
@@ -256,12 +242,12 @@ For example, <a class="reference internal" href="#pqu.PQU.PQU.inUnitsOf" title="
 <p>Also see the methods <a class="reference internal" href="#pqu.PQU.PQU.convertToUnit" title="pqu.PQU.PQU.convertToUnit"><code class="xref py py-func docutils literal notranslate"><span class="pre">PQU.convertToUnit()</span></code></a> and <a class="reference internal" href="#pqu.PQU.PQU.getValueAs" title="pqu.PQU.PQU.getValueAs"><code class="xref py py-func docutils literal notranslate"><span class="pre">PQU.getValueAs()</span></code></a>.</p>
 </section>
 <section id="changing-non-hardwired-constants">
-<h3>Changing non-hardwired constants<a class="headerlink" href="#changing-non-hardwired-constants" title="Permalink to this heading">¶</a></h3>
+<h3>Changing non-hardwired constants<a class="headerlink" href="#changing-non-hardwired-constants" title="Link to this heading">¶</a></h3>
 <p>PQU has a set of defined constants that are hardwired and a set that are not hardwired. The non-hardwired
 constants reside in the module pqu_constants.py and are import by <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> when it is first loaded. It is 
 possible to change a non-hardwired constant by loading the pqu_constants.py module before <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> is imported, redefining
 the constant and then importing <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a>. For example, as of this writing the elementary charge is defined as ‘1.60217653e-19 * C’:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eV</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;eV&#39;</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">eV</span><span class="p">)</span>
 <span class="go">1. eV</span>
@@ -270,9 +256,9 @@ the constant and then importing <a class="reference internal" href="#pqu.PQU.PQU
 </pre></div>
 </div>
 <p>The following lines change the elementary charge to ‘1.6 * C’:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">pqu_constants</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">pqu_constants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pqu_constants</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="s1">&#39;1.6 * C&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span>                 <span class="c1"># This import does not work with doctest as PQU was previously imported.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span>                 <span class="c1"># This import does not work with doctest as PQU was previously imported.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_eV</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;eV&#39;</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">my_eV</span><span class="p">)</span>
 <span class="go">1. eV</span>
@@ -281,13 +267,13 @@ the constant and then importing <a class="reference internal" href="#pqu.PQU.PQU
 </pre></div>
 </div>
 <p>The python ‘reload’ function can also be used as:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eV</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;eV&#39;</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">eV</span><span class="p">)</span>
 <span class="go">1. eV</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">eV</span><span class="o">.</span><span class="n">copyToUnit</span><span class="p">(</span> <span class="s1">&#39;J&#39;</span> <span class="p">))</span>
 <span class="go">1.60217653e-19 J</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">pqu_constants</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">pqu_constants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pqu_constants</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="s1">&#39;1.6 * C&#39;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reload</span><span class="p">(</span> <span class="n">PQU</span> <span class="p">)</span>
 <span class="go">&lt;module &#39;pqu.PQU&#39; from &#39;pqu/PQU.pyc&#39;&gt;</span>
@@ -303,7 +289,7 @@ the constant and then importing <a class="reference internal" href="#pqu.PQU.PQU
 </div>
 </section>
 <section id="uncertainty-propagation">
-<h3>Uncertainty propagation<a class="headerlink" href="#uncertainty-propagation" title="Permalink to this heading">¶</a></h3>
+<h3>Uncertainty propagation<a class="headerlink" href="#uncertainty-propagation" title="Link to this heading">¶</a></h3>
 <p>This section describes the propagation of uncertainties for the binary operators ‘+’, ‘-’, ‘*’ and ‘/’ as well as the power operator
 (i.e., ‘**’). Firstly, a comment on the limits of uncertainty propagation. Uncertainties were added mainly to support the inputting
 and outputting (i.e., converting to and from a string) of a physical quantity with an associated uncertainty. As can be seen from the documentation below,
@@ -312,7 +298,7 @@ the supported propagations of uncertainties are limited to simple propagation ru
 V1, V2 and V3 respectively and uncertainties dQ1, dQ2 and dQ3 respectively. In addition, n1 will be a number (i.e., 1.23).</p>
 <p>For the binary operators, all numbers are converted to a <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> instance with uncertainty of 0. For example, the following
 are all equivalent:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Q1</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="s1">&#39;12.3 +/- .2 m&#39;</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Q1</span> <span class="o">*</span> <span class="mf">0.6</span><span class="p">)</span>
 <span class="go">7.4 +/- 0.1 m</span>
@@ -366,7 +352,7 @@ Note, the ‘sqrt’ method is equivalent to the ‘pow’ method with power of 
 <p>For the trigonometry methods, no propagation of uncertainty is performed.</p>
 </section>
 <section id="pqu-methods-by-functionality">
-<h3>PQU methods by functionality<a class="headerlink" href="#pqu-methods-by-functionality" title="Permalink to this heading">¶</a></h3>
+<h3>PQU methods by functionality<a class="headerlink" href="#pqu-methods-by-functionality" title="Link to this heading">¶</a></h3>
 <p>This section classifies some of the methods in the <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> class by their function.</p>
 <p>For <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> methods that require a second operand (e.g., ‘+’, ‘/’), the second operand will be passed to the
 staticmethod <code class="xref py py-func docutils literal notranslate"><span class="pre">PQU._getOtherAsPQU()</span></code> to determine if it is a suitable object. A suitable object includes any string that
@@ -451,14 +437,14 @@ by its significant digits.</p>
 </div></blockquote>
 </section>
 <section id="supporting-classes">
-<h3>Supporting classes<a class="headerlink" href="#supporting-classes" title="Permalink to this heading">¶</a></h3>
+<h3>Supporting classes<a class="headerlink" href="#supporting-classes" title="Link to this heading">¶</a></h3>
 <p>In addition to the <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> class, the following classes are a part the the PQU module:
 <a class="reference internal" href="#pqu.PQU.Parsers" title="pqu.PQU.Parsers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parsers</span></code></a>, <a class="reference internal" href="#pqu.PQU.PQU_float" title="pqu.PQU.PQU_float"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU_float</span></code></a>, <a class="reference internal" href="#pqu.PQU.PQU_uncertainty" title="pqu.PQU.PQU_uncertainty"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU_uncertainty</span></code></a>, <a class="reference internal" href="#pqu.PQU.PhysicalUnit" title="pqu.PQU.PhysicalUnit"><code class="xref py py-class docutils literal notranslate"><span class="pre">PhysicalUnit</span></code></a> and <code class="xref py py-class docutils literal notranslate"><span class="pre">NumberDict</span></code>.
 These classes are only intended as helper classes for the <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> class; hence, they have limited functionality and
 are only intended for internal use.</p>
 </section>
 <section id="history">
-<h3>History<a class="headerlink" href="#history" title="Permalink to this heading">¶</a></h3>
+<h3>History<a class="headerlink" href="#history" title="Link to this heading">¶</a></h3>
 <p>This module is based on the Scientific/Physics/PhysicalQuantities.py module (Last revision: 2007-5-25)
 written by Konrad Hinsen &lt;<a class="reference external" href="mailto:hinsen&#37;&#52;&#48;cnrs-orleans&#46;fr">hinsen<span>&#64;</span>cnrs-orleans<span>&#46;</span>fr</a>&gt; with contributions from Greg Ward and Berthold Hoellmann.</p>
 <p>Most of the additions to Hinsen’s version were done by Nidhi R. Patel and Bret R. Beck &lt;<a class="reference external" href="mailto:beck6&#37;&#52;&#48;llnl&#46;gov">beck6<span>&#64;</span>llnl<span>&#46;</span>gov</a>&gt;
@@ -469,7 +455,7 @@ sources. The correctness of all entries in the unit table cannot be guaranteed,
 so use this at your own risk.</p>
 </section>
 <section id="issues-or-features-to-be-aware-of">
-<h3>Issues or features to be aware of<a class="headerlink" href="#issues-or-features-to-be-aware-of" title="Permalink to this heading">¶</a></h3>
+<h3>Issues or features to be aware of<a class="headerlink" href="#issues-or-features-to-be-aware-of" title="Link to this heading">¶</a></h3>
 <p>This section describes several oddities about <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a>.</p>
 <blockquote>
 <div><ul class="simple">
@@ -479,7 +465,7 @@ As example, the unit ‘psi’ (i.e., pounds per square inch) is equivalent to a
 rules as the number of significant digits is determined by the ‘1’.</p></li>
 </ul>
 </div></blockquote>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">b1</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="s1">&#39;1 Bohr&#39;</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">b2</span> <span class="o">=</span> <span class="n">b1</span><span class="o">.</span><span class="n">inBaseUnits</span><span class="p">(</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">b2</span><span class="p">)</span>
@@ -506,7 +492,7 @@ of ‘W/(m * degC)’ or ‘BTU/(hr * ft * degF)’.
 Any temperature unit can be converted to another temperature unit. For example,</p></li>
 </ul>
 </div></blockquote>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t1</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="s1">&#39;40 degC&#39;</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">convertToUnit</span><span class="p">(</span> <span class="s1">&#39;degF&#39;</span> <span class="p">))</span>
 <span class="go">104. degF</span>
@@ -524,7 +510,7 @@ deprecated (i.e., do not rely on it).
 The following illustrates the issue:</p></li>
 </ul>
 </div></blockquote>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c1</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="s1">&#39;2.23 c&#39;</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">c1</span><span class="p">)</span>
 <span class="go">2.23 c</span>
@@ -564,7 +550,7 @@ The following illustrates the issue:</p></li>
 </div>
 </section>
 <section id="future-plans">
-<h3>Future plans<a class="headerlink" href="#future-plans" title="Permalink to this heading">¶</a></h3>
+<h3>Future plans<a class="headerlink" href="#future-plans" title="Link to this heading">¶</a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p>Use fractions.Fraction in units.</p></li>
@@ -573,10 +559,10 @@ The following illustrates the issue:</p></li>
 </div></blockquote>
 </section>
 <section id="defined-prefixes-and-units">
-<h3>Defined prefixes and units<a class="headerlink" href="#defined-prefixes-and-units" title="Permalink to this heading">¶</a></h3>
+<h3>Defined prefixes and units<a class="headerlink" href="#defined-prefixes-and-units" title="Link to this heading">¶</a></h3>
 <p>This section outlines the prefixes and unit defined by the PQU module as well as the values used for the physical constant.</p>
 <section id="prefixes">
-<h4>Prefixes<a class="headerlink" href="#prefixes" title="Permalink to this heading">¶</a></h4>
+<h4>Prefixes<a class="headerlink" href="#prefixes" title="Link to this heading">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">----</span>  <span class="o">------</span> <span class="o">------</span>
 <span class="n">name</span>  <span class="n">factor</span> <span class="n">symbol</span>
 <span class="o">----</span>  <span class="o">------</span> <span class="o">------</span>
@@ -604,7 +590,7 @@ The following illustrates the issue:</p></li>
 </div>
 </section>
 <section id="derived-si-units">
-<h4>Derived SI units<a class="headerlink" href="#derived-si-units" title="Permalink to this heading">¶</a></h4>
+<h4>Derived SI units<a class="headerlink" href="#derived-si-units" title="Link to this heading">¶</a></h4>
 <p>These automatically get prefixes.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--------------------------</span> <span class="o">--------------------------------</span> <span class="o">------</span>
 <span class="n">name</span>                       <span class="n">value</span>                            <span class="n">symbol</span>
@@ -631,7 +617,7 @@ The following illustrates the issue:</p></li>
 </div>
 </section>
 <section id="fundamental-constants">
-<h4>Fundamental constants<a class="headerlink" href="#fundamental-constants" title="Permalink to this heading">¶</a></h4>
+<h4>Fundamental constants<a class="headerlink" href="#fundamental-constants" title="Link to this heading">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Fundamental</span> <span class="n">constants</span> <span class="o">............................................</span> 
 <span class="n">speed</span> <span class="n">of</span> <span class="n">light</span>             <span class="mf">299792458.</span> <span class="o">*</span> <span class="n">m</span> <span class="o">/</span> <span class="n">s</span>               <span class="n">c</span>
 <span class="n">permeability</span> <span class="n">of</span> <span class="n">vacuum</span>     <span class="mf">4.e-7</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">N</span> <span class="o">/</span> <span class="n">A</span><span class="o">**</span><span class="mi">2</span>            <span class="n">mu0</span>
@@ -648,7 +634,7 @@ The following illustrates the issue:</p></li>
 </div>
 </section>
 <section id="more-units">
-<h4>More units<a class="headerlink" href="#more-units" title="Permalink to this heading">¶</a></h4>
+<h4>More units<a class="headerlink" href="#more-units" title="Link to this heading">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Time</span> <span class="n">units</span> <span class="o">.......................................................</span> 
 <span class="n">minute</span>                     <span class="mf">60.</span><span class="o">*</span><span class="n">s</span>                            <span class="nb">min</span>
 <span class="n">hour</span>                       <span class="mf">60.</span><span class="o">*</span><span class="nb">min</span>                          <span class="n">h</span>
@@ -726,7 +712,7 @@ The following illustrates the issue:</p></li>
 </div>
 </section>
 <section id="prefixed-units">
-<h4>Prefixed units<a class="headerlink" href="#prefixed-units" title="Permalink to this heading">¶</a></h4>
+<h4>Prefixed units<a class="headerlink" href="#prefixed-units" title="Link to this heading">¶</a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-------------</span> <span class="o">------</span> <span class="o">--------------</span>
 <span class="n">name</span>          <span class="n">symbol</span> <span class="n">prefixed</span> <span class="n">units</span>
 <span class="o">-------------</span> <span class="o">------</span> <span class="o">--------------</span>
@@ -791,9 +777,11 @@ The following illustrates the issue:</p></li>
                      <span class="n">deV</span><span class="p">,</span> <span class="n">ceV</span><span class="p">,</span> <span class="n">meV</span><span class="p">,</span> <span class="n">mueV</span><span class="p">,</span> <span class="n">neV</span><span class="p">,</span> <span class="n">peV</span><span class="p">,</span> <span class="n">feV</span><span class="p">,</span> <span class="n">aeV</span><span class="p">,</span> <span class="n">zeV</span><span class="p">,</span> <span class="n">yeV</span>
 </pre></div>
 </div>
+</section>
+</section>
 <dl class="py class">
 <dt class="sig sig-object py" id="pqu.PQU.PQU">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">PQU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uncertainty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkOrder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">PQU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uncertainty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkOrder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class supports a float value with an optional uncertainty and unit. Many basic math operations are supported 
 (e.g., +, -, <a href="#id3"><span class="problematic" id="id4">*</span></a>, /).  A <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> is anything that the staticmethod <a class="reference internal" href="#pqu.PQU.Parsers.parsePQUString" title="pqu.PQU.Parsers.parsePQUString"><code class="xref py py-func docutils literal notranslate"><span class="pre">Parsers.parsePQUString()</span></code></a> can parse.</p>
@@ -871,7 +859,7 @@ capable of parsing (e.g., ‘1.23’, ‘1.23 m’, ‘1.23%’, ‘1.23(12) m�
 </div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.changeUncertaintyPercent">
-<span class="sig-name descname"><span class="pre">changeUncertaintyPercent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">toPercent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.changeUncertaintyPercent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.changeUncertaintyPercent" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">changeUncertaintyPercent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">toPercent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.changeUncertaintyPercent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.changeUncertaintyPercent" title="Link to this definition">¶</a></dt>
 <dd><p>If <em>self</em>’s style is not pqu_uncertaintyStylePlusMinus a raise is executed. Otherwise, if toPercent
 is <strong>True</strong> (<strong>False</strong>) <em>self</em>’s uncertainty will be converted to a percent (non-percent) if not already a percent
 (non-percent).</p>
@@ -884,7 +872,7 @@ is <strong>True</strong> (<strong>False</strong>) <em>self</em>’s uncertainty 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.changeUncertaintyStyle">
-<span class="sig-name descname"><span class="pre">changeUncertaintyStyle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.changeUncertaintyStyle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.changeUncertaintyStyle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">changeUncertaintyStyle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">style</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.changeUncertaintyStyle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.changeUncertaintyStyle" title="Link to this definition">¶</a></dt>
 <dd><p>Changes <em>self</em>.uncertainty’s style. If style is the same as <em>self</em>.uncertainty’s style nothing is done. If style
 or <em>self</em>.uncertainty’s style is PQU_uncertainty.pqu_uncertaintyStyleNone as raise is executed.</p>
 <dl class="field-list simple">
@@ -896,7 +884,7 @@ or <em>self</em>.uncertainty’s style is PQU_uncertainty.pqu_uncertaintyStyleNo
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.compare">
-<span class="sig-name descname"><span class="pre">compare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilonFactor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.compare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.compare" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">compare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilonFactor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.compare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.compare" title="Link to this definition">¶</a></dt>
 <dd><p>Compares <em>self</em>’s value and unit to other’s value and unit (other’s value is first converted to unit of <em>self</em>) 
 using the <a class="reference internal" href="#pqu.PQU.compare" title="pqu.PQU.compare"><code class="xref py py-func docutils literal notranslate"><span class="pre">compare()</span></code></a> function.</p>
 <p>Also see method <a class="reference internal" href="#pqu.PQU.PQU.equivalent" title="pqu.PQU.PQU.equivalent"><code class="xref py py-func docutils literal notranslate"><span class="pre">PQU.equivalent()</span></code></a>.</p>
@@ -915,7 +903,7 @@ using the <a class="reference internal" href="#pqu.PQU.compare" title="pqu.PQU.c
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.convertToUnit">
-<span class="sig-name descname"><span class="pre">convertToUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.convertToUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.convertToUnit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convertToUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.convertToUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.convertToUnit" title="Link to this definition">¶</a></dt>
 <dd><p>Changes <em>self</em>’s unit to unit and adjusts the value such that the new value/unit is equivalent to
 the original value/unit. The new unit must be compatible with the original unit of <em>self</em>.</p>
 <dl class="field-list simple">
@@ -930,7 +918,7 @@ the original value/unit. The new unit must be compatible with the original unit 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.copyToUnit">
-<span class="sig-name descname"><span class="pre">copyToUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.copyToUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.copyToUnit" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">copyToUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.copyToUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.copyToUnit" title="Link to this definition">¶</a></dt>
 <dd><p>Like convertToUnit except a copy is made and returned. The copy unit is changed to unit. Self is left unchanged.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -944,13 +932,13 @@ the original value/unit. The new unit must be compatible with the original unit 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.cos">
-<span class="sig-name descname"><span class="pre">cos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.cos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.cos" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.cos"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.cos" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> of the cos of <em>self</em>. Self must have unit of angle.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.equivalent">
-<span class="sig-name descname"><span class="pre">equivalent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.equivalent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.equivalent" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">equivalent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.equivalent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.equivalent" title="Link to this definition">¶</a></dt>
 <dd><p>This method compares <em>self</em> to other and returns <strong>True</strong> if they are equivalent and <strong>False</strong> otherwise. The
 two are considered equivalent if their bands overlap. The band for <em>self</em> (or other) is all
 values within ‘factor times uncertainty’ of its value. That is, the band for <em>self</em> is the ranges from
@@ -972,7 +960,7 @@ to calculate a ‘band’ and not their uncertainties.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.getSignificantDigits">
-<span class="sig-name descname"><span class="pre">getSignificantDigits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.getSignificantDigits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.getSignificantDigits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getSignificantDigits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.getSignificantDigits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.getSignificantDigits" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the number of significant digits for self’s value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -983,7 +971,7 @@ to calculate a ‘band’ and not their uncertainties.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.getUncertaintyValueAs">
-<span class="sig-name descname"><span class="pre">getUncertaintyValueAs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asPQU</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.getUncertaintyValueAs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.getUncertaintyValueAs" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getUncertaintyValueAs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asPQU</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.getUncertaintyValueAs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.getUncertaintyValueAs" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a python float representing <em>self</em>’s uncertainty value. If the uncertainty is a percent, the returned
 float is <em>self</em>’s value times <em>self</em>’s uncertainty value.</p>
 <dl class="field-list simple">
@@ -995,7 +983,7 @@ float is <em>self</em>’s value times <em>self</em>’s uncertainty value.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.getUnitAsString">
-<span class="sig-name descname"><span class="pre">getUnitAsString</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.getUnitAsString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.getUnitAsString" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getUnitAsString</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.getUnitAsString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.getUnitAsString" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a string representation of self’s unit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1006,7 +994,7 @@ float is <em>self</em>’s value times <em>self</em>’s uncertainty value.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.getUnitSymbol">
-<span class="sig-name descname"><span class="pre">getUnitSymbol</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pqu.PQU.PQU.getUnitSymbol" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getUnitSymbol</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pqu.PQU.PQU.getUnitSymbol" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a string representation of self’s unit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1017,13 +1005,13 @@ float is <em>self</em>’s value times <em>self</em>’s uncertainty value.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.getValue">
-<span class="sig-name descname"><span class="pre">getValue</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.getValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.getValue" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getValue</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.getValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.getValue" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a python float representing <em>self</em>’s value. This is equivalent to ‘float( self )’.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.getValueAs">
-<span class="sig-name descname"><span class="pre">getValueAs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asPQU</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.getValueAs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.getValueAs" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getValueAs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asPQU</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.getValueAs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.getValueAs" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <em>self</em>’s value in units of unit. Unit must be compatible with <em>self</em>’s unit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1037,7 +1025,7 @@ float is <em>self</em>’s value times <em>self</em>’s uncertainty value.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.inBaseUnits">
-<span class="sig-name descname"><span class="pre">inBaseUnits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.inBaseUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.inBaseUnits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">inBaseUnits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.inBaseUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.inBaseUnits" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A copy of <em>self</em> converted to base units, i.e. SI units in most cases</p>
@@ -1050,7 +1038,7 @@ float is <em>self</em>’s value times <em>self</em>’s uncertainty value.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.inUnitsOf">
-<span class="sig-name descname"><span class="pre">inUnitsOf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">units</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.inUnitsOf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.inUnitsOf" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">inUnitsOf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">units</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.inUnitsOf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.inUnitsOf" title="Link to this definition">¶</a></dt>
 <dd><p>Express the quantity in different units. If one unit is specified, a new
 <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> object is returned that expresses the quantity
 in that unit. If several units are specified, the return value is a tuple of
@@ -1076,7 +1064,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.info">
-<span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">17</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.info" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">17</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.info" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a detailed string of <em>self</em>. Mainly for debugging.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1087,7 +1075,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isAngle">
-<span class="sig-name descname"><span class="pre">isAngle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isAngle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isAngle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isAngle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isAngle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isAngle" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> has unit of angle and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1098,7 +1086,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isCharge">
-<span class="sig-name descname"><span class="pre">isCharge</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isCharge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isCharge" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isCharge</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isCharge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isCharge" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> has unit of charge and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1109,7 +1097,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isCompatible">
-<span class="sig-name descname"><span class="pre">isCompatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isCompatible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isCompatible" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isCompatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isCompatible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isCompatible" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em>’s unit is compatible with unit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1123,7 +1111,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isCurrent">
-<span class="sig-name descname"><span class="pre">isCurrent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isCurrent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isCurrent" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isCurrent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isCurrent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isCurrent" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> has unit of current and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1134,7 +1122,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isDimensionless">
-<span class="sig-name descname"><span class="pre">isDimensionless</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isDimensionless"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isDimensionless" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isDimensionless</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isDimensionless"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isDimensionless" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> is dimensionless and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1145,7 +1133,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isEnergy">
-<span class="sig-name descname"><span class="pre">isEnergy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isEnergy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isEnergy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isEnergy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isEnergy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isEnergy" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> has unit of energy and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1156,7 +1144,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isLength">
-<span class="sig-name descname"><span class="pre">isLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isLength" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isLength</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isLength"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isLength" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> has unit of length and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1167,7 +1155,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isLuminousIntensity">
-<span class="sig-name descname"><span class="pre">isLuminousIntensity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isLuminousIntensity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isLuminousIntensity" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isLuminousIntensity</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isLuminousIntensity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isLuminousIntensity" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> has unit of luminous intensity and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1178,7 +1166,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isMass">
-<span class="sig-name descname"><span class="pre">isMass</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isMass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isMass" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isMass</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isMass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isMass" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> has unit of mass and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1189,7 +1177,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isMoles">
-<span class="sig-name descname"><span class="pre">isMoles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isMoles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isMoles" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isMoles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isMoles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isMoles" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> has unit of mol and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1200,7 +1188,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isPercent">
-<span class="sig-name descname"><span class="pre">isPercent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isPercent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isPercent" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isPercent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isPercent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isPercent" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if value is a percent and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1211,7 +1199,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isPhysicalUnitOf">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isPhysicalUnitOf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isPhysicalUnitOf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isPhysicalUnitOf" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isPhysicalUnitOf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isPhysicalUnitOf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isPhysicalUnitOf" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if elf has the same unit as the argument unit and <strong>False</strong> otherwise. Elf and unit can be an instance of string,
 <a class="reference internal" href="#pqu.PQU.PhysicalUnit" title="pqu.PQU.PhysicalUnit"><code class="xref py py-class docutils literal notranslate"><span class="pre">PhysicalUnit</span></code></a> or <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a>.</p>
 <dl class="field-list simple">
@@ -1229,7 +1217,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isSolidAngle">
-<span class="sig-name descname"><span class="pre">isSolidAngle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isSolidAngle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isSolidAngle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isSolidAngle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isSolidAngle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isSolidAngle" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> has unit of solid angle and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1240,7 +1228,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isSpin">
-<span class="sig-name descname"><span class="pre">isSpin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isSpin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isSpin" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isSpin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isSpin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isSpin" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> has unit of spin (i.e., same as ‘hbar’) and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1251,7 +1239,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isTemperature">
-<span class="sig-name descname"><span class="pre">isTemperature</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isTemperature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isTemperature" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isTemperature</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isTemperature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isTemperature" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> has unit of temperature and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1262,7 +1250,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.isTime">
-<span class="sig-name descname"><span class="pre">isTime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isTime" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isTime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.isTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.isTime" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> has unit of time and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1273,7 +1261,7 @@ systems like hour/minute/second.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.setPercentFlag">
-<span class="sig-name descname"><span class="pre">setPercentFlag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isPercent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaleValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.setPercentFlag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.setPercentFlag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setPercentFlag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isPercent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaleValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.setPercentFlag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.setPercentFlag" title="Link to this definition">¶</a></dt>
 <dd><p>Changes the percent flag only when <em>self</em> is dimensionless and isPercent != <em>self</em>.isPercent( ).
 Otherwise, a raise is executed.  For scaleValue argument see <a class="reference internal" href="#pqu.PQU.PQU_float.setPercentFlag" title="pqu.PQU.PQU_float.setPercentFlag"><code class="xref py py-func docutils literal notranslate"><span class="pre">PQU_float.setPercentFlag()</span></code></a>.</p>
 <dl class="field-list simple">
@@ -1288,7 +1276,7 @@ Otherwise, a raise is executed.  For scaleValue argument see <a class="reference
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.simplify">
-<span class="sig-name descname"><span class="pre">simplify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.simplify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.simplify" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">simplify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.simplify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.simplify" title="Link to this definition">¶</a></dt>
 <dd><p>This method returns a <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> instance that is the same as <em>self</em> but with its units simplified. This is,
 units that have the same base units are reduce to one of those units. For example, if <em>self</em> is equivalent to
 ‘1.2 km/m**3’ then the returned instance will be equivalent to ‘1.2e3 / m**2’ or ‘1.2e9 / km**2’
@@ -1300,25 +1288,25 @@ this case) and the ‘lb’ and ‘kg’ are all converted to ‘lb’ (or ‘kg
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.sin">
-<span class="sig-name descname"><span class="pre">sin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.sin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.sin" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">sin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.sin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.sin" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> of the sin of <em>self</em>. Self must have unit of angle.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.sqrt">
-<span class="sig-name descname"><span class="pre">sqrt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.sqrt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.sqrt" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">sqrt</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.sqrt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.sqrt" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> of the square root of <em>self</em>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.tan">
-<span class="sig-name descname"><span class="pre">tan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.tan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.tan" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.tan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.tan" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> of the tan of <em>self</em>. Self must have unit of angle.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.toString">
-<span class="sig-name descname"><span class="pre">toString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepPeriod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.toString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.toString" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepPeriod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.toString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.toString" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a string representation of <em>self</em> (e.g., ‘35 +/- 1.2% J’).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1335,7 +1323,7 @@ this case) and the ‘lb’ and ‘kg’ are all converted to ‘lb’ (or ‘kg
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU.truncate">
-<span class="sig-name descname"><span class="pre">truncate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uncertainty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.truncate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.truncate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">truncate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uncertainty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU.truncate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU.truncate" title="Link to this definition">¶</a></dt>
 <dd><p>If value is <strong>True</strong>, calls <em>self</em>.value’s truncate method. If uncertainty is <strong>True</strong>, 
 calls <em>self</em>.uncertainty’s truncate method.  See <a class="reference internal" href="#pqu.PQU.PQU_float.truncate" title="pqu.PQU.PQU_float.truncate"><code class="xref py py-func docutils literal notranslate"><span class="pre">PQU_float.truncate()</span></code></a>
 and <a class="reference internal" href="#pqu.PQU.PQU_uncertainty.truncate" title="pqu.PQU.PQU_uncertainty.truncate"><code class="xref py py-func docutils literal notranslate"><span class="pre">PQU_uncertainty.truncate()</span></code></a></p>
@@ -1353,7 +1341,7 @@ and <a class="reference internal" href="#pqu.PQU.PQU_uncertainty.truncate" title
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_float">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">PQU_float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isPercent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkOrder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">PQU_float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isPercent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkOrder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class is used by the classes <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> and <a class="reference internal" href="#pqu.PQU.PQU_uncertainty" title="pqu.PQU.PQU_uncertainty"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU_uncertainty</span></code></a> to store more information about a float than
 is provided by the python float class as well as methods to operator on this information. The main members are:</p>
@@ -1373,7 +1361,7 @@ is provided by the python float class as well as methods to operator on this inf
 </ul>
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_float.calculateOrder">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculateOrder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.calculateOrder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.calculateOrder" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculateOrder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.calculateOrder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.calculateOrder" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the order of value. Value must be convertible to a float. A float’s order is the exponent in the
 representation ‘m * 10**o’ where ‘m’ is the mantissa and ‘o’ is the exponent. For example, 1.234e43 has order 43.</p>
 <dl class="field-list simple">
@@ -1388,7 +1376,7 @@ representation ‘m * 10**o’ where ‘m’ is the mantissa and ‘o’ is the 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_float.fixFloatsOrder">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixFloatsOrder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.fixFloatsOrder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.fixFloatsOrder" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fixFloatsOrder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.fixFloatsOrder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.fixFloatsOrder" title="Link to this definition">¶</a></dt>
 <dd><p>Many numbers are not represented in IEEE floating point by there true value. For example, ‘1e-12’ is 
 stored as the float 9.9999999999999998e-13. The order of the true value is -12 while the order of the floating 
 point representation is -13.  This function is implemented to help with this issue.  For example, for 
@@ -1408,7 +1396,7 @@ The fixed value and its order are returned.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_float.getOrder">
-<span class="sig-name descname"><span class="pre">getOrder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.getOrder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.getOrder" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getOrder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.getOrder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.getOrder" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <em>self</em>’s order.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1419,7 +1407,7 @@ The fixed value and its order are returned.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_float.getSignificantDigits">
-<span class="sig-name descname"><span class="pre">getSignificantDigits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.getSignificantDigits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.getSignificantDigits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getSignificantDigits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.getSignificantDigits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.getSignificantDigits" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <em>self</em>’s significant digits.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1430,13 +1418,13 @@ The fixed value and its order are returned.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_float.getValue">
-<span class="sig-name descname"><span class="pre">getValue</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.getValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.getValue" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getValue</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.getValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.getValue" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <em>self</em>’s value. Equivalent to float( <em>self</em> ).</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_float.info">
-<span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">17</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.info" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">17</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.info" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a detailed string of <em>self</em>. Mainly for debugging.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1447,7 +1435,7 @@ The fixed value and its order are returned.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_float.isPercent">
-<span class="sig-name descname"><span class="pre">isPercent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.isPercent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.isPercent" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isPercent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.isPercent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.isPercent" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> is a percent and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1458,7 +1446,7 @@ The fixed value and its order are returned.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_float.setPercentFlag">
-<span class="sig-name descname"><span class="pre">setPercentFlag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isPercent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaleValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.setPercentFlag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.setPercentFlag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setPercentFlag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isPercent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaleValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.setPercentFlag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.setPercentFlag" title="Link to this definition">¶</a></dt>
 <dd><p>If argument isPercent is <strong>True</strong> and <em>self</em> is not a percent, <em>self</em> is converted to a percent.
 If argument isPercent is <strong>False</strong> and <em>self</em> is a percent, <em>self</em> is converted to non-percent.
 Otherwise, a raise is executed.</p>
@@ -1476,7 +1464,7 @@ if isPercent is <strong>True</strong> (<strong>False</strong>).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_float.setSignificantDigits">
-<span class="sig-name descname"><span class="pre">setSignificantDigits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.setSignificantDigits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.setSignificantDigits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setSignificantDigits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.setSignificantDigits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.setSignificantDigits" title="Link to this definition">¶</a></dt>
 <dd><p>Sets <em>self</em>’s significant digits to significantDigits.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1487,7 +1475,7 @@ if isPercent is <strong>True</strong> (<strong>False</strong>).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_float.surmiseSignificantDigits">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">surmiseSignificantDigits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.surmiseSignificantDigits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.surmiseSignificantDigits" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">surmiseSignificantDigits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.surmiseSignificantDigits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.surmiseSignificantDigits" title="Link to this definition">¶</a></dt>
 <dd><p>This factory function returns a <a class="reference internal" href="#pqu.PQU.PQU_float" title="pqu.PQU.PQU_float"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU_float</span></code></a> instance given a float <em>value</em> and sets its significantDigits to
 something “reasonable”. The significantDigits are determined by using PQU.floatToShortestString with trimZeros = True.</p>
 <dl class="field-list simple">
@@ -1499,7 +1487,7 @@ something “reasonable”. The significantDigits are determined by using PQU.fl
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_float.toString">
-<span class="sig-name descname"><span class="pre">toString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trimZeros</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepPeriod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">includePercent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">favorEFormBy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.toString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.toString" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trimZeros</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepPeriod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">includePercent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">favorEFormBy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.toString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.toString" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a string representation of <em>self</em> (i.e., ‘1.234e6’ or ‘12%’) using function <a class="reference internal" href="#pqu.PQU.floatToShortestString" title="pqu.PQU.floatToShortestString"><code class="xref py py-func docutils literal notranslate"><span class="pre">floatToShortestString()</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1518,13 +1506,13 @@ something “reasonable”. The significantDigits are determined by using PQU.fl
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_float.truncate">
-<span class="sig-name descname"><span class="pre">truncate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.truncate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.truncate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">truncate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_float.truncate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_float.truncate" title="Link to this definition">¶</a></dt>
 <dd><p>Adjusts <em>self</em>’s value so that only significantDigits are non-zero. For example, if value is 3.453983207834109
 and significantDigits = 4 then the value is set to 3.454. If significantDigits is None, <em>self</em>’s significantDigits
 is used.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>significantDigits</strong> (None or <cite>int</cite>) – </p>
+<dd class="field-odd"><p><strong>significantDigits</strong> (None or <cite>int</cite>)</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1533,7 +1521,7 @@ is used.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_uncertainty">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">PQU_uncertainty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uncertaintyStyle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isPercent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkOrder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">PQU_uncertainty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uncertaintyStyle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isPercent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkOrder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class is used by <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> to store the style of uncertainty and information about its value.
 The members are:</p>
@@ -1551,7 +1539,7 @@ The members are:</p>
 </ul>
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_uncertainty.getProperValue">
-<span class="sig-name descname"><span class="pre">getProperValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty.getProperValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.getProperValue" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getProperValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty.getProperValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.getProperValue" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <em>self</em>’s value. If value is a percent, returned result is multiplied by argument v first, where v
 is expected to be the number associated the the percent value.</p>
 <dl class="field-list simple">
@@ -1566,7 +1554,7 @@ is expected to be the number associated the the percent value.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_uncertainty.getStyle">
-<span class="sig-name descname"><span class="pre">getStyle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty.getStyle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.getStyle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getStyle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty.getStyle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.getStyle" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <em>self</em>’s style.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1577,7 +1565,7 @@ is expected to be the number associated the the percent value.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_uncertainty.info">
-<span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">17</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.info" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">17</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.info" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a detailed string of <em>self</em>. Mainly for debugging.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1588,7 +1576,7 @@ is expected to be the number associated the the percent value.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_uncertainty.isPercent">
-<span class="sig-name descname"><span class="pre">isPercent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty.isPercent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.isPercent" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isPercent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty.isPercent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.isPercent" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> is a percent and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1599,7 +1587,7 @@ is expected to be the number associated the the percent value.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_uncertainty.isUncertainty">
-<span class="sig-name descname"><span class="pre">isUncertainty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty.isUncertainty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.isUncertainty" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isUncertainty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty.isUncertainty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.isUncertainty" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>False</strong> is style is pqu_uncertaintyStyleNone and <strong>True</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1610,22 +1598,22 @@ is expected to be the number associated the the percent value.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_uncertainty.pqu_uncertaintyStyleNone">
-<span class="sig-name descname"><span class="pre">pqu_uncertaintyStyleNone</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.pqu_uncertaintyStyleNone" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pqu_uncertaintyStyleNone</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.pqu_uncertaintyStyleNone" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_uncertainty.pqu_uncertaintyStyleParenthesis">
-<span class="sig-name descname"><span class="pre">pqu_uncertaintyStyleParenthesis</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'parenthesis'</span></em><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.pqu_uncertaintyStyleParenthesis" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pqu_uncertaintyStyleParenthesis</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'parenthesis'</span></em><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.pqu_uncertaintyStyleParenthesis" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_uncertainty.pqu_uncertaintyStylePlusMinus">
-<span class="sig-name descname"><span class="pre">pqu_uncertaintyStylePlusMinus</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'plusMinus'</span></em><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.pqu_uncertaintyStylePlusMinus" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pqu_uncertaintyStylePlusMinus</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'plusMinus'</span></em><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.pqu_uncertaintyStylePlusMinus" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_uncertainty.toString">
-<span class="sig-name descname"><span class="pre">toString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty.toString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.toString" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty.toString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.toString" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a string representation of <em>self</em> (i.e., ‘+/- 1.2%’).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1642,7 +1630,7 @@ is expected to be the number associated the the percent value.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PQU_uncertainty.truncate">
-<span class="sig-name descname"><span class="pre">truncate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty.truncate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.truncate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">truncate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PQU_uncertainty.truncate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PQU_uncertainty.truncate" title="Link to this definition">¶</a></dt>
 <dd><p>Adjusts <em>self</em>’s value so that only the significant digits are non-zero. This is most useful when a <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> instance is
 calculated from other <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> instance which can create an uncertainty with many non-zero digits. As example, adding two
 :py:class:<a href="#id5"><span class="problematic" id="id6">`</span></a>PQU`s with uncertainties 1.3 and 3.2 each with two significant digits, produces the uncertainty sqrt( 1.3**2 + 3.2**2 ) 
@@ -1654,7 +1642,7 @@ become 3.5 which is the value that the method toString would return.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pqu.PQU.Parsers">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">Parsers</span></span><a class="reference internal" href="../_modules/pqu/PQU.html#Parsers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.Parsers" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">Parsers</span></span><a class="reference internal" href="../_modules/pqu/PQU.html#Parsers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.Parsers" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This is use to parse the allowed <strong>PQU</strong> strings (e.g., ‘1 m’, ‘1.32(3) kg).
 See the table in the <code class="xref py py-func docutils literal notranslate"><span class="pre">parsePQUString.parsePQUString()</span></code> doc string for allowed <strong>PQU</strong> strings.
@@ -1662,7 +1650,7 @@ This class is mainly for internal use.</p>
 <p class="rubric">Regular Expression Matching</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.Parsers.parseFloat">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseFloat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fullStr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#Parsers.parseFloat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.Parsers.parseFloat" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseFloat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fullStr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#Parsers.parseFloat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.Parsers.parseFloat" title="Link to this definition">¶</a></dt>
 <dd><p>This method parses the beginning of str1 for a valid float. An arbitrary number of white spaces can exists before the 
 float characters. This method returns a tuple of length 3. The first item of the tuple is the float 
 value returned as a <a class="reference internal" href="#pqu.PQU.PQU_float" title="pqu.PQU.PQU_float"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU_float</span></code></a> instance with significantDigits determined from the string.  The second 
@@ -1687,7 +1675,7 @@ the returned tuple is:</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.Parsers.parsePQUString">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parsePQUString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#Parsers.parsePQUString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.Parsers.parsePQUString" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parsePQUString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#Parsers.parsePQUString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.Parsers.parsePQUString" title="Link to this definition">¶</a></dt>
 <dd><p>Parses the string str1 and returns the tuple ( value, unit, uncertainty ) where value is an instance of 
 <a class="reference internal" href="#pqu.PQU.PQU_float" title="pqu.PQU.PQU_float"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU_float</span></code></a>, unit is an instance of <a class="reference internal" href="#pqu.PQU.PhysicalUnit" title="pqu.PQU.PhysicalUnit"><code class="xref py py-class docutils literal notranslate"><span class="pre">PhysicalUnit</span></code></a> and uncertainty is an instance 
 of <a class="reference internal" href="#pqu.PQU.PQU_uncertainty" title="pqu.PQU.PQU_uncertainty"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU_uncertainty</span></code></a>.</p>
@@ -1869,7 +1857,7 @@ and u is a unit.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.Parsers.parseParenthesisUncertainty">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseParenthesisUncertainty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fullStr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#Parsers.parseParenthesisUncertainty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.Parsers.parseParenthesisUncertainty" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseParenthesisUncertainty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fullStr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#Parsers.parseParenthesisUncertainty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.Parsers.parseParenthesisUncertainty" title="Link to this definition">¶</a></dt>
 <dd><p>This method parses the beginning of str1 for the sub-string ‘(#)’ where ‘#’ is a 1 or 2 digit
 number.  This method returns a tuple of length 2. The first item of the tuple is the number returned as 
 a <a class="reference internal" href="#pqu.PQU.PQU_uncertainty" title="pqu.PQU.PQU_uncertainty"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU_uncertainty</span></code></a> of style pqu_uncertaintyStyleParenthesis. Characters after the ‘)’ are returned 
@@ -1890,7 +1878,7 @@ as the second item. For example, with str1 = ‘(34) ABCD XYS’ the returned tu
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.Parsers.parsePlusMinusUncertainty">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parsePlusMinusUncertainty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fullStr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#Parsers.parsePlusMinusUncertainty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.Parsers.parsePlusMinusUncertainty" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parsePlusMinusUncertainty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fullStr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#Parsers.parsePlusMinusUncertainty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.Parsers.parsePlusMinusUncertainty" title="Link to this definition">¶</a></dt>
 <dd><p>This method parses the beginning of str1 for the sub-string ‘+/-’ followed by a float string. An arbitrary number of 
 white spaces can exists before the ‘+/-’ sub-string and between it and the float string. This method
 returns a tuple of length 2. The first item of the tuple is float value returned as a <a class="reference internal" href="#pqu.PQU.PQU_uncertainty" title="pqu.PQU.PQU_uncertainty"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU_uncertainty</span></code></a>
@@ -1914,13 +1902,13 @@ returned as the second item. For example, with str1 = ‘ +/-  12. ABCD XYS’ t
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pqu.PQU.PhysicalQuantityWithUncertainty">
-<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">PhysicalQuantityWithUncertainty</span></span><a class="headerlink" href="#pqu.PQU.PhysicalQuantityWithUncertainty" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">PhysicalQuantityWithUncertainty</span></span><a class="headerlink" href="#pqu.PQU.PhysicalQuantityWithUncertainty" title="Link to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pqu.PQU.PhysicalUnit">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">PhysicalUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">powers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">PhysicalUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">powers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p class="rubric">PHYSICAL UNIT</p>
 <p>A physical unit is defined by a symbol (possibly composite), a scaling factor, and
@@ -1940,7 +1928,7 @@ passed which is assigned an implicit power 1.</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PhysicalUnit.conversionFactorTo">
-<span class="sig-name descname"><span class="pre">conversionFactorTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignoreTemperatureOffsets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.conversionFactorTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.conversionFactorTo" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">conversionFactorTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignoreTemperatureOffsets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.conversionFactorTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.conversionFactorTo" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a float factor that can be used to scale a value in unit of <em>self</em> to unit of <em>other</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1960,7 +1948,7 @@ passed which is assigned an implicit power 1.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PhysicalUnit.conversionTupleTo">
-<span class="sig-name descname"><span class="pre">conversionTupleTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.conversionTupleTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.conversionTupleTo" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">conversionTupleTo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.conversionTupleTo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.conversionTupleTo" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the tuple (factor, offset) that can be used to convert a value in unit of <em>self</em> to unit of <em>other</em>.
 Offset is 0.0 except with convert some temperature units.</p>
 <dl class="field-list simple">
@@ -1981,7 +1969,7 @@ Offset is 0.0 except with convert some temperature units.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PhysicalUnit.isAngle">
-<span class="sig-name descname"><span class="pre">isAngle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.isAngle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.isAngle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isAngle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.isAngle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.isAngle" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> is an angle and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1992,7 +1980,7 @@ Offset is 0.0 except with convert some temperature units.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PhysicalUnit.isCompatible">
-<span class="sig-name descname"><span class="pre">isCompatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.isCompatible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.isCompatible" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isCompatible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.isCompatible"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.isCompatible" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> is compatible with other and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2009,7 +1997,7 @@ Offset is 0.0 except with convert some temperature units.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PhysicalUnit.isDimensionless">
-<span class="sig-name descname"><span class="pre">isDimensionless</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.isDimensionless"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.isDimensionless" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">isDimensionless</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.isDimensionless"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.isDimensionless" title="Link to this definition">¶</a></dt>
 <dd><p>Returns <strong>True</strong> if <em>self</em> is dimensionless and <strong>False</strong> otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -2020,25 +2008,25 @@ Offset is 0.0 except with convert some temperature units.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PhysicalUnit.setSymbol">
-<span class="sig-name descname"><span class="pre">setSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.setSymbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.setSymbol" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.setSymbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.setSymbol" title="Link to this definition">¶</a></dt>
 <dd><p>Sets <em>self</em>’s symbols to symbol with power 1.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>symbol</strong> (<cite>str</cite>) – </p>
+<dd class="field-odd"><p><strong>symbol</strong> (<cite>str</cite>)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PhysicalUnit.simplifyFractions">
-<span class="sig-name descname"><span class="pre">simplifyFractions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.simplifyFractions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.simplifyFractions" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">simplifyFractions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.simplifyFractions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.simplifyFractions" title="Link to this definition">¶</a></dt>
 <dd><p>This method converts any part of self’s symbols and powers that are a <code class="xref py py-class docutils literal notranslate"><span class="pre">fractions.Fraction</span></code> instance with 
 denominator of 1 into an integer of the numerator.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PhysicalUnit.simplifyUnitsFactor">
-<span class="sig-name descname"><span class="pre">simplifyUnitsFactor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.simplifyUnitsFactor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.simplifyUnitsFactor" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">simplifyUnitsFactor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.simplifyUnitsFactor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.simplifyUnitsFactor" title="Link to this definition">¶</a></dt>
 <dd><p>This method returns a <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> instance that can be used to simplify <em>self</em>’s units.
 That is, all units with the same base units are reduced to a single unit. For example,
 if <em>self</em> has units of ‘km/m’ then the returned <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> is equivalent to ‘1e3 m/km’.</p>
@@ -2046,7 +2034,7 @@ if <em>self</em> has units of ‘km/m’ then the returned <a class="reference i
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pqu.PQU.PhysicalUnit.symbol">
-<span class="sig-name descname"><span class="pre">symbol</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.symbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.symbol" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">symbol</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#PhysicalUnit.symbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.PhysicalUnit.symbol" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a string representation of <em>self</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -2062,7 +2050,7 @@ if <em>self</em> has units of ‘km/m’ then the returned <a class="reference i
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pqu.PQU.compare">
-<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">compare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilonFactor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#compare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.compare" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">compare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilonFactor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#compare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.compare" title="Link to this definition">¶</a></dt>
 <dd><p>This function compares two floats (or objects that can be converted to floats) in a fuzzy way 
 where the fuzz factor is <em>epsilonFactor</em> * sys.float_info.epsilon. This function returns</p>
 <blockquote>
@@ -2098,7 +2086,7 @@ otherwise, it returns 1 (-1) if <em>value1</em> is greater (less) than <em>value
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pqu.PQU.convertUnits">
-<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.convertUnits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.convertUnits" title="Link to this definition">¶</a></dt>
 <dd><p>This function converts <em>unit</em> to a new unit based on the key/value pairs in the dictionary <em>unitMap</em>,
 and it determines the factor that converts <em>unit</em> to the new unit.
 That is, it looks up each term in <em>unit</em> to see if it is a key in <em>unitMap</em>. If it is,
@@ -2123,7 +2111,7 @@ original unit so is not used.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pqu.PQU.description">
-<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">description</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#description"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.description" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">description</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#description"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.description" title="Link to this definition">¶</a></dt>
 <dd><p>Return a string describing all available units.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -2134,7 +2122,7 @@ original unit so is not used.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pqu.PQU.floatToShortestString">
-<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">floatToShortestString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trimZeros</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepPeriod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">favorEFormBy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">includeSign</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#floatToShortestString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.floatToShortestString" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">floatToShortestString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trimZeros</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepPeriod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">favorEFormBy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">includeSign</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#floatToShortestString"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.floatToShortestString" title="Link to this definition">¶</a></dt>
 <dd><p>This function returns the shortest string representation of the float ‘value’ that is accurate to 
 ‘significantDigits’ digits when converted back to a float.</p>
 <p>The float is converted to both the E-form (i.e., ‘%e’) and F-form (i.e., ‘%f’) with significantDigits.
@@ -2165,12 +2153,12 @@ with the shortest representation is determined.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pqu.PQU.printPredefinedUnits">
-<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">printPredefinedUnits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#printPredefinedUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.printPredefinedUnits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">printPredefinedUnits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#printPredefinedUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.printPredefinedUnits" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pqu.PQU.toShortestString">
-<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">toShortestString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trimZeros</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepPeriod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">favorEFormBy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">includeSign</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pqu.PQU.toShortestString" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">toShortestString</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significantDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trimZeros</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepPeriod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">favorEFormBy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">includeSign</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pqu.PQU.toShortestString" title="Link to this definition">¶</a></dt>
 <dd><p>This function returns the shortest string representation of the float ‘value’ that is accurate to 
 ‘significantDigits’ digits when converted back to a float.</p>
 <p>The float is converted to both the E-form (i.e., ‘%e’) and F-form (i.e., ‘%f’) with significantDigits.
@@ -2201,7 +2189,7 @@ with the shortest representation is determined.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pqu.PQU.valueOrPQ">
-<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">valueOrPQ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unitFrom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unitTo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asPQU</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkOrder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#valueOrPQ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.valueOrPQ" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">pqu.PQU.</span></span><span class="sig-name descname"><span class="pre">valueOrPQ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unitFrom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unitTo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asPQU</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkOrder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pqu/PQU.html#valueOrPQ"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.PQU.valueOrPQ" title="Link to this definition">¶</a></dt>
 <dd><p>This function is designed as a convenience function for working with <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a>
 and float instances. That is, instead of checking the type of value, let valueOrPQ handle some of the
 details. The first argument can be either a <a class="reference internal" href="#pqu.PQU.PQU" title="pqu.PQU.PQU"><code class="xref py py-class docutils literal notranslate"><span class="pre">PQU</span></code></a> or something
@@ -2334,18 +2322,16 @@ unitTo</p></td>
 </dd></dl>
 
 </section>
-</section>
-</section>
 <section id="module-pqu.pqu_constants">
-<span id="pqu-pqu-constants-module"></span><h2>pqu.pqu_constants module<a class="headerlink" href="#module-pqu.pqu_constants" title="Permalink to this heading">¶</a></h2>
+<span id="pqu-pqu-constants-module"></span><h2>pqu.pqu_constants module<a class="headerlink" href="#module-pqu.pqu_constants" title="Link to this heading">¶</a></h2>
 <p>This file contains the physical constants (e.g., speed of light, permeability of vacuum,
 electron mass) that are used in the <strong>pqu</strong> functions and classes.</p>
 <p>If ones wishes to employ different physical constants, then modify the values in this file.
 Or, better yet, import this module first, changes its values as desired and then import PQU.
 For example, the following lines change the elementary charge to ‘1.6 * C’:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">pqu_constants</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">pqu_constants</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pqu_constants</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="s1">&#39;1.6 * C&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span>                 <span class="c1"># This import does not work with doctest as PQU was previously imported.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span>                 <span class="c1"># This import does not work with doctest as PQU was previously imported.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">my_eV</span> <span class="o">=</span> <span class="n">PQU</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;eV&#39;</span> <span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">my_eV</span><span class="p">)</span>
 <span class="go">1. eV</span>
@@ -2355,11 +2341,11 @@ For example, the following lines change the elementary charge to ‘1.6 * C’:<
 </div>
 </section>
 <section id="module-pqu.NumberDict">
-<span id="pqu-numberdict-module"></span><h2>pqu.NumberDict module<a class="headerlink" href="#module-pqu.NumberDict" title="Permalink to this heading">¶</a></h2>
+<span id="pqu-numberdict-module"></span><h2>pqu.NumberDict module<a class="headerlink" href="#module-pqu.NumberDict" title="Link to this heading">¶</a></h2>
 <p>Dictionary storing numerical values.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="pqu.NumberDict.NumberDict">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pqu.NumberDict.</span></span><span class="sig-name descname"><span class="pre">NumberDict</span></span><a class="reference internal" href="../_modules/pqu/NumberDict.html#NumberDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.NumberDict.NumberDict" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pqu.NumberDict.</span></span><span class="sig-name descname"><span class="pre">NumberDict</span></span><a class="reference internal" href="../_modules/pqu/NumberDict.html#NumberDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pqu.NumberDict.NumberDict" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
 <p>An instance of this class acts like an array of numbers with generalized
 (non-integer) indices. A value of zero is assumed for undefined entries.
@@ -2372,106 +2358,99 @@ For example, for the unit ‘m**2 / kg**3’, the dictionary items are [(‘kg�
 
 </section>
 <section id="module-pqu">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pqu" title="Permalink to this heading">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pqu" title="Link to this heading">¶</a></h2>
 </section>
 </section>
 
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-  <div>
-    <h3><a href="../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">pqu package</a><ul>
-<li><a class="reference internal" href="#module-pqu.PQU">pqu.PQU module</a><ul>
-<li><a class="reference internal" href="#introduction">Introduction</a></li>
-<li><a class="reference internal" href="#units-and-conversions">Units and conversions</a></li>
-<li><a class="reference internal" href="#changing-non-hardwired-constants">Changing non-hardwired constants</a></li>
-<li><a class="reference internal" href="#uncertainty-propagation">Uncertainty propagation</a></li>
-<li><a class="reference internal" href="#pqu-methods-by-functionality">PQU methods by functionality</a></li>
-<li><a class="reference internal" href="#supporting-classes">Supporting classes</a></li>
-<li><a class="reference internal" href="#history">History</a></li>
-<li><a class="reference internal" href="#issues-or-features-to-be-aware-of">Issues or features to be aware of</a></li>
-<li><a class="reference internal" href="#future-plans">Future plans</a></li>
-<li><a class="reference internal" href="#defined-prefixes-and-units">Defined prefixes and units</a><ul>
-<li><a class="reference internal" href="#prefixes">Prefixes</a></li>
-<li><a class="reference internal" href="#derived-si-units">Derived SI units</a></li>
-<li><a class="reference internal" href="#fundamental-constants">Fundamental constants</a></li>
-<li><a class="reference internal" href="#more-units">More units</a></li>
-<li><a class="reference internal" href="#prefixed-units">Prefixed units</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-pqu.pqu_constants">pqu.pqu_constants module</a></li>
-<li><a class="reference internal" href="#module-pqu.NumberDict">pqu.NumberDict module</a></li>
-<li><a class="reference internal" href="#module-pqu">Module contents</a></li>
-</ul>
-</li>
-</ul>
+<h1 class="logo"><a href="../index.html">Fudge and GNDS</a></h1>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="modules.html"
-                          title="previous chapter">pqu</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="../xData/index.html"
-                          title="next chapter">xData</a></p>
-  </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/pqu/pqu.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">pqu</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">pqu</a></li>
+      <li>Next: <a href="../xData/index.html" title="next chapter">xData</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="../xData/index.html" title="xData"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="modules.html" title="pqu"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="modules.html" >pqu</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">pqu package</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/pqu/pqu.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

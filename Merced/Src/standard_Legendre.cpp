@@ -1482,7 +1482,7 @@ bool standard_Legendre_F::Ein_F( double E_in, Qparam::QuadParamBase *Ein_param,
 
   // omit really small intervals
   static double etol = Global.Value( "tight_tol" );
-  if( std::abs( d_Eout ) < etol*Eout_high )
+  if( std::abs( d_Eout ) <= etol*Eout_high )
   {
     value->set_zero( );  // return zero
     return false;

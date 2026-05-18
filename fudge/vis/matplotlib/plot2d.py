@@ -216,7 +216,7 @@ class AxisSettings(TextSettings):
     def setupAxis(self, theAxis):
         kwargs = {}
         if self.gridOn:
-            args['linewidth'] = 1.5
+            kwargs['linewidth'] = 1.5
         theAxis.grid(self.gridOn, **kwargs)
         if INCLASSAXISSETTING:  # this doesn't' work, should I remove it?
             if self.isLog:

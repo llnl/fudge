@@ -149,6 +149,3 @@ class Dates(suiteModule.Suite):
 
     def __init__(self):
         suiteModule.Suite.__init__(self, [Date])
-
-    def toXML(self, indent='', **kwargs):
-        return '\n'.join(self.toXML_strList(**kwargs))

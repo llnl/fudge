@@ -242,6 +242,14 @@ class DelayedNeutrons(suitesModule.ExclusiveSuite):
 
         for delayedNeutron1 in self : delayedNeutron1.calculateAverageProductData( style, indent = indent, **kwargs )
 
+    def iterateProducts(self):
+        """
+        This is an iterator that returns each delayed neutron.
+        """
+
+        for delayedNeutron in self:
+            yield delayedNeutron.product
+
     def listOfProducts(self, finalOnly=False, includeQualifier=True):
         '''
         Returns, as a python set, the list of PoPs ids for all products (i.e., outgoing particles) for *self*.

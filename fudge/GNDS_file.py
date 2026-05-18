@@ -14,7 +14,7 @@ If the file is not a *GNDS/XML* file, a raise is executed.
 
 import pathlib
 import xml.sax
-from xml.etree import cElementTree
+from xml.etree import ElementTree
 
 from LUPY.hdf5 import HDF5_present, h5py
 from LUPY import xmlNode as xmlNodeModule  # wrapper around the xml parser:
@@ -148,7 +148,7 @@ def read(fileName, reactionSuite=None, warningNoReactionSuite=True, verbosity=1,
     elif name == groupModule.Groups.moniker:
         return groupModule.read(fileName)
     elif name == fissionFragmentDataModule.FissionFragmentData.moniker:
-        element = cElementTree.parse(fileName).getroot()
+        element = ElementTree.parse(fileName).getroot()
         element = xmlNodeModule.XML_node(element, xmlNodeModule.XML_node.etree)
         fissionFragmentData = fissionFragmentDataModule.FissionFragmentData()
         fissionFragmentData.parseNode(element, [], {})
@@ -233,7 +233,7 @@ def preview(fileName, haltParsingMoniker=stylesModule.Styles.moniker):
         lines.append(lines.pop(-1)[:handler.GNDS_previewColumn] + '</%s>' % handler.haltParsingMoniker)
         if handler.haltParsingMoniker != name: lines.append('</%s>' % name)
 
-        element = cElementTree.fromstring(''.join(lines))
+        element = ElementTree.fromstring(''.join(lines))
         element = xmlNodeModule.XML_node(element, xmlNodeModule.XML_node.etree)
         linkData = {'unresolvedLinks': []}
         if name == reactionSuiteModule.ReactionSuite.moniker:

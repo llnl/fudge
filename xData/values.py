@@ -104,7 +104,7 @@ class Values(baseModule.XDataCoreMembers):
 
     def copy(self, untrimZeros = False):
         """
-        Returns a :py:class:`Values instance that is a copy of *self*.
+        Returns a :py:class:`Values` instance that is a copy of *self*.
 
         :returns:       An instance of :py:class:`Values`.
         """

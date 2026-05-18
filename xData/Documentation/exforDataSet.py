@@ -189,10 +189,12 @@ class ExforDataSet(ancestryModule.AncestryIO):
         """
 
         _subentry = node.get('subentry')
-        _retrievalDate = datetime.datetime.strptime(node.get('retrievalDate'), '%Y-%m-%d')
+        _retrievalDate = dateModule.Date(datetime.datetime.strptime(node.get('retrievalDate'), '%Y-%m-%d'))
 
-        return cls(_subentry, _retrievalDate)
+        exforDataSet = cls(_subentry, _retrievalDate)
+        exforDataSet.parseAncestryMembers(node, xPath, linkData, **kwargs)
 
+        return exforDataSet
 
 class ExforDataSets(suiteModule.Suite):
     """
@@ -226,6 +228,7 @@ class ExperimentalDataSets(ancestryModule.AncestryIO_base):
         ancestryModule.AncestryIO_base.__init__(self)
 
         self.__exforDataSets = ExforDataSets()
+        self.__exforDataSets.setAncestor(self)
 
     @property
     def exforDataSets(self):
@@ -268,4 +271,8 @@ class ExperimentalDataSets(ancestryModule.AncestryIO_base):
         :param kwargs:      dictionary of extra arguments controlling how *self* is converted to a list of XML strings.
         """
 
-        self.__exforDataSets.parseNode(node, xPath, linkData, **kwargs)
+        for child in node:
+            if child.tag == ExforDataSets.moniker:
+                self.__exforDataSets.parseNode(child, xPath, linkData, **kwargs)
+            else:
+                raise Exception('Unsupported sub-child "%s" for node "%s".' % (child.tag, node.tag))

@@ -257,6 +257,10 @@ class Test_covariance_baseClass(TestCaseBase):
                                     symmetry=arrayModule.Symmetry.lower)
         a = covariances.covarianceMatrix.CovarianceMatrix('eval', matrix=griddedModule.Gridded2d(axes, myMatrix),
                                                           type=covarianceEnumsModule.Type.relative)
+        sec = covariances.covarianceSection.CovarianceSection(
+            label="fake section",
+            rowData=covariances.covarianceSection.RowData(path="fake/path"))
+        sec.add(a)
 
         self.assertEqual(list(map(str, a.check(
             {'checkUncLimits': False, 'negativeEigenTolerance': 0.0001, 'eigenvalueRatioTolerance': 0.0001}))), [])
@@ -294,17 +298,19 @@ class Test_covariance_baseClass(TestCaseBase):
 
         g = a.group(groupBoundaries=(self.__groupBoundaries, self.__groupBoundaries),
                     groupUnit=(self.__groupUnit, self.__groupUnit))
+        g.label = 'grouped'
+        sec.add(g)
         self.assertEqual(g.matrix.axes[0].unit, '')
         self.assertEqual(g.matrix.axes[1].unit, 'eV')
         self.assertEqual(g.matrix.axes[2].unit, 'eV')
         self.assertEqual(list(map(str, g.check(
             {'checkUncLimits': False, 'negativeEigenTolerance': 0.0001, 'eigenvalueRatioTolerance': 0.0001}))), [])
         self.assertXMLListsEqual(g.toXML_strList(formatVersion=GNDS_formatVersionModule.version_2_0),
-                                 '''<covarianceMatrix label="eval" type="relative">
+                                 '''<covarianceMatrix label="grouped" type="relative">
   <gridded2d>
     <axes>
       <grid index="2" label="row_energy_bounds" unit="eV" style="boundaries">
-        <values>1e-7 0.11109 1.3534 19.64</values></grid>
+        <values>1e-5 0.1 0.54 4 8.3153 13.71 22.603 40.169 67.904 91.661 148.63 304.33 454 748.52 1234.1 2034.7 3354.6 5530.8 9118.8 15034 24788 40868 67380 111090 183160 301970 497870 820850 1353400 2231300 3678800 6065300 1e7 1.964e7</values></grid>
       <grid index="1" label="column_energy_bounds" unit="eV" style="boundaries">
         <link href="../../grid[@index='2']/values"/></grid>
       <axis index="0" label="matrix_elements" unit=""/></axes>
@@ -337,6 +343,10 @@ class Test_covariance_baseClass(TestCaseBase):
                                     symmetry=arrayModule.Symmetry.lower)
         a = covariances.covarianceMatrix.CovarianceMatrix('eval', matrix=griddedModule.Gridded2d(axes, myMatrix),
                                                           type=covarianceEnumsModule.Type.relative)
+        sec = covariances.covarianceSection.CovarianceSection(
+            label="fake section",
+            rowData=covariances.covarianceSection.RowData(path="fake/path"))
+        sec.add(a)
 
         self.assertEqual(list(map(str, a.check(
             {'checkUncLimits': False, 'negativeEigenTolerance': 0.0001, 'eigenvalueRatioTolerance': 0.0001}))), [])
@@ -355,17 +365,19 @@ class Test_covariance_baseClass(TestCaseBase):
         g = a.group(groupBoundaries=(self.__groupBoundaries, self.__groupBoundaries),
                     groupUnit=(self.__groupUnit, self.__groupUnit))
         g.convertAxesToUnits(('b**2', 'MeV', 'MeV'))
+        g.label = 'grouped'
+        sec.add(g)
         self.assertEqual(g.matrix.axes[0].unit, 'b**2')
         self.assertEqual(g.matrix.axes[1].unit, 'MeV')
         self.assertEqual(g.matrix.axes[2].unit, 'MeV')
         self.assertEqual(list(map(str, g.check(
             {'checkUncLimits': False, 'negativeEigenTolerance': 0.0001, 'eigenvalueRatioTolerance': 0.0001}))), [])
         self.assertXMLListsEqual(g.toXML_strList(formatVersion=GNDS_formatVersionModule.version_2_0),
-                                 '''<covarianceMatrix label="eval" type="relative">
+                                 '''<covarianceMatrix label="grouped" type="relative">
   <gridded2d>
     <axes>
       <grid index="2" label="row_energy_bounds" unit="MeV" style="boundaries">
-        <values>1e-11 1e-7 1e-6 2e-5</values></grid>
+        <values>1e-11 1e-7 5.4e-7 4e-6 8.3153e-6 1.371e-5 2.2603e-5 4.0169e-5 6.7904e-5 9.1661e-5 1.4863e-4 3.0433e-4 4.54e-4 7.4852e-4 1.2341e-3 2.0347e-3 3.3546e-3 5.5308e-3 9.1188e-3 0.015034 0.024788 0.040868 0.06738 0.11109 0.18316 0.30197 0.49787 0.82085 1.3534 2.2313 3.6788 6.0653 10 19.64</values></grid>
       <grid index="1" label="column_energy_bounds" unit="MeV" style="boundaries">
         <link href="../../grid[@index='2']/values"/></grid>
       <axis index="0" label="matrix_elements" unit="b**2"/></axes>
@@ -398,6 +410,10 @@ class Test_covariance_baseClass(TestCaseBase):
                                     symmetry=arrayModule.Symmetry.lower)
         a = covariances.covarianceMatrix.CovarianceMatrix('eval', matrix=griddedModule.Gridded2d(axes, myMatrix),
                                                           type=covarianceEnumsModule.Type.absolute)
+        sec = covariances.covarianceSection.CovarianceSection(
+            label="fake section",
+            rowData=covariances.covarianceSection.RowData(path="fake/path"))
+        sec.add(a)
 
         import numpy
         fineBoundaries = numpy.linspace(1e-11, 20.0, num=100).tolist()
@@ -418,17 +434,19 @@ class Test_covariance_baseClass(TestCaseBase):
 
         g = a.group(groupBoundaries=(fineBoundaries, fineBoundaries), groupUnit=('MeV', 'MeV'))
         g.convertAxesToUnits(('b**2', 'keV', 'keV'))
+        g.label = 'grouped'
+        sec.add(g)
         self.assertEqual(g.matrix.axes[0].unit, 'b**2')
         self.assertEqual(g.matrix.axes[1].unit, 'keV')
         self.assertEqual(g.matrix.axes[2].unit, 'keV')
         self.assertEqual(list(map(str, g.check(
             {'checkUncLimits': False, 'negativeEigenTolerance': 0.0001, 'eigenvalueRatioTolerance': 0.0001}))), [])
         self.assertXMLListsEqual(g.toXML_strList(formatVersion=GNDS_formatVersionModule.version_2_0),
-                                 """<covarianceMatrix label="eval" type="absolute">
+                                 """<covarianceMatrix label="grouped" type="absolute">
   <gridded2d>
     <axes>
       <grid index="2" label="row_energy_bounds" unit="keV" style="boundaries">
-        <values>1e-2 1e2 1e3 2e4</values></grid>
+        <values>1e-8 202.020202030101 404.040404050202 606.060606070303 808.080808090404 1010.10101011051 1212.12121213061 1414.14141415071 1616.16161617081 1818.18181819091 2020.20202021101 2222.22222223111 2424.24242425121 2626.26262627131 2828.28282829141 3030.30303031152 3232.32323233162 3434.34343435172 3636.36363637182 3838.38383839192 4040.40404041202 4242.42424243212 4444.44444445222 4646.46464647232 4848.48484849243 5050.50505051253 5252.52525253263 5454.54545455273 5656.56565657283 5858.58585859293 6060.60606061303 6262.62626263313 6464.64646465323 6666.66666667333 6868.68686869343 7070.70707071354 7272.72727273364 7474.74747475374 7676.76767677384 7878.78787879394 8080.80808081404 8282.82828283414 8484.84848485424 8686.86868687434 8888.88888889444 9090.90909091455 9292.92929293465 9494.94949495475 9696.96969697485 9898.98989899495 10101.0101010151 10303.0303030351 10505.0505050553 10707.0707070754 10909.0909090955 11111.1111111156 11313.1313131357 11515.1515151558 11717.1717171759 11919.191919196 12121.2121212161 12323.2323232362 12525.2525252563 12727.2727272764 12929.2929292965 13131.3131313166 13333.3333333367 13535.3535353568 13737.3737373769 13939.393939397 14141.4141414171 14343.4343434372 14545.4545454573 14747.4747474774 14949.4949494975 15151.5151515176 15353.5353535377 15555.5555555578 15757.5757575779 15959.595959598 16161.6161616181 16363.6363636382 16565.6565656583 16767.6767676784 16969.6969696985 17171.7171717186 17373.7373737387 17575.7575757588 17777.7777777789 17979.797979799 18181.8181818191 18383.8383838392 18585.8585858593 18787.8787878794 18989.8989898995 19191.9191919196 19393.9393939397 19595.9595959598 19797.9797979799 2e4</values></grid>
       <grid index="1" label="column_energy_bounds" unit="keV" style="boundaries">
         <link href="../../grid[@index='2']/values"/></grid>
       <axis index="0" label="matrix_elements" unit="b**2"/></axes>

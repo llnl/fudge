@@ -9,7 +9,6 @@
 
 #include <stdlib.h>
 #include <stdint.h>
-#include <math.h>
 #include <ctype.h>
 
 #include "nf_utilities.h"

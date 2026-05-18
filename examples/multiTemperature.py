@@ -33,6 +33,7 @@ parser.add_argument('filename', type=str, help='ENDF or GNDS file with cross sec
 parser.add_argument('mt', type=int, help='MT number to plot')
 parser.add_argument('temps', type=float, nargs="+", help="Temperature(s) for heating.")
 parser.add_argument("--temperatureUnit", default="K", help="Unit for temperatures (default='K')")
+parser.add_argument("--energyUnit", help="Incident energy unit, e.g. 'eV' or 'MeV'")
 parser.add_argument("--title", help="Plot title")
 args = parser.parse_args()
 
@@ -43,6 +44,11 @@ else:
     from brownies.legacy.converting import endfFileToGNDS
     rce = endfFileToGNDS.endfFileToGNDS(filename)
     RS, CS = rce['reactionSuite'], rce['covarianceSuite']
+
+xUnit = RS.domainUnit
+if args.energyUnit:
+    RS.convertUnits({RS.domainUnit: args.energyUnit})
+    xUnit = args.energyUnit
 
 reaction = RS.getReaction(args.mt)
 
@@ -70,6 +76,6 @@ for key in sorted( data.keys() ):   # sort by temperature
 
 plot2d.makePlot2d(
         datasets,
-        xAxisSettings=plot2d.AxisSettings(label="$E_n$ (eV)", isLog=True, axisMin=low, axisMax=high),
+        xAxisSettings=plot2d.AxisSettings(label=f"$E_n$ ({xUnit})", isLog=True, axisMin=low, axisMax=high),
         yAxisSettings=plot2d.AxisSettings(label="Cross Section (barn)", isLog=True, autoscale=True),
         title=title, legendOn=True)

@@ -118,6 +118,15 @@ class CovarianceSection(suitesModule.Suite):
         for form in self: warnings += form.fix(**info)
         return warnings
 
+    def convertUnits(self, unitMap):
+        """
+        :param unitMap:     A dictionary where each key is a unit that will be replaced by its value. Units must be compatible.
+        """
+        for member in self.ancestryMembers:
+            if getattr(self, member):
+                getattr(self, member).convertUnits(unitMap)
+        suitesModule.Suite.convertUnits(self, unitMap)
+
     def toXML_strList(self, indent='', **kwargs):
 
         indent2 = indent + kwargs.get('incrementalIndent', '  ')
@@ -168,6 +177,7 @@ class DataLink(linkModule.Link, abc.ABC):
     """
     Base class for RowData and ColumnData. Both are links but with some additional attributes.
     """
+    ancestryMembers = ('slices',)
 
     def __init__(self, link=None, root=None, path=None, label=None, relative=False, ENDF_MFMT=None, dimension=None):
         linkModule.Link.__init__(self, link=link, root=root, path=path, label=label, relative=relative)
@@ -188,6 +198,10 @@ class DataLink(linkModule.Link, abc.ABC):
             if s1 != s2:
                 return False
         return True
+
+    def convertUnits(self, unitMap):
+        for slice in self.slices:
+            slice.convertUnits(unitMap)
 
     """ # not sure we need this anymore...
     def __deepcopy__( self, memodict={} ):
@@ -275,8 +289,8 @@ class Slice(ancestryModule.AncestryIO):
 
     moniker = "slice"
 
-    def __init__(self, dimension: int, domainUnit: str = None, domainMin: float = None, domainMax: float = None,
-                 domainValue: float = None):
+    def __init__(self, dimension: int, domainUnit=None, domainMin=None, domainMax=None,
+                 domainValue=None):
 
         if domainValue is not None:
             assert domainMin is None and domainMax is None, "domainValue must not be supplied along with domainMin/Max"
@@ -316,6 +330,20 @@ class Slice(ancestryModule.AncestryIO):
     @property
     def domainValue(self):
         return self.__domainValue
+
+    def convertUnits(self, unitMap):
+        if self.__domainUnit in unitMap:
+            newUnit = unitMap[self.__domainUnit]
+            from pqu import PQU
+            factor = PQU.PQU(1, self.__domainUnit).getValueAs(newUnit)
+
+            if self.__domainMin is not None:
+                self.__domainMin *= factor
+            if self.__domainMax is not None:
+                self.__domainMax *= factor
+            if self.__domainValue is not None:
+                self.__domainValue *= factor
+            self.__domainUnit = newUnit
 
     def toXML_strList(self, indent='', **kwargs):
 

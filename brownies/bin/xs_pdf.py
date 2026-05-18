@@ -422,15 +422,15 @@ def fit_series(xdata, ydata, yerr, seriesInstance, priorModel=None, priorCov=Non
             kernel[ix, ic] = seriesInstance.evaluateBasisFunction(x, ic)
     try:
         fit, cov, resid, chi2 = fudge.core.math.linearAlgebra.cglsqrSolve(
-            data=numpy.matlib.mat(ydata),
-            dataUnc=numpy.matlib.mat(yerr),
+            data=numpy.asmatrix(ydata),
+            dataUnc=numpy.asmatrix(yerr),
             kernel=kernel,
             prior=priorModel,
             priorCov=priorCov)
     except numpy.linalg.linalg.LinAlgError as theError:
         print('kernel', kernel)
-        print('data', numpy.matlib.mat(ydata))
-        print('unc', numpy.matlib.mat(yerr))
+        print('data', numpy.asmatrix(ydata))
+        print('unc', numpy.asmatrix(yerr))
         raise theError
     results = {'fit': fit, 'cov': cov, 'residual': resid, 'chi2': chi2}
     return results

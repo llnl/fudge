@@ -221,10 +221,10 @@ class OutputChannel( ancestryModule.AncestryIO ) :
                 mP += product.outputChannel.getFinalProductList( )
         return( mP )
 
-    def getProductsWithName( self, name ) :
-        """Returns a list of all the channel's products with given name ('gamma','n', etc)."""
+    def getProductsWithName(self, name, final=True, delayedNeutrons=True):
+        """Returns a list of all the channel's products with given name ('photon','n', etc)."""
 
-        return [ prod for prod in self if prod.pid == name ]
+        return [product for product in self.iterateProducts(final=final, delayedNeutrons=delayedNeutrons) if product.pid == name]
 
     def getProductWithName( self, name ) :
         """
@@ -251,6 +251,28 @@ class OutputChannel( ancestryModule.AncestryIO ) :
         numberOfFixes += self.__fissionFragmentData.fixDomains(labels, energyMin, energyMax)
 
         return numberOfFixes
+
+    def iterateProducts(self, final=True, delayedNeutrons=True):
+        """
+        This is an iterator that returns each product of *self*. If *final* is **True**, products with an
+        output channel are not returned but, instead, their nested products are. Ergo, only final products are returned
+        if *final* is **True**.
+
+        :param final:               If **True**, only final products are returned; otherwise, only the products directly within *self* are returned.
+        :param delayedNeutrons:     If **True**, delayed neutrons are also iterated over if present.
+        """
+
+        for product in self.products:
+            if product.outputChannel is not None:
+                if final:
+                    yield from product.outputChannel.iterateProducts(final=final, delayedNeutrons=delayedNeutrons)
+                else:
+                    yield product
+            else:
+                yield product
+
+        if delayedNeutrons:
+            yield from self.__fissionFragmentData.iterateProducts()
 
     def listOfProducts(self, finalOnly=False, includeQualifier=True):
         '''

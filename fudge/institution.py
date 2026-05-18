@@ -24,6 +24,7 @@ from fudge import product as productModule
 from fudge.productData import averageProductEnergy as averageProductEnergyModule
 from fudge.processing import nuclearPlusCoulombInterference as nuclearPlusCoulombInterferenceModule
 from fudge.processing.deterministic import tokens as deterministicTokensModule
+from fudge.resonances import probabilityTables as probabilityTablesModule
 from fudge.reactionData.doubleDifferentialCrossSection.photonScattering import incoherentDoppler as photoAtomicIncoherentDopplerModule
 
 photoAtomicIncoherentDoppler = 'LLNL::photoAtomicIncoherentDoppler'
@@ -143,7 +144,14 @@ class Institution(ancestryModule.AncestryIO):
                     institution.append(photoAtomicIncoherentDopplerModule.Reactions.parseNodeUsingClass(child, xPath, linkData))
                 else:                       # This should not happen.
                     raise Exception('Unsupported child "%s" for institution "%s".' % (child.tag, label))
-        else :
+        elif label == probabilityTablesModule.LLNLProbabilityTablesToken:
+            institution = cls(label)
+            for child in node:
+                if child.tag == probabilityTablesModule.ProbabilityTables.moniker:
+                    institution.append(probabilityTablesModule.ProbabilityTables.parseNodeUsingClass(child, xPath, linkData))
+                else:
+                    raise Exception('Unsupported child "%s" for institution "%s".' % (child.tag, label))
+        else:
             institution = UnknownInstitution(UnknownInstitutionXML_node(node))
 
         xPath.pop()
@@ -173,6 +181,11 @@ class UnknownInstitution(ancestryModule.AncestryIO):
         """This method returns the node instance of self."""
 
         return self.__node
+
+    def convertUnits(self, unitMap):
+        """ Prints a warning that convertUnits is not implemented for this institution. """
+
+        print('WARNING: convertUnits not implemented for institution "%s".' % self.label)
 
     def toXML_strList(self, indent = '', **kwargs):
         """This method returng the XML text that was not parsed."""
@@ -231,8 +244,11 @@ class UnknownLLNL_child(ancestryModule.Ancestry):
     def __init__(self, moniker, node):
 
         self.__moniker = moniker
+        ancestryModule.Ancestry.__init__(self)
 
-        if not isinstance(node, UnknownLLNL_XML_child): raise Exception('Invalid UnknownLLNL_child node.')
+        if not isinstance(node, UnknownLLNL_XML_child):
+            raise Exception('Invalid UnknownLLNL_child node "%s".' % type(self))
+
         self.__node = node
 
     @property

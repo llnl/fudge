@@ -810,6 +810,22 @@ class Regions2d( Subform, regionsModule.Regions2d ) :
                 warnings.append( warning.Context("Region %d:" % idx, regionWarnings) )
         return warnings
 
+    def energySpectrumAtEnergy(self, energyIn):
+        """
+        Calculates the outgoing particle's energy spectrum at projectile energy *energyIn*,
+
+        :param energyIn:                    Energy of the projectile.
+        :param discreteGammaResolution:     Relative width of triangle presenting the energy spectrum.
+
+        :return:                    XYs1d instance for the energy spectrum.
+        """
+
+        for region in self:
+            if energyIn < region.domainMax:
+                return region.energySpectrumAtEnergy(energyIn)
+
+        return XYs1d([], axes=defaultAxes(energyUnit=self.domainUnit))
+
     def toPointwise_withLinearXYs( self, **kwargs ) :
         """
         Returns a pointwise represent of *self*.

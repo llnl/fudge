@@ -1,55 +1,51 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>xData.xs_pdf_cdf &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
-    
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../_static/gnd-20121206-favicon.ico"/>
+    <title>xData.xs_pdf_cdf &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">xData.xs_pdf_cdf</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for xData.xs_pdf_cdf</h1><div class="highlight"><pre>
 <span></span><span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 
-<span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
 
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">values</span> <span class="k">as</span> <span class="n">valuesModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">base</span> <span class="k">as</span> <span class="n">baseModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">values</span> <span class="k">as</span> <span class="n">valuesModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">base</span> <span class="k">as</span> <span class="n">baseModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This module containes all the classes for handling a GNDS xs_pdf_cdf1d data container and its children.</span>
@@ -72,7 +68,10 @@
 <span class="sd">    +-------------------+---------------------------------------------------------------------------------------+</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Data"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Data">[docs]</a><span class="k">class</span> <span class="nc">Data</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Data">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Data">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Data</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is the base class for the classes :py:class:`Xs`, :py:class:`Pdf` and :py:class:`Cdf`.</span>
 
@@ -85,35 +84,40 @@
 <span class="sd">    +-----------+-------------------------------------------------------------------+</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">values</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param values:      This is the list of values (i.e., data) for the derived class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">if</span><span class="p">(</span> <span class="ow">not</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">values</span><span class="p">,</span> <span class="n">valuesModule</span><span class="o">.</span><span class="n">Values</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span> <span class="p">:</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span> <span class="s1">&#39;Not a values type&#39;</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">valuesModule</span><span class="o">.</span><span class="n">Values</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Not a values type&#39;</span><span class="p">)</span>
         <span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span>
 
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the number of values of the domain which is the same as for the pdf and cdf.</span>
 
 <span class="sd">        :returns:       A python int.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Data.copy"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Data.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="Data.copy">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Data.copy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a copy of *self*.</span>
 
 <span class="sd">        :returns:       An instance of self.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="p">)</span> <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Data.offsetScaleData"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Data.offsetScaleData">[docs]</a>    <span class="k">def</span> <span class="nf">offsetScaleData</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">scale</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Data.offsetScaleData">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Data.offsetScaleData">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">offsetScaleData</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method modifies every value in *self* by multiply it by *scale* and adding *offset*.</span>
 
@@ -121,9 +125,12 @@
 <span class="sd">        :param scale:       The multiplicative scale factor to apply to each value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">offsetScaleValues</span><span class="p">(</span> <span class="n">offset</span><span class="p">,</span> <span class="n">scale</span> <span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">offsetScaleValues</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Data.toXML_strList"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Data.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Data.toXML_strList">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Data.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of str instances representing the XML lines of *self*.</span>
 
@@ -133,14 +140,17 @@
 <span class="sd">        :return:                List of str instances representing the XML lines of self.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">XMLStringList</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&lt;</span><span class="si">%s</span><span class="s1">&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="n">indent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">moniker</span> <span class="p">)</span>
+        <span class="n">XMLStringList</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&lt;</span><span class="si">%s</span><span class="s1">&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">indent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">moniker</span><span class="p">)</span>
         <span class="n">XMLStringList</span> <span class="o">+=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">toXML_strList</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
         <span class="n">XMLStringList</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/</span><span class="si">%s</span><span class="s1">&gt;&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">moniker</span>
 
-        <span class="k">return</span> <span class="p">[</span> <span class="n">XMLStringList</span> <span class="p">]</span></div>
+        <span class="k">return</span> <span class="p">[</span><span class="n">XMLStringList</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="Data.parseNodeUsingClass"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Data.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Data.parseNodeUsingClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Data.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parse *node* into an instance of *cls*.</span>
 
@@ -159,30 +169,47 @@
 
         <span class="n">xPath</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">data1</span></div></div>
+        <span class="k">return</span> <span class="n">data1</span></div>
+</div>
 
-<div class="viewcode-block" id="Xs"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs">[docs]</a><span class="k">class</span> <span class="nc">Xs</span><span class="p">(</span> <span class="n">Data</span> <span class="p">)</span> <span class="p">:</span>
+
+
+<div class="viewcode-block" id="Xs">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Xs</span><span class="p">(</span><span class="n">Data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class stores the domain values of the pdf. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;xs&#39;</span></div>
 
-<div class="viewcode-block" id="Pdf"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Pdf">[docs]</a><span class="k">class</span> <span class="nc">Pdf</span><span class="p">(</span> <span class="n">Data</span> <span class="p">)</span> <span class="p">:</span>
+
+
+<div class="viewcode-block" id="Pdf">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Pdf">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Pdf</span><span class="p">(</span><span class="n">Data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class stores the probability density function (pdf) values.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;pdf&#39;</span></div>
 
-<div class="viewcode-block" id="Cdf"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Cdf">[docs]</a><span class="k">class</span> <span class="nc">Cdf</span><span class="p">(</span> <span class="n">Data</span> <span class="p">)</span> <span class="p">:</span>
+
+
+<div class="viewcode-block" id="Cdf">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Cdf">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Cdf</span><span class="p">(</span><span class="n">Data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class stores the cumulative distribution function (cdf) value of the pdf. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;cdf&#39;</span></div>
 
-<div class="viewcode-block" id="Xs_pdf_cdf1d"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d">[docs]</a><span class="k">class</span> <span class="nc">Xs_pdf_cdf1d</span><span class="p">(</span> <span class="n">baseModule</span><span class="o">.</span><span class="n">XDataFunctional</span> <span class="p">)</span> <span class="p">:</span>
+
+
+<div class="viewcode-block" id="Xs_pdf_cdf1d">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Xs_pdf_cdf1d</span><span class="p">(</span><span class="n">baseModule</span><span class="o">.</span><span class="n">XDataFunctional</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class represents a GNDS xs_pdf_cdf1d data container.</span>
 
@@ -213,9 +240,10 @@
 
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;xs_pdf_cdf1d&#39;</span>
     <span class="n">dimension</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">ancestryMembers</span> <span class="o">=</span> <span class="p">(</span> <span class="s1">&#39;xs&#39;</span><span class="p">,</span> <span class="s1">&#39;pdf&#39;</span><span class="p">,</span> <span class="s1">&#39;cdf&#39;</span> <span class="p">)</span>
+    <span class="n">ancestryMembers</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;xs&#39;</span><span class="p">,</span> <span class="s1">&#39;pdf&#39;</span><span class="p">,</span> <span class="s1">&#39;cdf&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_xs</span><span class="p">,</span> <span class="n">_pdf</span><span class="p">,</span> <span class="n">_cdf</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">linlin</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_xs</span><span class="p">,</span> <span class="n">_pdf</span><span class="p">,</span> <span class="n">_cdf</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">interpolation</span><span class="o">=</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">linlin</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param xs:                  This is the domain values of the pdf.</span>
 <span class="sd">        :param pdf:                 This is the probability density function (pdf) values.</span>
@@ -227,7 +255,8 @@
 <span class="sd">        :param label:               This is the label member use by some xData classes.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">baseModule</span><span class="o">.</span><span class="n">XDataFunctional</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="o">=</span><span class="n">outerDomainValue</span><span class="p">)</span>
+        <span class="n">baseModule</span><span class="o">.</span><span class="n">XDataFunctional</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
+                                            <span class="n">outerDomainValue</span><span class="o">=</span><span class="n">outerDomainValue</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">interpolation</span> <span class="o">=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">checkEnumOrString</span><span class="p">(</span><span class="n">interpolation</span><span class="p">)</span>
 
@@ -244,42 +273,63 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__cdf</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">_xs</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">_pdf</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">_cdf</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;lenghts not the same: </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">_xs</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">_pdf</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">_cdf</span><span class="p">)</span> <span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;lengths not the same: </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">_xs</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">_pdf</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">_cdf</span><span class="p">)))</span>
 
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the number of values of the domain which is the same as for the pdf and cdf.</span>
 
 <span class="sd">        :returns:       A python int.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__xs</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__xs</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">xs</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">xs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a reference to *self* xs child.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__xs</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__xs</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a reference to *self* pdf child.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pdf</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pdf</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a reference to *self* cdf child.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cdf</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cdf</span>
 
-<div class="viewcode-block" id="Xs_pdf_cdf1d.convertUnits"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.convertUnits">[docs]</a>    <span class="k">def</span> <span class="nf">convertUnits</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="Xs_pdf_cdf1d.asXYs1d">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.asXYs1d">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">asXYs1d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">asLinLin</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">lowerEps</span><span class="p">,</span> <span class="n">upperEps</span><span class="p">,</span> <span class="n">biSectionMax</span><span class="o">=</span><span class="mi">16</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method returns a representation of the data in *self* as an :py:class:`XYs1dModule.XYs1d` instance. </span>
+
+<span class="sd">        :param asLinLin:    If **True**, the data have lin-lin interpolation.</span>
+<span class="sd">        :param accuracy:    Used to determine the accuracy if converting data to lin-lin interpolated data.</span>
+<span class="sd">        :param lowerEps:    Used to dull the lower point for &quot;flat&quot; interpolation.</span>
+<span class="sd">        :param upperEps:    Used to dull the upper point for &quot;flat&quot; interpolation.</span>
+
+<span class="sd">        :returns:           A :py:class:`XYs1dModule.XYs1d` instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">xys1d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">toPointwise_withLinearXYs</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="n">accuracy</span><span class="p">,</span> <span class="n">lowerEps</span><span class="o">=</span><span class="n">lowerEps</span><span class="p">,</span> <span class="n">upperEps</span><span class="o">=</span><span class="n">upperEps</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">xys1d</span></div>
+
+
+<div class="viewcode-block" id="Xs_pdf_cdf1d.convertUnits">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.convertUnits">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convertUnits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts all data in *self* per *unitMap*.</span>
 
@@ -287,23 +337,30 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span>
-        <span class="k">if</span><span class="p">(</span> <span class="n">axes</span> <span class="ow">is</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span> <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ancestor</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span> <span class="p">)</span>      <span class="c1"># BRB FIXME, the prior line should have worked.</span>
-        <span class="n">factors</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">convertUnits</span><span class="p">(</span> <span class="n">unitMap</span> <span class="p">)</span>
-        <span class="k">if</span><span class="p">(</span> <span class="n">factors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">1.0</span> <span class="p">)</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pdf</span><span class="o">.</span><span class="n">offsetScaleData</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">factors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
-        <span class="k">if</span><span class="p">(</span> <span class="n">factors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">1.0</span> <span class="p">)</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="o">.</span><span class="n">offsetScaleData</span><span class="p">(</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">factors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fixValuePerUnitChange</span><span class="p">(</span> <span class="n">factors</span> <span class="p">)</span></div>
+        <span class="k">if</span> <span class="n">axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ancestor</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># BRB FIXME, the prior line should have worked.</span>
+        <span class="n">factors</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">convertUnits</span><span class="p">(</span><span class="n">unitMap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">factors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pdf</span><span class="o">.</span><span class="n">offsetScaleData</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">factors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">factors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="o">.</span><span class="n">offsetScaleData</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">factors</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fixValuePerUnitChange</span><span class="p">(</span><span class="n">factors</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Xs_pdf_cdf1d.copy"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Xs_pdf_cdf1d.copy">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.copy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a copy of *self*.</span>
 
 <span class="sd">        :returns:       An instance of self.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span> <span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">pdf</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span> <span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">cdf</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span> <span class="p">),</span> 
-                <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outerDomainValue</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">interpolation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpolation</span> <span class="p">)</span> <span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">pdf</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">cdf</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+                              <span class="n">outerDomainValue</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">outerDomainValue</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span>
+                              <span class="n">interpolation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">interpolation</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Xs_pdf_cdf1d.toPointwise_withLinearXYs"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.toPointwise_withLinearXYs">[docs]</a>    <span class="k">def</span> <span class="nf">toPointwise_withLinearXYs</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Xs_pdf_cdf1d.toPointwise_withLinearXYs">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.toPointwise_withLinearXYs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toPointwise_withLinearXYs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns an :py:class:`XYs1dModule.XYs1d` representation of *self*&#39;s pdf.</span>
 
@@ -312,10 +369,13 @@
 <span class="sd">        :returns:           An instance of :py:class:`XYs1dModule.XYs1d`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">_pdf</span><span class="p">,</span> <span class="n">_cdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_pdf_and_cdf</span><span class="p">(</span> <span class="p">)</span>
-        <span class="k">return</span><span class="p">(</span> <span class="n">_pdf</span><span class="o">.</span><span class="n">toPointwise_withLinearXYs</span><span class="p">(</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">)</span></div>
+        <span class="n">_pdf</span><span class="p">,</span> <span class="n">_cdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_pdf_and_cdf</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">_pdf</span><span class="o">.</span><span class="n">toPointwise_withLinearXYs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Xs_pdf_cdf1d.to_pdf_and_cdf"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.to_pdf_and_cdf">[docs]</a>    <span class="k">def</span> <span class="nf">to_pdf_and_cdf</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Xs_pdf_cdf1d.to_pdf_and_cdf">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.to_pdf_and_cdf">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_pdf_and_cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns two :py:class:`XYs1dModule.XYs1d` representation of *self*. One representing the pdf and one </span>
 <span class="sd">        representing the cdf.  The interpolation is the same as self&#39;s interpolation.  Ergo, the interpolation for the cdf </span>
@@ -327,23 +387,25 @@
 
         <span class="n">_pdf</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">_cdf</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">x1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__xs</span><span class="o">.</span><span class="n">values</span> <span class="p">)</span> <span class="p">:</span>
-            <span class="n">_pdf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">[</span> <span class="n">x1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pdf</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="p">]</span> <span class="p">)</span>
-            <span class="n">_cdf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">[</span> <span class="n">x1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cdf</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="p">]</span> <span class="p">)</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">x1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__xs</span><span class="o">.</span><span class="n">values</span><span class="p">):</span>
+            <span class="n">_pdf</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__pdf</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">index</span><span class="p">]])</span>
+            <span class="n">_cdf</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cdf</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">index</span><span class="p">]])</span>
 
-        <span class="n">linear</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">toLinearXYsClass</span><span class="p">(</span> <span class="p">)</span>
+        <span class="n">linear</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">toLinearXYsClass</span><span class="p">()</span>
 
-        <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span>
         <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ancestor</span><span class="o">.</span><span class="n">axes</span>
-        <span class="n">_pdf</span> <span class="o">=</span> <span class="n">linear</span><span class="p">(</span> <span class="n">data</span> <span class="o">=</span> <span class="n">_pdf</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="p">,</span> <span class="n">interpolation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpolation</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outerDomainValue</span> <span class="p">)</span>
-        <span class="k">if</span><span class="p">(</span> <span class="n">axes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
-            <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span> <span class="p">)</span>
-            <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">multiplyUnit</span><span class="p">(</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
-        <span class="n">_cdf</span> <span class="o">=</span> <span class="n">linear</span><span class="p">(</span> <span class="n">data</span> <span class="o">=</span> <span class="n">_cdf</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="p">,</span> <span class="n">interpolation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpolation</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outerDomainValue</span> <span class="p">)</span>
+        <span class="n">_pdf</span> <span class="o">=</span> <span class="n">linear</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">_pdf</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">interpolation</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">outerDomainValue</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">axes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">unit</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">multiplyUnit</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">_cdf</span> <span class="o">=</span> <span class="n">linear</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">_cdf</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">interpolation</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">outerDomainValue</span><span class="p">)</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="n">_pdf</span><span class="p">,</span> <span class="n">_cdf</span> <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">_pdf</span><span class="p">,</span> <span class="n">_cdf</span></div>
 
-<div class="viewcode-block" id="Xs_pdf_cdf1d.toXML_strList"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Xs_pdf_cdf1d.toXML_strList">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of str instances representing the XML lines of *self*.</span>
 
@@ -362,29 +424,35 @@
         <span class="n">interpolationStr</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpolation</span> <span class="o">!=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">linlin</span><span class="p">:</span>
             <span class="n">interpolationStr</span> <span class="o">=</span> <span class="s1">&#39; interpolation=&quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpolation</span>
-        <span class="n">XML_strList</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&lt;</span><span class="si">%s%s%s</span><span class="s1">&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="n">indent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">moniker</span><span class="p">,</span> <span class="n">attributeStr</span><span class="p">,</span> <span class="n">interpolationStr</span> <span class="p">)</span> <span class="p">]</span>
+        <span class="n">XML_strList</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&lt;</span><span class="si">%s%s%s</span><span class="s1">&gt;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">indent</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">moniker</span><span class="p">,</span> <span class="n">attributeStr</span><span class="p">,</span> <span class="n">interpolationStr</span><span class="p">)]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">isPrimaryXData</span><span class="p">():</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">XML_strList</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">toXML_strList</span><span class="p">(</span><span class="n">indent</span> <span class="o">=</span> <span class="n">indent2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">XML_strList</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">toXML_strList</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="n">indent2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">XML_strList</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs</span><span class="o">.</span><span class="n">toXML_strList</span><span class="p">(</span><span class="n">indent2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">XML_strList</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pdf</span><span class="o">.</span><span class="n">toXML_strList</span><span class="p">(</span><span class="n">indent2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">XML_strList</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cdf</span><span class="o">.</span><span class="n">toXML_strList</span><span class="p">(</span><span class="n">indent2</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">XML_strList</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="s1">&#39;&lt;/</span><span class="si">%s</span><span class="s1">&gt;&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">moniker</span>
 
-        <span class="k">if</span> <span class="n">xs_pdf_cdf1d_singleLine</span><span class="p">:</span> <span class="n">XML_strList</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">XML_strList</span><span class="p">)</span> <span class="p">]</span>
+        <span class="k">if</span> <span class="n">xs_pdf_cdf1d_singleLine</span><span class="p">:</span> <span class="n">XML_strList</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">XML_strList</span><span class="p">)]</span>
 
         <span class="k">return</span> <span class="n">XML_strList</span></div>
 
-<div class="viewcode-block" id="Xs_pdf_cdf1d.toLinearXYsClass"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.toLinearXYsClass">[docs]</a>    <span class="k">def</span> <span class="nf">toLinearXYsClass</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Xs_pdf_cdf1d.toLinearXYsClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.toLinearXYsClass">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toLinearXYsClass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method always returns the class :py:class:`XYs1dModule.XYs1d`.</span>
 
 <span class="sd">        :returns:       The class :py:class:`XYs1dModule.XYs1d`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span> <span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span></div>
 
-<div class="viewcode-block" id="Xs_pdf_cdf1d.parseNodeUsingClass"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Xs_pdf_cdf1d.parseNodeUsingClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parse *node* into an instance of *cls*.</span>
 
@@ -397,13 +465,16 @@
 <span class="sd">        :returns:           An instance of *cls* representing *node*.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">attributes</span><span class="p">,</span> <span class="n">extraAttributes</span> <span class="o">=</span> <span class="n">baseModule</span><span class="o">.</span><span class="n">XDataFunctional</span><span class="o">.</span><span class="n">parseBareNodeCommonAttributes</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">allowInterapolation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># parseBareNodeCommonAttributes adds to xPath.</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">extraAttributes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Invalid attributes: </span><span class="si">%s</span><span class="s1">.&#39;</span> <span class="o">%</span> <span class="p">(</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">extraAttributes</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span> <span class="p">))</span>
+        <span class="n">attributes</span><span class="p">,</span> <span class="n">extraAttributes</span> <span class="o">=</span> <span class="n">baseModule</span><span class="o">.</span><span class="n">XDataFunctional</span><span class="o">.</span><span class="n">parseBareNodeCommonAttributes</span><span class="p">(</span>
+            <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">allowInterapolation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># parseBareNodeCommonAttributes adds to xPath.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">extraAttributes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Invalid attributes: </span><span class="si">%s</span><span class="s1">.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">extraAttributes</span><span class="o">.</span><span class="n">keys</span><span class="p">()))))</span>
 
         <span class="n">datas</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">children</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;xs&#39;</span><span class="p">:</span> <span class="n">Xs</span><span class="p">,</span> <span class="s1">&#39;pdf&#39;</span><span class="p">:</span> <span class="n">Pdf</span><span class="p">,</span> <span class="s1">&#39;cdf&#39;</span><span class="p">:</span> <span class="n">Cdf</span> <span class="p">}</span>
+        <span class="n">children</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;xs&#39;</span><span class="p">:</span> <span class="n">Xs</span><span class="p">,</span> <span class="s1">&#39;pdf&#39;</span><span class="p">:</span> <span class="n">Pdf</span><span class="p">,</span> <span class="s1">&#39;cdf&#39;</span><span class="p">:</span> <span class="n">Cdf</span><span class="p">}</span>
         <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span> <span class="n">datas</span><span class="p">[</span><span class="n">child</span><span class="o">.</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="n">children</span><span class="p">[</span><span class="n">child</span><span class="o">.</span><span class="n">tag</span><span class="p">]</span><span class="o">.</span><span class="n">parseNodeUsingClass</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+                <span class="n">datas</span><span class="p">[</span><span class="n">child</span><span class="o">.</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="n">children</span><span class="p">[</span><span class="n">child</span><span class="o">.</span><span class="n">tag</span><span class="p">]</span><span class="o">.</span><span class="n">parseNodeUsingClass</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="n">axes</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">axes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">attributes</span><span class="p">[</span><span class="s1">&#39;axes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">axes</span>
@@ -417,25 +488,29 @@
         <span class="n">extraNodes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;pdf&#39;</span><span class="p">)</span>
         <span class="n">extraNodes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;cdf&#39;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">extraNodes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Invalid nodes: </span><span class="si">%s</span><span class="s1">.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">extraNode</span><span class="o">.</span><span class="n">tag</span> <span class="k">for</span> <span class="n">extraNode</span> <span class="ow">in</span> <span class="n">extraNodes</span><span class="p">])))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">extraNodes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Invalid nodes: </span><span class="si">%s</span><span class="s1">.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">extraNode</span><span class="o">.</span><span class="n">tag</span> <span class="k">for</span> <span class="n">extraNode</span> <span class="ow">in</span> <span class="n">extraNodes</span><span class="p">])))</span>
 
         <span class="n">xPath</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="n">instance</span></div>
 
-<div class="viewcode-block" id="Xs_pdf_cdf1d.fromXYs"><a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.fromXYs">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">fromXYs</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">xys</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">thinEpsilon</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        This method creates an :py:class:`Xs_pdf_cdf1d` instance for an :py:class:`XYs1dModule.XYs1d` instance. </span>
+
+<div class="viewcode-block" id="Xs_pdf_cdf1d.fromXYs">
+<a class="viewcode-back" href="../../xData/index.html#xData.xs_pdf_cdf.Xs_pdf_cdf1d.fromXYs">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fromXYs</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">xys</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">thinEpsilon</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method creates an :py:class:`Xs_pdf_cdf1d` instance for an :py:class:`XYs1dModule.XYs1d` instance.</span>
 <span class="sd">        If *thinEpsilon* is not None, then points are thinned so that the returned cdf has cdf[i+1] - cdf[i] &gt; *thinEpsilon*.</span>
 
 <span class="sd">        :param cls:                 The :py:class:`Xs_pdf_cdf1d` class of the returned instance.</span>
 <span class="sd">        :param xys:                 The :py:class:`XYs1dModule.XYs1d` to convert to an `Xs_pdf_cdf1d` instance.</span>
 <span class="sd">        :param outerDomainValue:    The value of the *outerDomainValue* for the returned instance. If None, taken from *xys*.</span>
 <span class="sd">        :param thinEpsilon:         The thinning parameter.</span>
-<span class="sd">        &#39;&#39;&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="n">xys</span><span class="o">.</span><span class="n">interpolation</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">linlin</span><span class="p">,</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">flat</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">xys</span><span class="o">.</span><span class="n">interpolation</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">linlin</span><span class="p">,</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">flat</span><span class="p">):</span>
             <span class="n">xys</span> <span class="o">=</span> <span class="n">xys</span><span class="o">.</span><span class="n">toPointwise_withLinearXYs</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span> <span class="n">lowerEps</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">upperEps</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">outerDomainValue</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -452,11 +527,11 @@
             <span class="n">norm</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">norm</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.0</span><span class="p">]</span>
             <span class="n">norm</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
 
+        <span class="n">xs</span><span class="p">,</span> <span class="n">pdf</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">copyDataToXsAndYs</span><span class="p">()</span>
         <span class="n">cdf</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">runningIntegral</span><span class="p">()</span>
         <span class="n">cdf</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
-        <span class="n">xs</span><span class="p">,</span> <span class="n">pdf</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">copyDataToXsAndYs</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">thinEpsilon</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">thinEpsilon</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">xys</span><span class="o">.</span><span class="n">interpolation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">Interpolation</span><span class="o">.</span><span class="n">flat</span><span class="p">:</span>
             <span class="n">indicesToRemove</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">cdf2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cdf</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">cdf2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -474,54 +549,99 @@
                     <span class="n">xs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
                     <span class="n">pdf</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
                     <span class="n">cdf</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-                
+
         <span class="n">xs</span> <span class="o">=</span> <span class="n">Xs</span><span class="p">(</span><span class="n">valuesModule</span><span class="o">.</span><span class="n">Values</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span>
         <span class="n">pdf</span> <span class="o">=</span> <span class="n">Pdf</span><span class="p">(</span><span class="n">valuesModule</span><span class="o">.</span><span class="n">Values</span><span class="p">(</span><span class="n">pdf</span><span class="p">))</span>
         <span class="n">cdf</span> <span class="o">=</span> <span class="n">Cdf</span><span class="p">(</span><span class="n">valuesModule</span><span class="o">.</span><span class="n">Values</span><span class="p">(</span><span class="n">cdf</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">pdf</span><span class="p">,</span> <span class="n">cdf</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="n">outerDomainValue</span><span class="p">,</span> <span class="n">interpolation</span> <span class="o">=</span> <span class="n">xys</span><span class="o">.</span><span class="n">interpolation</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">pdf</span><span class="p">,</span> <span class="n">cdf</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="o">=</span><span class="n">outerDomainValue</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">xys</span><span class="o">.</span><span class="n">interpolation</span><span class="p">)</span></div>
+</div>
+
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">xData.xs_pdf_cdf</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

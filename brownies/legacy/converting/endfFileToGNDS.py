@@ -80,6 +80,7 @@ def readMF1MT451(_MAT, _MTDatas, formatVersion, specialNuclearParticleID, styleN
     info.verboseWarnings = verboseWarnings
     info.ENDFconversionFlags = ENDFconversionFlagsModule.ENDFconversionFlags()
     info.specialNuclearParticleID = specialNuclearParticleID
+    info.extraFissionWidths = []
 
     # Line #1
     targetZA, targetMass, LRP, LFI, NLIB, NMOD = \
@@ -258,10 +259,14 @@ def endfFileToGNDS(fileName, useFilesQAlways=True, singleMTOnly=None, evaluation
             if isinstance(target, nuclideModule.Particle): target = target.nucleus
             if len(target.halflife) == 0: target.halflife.add(halflife)
     elif info.ITYPE == 3:  # Atomic transport data (e, x)
+        # target is a chemicalElement, but target mass is stored in an A=0 nuclide
         targetZ = info.targetZA // 1000
         targetID = chemicalElementMiscModule.symbolFromZ[targetZ]
-        targetName = chemicalElementMiscModule.nameFromZ[targetZ]
-        info.PoPs.add(chemicalElementModule.ChemicalElement(targetID, targetZ, targetName))
+        target = nuclideModule.Particle.buildFromClassAndRawData(targetID + "0",
+                mass=(info.massTracker.getMassAMU(info.targetZA), 'amu'),
+                label=info.PoPsLabel
+                )
+        info.PoPs.add(target)
     else:
         raise ValueError("Unsupported ITYPE = %s" % info.ITYPE)
 
@@ -349,6 +354,10 @@ def endfFileToGNDS(fileName, useFilesQAlways=True, singleMTOnly=None, evaluation
         nonThresholdList = []
         for reac in reactionList:
             if hasattr(reac, 'outputChannel'):
+                if reac.ENDF_MT == 528:
+                    # electron excitation reaction claims Q=0 but still has a threshold.
+                    # Ignore it when determining projectileEnergyDomain
+                    continue
                 if reac.outputChannel.Q.getConstant() >= 0:
                     nonThresholdList.append(reac)
             elif hasattr(reac, 'Q'):

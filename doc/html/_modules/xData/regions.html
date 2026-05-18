@@ -1,47 +1,43 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>xData.regions &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
-    
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../_static/gnd-20121206-favicon.ico"/>
+    <title>xData.regions &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">xData.regions</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for xData.regions</h1><div class="highlight"><pre>
 <span></span><span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
@@ -70,21 +66,23 @@
 <span class="sd">    +-------------------+-------------------------------------------------------------------------------------------------------+</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">abc</span>
-<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">abc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 
-<span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
 
-<span class="kn">from</span> <span class="nn">fudge</span> <span class="kn">import</span> <span class="n">GNDS_formatVersion</span> <span class="k">as</span> <span class="n">GNDS_formatVersionModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge</span><span class="w"> </span><span class="kn">import</span> <span class="n">GNDS_formatVersion</span> <span class="k">as</span> <span class="n">GNDS_formatVersionModule</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">series1d</span> <span class="k">as</span> <span class="n">series1dModule</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">base</span> <span class="k">as</span> <span class="n">baseModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">series1d</span> <span class="k">as</span> <span class="n">series1dModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">base</span> <span class="k">as</span> <span class="n">baseModule</span>
 
 <span class="n">domainEpsilon</span> <span class="o">=</span> <span class="mf">1e-15</span>
 
-<div class="viewcode-block" id="Regions"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions">[docs]</a><span class="k">class</span> <span class="nc">Regions</span><span class="p">(</span> <span class="n">baseModule</span><span class="o">.</span><span class="n">XDataFunctional</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="Regions">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Regions</span><span class="p">(</span> <span class="n">baseModule</span><span class="o">.</span><span class="n">XDataFunctional</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is the absract base class for the other regions classes.</span>
 
@@ -110,7 +108,7 @@
 
     <span class="n">ancestryMembers</span> <span class="o">=</span> <span class="n">baseModule</span><span class="o">.</span><span class="n">XDataFunctional</span><span class="o">.</span><span class="n">ancestryMembers</span>                <span class="c1"># See note in multiD_XYs.py about setting ancestryMembers.</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">valueType</span> <span class="o">=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">ValueType</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">valueType</span> <span class="o">=</span> <span class="n">enumsModule</span><span class="o">.</span><span class="n">ValueType</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param axes:                This is the axes member.</span>
 <span class="sd">        :param index:               This is the index member.</span>
@@ -123,7 +121,7 @@
         <span class="n">baseModule</span><span class="o">.</span><span class="n">XDataFunctional</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">,</span> <span class="n">valueType</span><span class="o">=</span><span class="n">valueType</span><span class="p">,</span> <span class="n">outerDomainValue</span><span class="o">=</span><span class="n">outerDomainValue</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__regions</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the number of regions in self.</span>
 
@@ -132,9 +130,11 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="nb">len</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__regions</span> <span class="p">)</span> <span class="p">)</span>
 
-<div class="viewcode-block" id="Regions.allowedSubElements"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.allowedSubElements">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Regions.allowedSubElements">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.allowedSubElements">[docs]</a>
+    <span class="nd">@staticmethod</span>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">allowedSubElements</span><span class="p">(</span> <span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">allowedSubElements</span><span class="p">(</span> <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is abstract and must be over loaded by each sub-class. This method returns a list of all functions of the </span>
 <span class="sd">        same dimension as the sub-class that can be added as a region of the sub-class.</span>
@@ -142,7 +142,8 @@
 
         <span class="k">pass</span></div>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span> <span class="p">)</span> <span class="p">:</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the (i-1)^th region of self.</span>
 
@@ -153,7 +154,7 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__regions</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">region</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">region</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method set the region at index *index* to *region*. The *region* must be an instance of </span>
 <span class="sd">        base.XDataFunctional with the same dimension as self.</span>
@@ -186,7 +187,7 @@
         <span class="n">region</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span>
         <span class="n">region</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
 
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -198,14 +199,14 @@
 
     <span class="fm">__radd__</span> <span class="o">=</span> <span class="fm">__add__</span>
 
-    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__sub__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="n">self2</span><span class="p">,</span> <span class="n">other2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copyToCommonRegions</span><span class="p">(</span> <span class="n">other</span> <span class="p">)</span>
         <span class="k">for</span> <span class="n">i1</span><span class="p">,</span> <span class="n">region</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span> <span class="n">self2</span> <span class="p">)</span> <span class="p">:</span> <span class="n">self2</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span> <span class="o">=</span> <span class="n">region</span> <span class="o">-</span> <span class="n">other2</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">self2</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">domainMin</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainMin</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the minimum domain value for *self*.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -213,7 +214,7 @@
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__regions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">domainMin</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">domainMax</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainMax</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the maximum domain value for *self*.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -221,7 +222,7 @@
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__regions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">domainMax</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">domainGrid</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainGrid</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns all domain values for *self* as a python list.</span>
 
@@ -233,7 +234,7 @@
         <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span> <span class="n">grid</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">domainUnit</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainUnit</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the domain unit for *self*.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -241,33 +242,35 @@
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAxisUnitSafely</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimension</span> <span class="p">)</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">rangeMin</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rangeMin</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="nb">min</span><span class="p">(</span> <span class="p">[</span> <span class="n">region</span><span class="o">.</span><span class="n">rangeMin</span> <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="bp">self</span> <span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">rangeMax</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rangeMax</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="nb">max</span><span class="p">(</span> <span class="p">[</span> <span class="n">region</span><span class="o">.</span><span class="n">rangeMax</span> <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="bp">self</span> <span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">rangeUnit</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rangeUnit</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAxisUnitSafely</span><span class="p">(</span> <span class="mi">0</span> <span class="p">)</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">regions</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">regions</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns self&#39;s __region.&quot;&quot;&quot;</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__regions</span> <span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">functionNdsName</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">functionNdsName</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the node name for the child &quot;function#ds&quot;.&quot;&quot;&quot;</span>
 
         <span class="k">return</span><span class="p">(</span> <span class="s2">&quot;function</span><span class="si">%d</span><span class="s2">ds&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">dimension</span> <span class="p">)</span>
 
-<div class="viewcode-block" id="Regions.append"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">curve</span><span class="p">):</span>
+<div class="viewcode-block" id="Regions.append">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.append">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">curve</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Appends *curve* to the end of *self*. If *curve* is a **Regions** instance, then **append** is call for </span>
 <span class="sd">        each region in curve.</span>
@@ -280,7 +283,10 @@
             <span class="bp">self</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)]</span> <span class="o">=</span> <span class="n">curve</span>
             <span class="n">curve</span><span class="o">.</span><span class="n">keyName</span> <span class="o">=</span> <span class="s1">&#39;index&#39;</span></div>
 
-<div class="viewcode-block" id="Regions.prepend"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.prepend">[docs]</a>    <span class="k">def</span> <span class="nf">prepend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">curve</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Regions.prepend">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.prepend">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">prepend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">curve</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Prepends *curve* to the beginning of *self*. If *curve* is a **Regions** instance, then **append** is call </span>
 <span class="sd">        for each region in curve.</span>
@@ -301,7 +307,10 @@
             <span class="n">curve</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
             <span class="n">curve</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="mi">0</span></div>
 
-<div class="viewcode-block" id="Regions.convertUnits"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.convertUnits">[docs]</a>    <span class="k">def</span> <span class="nf">convertUnits</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions.convertUnits">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.convertUnits">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convertUnits</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitMap</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts all data in *self* per *unitMap*.</span>
 
@@ -312,7 +321,10 @@
         <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="bp">self</span> <span class="p">:</span> <span class="n">region</span><span class="o">.</span><span class="n">convertUnits</span><span class="p">(</span> <span class="n">unitMap</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fixValuePerUnitChange</span><span class="p">(</span> <span class="n">factors</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Regions.copy"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions.copy">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.copy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
         <span class="c1"># FIXME some of this should probably move to &#39;returnAsClass&#39; method</span>
 
         <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span>
@@ -321,7 +333,10 @@
         <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span> <span class="p">:</span> <span class="n">newRegions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">child</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span> <span class="p">)</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">newRegions</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Regions.hasData"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.hasData">[docs]</a>    <span class="k">def</span> <span class="nf">hasData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Regions.hasData">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.hasData">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">hasData</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns True if one of self&#39;s regions hasData returns True and False otherwise.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -332,7 +347,10 @@
 
         <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="Regions.splitInTwo"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.splitInTwo">[docs]</a>    <span class="k">def</span> <span class="nf">splitInTwo</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">domainValue</span><span class="p">,</span> <span class="n">epsilon</span> <span class="o">=</span> <span class="n">domainEpsilon</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions.splitInTwo">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.splitInTwo">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">splitInTwo</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">domainValue</span><span class="p">,</span> <span class="n">epsilon</span> <span class="o">=</span> <span class="n">domainEpsilon</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Splits the region containing domainValue into two regions.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -347,7 +365,10 @@
                 <span class="n">r2</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span>
                 <span class="k">return</span></div>
 
-<div class="viewcode-block" id="Regions.domainUnitConversionFactor"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.domainUnitConversionFactor">[docs]</a>    <span class="k">def</span> <span class="nf">domainUnitConversionFactor</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitTo</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions.domainUnitConversionFactor">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.domainUnitConversionFactor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainUnitConversionFactor</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitTo</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the factor needed to convert self&#39;s domain to unit *unitTo*.</span>
 
@@ -359,7 +380,10 @@
         <span class="k">if</span><span class="p">(</span> <span class="n">unitTo</span> <span class="ow">is</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span> <span class="k">return</span><span class="p">(</span> <span class="mf">1.</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">PQUModule</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="s1">&#39;1 &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainUnit</span> <span class="p">)</span><span class="o">.</span><span class="n">getValueAs</span><span class="p">(</span> <span class="n">unitTo</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Regions.domainSlice"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.domainSlice">[docs]</a>    <span class="k">def</span> <span class="nf">domainSlice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">domainMax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dullEps</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Regions.domainSlice">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.domainSlice">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">domainSlice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">domainMax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dullEps</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a new instance with self sliced between ``domainMin`` and ``domainMax``.</span>
 <span class="sd">        Result may be a regions container, or it may be XYs, multiD_XYs, etc.</span>
@@ -393,7 +417,10 @@
 
             <span class="k">return</span> <span class="n">newRegions</span></div>
 
-<div class="viewcode-block" id="Regions.fixDomains"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.fixDomains">[docs]</a>    <span class="k">def</span> <span class="nf">fixDomains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMin</span><span class="p">,</span> <span class="n">domainMax</span><span class="p">,</span> <span class="n">fixToDomain</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Regions.fixDomains">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.fixDomains">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fixDomains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">domainMin</span><span class="p">,</span> <span class="n">domainMax</span><span class="p">,</span> <span class="n">fixToDomain</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method sets the domain minimum and maximum per the arguments.</span>
 
@@ -424,12 +451,18 @@
         <span class="k">if</span> <span class="n">OldDomainMin</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainMin</span> <span class="ow">and</span> <span class="n">OldDomainMax</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">domainMax</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="mi">1</span></div>
 
-<div class="viewcode-block" id="Regions.rangeUnitConversionFactor"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.rangeUnitConversionFactor">[docs]</a>    <span class="k">def</span> <span class="nf">rangeUnitConversionFactor</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitTo</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions.rangeUnitConversionFactor">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.rangeUnitConversionFactor">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rangeUnitConversionFactor</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">unitTo</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="k">if</span><span class="p">(</span> <span class="n">unitTo</span> <span class="ow">is</span> <span class="kc">None</span> <span class="p">)</span> <span class="p">:</span> <span class="k">return</span><span class="p">(</span> <span class="mf">1.</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">PQUModule</span><span class="o">.</span><span class="n">PQU</span><span class="p">(</span> <span class="s1">&#39;1 &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">rangeUnit</span> <span class="p">)</span><span class="o">.</span><span class="n">getValueAs</span><span class="p">(</span> <span class="n">unitTo</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Regions.evaluate"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">domainValue</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions.evaluate">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.evaluate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">domainValue</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Evaluate function at requested domain point. If at discontinuity, return upper region&#39;s value.</span>
 
@@ -442,7 +475,10 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">__regions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span> <span class="n">domainValue</span> <span class="p">)</span> <span class="p">)</span>  <span class="c1"># Domain value is above the last region. Let the last region determine what to do.</span></div>
 
-<div class="viewcode-block" id="Regions.findInstancesOfClassInChildren"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.findInstancesOfClassInChildren">[docs]</a>    <span class="k">def</span> <span class="nf">findInstancesOfClassInChildren</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="mi">9999</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions.findInstancesOfClassInChildren">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.findInstancesOfClassInChildren">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">findInstancesOfClassInChildren</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">level</span> <span class="o">=</span> <span class="mi">9999</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Finds all instances of class *cls* in self&#39;s children, grand-children, etc.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -456,7 +492,10 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="n">foundInstances</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Regions.integrate"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.integrate">[docs]</a>    <span class="k">def</span> <span class="nf">integrate</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">limits</span> <span class="p">):</span>
+
+<div class="viewcode-block" id="Regions.integrate">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.integrate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">integrate</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">limits</span> <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Integrate a piecewise function. Supports limits for each axis.</span>
 <span class="sd">        Example::</span>
@@ -464,12 +503,12 @@
 <span class="sd">            regions.integrate( energy_in = (&#39;1e-5 eV&#39;, &#39;10 eV&#39;), energy_out = (&#39;1 keV&#39;, &#39;10 keV&#39;) )</span>
 
 <span class="sd">        :param limits: dictionary containing limits for each independent axis (keyed by axis label or index).</span>
-<span class="sd">        If an independent axis is missing from the dictionary, integrate over the entire domain of that axis.</span>
+<span class="sd">                       If an independent axis is missing from the dictionary, integrate over the entire domain of that axis.</span>
 
 <span class="sd">        :return: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">multiD_XYs</span> <span class="k">as</span> <span class="n">multiD_XYsModule</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">multiD_XYs</span> <span class="k">as</span> <span class="n">multiD_XYsModule</span>
 
         <span class="n">integral</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
@@ -487,13 +526,19 @@
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span> <span class="s2">&quot;Unsupported class for integration: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span> <span class="n">region</span> <span class="p">)</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">integral</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Regions.toString"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.toString">[docs]</a>    <span class="k">def</span> <span class="nf">toString</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions.toString">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.toString">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toString</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 
         <span class="n">s1</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
         <span class="k">for</span> <span class="n">i1</span><span class="p">,</span> <span class="n">region</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span> <span class="n">s1</span> <span class="o">+=</span> <span class="s1">&#39;# region </span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i1</span> <span class="o">+</span> <span class="n">region</span><span class="o">.</span><span class="n">toString</span><span class="p">(</span> <span class="p">)</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">s1</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Regions.toXML_strList"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Regions.toXML_strList">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a list of str instances representing the XML lines of *self*.</span>
 
@@ -523,8 +568,11 @@
 
         <span class="k">return</span> <span class="n">XML_strList</span></div>
 
-<div class="viewcode-block" id="Regions.parseNodeUsingClass"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Regions.parseNodeUsingClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parse *node* into an instance of *cls*.</span>
 
@@ -563,9 +611,13 @@
 
         <span class="n">xPath</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">regions1</span></div></div>
+        <span class="k">return</span> <span class="n">regions1</span></div>
+</div>
 
-<div class="viewcode-block" id="Regions1d"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d">[docs]</a><span class="k">class</span> <span class="nc">Regions1d</span><span class="p">(</span> <span class="n">Regions</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions1d">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Regions1d</span><span class="p">(</span> <span class="n">Regions</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class supports storing a 1d function as a list of abutting 1d functions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -573,7 +625,7 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;regions1d&#39;</span>
     <span class="n">dimension</span> <span class="o">=</span> <span class="mi">1</span>
 
-    <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns self with all regions negated.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -584,7 +636,7 @@
 
         <span class="k">return</span> <span class="n">regions1d</span>
 
-    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">)</span> <span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__mul__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">other</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method multiplies *self* by *other* and returns the product. Here, *other* can be an int for a float.</span>
 
@@ -604,7 +656,28 @@
 
     <span class="fm">__rmul__</span> <span class="o">=</span> <span class="fm">__mul__</span>
 
-<div class="viewcode-block" id="Regions1d.copyToCommonRegions"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.copyToCommonRegions">[docs]</a>    <span class="k">def</span> <span class="nf">copyToCommonRegions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">epsilon</span> <span class="o">=</span> <span class="n">domainEpsilon</span><span class="p">):</span>
+<div class="viewcode-block" id="Regions1d.asXYs1d">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.asXYs1d">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">asXYs1d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">asLinLin</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">lowerEps</span><span class="p">,</span> <span class="n">upperEps</span><span class="p">,</span> <span class="n">biSectionMax</span><span class="o">=</span><span class="mi">16</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method returns a representation of the data in *self* as an :py:class:`XYs1dModule.XYs1d` instance.</span>
+
+<span class="sd">        :param asLinLin:    If **True**, the data have lin-lin interpolation.</span>
+<span class="sd">        :param accuracy:    Used to determine the accuracy if converting data to lin-lin interpolated data.</span>
+<span class="sd">        :param lowerEps:    Used to dull the lower point between two regions.</span>
+<span class="sd">        :param upperEps:    Used to dull the upper point between two regions.</span>
+
+<span class="sd">        :returns:           A :py:class:`XYs1dModule.XYs1d` instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">xys1d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">toPointwiseLinear</span><span class="p">(</span><span class="n">accuracy</span><span class="o">=</span><span class="n">accuracy</span><span class="p">,</span> <span class="n">lowerEps</span><span class="o">=</span><span class="n">lowerEps</span><span class="p">,</span> <span class="n">upperEps</span><span class="o">=</span><span class="n">upperEps</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">xys1d</span></div>
+
+
+<div class="viewcode-block" id="Regions1d.copyToCommonRegions">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.copyToCommonRegions">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copyToCommonRegions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">epsilon</span> <span class="o">=</span> <span class="n">domainEpsilon</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns two :py:class:`Regions1d` instances that yield the same function as *self* and *other*,</span>
 <span class="sd">        but with *self* and *other* broken up so that they have the same number of regions and the regions align.</span>
@@ -690,7 +763,7 @@
         <span class="k">for</span> <span class="n">boundary</span><span class="p">,</span> <span class="n">priorBoundary</span> <span class="ow">in</span> <span class="n">boundariesToMove</span><span class="p">:</span>
             <span class="n">boundaries</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">boundary</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">processBoundaries</span><span class="p">(</span><span class="n">regions_</span><span class="p">,</span> <span class="n">boundaries</span><span class="p">,</span> <span class="n">boundariesToMove</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">processBoundaries</span><span class="p">(</span><span class="n">regions_</span><span class="p">,</span> <span class="n">boundaries</span><span class="p">,</span> <span class="n">boundariesToMove</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            This method adds regions to *regions_* so that its has a region boundary for each value in boundaries.</span>
 
@@ -719,7 +792,10 @@
 
         <span class="k">return</span> <span class="n">self2</span><span class="p">,</span> <span class="n">other2</span></div>
 
-<div class="viewcode-block" id="Regions1d.copyDataToXsAndYs"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.copyDataToXsAndYs">[docs]</a>    <span class="k">def</span> <span class="nf">copyDataToXsAndYs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Regions1d.copyDataToXsAndYs">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.copyDataToXsAndYs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copyDataToXsAndYs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method copies data in *self* to a list of xs and ys. Only works if each region instance has a &quot;copyDataToXsAndYs&quot; method.</span>
 
@@ -734,7 +810,10 @@
             <span class="n">ys</span> <span class="o">+=</span> <span class="n">subYs</span>
         <span class="k">return</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span></div>
 
-<div class="viewcode-block" id="Regions1d.normalize"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">insitu</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">dimension</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions1d.normalize">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.normalize">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">normalize</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">insitu</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">dimension</span> <span class="o">=</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method normalizes the data in *self*, ergo, scaled so that its integral is 1.0.</span>
 <span class="sd">        If *insitu* is True, *self* is normalized and returned, otherwise a copy of *self* is normalizes and the copy is returned.</span>
@@ -755,14 +834,20 @@
         <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="n">copy</span> <span class="p">:</span> <span class="n">region</span> <span class="o">*=</span> <span class="n">factor</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">copy</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Regions1d.plot"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Regions1d.plot">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.plot">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calls multiPlot with only *self* as a curve.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">multiPlot</span><span class="p">([</span><span class="bp">self</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Regions1d.toPointwiseLinear"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.toPointwiseLinear">[docs]</a>    <span class="k">def</span> <span class="nf">toPointwiseLinear</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions1d.toPointwiseLinear">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.toPointwiseLinear">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toPointwiseLinear</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the results of calling :py:func:`toPointwise_withLinearXYs`.</span>
 
@@ -773,27 +858,31 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">toPointwise_withLinearXYs</span><span class="p">(</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Regions1d.toPointwise_withLinearXYs"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.toPointwise_withLinearXYs">[docs]</a>    <span class="k">def</span> <span class="nf">toPointwise_withLinearXYs</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions1d.toPointwise_withLinearXYs">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.toPointwise_withLinearXYs">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toPointwise_withLinearXYs</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method converts the regions of *self* into a single :py:class:`XYs1dModule.XYs1d` instance that has &#39;lin-lin&#39; interpolation. At the</span>
 <span class="sd">        boundary between two abutting regions, the x-values are the same, which is not allowed for an :py:class:`XYs1dModule.XYs1d` instance</span>
-<span class="sd">        so some points may be added or removed as speicfied by data in the argument *kwargs* as described in the following:</span>
+<span class="sd">        so some points may be added or removed as specified by data in the argument *kwargs* as described in the following:</span>
 
-<span class="sd">            -) accuracy:    This controls how many points are added when switching interpolation.</span>
-<span class="sd">            -) lowerEps and upperEps: These arguments are used to smear the x-values at a boundary as follows. Let :math:`(x, y_l)` and</span>
-<span class="sd">                            :math:`(x, y_u)` be the abutting points for two abutting regions. If :math:`y_l = y_u` then the </span>
-<span class="sd">                            point :math:`(x, y_u)` is removed.  Otherwise, if( lowerEps &gt; 0 ) the point :math:`(x, y_l)` is </span>
-<span class="sd">                            moved to :math:`x&#39; = x * ( 1 - lowerEps )` (or :math:`x&#39; = x * ( 1 + lowerEps )` if :math:`x &lt; 0`) </span>
-<span class="sd">                            and the :math:`y` value is interpolated at :math:`x&#39;`. If :math:`x&#39;` is less than the x-value of the point </span>
-<span class="sd">                            below :math:`(x&#39;, y_l)` and ``removeOverAdjustedPoints`` is True then the point :math:`(x, y_l)` is removed; </span>
-<span class="sd">                            otherwise, a raise is executed. Similarly for upperEps and the point :math:`(x, y_u)`.</span>
+<span class="sd">            - accuracy:    This controls how many points are added when switching interpolation.</span>
+<span class="sd">            - lowerEps:    Along with &#39;upperEps&#39;, used to smear the x-values at a boundary as follows. Let :math:`(x, y_l)`</span>
+<span class="sd">                           and :math:`(x, y_u)` be the abutting points for two abutting regions. If :math:`y_l = y_u` then the </span>
+<span class="sd">                           point :math:`(x, y_u)` is removed.  Otherwise, if( lowerEps &gt; 0 ) the point :math:`(x, y_l)` is </span>
+<span class="sd">                           moved to :math:`x&#39; = x * ( 1 - lowerEps )` (or :math:`x&#39; = x * ( 1 + lowerEps )` if :math:`x &lt; 0`) </span>
+<span class="sd">                           and the :math:`y` value is interpolated at :math:`x&#39;`. If :math:`x&#39;` is less than the x-value of the point </span>
+<span class="sd">                           below :math:`(x&#39;, y_l)` and ``removeOverAdjustedPoints`` is True then the point :math:`(x, y_l)` is removed; </span>
+<span class="sd">                           otherwise, a raise is executed. Similarly for upperEps and the point :math:`(x, y_u)`.</span>
+<span class="sd">            - upperEps:    See description of lowerEps above.</span>
 
 <span class="sd">        :param kwargs:      A dictionary of data needed by *self*.</span>
 
 <span class="sd">        :returns:           An instance of :py:class:`XYs1dModule.XYs1d`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">def</span> <span class="nf">getAdjustedX</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">eps</span> <span class="p">)</span> <span class="p">:</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">getAdjustedX</span><span class="p">(</span> <span class="n">x</span><span class="p">,</span> <span class="n">eps</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            This method returns an x-value that is shifted from *x* by *eps*. If *eps* is negative, the returned value will be</span>
 <span class="sd">            left than *x*; otherwise, it will be greater than.  Thie method is for internal use.</span>
@@ -862,7 +951,10 @@
         <span class="n">pointwise</span> <span class="o">=</span> <span class="n">pointwiseClass</span><span class="p">(</span> <span class="n">data</span> <span class="o">=</span> <span class="n">xys</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">outerDomainValue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outerDomainValue</span> <span class="p">)</span> <span class="c1"># FIXME - need more work to insure all parameters are set properly.</span>
         <span class="k">return</span><span class="p">(</span> <span class="n">pointwise</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Regions1d.toLinearXYsClass"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.toLinearXYsClass">[docs]</a>    <span class="k">def</span> <span class="nf">toLinearXYsClass</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions1d.toLinearXYsClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.toLinearXYsClass">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toLinearXYsClass</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method always returns the class :py:class:`XYs1dModule.XYs1d`.</span>
 
@@ -871,8 +963,11 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Regions1d.allowedSubElements"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.allowedSubElements">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">allowedSubElements</span><span class="p">(</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions1d.allowedSubElements">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.allowedSubElements">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">allowedSubElements</span><span class="p">(</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a list of all 1d functions class that can be added as a region to an instance of :py:class:`Regions1d`.</span>
 
@@ -881,20 +976,29 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="p">(</span> <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="p">,</span> <span class="n">series1dModule</span><span class="o">.</span><span class="n">Series1d</span> <span class="p">)</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Regions1d.multiPlot"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.multiPlot">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">multiPlot</span><span class="p">(</span><span class="n">curve1ds</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Regions1d.multiPlot">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions1d.multiPlot">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">multiPlot</span><span class="p">(</span><span class="n">curve1ds</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plots a list of 1d curves on the same plot. Uses each curve&#39;s &#39;plotLabel&#39; as the legend key. Each curve must have a copyDataToXsAndYs method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="o">.</span><span class="n">multiPlot</span><span class="p">(</span><span class="n">curve1ds</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+        <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">XYs1d</span><span class="o">.</span><span class="n">multiPlot</span><span class="p">(</span><span class="n">curve1ds</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
 
-<div class="viewcode-block" id="RegionsMultiD"><a class="viewcode-back" href="../../xData/index.html#xData.regions.RegionsMultiD">[docs]</a><span class="k">class</span> <span class="nc">RegionsMultiD</span><span class="p">(</span> <span class="n">Regions</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="RegionsMultiD">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.RegionsMultiD">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">RegionsMultiD</span><span class="p">(</span> <span class="n">Regions</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is the absract base class for the other regions classes of dimension 2 and 3..</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="RegionsMultiD.getBoundingSubFunctions"><a class="viewcode-back" href="../../xData/index.html#xData.regions.RegionsMultiD.getBoundingSubFunctions">[docs]</a>    <span class="k">def</span> <span class="nf">getBoundingSubFunctions</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">domainValue</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="RegionsMultiD.getBoundingSubFunctions">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.RegionsMultiD.getBoundingSubFunctions">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getBoundingSubFunctions</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">domainValue</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns the two sub-functions in the region containing the domain point *domainValue*</span>
 <span class="sd">        whose outerDomainValues bound *value*. Additonal information is also returned.</span>
@@ -925,9 +1029,13 @@
         <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">regions</span> <span class="p">:</span>
             <span class="k">if</span><span class="p">(</span> <span class="n">domainValue</span> <span class="o">&lt;</span> <span class="n">region</span><span class="o">.</span><span class="n">domainMax</span> <span class="p">)</span> <span class="p">:</span> <span class="k">return</span><span class="p">(</span> <span class="n">region</span><span class="o">.</span><span class="n">getBoundingSubFunctions</span><span class="p">(</span> <span class="n">domainValue</span> <span class="p">)</span> <span class="p">)</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getBoundingSubFunctions</span><span class="p">(</span> <span class="n">domainValue</span> <span class="p">)</span> <span class="p">)</span>  <span class="c1"># Domain value is above the last region. Let the last region determine what to do.</span></div></div>
+        <span class="k">return</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">regions</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getBoundingSubFunctions</span><span class="p">(</span> <span class="n">domainValue</span> <span class="p">)</span> <span class="p">)</span>  <span class="c1"># Domain value is above the last region. Let the last region determine what to do.</span></div>
+</div>
 
-<div class="viewcode-block" id="Regions2d"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions2d">[docs]</a><span class="k">class</span> <span class="nc">Regions2d</span><span class="p">(</span> <span class="n">RegionsMultiD</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions2d">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions2d">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Regions2d</span><span class="p">(</span> <span class="n">RegionsMultiD</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class supports storing a 2d function as a list of abutting 2d functions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -935,7 +1043,9 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;regions2d&#39;</span>
     <span class="n">dimension</span> <span class="o">=</span> <span class="mi">2</span>
 
-<div class="viewcode-block" id="Regions2d.toLinearXYsClass"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions2d.toLinearXYsClass">[docs]</a>    <span class="k">def</span> <span class="nf">toLinearXYsClass</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="Regions2d.toLinearXYsClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions2d.toLinearXYsClass">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toLinearXYsClass</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method always returns the class :py:class:`Regions`.</span>
 
@@ -944,19 +1054,26 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="n">Regions</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Regions2d.allowedSubElements"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions2d.allowedSubElements">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">allowedSubElements</span><span class="p">(</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions2d.allowedSubElements">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions2d.allowedSubElements">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">allowedSubElements</span><span class="p">(</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a list of all 2d functions class that can be added as a region to an instance of :py:class:`Regions2d`.</span>
 
 <span class="sd">        :returns:       A list of 2d functions classes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">multiD_XYs</span> <span class="k">as</span> <span class="n">multiD_XYsModule</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">multiD_XYs</span> <span class="k">as</span> <span class="n">multiD_XYsModule</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="p">(</span> <span class="n">multiD_XYsModule</span><span class="o">.</span><span class="n">XYs2d</span><span class="p">,</span> <span class="p">)</span> <span class="p">)</span></div></div>
+        <span class="k">return</span><span class="p">(</span> <span class="p">(</span> <span class="n">multiD_XYsModule</span><span class="o">.</span><span class="n">XYs2d</span><span class="p">,</span> <span class="p">)</span> <span class="p">)</span></div>
+</div>
 
-<div class="viewcode-block" id="Regions3d"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions3d">[docs]</a><span class="k">class</span> <span class="nc">Regions3d</span><span class="p">(</span> <span class="n">RegionsMultiD</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions3d">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions3d">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Regions3d</span><span class="p">(</span> <span class="n">RegionsMultiD</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class supports storing a 3d function as a list of abutting 3d functions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -964,7 +1081,9 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;regions3d&#39;</span>
     <span class="n">dimension</span> <span class="o">=</span> <span class="mi">3</span>
 
-<div class="viewcode-block" id="Regions3d.toLinearXYsClass"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions3d.toLinearXYsClass">[docs]</a>    <span class="k">def</span> <span class="nf">toLinearXYsClass</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
+<div class="viewcode-block" id="Regions3d.toLinearXYsClass">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions3d.toLinearXYsClass">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toLinearXYsClass</span><span class="p">(</span> <span class="bp">self</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method always returns the class :py:class:`Regions`.</span>
 
@@ -973,59 +1092,107 @@
 
         <span class="k">return</span><span class="p">(</span> <span class="n">Regions</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Regions3d.allowedSubElements"><a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions3d.allowedSubElements">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">allowedSubElements</span><span class="p">(</span> <span class="p">)</span> <span class="p">:</span>
+
+<div class="viewcode-block" id="Regions3d.allowedSubElements">
+<a class="viewcode-back" href="../../xData/index.html#xData.regions.Regions3d.allowedSubElements">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">allowedSubElements</span><span class="p">(</span> <span class="p">)</span> <span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method returns a list of all 3d functions class that can be added as a region to an instance of :py:class:`Regions3d`.</span>
 
 <span class="sd">        :returns:       A list of 3d functions classes</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">multiD_XYs</span> <span class="k">as</span> <span class="n">multiD_XYsModule</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">multiD_XYs</span> <span class="k">as</span> <span class="n">multiD_XYsModule</span>
 
-        <span class="k">return</span><span class="p">(</span> <span class="p">(</span> <span class="n">multiD_XYsModule</span><span class="o">.</span><span class="n">XYs3d</span><span class="p">,</span> <span class="p">)</span> <span class="p">)</span></div></div>
+        <span class="k">return</span><span class="p">(</span> <span class="p">(</span> <span class="n">multiD_XYsModule</span><span class="o">.</span><span class="n">XYs3d</span><span class="p">,</span> <span class="p">)</span> <span class="p">)</span></div>
+</div>
+
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">xData.regions</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

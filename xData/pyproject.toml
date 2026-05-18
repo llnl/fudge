@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xData"
+version = "1.0.0"
+authors = [
+    {name = "LLNL", email = "mattoon1@llnl.gov"},
+]
+description = "Data structures for representing physical quantities and mathematical constructs"
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = [
+    "numericalFunctions",
+    "pqu",
+    "numpy>=1.15"
+]
+
+[tool.setuptools]
+packages = [
+    "xData",
+    "xData.Documentation",
+    "xData.uncertainty",
+    "xData.uncertainty.physicalQuantity",
+    "xData.interactivePlot"
+]
+package-dir = {"xData" = "."}
+
+[project.scripts]
+# Will be populated automatically from bin/*.py
+
+[project.urls]
+"Homepage" = "https://github.com/LLNL/fudge"

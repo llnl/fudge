@@ -7,8 +7,6 @@
 
 # the curve in Fig. 6
 
-from __future__ import print_function
-
 x0 = 0.3
 x1 = 0.95
 y0 = 0.8

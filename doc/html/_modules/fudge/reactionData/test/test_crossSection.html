@@ -1,43 +1,35 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>fudge.reactionData.test.test_crossSection &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
-    
-    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
-    <script src="../../../../_static/jquery.js"></script>
-    <script src="../../../../_static/underscore.js"></script>
-    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../../../_static/gnd-20121206-favicon.ico"/>
+    <title>fudge.reactionData.test.test_crossSection &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../../search.html" /> 
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">fudge.reactionData.test.test_crossSection</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for fudge.reactionData.test.test_crossSection</h1><div class="highlight"><pre>
@@ -45,6 +37,10 @@
 <span class="c1"># encoding: utf-8</span>
 
 <span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
@@ -52,14 +48,18 @@
 <span class="sd">dbrown, 12/5/2012</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">unittest</span>
-<span class="kn">from</span> <span class="nn">fudge.reactionData.crossSection</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">unittest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge.reactionData.crossSection</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 <span class="n">defaultAccuracy</span> <span class="o">=</span> <span class="mf">0.001</span>
-<span class="kn">from</span> <span class="nn">xData</span> <span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData</span><span class="w"> </span><span class="kn">import</span> <span class="n">XYs1d</span> <span class="k">as</span> <span class="n">XYs1dModule</span>
 
-<div class="viewcode-block" id="TestPointwise"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestPointwise">[docs]</a><span class="k">class</span> <span class="nc">TestPointwise</span><span class="p">(</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span> <span class="p">):</span>
+<div class="viewcode-block" id="TestPointwise">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestPointwise">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestPointwise</span><span class="p">(</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span> <span class="p">):</span>
 
-<div class="viewcode-block" id="TestPointwise.test_basic_stuff"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestPointwise.test_basic_stuff">[docs]</a>    <span class="k">def</span> <span class="nf">test_basic_stuff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TestPointwise.test_basic_stuff">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestPointwise.test_basic_stuff">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_basic_stuff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ptwise_const</span><span class="o">=</span><span class="n">XYs1d</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">XYs1d</span><span class="o">.</span><span class="n">defaultAxes</span><span class="p">(</span><span class="n">labelsUnits</span><span class="o">=</span><span class="p">{</span>
             <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">yAxisIndex</span> <span class="p">:</span> <span class="p">(</span> <span class="s1">&#39;crossSection&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span> <span class="p">),</span>
             <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">xAxisIndex</span> <span class="p">:</span> <span class="p">(</span> <span class="s1">&#39;energy_in&#39;</span><span class="p">,</span> <span class="s1">&#39;eV&#39;</span> <span class="p">)</span> <span class="p">}),</span> <span class="n">data</span><span class="o">=</span><span class="p">[</span> <span class="p">[</span><span class="mf">1e-5</span><span class="p">,</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">20.0e6</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span> <span class="p">]</span> <span class="p">)</span>
@@ -71,8 +71,11 @@
             <span class="s1">&#39;    &lt;axis index=&quot;0&quot; label=&quot;crossSection&quot; unit=&quot;b&quot;/&gt;&lt;/axes&gt;&#39;</span><span class="p">,</span>
             <span class="s1">&#39;  &lt;values&gt;&#39;</span><span class="p">,</span>
             <span class="s1">&#39;    1.00000000e-05 1.00000000e+00 2.00000000e+07 1.00000000e+00&lt;/values&gt;&lt;/XYs1d&gt;&#39;</span><span class="p">]</span> <span class="p">)</span></div>
+
             
-<div class="viewcode-block" id="TestPointwise.test_group"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestPointwise.test_group">[docs]</a>    <span class="k">def</span> <span class="nf">test_group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TestPointwise.test_group">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestPointwise.test_group">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ptwise</span><span class="o">=</span><span class="n">XYs1d</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">XYs1d</span><span class="o">.</span><span class="n">defaultAxes</span><span class="p">(),</span> <span class="n">data</span><span class="o">=</span><span class="p">[</span>
             <span class="p">[</span><span class="mf">1e-5</span><span class="p">,</span><span class="mf">1.0</span><span class="p">],</span> 
             <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">],</span> 
@@ -83,13 +86,19 @@
 <span class="c1">#        ptwise.plot()</span>
         <span class="n">ptwise</span><span class="o">.</span><span class="n">group</span><span class="p">(</span> <span class="p">[</span><span class="mf">1e-5</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1000.0</span><span class="p">,</span><span class="mf">20.e6</span><span class="p">]</span> <span class="p">)</span><span class="c1">#.plot()</span></div>
 
-<div class="viewcode-block" id="TestPointwise.test_evaluate"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestPointwise.test_evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">test_evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestPointwise.test_evaluate">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestPointwise.test_evaluate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">ptwise_const</span><span class="o">=</span><span class="n">XYs1d</span><span class="p">(</span><span class="n">axes</span><span class="o">=</span><span class="n">XYs1d</span><span class="o">.</span><span class="n">defaultAxes</span><span class="p">(</span><span class="n">labelsUnits</span><span class="o">=</span><span class="p">{</span>
                 <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">yAxisIndex</span> <span class="p">:</span> <span class="p">(</span> <span class="s1">&#39;crossSection&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span> <span class="p">),</span>
                 <span class="n">XYs1dModule</span><span class="o">.</span><span class="n">xAxisIndex</span> <span class="p">:</span> <span class="p">(</span> <span class="s1">&#39;energy_in&#39;</span><span class="p">,</span> <span class="s1">&#39;eV&#39;</span> <span class="p">)</span> <span class="p">}),</span> <span class="n">data</span><span class="o">=</span><span class="p">[</span> <span class="p">[</span><span class="mf">1e-5</span><span class="p">,</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">20.0e6</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]</span> <span class="p">]</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">ptwise_const</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span> <span class="mf">10.0e6</span> <span class="p">),</span> <span class="mf">1.0</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="TestPointwise.test_applyFunction"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestPointwise.test_applyFunction">[docs]</a>    <span class="k">def</span> <span class="nf">test_applyFunction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestPointwise.test_applyFunction">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestPointwise.test_applyFunction">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_applyFunction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Simple test of applyFunction() function.  The function we&#39;ll apply is exp(-x) so this is equivalent to the test_exp tests above</span>
 
@@ -113,12 +122,18 @@
 <span class="c1">#        self.assertAlmostEqual(ptwise_linear.applyFunction(lambda x, y: math.exp(-x), None).evaluate(15.0e6), math.exp(-16.0))  # This should work, but fails</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">ptwise_linear</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="mf">1.0e6</span><span class="p">),</span> <span class="mf">2.0</span><span class="p">)</span>
 <span class="c1">#        self.assertAlmostEqual(ptwise_linear.applyFunction(lambda x, y: math.exp(-x), None).evaluate(1.0e6), math.exp(-2.0))    # This should work, but fails</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">ptwise_linear</span><span class="o">.</span><span class="n">applyFunction</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ptwise_linear</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="mf">1.0e6</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># This should absolutely fail and is the wrong way to do it</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertAlmostEqual</span><span class="p">(</span><span class="n">ptwise_linear</span><span class="o">.</span><span class="n">applyFunction</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ptwise_linear</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="mf">1.0e6</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># This should absolutely fail and is the wrong way to do it</span></div>
+</div>
 
 
-<div class="viewcode-block" id="TestCrossSection"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection">[docs]</a><span class="k">class</span> <span class="nc">TestCrossSection</span><span class="p">(</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span> <span class="p">):</span>
 
-<div class="viewcode-block" id="TestCrossSection.setUp"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.setUp">[docs]</a>    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TestCrossSection">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestCrossSection</span><span class="p">(</span> <span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span> <span class="p">):</span>
+
+<div class="viewcode-block" id="TestCrossSection.setUp">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.setUp">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     
         <span class="c1"># A constant (kind of like (n,el))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span> <span class="o">=</span> <span class="n">Component</span><span class="p">()</span>
@@ -136,15 +151,24 @@
             <span class="n">data</span><span class="o">=</span><span class="p">[</span> <span class="p">[</span><span class="mf">1e6</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">10.0e6</span><span class="p">,</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">20.0e6</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span> <span class="p">]</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xs_triangle</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ptwise_triangle</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TestCrossSection.test_basic_stuff"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_basic_stuff">[docs]</a>    <span class="k">def</span> <span class="nf">test_basic_stuff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestCrossSection.test_basic_stuff">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_basic_stuff">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_basic_stuff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="p">,</span> <span class="n">Component</span> <span class="p">)</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="o">.</span><span class="n">moniker</span><span class="p">,</span> <span class="s1">&#39;crossSection&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="o">.</span><span class="n">domainUnit</span><span class="p">,</span> <span class="s1">&#39;eV&#39;</span> <span class="p">)</span></div>
+
         
-<div class="viewcode-block" id="TestCrossSection.test_xlink"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_xlink">[docs]</a>    <span class="k">def</span> <span class="nf">test_xlink</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TestCrossSection.test_xlink">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_xlink">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_xlink</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="o">.</span><span class="n">toRelativeXLink</span><span class="p">(),</span> <span class="s1">&#39;&#39;</span> <span class="p">)</span></div>
+
         
-<div class="viewcode-block" id="TestCrossSection.test_parent"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_parent">[docs]</a>    <span class="k">def</span> <span class="nf">test_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TestCrossSection.test_parent">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_parent">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Tests of traversing up GNDS hierarchy</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -154,14 +178,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span> <span class="s1">&#39;fred&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="o">.</span><span class="n">ancestor</span><span class="p">,</span> <span class="s1">&#39;fred&#39;</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="TestCrossSection.test_ancestry"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_ancestry">[docs]</a>    <span class="k">def</span> <span class="nf">test_ancestry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestCrossSection.test_ancestry">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_ancestry">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_ancestry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        FIXME: findAttributeInAncestry</span>
 <span class="sd">        FIXME: findClassInAncestry</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="TestCrossSection.test_forms"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_forms">[docs]</a>    <span class="k">def</span> <span class="nf">test_forms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestCrossSection.test_forms">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_forms">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_forms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="n">listAssertEqual</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;assertCountEqual&#39;</span><span class="p">,</span> <span class="kc">None</span> <span class="p">)</span>
         <span class="k">if</span> <span class="n">listAssertEqual</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">listAssertEqual</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;assertItemsEqual&#39;</span><span class="p">)</span>
@@ -171,12 +201,18 @@
                   <span class="s1">&#39;URR_probabilityTables1d&#39;</span><span class="p">,</span> <span class="s1">&#39;CoulombPlusNuclearElastic&#39;</span><span class="p">,</span> <span class="s1">&#39;thermalNeutronScatteringLaw1d&#39;</span> <span class="p">]</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;gridded&#39;</span><span class="p">)</span> <span class="c1"># ??? why does this test have a side effect?</span></div>
 
-<div class="viewcode-block" id="TestCrossSection.test_evaluated"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_evaluated">[docs]</a>    <span class="k">def</span> <span class="nf">test_evaluated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestCrossSection.test_evaluated">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_evaluated">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_evaluated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="o">.</span><span class="n">evaluated</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="s1">&#39;eval&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="o">.</span><span class="n">evaluated</span><span class="o">.</span><span class="n">moniker</span><span class="p">,</span> <span class="s1">&#39;XYs1d&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="o">.</span><span class="n">evaluated</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="mf">1.4e5</span><span class="p">),</span> <span class="mf">1.0</span> <span class="p">)</span></div>
+
         
-<div class="viewcode-block" id="TestCrossSection.test_domains"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_domains">[docs]</a>    <span class="k">def</span> <span class="nf">test_domains</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TestCrossSection.test_domains">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_domains">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_domains</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">form</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">domainMax</span><span class="p">,</span> <span class="mf">20e6</span> <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">domainMax</span><span class="p">,</span> <span class="mf">20.0e6</span> <span class="p">)</span>
@@ -192,8 +228,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="o">.</span><span class="n">domainMax</span><span class="p">,</span> <span class="mf">20000000.0</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="o">.</span><span class="n">domainUnit</span><span class="p">,</span> <span class="s1">&#39;eV&#39;</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="TestCrossSection.test_check"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_check">[docs]</a>    <span class="k">def</span> <span class="nf">test_check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span>
+
+<div class="viewcode-block" id="TestCrossSection.test_check">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_check">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span>
         <span class="n">info</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;Q&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
             <span class="s1">&#39;kinematicFactor&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
@@ -205,7 +244,10 @@
             <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">info</span><span class="p">),</span> <span class="p">[]</span> <span class="p">)</span></div>
 
-<div class="viewcode-block" id="TestCrossSection.test_xml_output"><a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_xml_output">[docs]</a>    <span class="k">def</span> <span class="nf">test_xml_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TestCrossSection.test_xml_output">
+<a class="viewcode-back" href="../../../../fudge/fudge.reactionData.test.html#fudge.reactionData.test.test_crossSection.TestCrossSection.test_xml_output">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_xml_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="o">.</span><span class="n">toXLink</span><span class="p">(),</span> <span class="s1">&#39;/crossSection&#39;</span> <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">xs_const</span><span class="o">.</span><span class="n">toXML_strList</span><span class="p">(),</span> <span class="p">[</span>
             <span class="s1">&#39;&lt;crossSection&gt;&#39;</span><span class="p">,</span>
@@ -214,7 +256,9 @@
             <span class="s1">&#39;      &lt;axis index=&quot;1&quot; label=&quot;energy_in&quot; unit=&quot;eV&quot;/&gt;&#39;</span><span class="p">,</span>
             <span class="s1">&#39;      &lt;axis index=&quot;0&quot; label=&quot;crossSection&quot; unit=&quot;b&quot;/&gt;&lt;/axes&gt;&#39;</span><span class="p">,</span>
             <span class="s1">&#39;    &lt;values&gt;&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;      1.00000000e-05 1.00000000e+00 2.00000000e+07 1.00000000e+00&lt;/values&gt;&lt;/XYs1d&gt;&lt;/crossSection&gt;&#39;</span><span class="p">]</span> <span class="p">)</span></div></div>
+            <span class="s1">&#39;      1.00000000e-05 1.00000000e+00 2.00000000e+07 1.00000000e+00&lt;/values&gt;&lt;/XYs1d&gt;&lt;/crossSection&gt;&#39;</span><span class="p">]</span> <span class="p">)</span></div>
+</div>
+
     
 
 
@@ -222,46 +266,89 @@
     <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../../../index.html">
-              <img class="logo" src="../../../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">fudge.reactionData.test.test_crossSection</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

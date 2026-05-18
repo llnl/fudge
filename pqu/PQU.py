@@ -896,10 +896,15 @@ class PQU_float :
     __rdiv__ = __rtruediv__
     __idiv__ = __itruediv__
 
-    def __pow__( self, other ) :
+    def __pow__(self, other):
 
-        power = float( other )
-        return( PQU_float( self.value**power, self.significantDigits ) )
+        power = float(other)
+        return PQU_float(self.value**power, self.significantDigits)
+
+    def __rpow__(self, other):
+
+        base = float(other)
+        return PQU_float(base**self.value, self.significantDigits)
 
     def __float__( self ) :
 
@@ -1476,23 +1481,41 @@ class PQU :
     __rdiv__ = __rtruediv__
     __idiv__ = __itruediv__
 
-    def __pow__( self, other ) :
+    def __pow__(self, other):
         """Does not include uncertainty of other in calculation. Other must be an object convertible to a float. If it
         is a :py:class:`PQU` instance, it must be dimensionless."""
 
-        other = self._getOtherAsPQU( other )
-        if( not( other.isDimensionless( ) ) ) : raise TypeError( 'Power must be dimensionless. It has dimension "%s".' % other.unit )
-        power = float( other )
+        other = self._getOtherAsPQU(other)
+        if not other.isDimensionless(): raise TypeError('Power must be dimensionless. It has dimension "%s".' % other.unit)
+        power = float(other)
 
-        valueToPower = pow( self.value, power )
-        value, uncertainty = float( self ), None
+        valueToPower = pow(self.value, power)
+        value, uncertainty = float(self), None
 
-        if( value != 0 ) :  # This is not the correct answer when value is small compared to uncertainty. Needs work?
+        if value != 0:  # This is not the correct answer when value is small compared to uncertainty. Needs work?
             uncertainty = ( power * float( valueToPower ) / value ) * self.uncertainty
             if( uncertainty.getStyle( ) == PQU_uncertainty.pqu_uncertaintyStyleParenthesis ) : 
                 uncertainty.style = PQU_uncertainty.pqu_uncertaintyStylePlusMinus
         valueToPower = PQU_float( valueToPower, self.value.getSignificantDigits( ) )
         return( PQU( valueToPower, unit = pow( self.unit, power ), uncertainty = uncertainty ) )
+
+    def __rpow__(self, other):
+        """Does not include uncertainty of other in calculation. Other must be an object convertible to a float. If it
+        is a :py:class:`PQU` instance, it must be dimensionless."""
+
+        if not self.isDimensionless( ): raise TypeError('Power must be dimensionless. It has dimension "%s".' % self.unit)
+        other = self._getOtherAsPQU( other )
+        base = float(other)
+
+        newValue = pow(base, self.value)
+        value, uncertainty = float(self), None
+
+        if value != 0:  # This is not the correct answer when value is small compared to uncertainty. Needs work?
+            uncertainty = float(newValue) * math.log(base) * self.uncertainty
+            if uncertainty.getStyle() == PQU_uncertainty.pqu_uncertaintyStyleParenthesis:
+                uncertainty.style = PQU_uncertainty.pqu_uncertaintyStylePlusMinus
+        newValue = PQU_float(newValue, self.value.getSignificantDigits( ))
+        return PQU(newValue, unit = pow(other.unit, self.value), uncertainty = uncertainty)
 
     def __float__( self ) :
 
@@ -2383,6 +2406,9 @@ class PhysicalUnit :
 
         if self.offset != 0:
             raise TypeError('Cannot exponentiate units with non-zero offset.')
+
+        if self.isDimensionless():
+            return self
 
         power = fractions.Fraction(other).limit_denominator(10000)
         if power.denominator == 1:

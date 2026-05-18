@@ -16,12 +16,10 @@ is complete the resulting file is written back out as a GNDS/XML file.
 Options for processing
 ----------------------
 
-processProtare supports many command-line options. Perhaps the most useful is the '-h' or '--help' option:
-
-::
+processProtare supports many command-line options. Perhaps the most useful is the '-h' or '--help' option::
 
         >python processProtare.py -h
-usage: processProtare.py [-h] [--pid PID] [--tid TID] [--noLazyParse]
+        usage: processProtare.py [-h] [--pid PID] [--tid TID] [--noLazyParse]
                          [--exit EXIT] [--tag TAG] [-o OUTPUT]
                          [--writeConvertedUnits] [--energyUnit ENERGYUNIT]
                          [--CoulombPlusNuclearMuCutOff COULOMBPLUSNUCLEARMUCUTOFF]
@@ -44,7 +42,7 @@ usage: processProtare.py [-h] [--pid PID] [--tid TID] [--noLazyParse]
 
 This script processes all data in a GNDS file as requested by input arguments. In addition to entering arguments on the comannd
 line, arguments can also be read from an input file by specifying an input file on the command line. The character '@' must prefix
-the input file's name. For example, to include the arguments in a file named pp.input execute this script as
+the input file's name. For example, to include the arguments in a file named pp.input execute this script as::
 
     processProtare.py -mc @pp.input -vvv -up eval.xml proc.xml
 

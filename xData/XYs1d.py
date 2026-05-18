@@ -37,7 +37,7 @@ This module contains the following functions:
     +-----------------------------------------------+-------------------------------------------------------------------------------------------------------+
     | Function                                      | Description                                                                                           |
     +===============================================+=======================================================================================================+
-    | return_pointwiseXY_AsXYs1d                    | This function returns an instance that is the same class as *self*` from the input arguments.         |
+    | return_pointwiseXY_AsXYs1d                    | This function returns an instance that is the same class as *self* from the input arguments.          |
     +-----------------------------------------------+-------------------------------------------------------------------------------------------------------+
     | otherToSelfsUnits                             | This function scales the data and changes the units of an :py:class:`XYs1d` instance                  |
     |                                               | if they are not the same as the units of another :py:class:`XYs1d` instance                           |
@@ -611,7 +611,26 @@ class XYs1d(baseModule.XDataFunctional):
 
         return( self.returnAsClass( self, self.nf_pointwiseXY.applyFunction( f, parameters, accuracy = accuracy, biSectionMax = biSectionMax, checkForRoots = checkForRoots ) ) )
 
-    def changeInterpolation( self, interpolation, accuracy, lowerEps = 0, upperEps = 0, cls = None ) :
+    def asXYs1d(self, asLinLin, accuracy, lowerEps, upperEps, biSectionMax=16):
+        """
+        This method returns a representation of the data in *self* as an :py:class:`XYs1dModule.XYs1d` instance. 
+        Beware, this method returns *self* if data have lin-lin interpolation.
+
+        :param asLinLin:    If **True**, the data have lin-lin interpolation.
+        :param accuracy:    Used to determine the accuracy if converting data to lin-lin interpolated data.
+        :param lowerEps:    Used to dull the lower point for "flat" interpolation.
+        :param upperEps:    Used to dull the upper point for "flat" interpolation.
+
+        :returns:           A :py:class:`XYs1dModule.XYs1d` instance.
+        """
+
+        xys1d = self
+        if asLinLin and xys1d.interpolation != enumsModule.Interpolation.linlin:
+            xys1d = xys1d.changeInterpolation(enumsModule.Interpolation.linlin, accuracy=accuracy, lowerEps=lowerEps, upperEps=upperEps)
+
+        return xys1d
+
+    def changeInterpolation( self, interpolation, accuracy, lowerEps = 0., upperEps = 0., cls = None ) :
         """
         This methods returns :py:class:`XYs1d` instance that is *self* converted to a new interpolation. Points are added as needed to
         maintain the accuracy of the returned instance to *self*. Generally, *interpolation* can only be "lin-lin".
@@ -1098,7 +1117,7 @@ class XYs1d(baseModule.XDataFunctional):
 
     def mutualify( self, lowerEps1, upperEps1, positiveXOnly1, other, lowerEps2, upperEps2, positiveXOnly2 ) :
         """
-        Thie method returns copies of *self* and *other*s which have mutual domains.
+        Thie method returns copies of *self* and *other* which have mutual domains.
 
         :param lowerEps1:       The fractional espilon for the first point of *self*.
         :param upperEps1:       The fractional espilon for the last point of *self*.
@@ -1106,9 +1125,9 @@ class XYs1d(baseModule.XDataFunctional):
         :param other:           An instance of :py:class:XYs1d`.
         :param lowerEps2:       The fractional espilon for the first point of *other*.
         :param upperEps2:       The fractional espilon for the last point of *other*.
-        :param positiveXOnly1:  If True, for negative *lowerEps2* a point is not added below the first point of *other* if it would result in a negative x-value.
+        :param positiveXOnly2:  If True, for negative *lowerEps2* a point is not added below the first point of *other* if it would result in a negative x-value.
 
-        :returns:               A copy of *self* and *other*s which have mutualified domains.
+        :returns:               A copy of *self* and *other* which have mutualified domains.
 
         .. note:: Need to check that x units are the same.
         """
@@ -1367,7 +1386,7 @@ class XYs1d(baseModule.XDataFunctional):
 
     def group( self, xs, f2 = None, f3 = None, norm = None, asXYs = False ) :
         r"""
-        This method multi-group *self* with possibly *f2* and/or *f3.
+        This method multi-group *self* with possibly *f2* and/or *f3*.
         The argument ``xs`` is a list of x-values with ``xs[i] < xs[i+1]``. This function calculates the integrals
 
         .. math::
@@ -1529,6 +1548,40 @@ class XYs1d(baseModule.XDataFunctional):
         if( isinstance( norm, XYs1d ) ) : norm = norm.nf_pointwiseXY
 
         return( self.nf_pointwiseXY.groupThreeFunctions(  boundaries, f2, f3, norm = norm ) )
+
+    def groupFourFunctions( self, xs, f2, f3, f4, norm = None ) :
+        """
+        This function multi-groups *self*, *f2*, *f3* and *f4* using the boundaries *xs*. Each group is just the value
+        of the integral of the product of *self*, *f2*, *f3* and *f4* over the group's domain divided by the *norm* for that group.
+        The argument *norm* specifies how to normalize each group. If *norm* is None, no normalization happens. If
+        *norm* is 'dx', each group integral is divided by its domain width. If *norm* is a list of float, there must be a one-to-one
+        mapping of the number of float to the number of groups, and the value in the *norm* at the same index as the group is used as
+        the norm for that group.  The number of groups is the lenght of *xs* - 1.
+
+        .. note:: Need unit of xs.
+
+        :param xs:      The list of multi-group boundaries.
+        :param f2:      An instance of :py:class:`XYs1d`.
+        :param f3:      An instance of :py:class:`XYs1d`.
+        :param f4:      An instance of :py:class:`XYs1d`.
+        :param norm:    Can be None, the python str 'dx', or a python list of floats of lenght the number of groups.
+
+        :returns:       A python list of floats.
+        """
+
+        if( type( xs ) == list ) :
+            boundaries = xs
+        elif( type( xs.values ) == list ) :
+            boundaries = xs.values
+        else :
+            boundaries = xs.values.values
+
+        if( isinstance( f2, XYs1d ) ) : f2 = f2.nf_pointwiseXY
+        if( isinstance( f3, XYs1d ) ) : f3 = f3.nf_pointwiseXY
+        if( isinstance( f4, XYs1d ) ) : f4 = f4.nf_pointwiseXY
+        if( isinstance( norm, XYs1d ) ) : norm = norm.nf_pointwiseXY
+
+        return( self.nf_pointwiseXY.groupFourFunctions(  boundaries, f2, f3, f4, norm = norm ) )
 
     def hasData(self):
         """
@@ -1933,9 +1986,8 @@ class XYs1d(baseModule.XDataFunctional):
 
         XML_strList = []
         xys = []
-        for x, y in self.nf_pointwiseXY.copyDataToXYs():
-            xys.append(x)
-            xys.append(y)
+        for xy in self:
+            xys += xy
         XML_strList += valuesModule.Values(xys, valueType = self.valueType).toXML_strList(indent2, **kwargs)
 
         XML_strList = self.buildXML_strList(indent2, startTag, XML_strList, **kwargs)

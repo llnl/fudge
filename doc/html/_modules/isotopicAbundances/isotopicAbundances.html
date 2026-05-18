@@ -1,47 +1,43 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>isotopicAbundances.isotopicAbundances &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
-    
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../../_static/gnd-20121206-favicon.ico"/>
+    <title>isotopicAbundances.isotopicAbundances &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">isotopicAbundances.isotopicAbundances</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for isotopicAbundances.isotopicAbundances</h1><div class="highlight"><pre>
 <span></span><span class="c1"># &lt;&lt;BEGIN-copyright&gt;&gt;</span>
+<span class="c1"># Copyright 2022, Lawrence Livermore National Security, LLC.</span>
+<span class="c1"># See the top-level COPYRIGHT file for details.</span>
+<span class="c1"># </span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
 <span class="c1"># &lt;&lt;END-copyright&gt;&gt;</span>
 
 <span class="sd">&#39;&#39;&#39;</span>
@@ -52,27 +48,35 @@
 <span class="sd">value must be -1.0.</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">from</span> <span class="nn">pqu</span> <span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pqu</span><span class="w"> </span><span class="kn">import</span> <span class="n">PQU</span> <span class="k">as</span> <span class="n">PQUModule</span>
 
-<span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
-<span class="kn">from</span> <span class="nn">LUPY</span> <span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
-<span class="kn">from</span> <span class="nn">xData.Documentation</span> <span class="kn">import</span> <span class="n">documentation</span> <span class="k">as</span> <span class="n">documentationModule</span>
-<span class="kn">from</span> <span class="nn">fudge</span> <span class="kn">import</span> <span class="n">suites</span> <span class="k">as</span> <span class="n">suitesModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">enums</span> <span class="k">as</span> <span class="n">enumsModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">LUPY</span><span class="w"> </span><span class="kn">import</span> <span class="n">ancestry</span> <span class="k">as</span> <span class="n">ancestryModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xData.Documentation</span><span class="w"> </span><span class="kn">import</span> <span class="n">documentation</span> <span class="k">as</span> <span class="n">documentationModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fudge</span><span class="w"> </span><span class="kn">import</span> <span class="n">suites</span> <span class="k">as</span> <span class="n">suitesModule</span>
 
-<div class="viewcode-block" id="Format"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.Format">[docs]</a><span class="k">class</span> <span class="nc">Format</span><span class="p">(</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+<div class="viewcode-block" id="Format">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.Format">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Format</span><span class="p">(</span><span class="n">enumsModule</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This enum class represents the allowed formats for the IsotopicAbundancesByChemicalElement class.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="n">version_2_0</span> <span class="o">=</span> <span class="s1">&#39;2.0&#39;</span>
 
-<div class="viewcode-block" id="Format.default"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.Format.default">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">default</span><span class="p">():</span>
+<div class="viewcode-block" id="Format.default">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.Format.default">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">default</span><span class="p">():</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns the current default format.&#39;&#39;&#39;</span>
 
-        <span class="k">return</span> <span class="n">Format</span><span class="o">.</span><span class="n">version_2_0</span></div></div>
+        <span class="k">return</span> <span class="n">Format</span><span class="o">.</span><span class="n">version_2_0</span></div>
+</div>
 
-<div class="viewcode-block" id="Isotope"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.Isotope">[docs]</a><span class="k">class</span> <span class="nc">Isotope</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Isotope">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.Isotope">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Isotope</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This class represents an iam *isotope* node and stores the atom fraction and its uncertainty for an isotope.</span>
 
@@ -92,7 +96,7 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;isotope&#39;</span>
     <span class="n">keyName</span> <span class="o">=</span> <span class="s1">&#39;id&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">atomFraction</span><span class="p">,</span> <span class="n">uncertainty</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">atomFraction</span><span class="p">,</span> <span class="n">uncertainty</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructor.</span>
 
@@ -105,35 +109,37 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__atomFraction</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">atomFraction</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__uncertainty</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">uncertainty</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">return</span> <span class="s1">&#39;    </span><span class="si">%-6s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__atomFraction</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__uncertainty</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns the label (i.e., id) for *self*.&#39;&#39;&#39;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns the id for *self*.&#39;&#39;&#39;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__id</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">atomFraction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">atomFraction</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns the atom fraction for *self*.&#39;&#39;&#39;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__atomFraction</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">uncertainty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">uncertainty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns the uncertainty for *self*.&#39;&#39;&#39;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__uncertainty</span>
 
-<div class="viewcode-block" id="Isotope.toXML_strList"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.Isotope.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Isotope.toXML_strList">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.Isotope.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Converts *this* to a list of XML strings.</span>
 
@@ -150,8 +156,11 @@
 
         <span class="k">return</span> <span class="n">XML_string</span></div>
 
-<div class="viewcode-block" id="Isotope.parseNodeUsingClass"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.Isotope.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Isotope.parseNodeUsingClass">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.Isotope.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Class method that parses a XML representation of an isotope node.</span>
 
@@ -164,9 +173,13 @@
 
         <span class="n">isotope</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;atomFraction&#39;</span><span class="p">),</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;uncertainty&#39;</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="n">isotope</span></div></div>
+        <span class="k">return</span> <span class="n">isotope</span></div>
+</div>
 
-<div class="viewcode-block" id="Isotopes"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.Isotopes">[docs]</a><span class="k">class</span> <span class="nc">Isotopes</span><span class="p">(</span><span class="n">suitesModule</span><span class="o">.</span><span class="n">ExclusiveSuite</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Isotopes">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.Isotopes">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Isotopes</span><span class="p">(</span><span class="n">suitesModule</span><span class="o">.</span><span class="n">ExclusiveSuite</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This class represents an isotopes instanse.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -174,12 +187,15 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;isotopes&#39;</span>
     <span class="n">keyName</span> <span class="o">=</span> <span class="s1">&#39;id&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Constructor.&#39;&#39;&#39;</span>
 
         <span class="n">suitesModule</span><span class="o">.</span><span class="n">ExclusiveSuite</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">(</span><span class="n">Isotope</span><span class="p">,))</span></div>
 
-<div class="viewcode-block" id="ChemicalElement"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.ChemicalElement">[docs]</a><span class="k">class</span> <span class="nc">ChemicalElement</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ChemicalElement">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.ChemicalElement">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ChemicalElement</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This class represents a chemical element which has a list of isotopes with &quot;natural&quot; abundance data</span>
 <span class="sd">    for this chemical element and a documentation member.</span>
@@ -202,7 +218,7 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;chemicalElement&#39;</span>
     <span class="n">keyName</span> <span class="o">=</span> <span class="s1">&#39;symbol&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructor.</span>
 
@@ -217,42 +233,44 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__isotopes</span> <span class="o">=</span> <span class="n">Isotopes</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__isotopes</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns the isotope with whose id is *id*.&#39;&#39;&#39;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__isotopes</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Iterates over the entries in *self.__isotopes*.&#39;&#39;&#39;</span>
 
         <span class="k">for</span> <span class="n">isotope</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__isotopes</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">isotope</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns the label (i.e., symbol) for *self*.&#39;&#39;&#39;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">symbol</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns the symbol for *self*.&#39;&#39;&#39;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__symbol</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns a reference to *self*&#39;s documentation.&#39;&#39;&#39;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__documentation</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">isotopes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">isotopes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns a reference to *self*&#39;s list of isotopes.&#39;&#39;&#39;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__isotopes</span>
 
-<div class="viewcode-block" id="ChemicalElement.atomFractionSum"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.ChemicalElement.atomFractionSum">[docs]</a>    <span class="k">def</span> <span class="nf">atomFractionSum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ChemicalElement.atomFractionSum">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.ChemicalElement.atomFractionSum">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">atomFractionSum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Calculations the sum of the atom factions of the isotopes in *self*.</span>
 
@@ -265,7 +283,10 @@
 
         <span class="k">return</span> <span class="n">atomFractionSum</span></div>
 
-<div class="viewcode-block" id="ChemicalElement.mass"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.ChemicalElement.mass">[docs]</a>    <span class="k">def</span> <span class="nf">mass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pops</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;amu&#39;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ChemicalElement.mass">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.ChemicalElement.mass">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pops</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;amu&#39;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Calculates the element mass for *self* from the isotope atomFractions data in *self*</span>
 <span class="sd">        and the isotope masses given in *pops*.</span>
@@ -282,7 +303,10 @@
 
         <span class="k">return</span> <span class="n">mass</span></div>
 
-<div class="viewcode-block" id="ChemicalElement.toXML_strList"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.ChemicalElement.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ChemicalElement.toXML_strList">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.ChemicalElement.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Converts *this* to a list of XML strings.</span>
 
@@ -300,8 +324,11 @@
 
         <span class="k">return</span> <span class="n">XML_string</span></div>
 
-<div class="viewcode-block" id="ChemicalElement.parseNodeUsingClass"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.ChemicalElement.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ChemicalElement.parseNodeUsingClass">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.ChemicalElement.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Class method that parses a XML representation of a chemicalElement node.</span>
 
@@ -321,9 +348,13 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Invalid child with tag name &quot;</span><span class="si">%s</span><span class="s1">&quot;.&#39;</span> <span class="o">%</span> <span class="n">child</span><span class="o">.</span><span class="n">tag</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">chemicalElement</span></div></div>
+        <span class="k">return</span> <span class="n">chemicalElement</span></div>
+</div>
 
-<div class="viewcode-block" id="ChemicalElements"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.ChemicalElements">[docs]</a><span class="k">class</span> <span class="nc">ChemicalElements</span><span class="p">(</span><span class="n">suitesModule</span><span class="o">.</span><span class="n">ExclusiveSuite</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ChemicalElements">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.ChemicalElements">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ChemicalElements</span><span class="p">(</span><span class="n">suitesModule</span><span class="o">.</span><span class="n">ExclusiveSuite</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    This class represents an chemicalElements instanse which contains a list of **ChemicalElement** instances.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
@@ -331,12 +362,15 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;chemicalElements&#39;</span>
     <span class="n">keyName</span> <span class="o">=</span> <span class="s1">&#39;symbol&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Constructor.&#39;&#39;&#39;</span>
 
         <span class="n">suitesModule</span><span class="o">.</span><span class="n">ExclusiveSuite</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">(</span><span class="n">ChemicalElement</span><span class="p">,))</span></div>
 
-<div class="viewcode-block" id="IsotopicAbundancesByChemicalElement"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement">[docs]</a><span class="k">class</span> <span class="nc">IsotopicAbundancesByChemicalElement</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
+
+<div class="viewcode-block" id="IsotopicAbundancesByChemicalElement">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">IsotopicAbundancesByChemicalElement</span><span class="p">(</span><span class="n">ancestryModule</span><span class="o">.</span><span class="n">AncestryIO</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    The classes represents an evaluation with a list of chemical elements evaluated.</span>
 
@@ -358,7 +392,7 @@
     <span class="n">moniker</span> <span class="o">=</span> <span class="s1">&#39;isotopicAbundancesByChemicalElement&#39;</span>
     <span class="n">keyName</span> <span class="o">=</span> <span class="s1">&#39;evaluation&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evaluation</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">Format</span><span class="o">.</span><span class="n">default</span><span class="p">()):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evaluation</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">Format</span><span class="o">.</span><span class="n">default</span><span class="p">()):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Constructor.</span>
 
@@ -378,42 +412,44 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">__chemicalElements</span> <span class="o">=</span> <span class="n">ChemicalElements</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__chemicalElements</span><span class="o">.</span><span class="n">setAncestor</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns the chemical element with symbol *symbol*.&#39;&#39;&#39;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__chemicalElements</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Iterates over the entries in *self.__chemicalElements*.&#39;&#39;&#39;</span>
 
         <span class="k">for</span> <span class="n">chemicalElement</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__chemicalElements</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">chemicalElement</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">evaluation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">evaluation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns a reference to *self*&#39;s evaluation.&#39;&#39;&#39;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__evaluation</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns a reference to *self*&#39;s format.&#39;&#39;&#39;</span>
 
         <span class="k">return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__format</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns a reference to *self*&#39;s documentation.&#39;&#39;&#39;</span>
 
         <span class="k">return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__documentation</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">chemicalElements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">chemicalElements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns a reference to *self*&#39;s chemicalElements.&#39;&#39;&#39;</span>
 
         <span class="k">return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__chemicalElements</span><span class="p">)</span>
 
-<div class="viewcode-block" id="IsotopicAbundancesByChemicalElement.getIsotope"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.getIsotope">[docs]</a>    <span class="k">def</span> <span class="nf">getIsotope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+<div class="viewcode-block" id="IsotopicAbundancesByChemicalElement.getIsotope">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.getIsotope">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">getIsotope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
 
         <span class="k">for</span> <span class="n">chemicalElement</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__chemicalElements</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">isotope</span> <span class="ow">in</span> <span class="n">chemicalElement</span><span class="o">.</span><span class="n">isotopes</span><span class="p">:</span>
@@ -422,12 +458,18 @@
 
         <span class="k">return</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="IsotopicAbundancesByChemicalElement.symbols"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.symbols">[docs]</a>    <span class="k">def</span> <span class="nf">symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="IsotopicAbundancesByChemicalElement.symbols">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.symbols">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">symbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Returns a list of available chemical elements in *self*.&#39;&#39;&#39;</span>
 
         <span class="k">return</span> <span class="p">[</span><span class="n">chemicalElement</span><span class="o">.</span><span class="n">symbol</span> <span class="k">for</span> <span class="n">chemicalElement</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__chemicalElements</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="IsotopicAbundancesByChemicalElement.toXML_strList"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.toXML_strList">[docs]</a>    <span class="k">def</span> <span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="IsotopicAbundancesByChemicalElement.toXML_strList">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.toXML_strList">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toXML_strList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Converts *this* to a list of XML strings.</span>
 
@@ -445,8 +487,11 @@
 
         <span class="k">return</span> <span class="n">XML_string</span></div>
 
-<div class="viewcode-block" id="IsotopicAbundancesByChemicalElement.parseNodeUsingClass"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.parseNodeUsingClass">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="IsotopicAbundancesByChemicalElement.parseNodeUsingClass">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.parseNodeUsingClass">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parseNodeUsingClass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">xPath</span><span class="p">,</span> <span class="n">linkData</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Class method that parses a XML representation of an isotopicAbundancesByChemicalElement node.</span>
 
@@ -468,8 +513,11 @@
 
         <span class="k">return</span> <span class="n">isotopicAbundancesByChemicalElement</span></div>
 
-<div class="viewcode-block" id="IsotopicAbundancesByChemicalElement.read"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.read">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="IsotopicAbundancesByChemicalElement.read">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.IsotopicAbundancesByChemicalElement.read">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Reads in the file named *fileName* and returns a **IsotopicAbundancesByChemicalElement** instance of it.</span>
 
@@ -477,9 +525,13 @@
 <span class="sd">        :param kwargs:          External dictionary of extra arguments that aids in parsing.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
 
-        <span class="k">return</span> <span class="n">IsotopicAbundancesByChemicalElement</span><span class="o">.</span><span class="n">readXML_file</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">IsotopicAbundancesByChemicalElement</span><span class="o">.</span><span class="n">readXML_file</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
 
-<div class="viewcode-block" id="read"><a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.read">[docs]</a><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="read">
+<a class="viewcode-back" href="../../isotopicAbundances/index.html#isotopicAbundances.isotopicAbundances.read">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Reads in the file named *fileName* and returns a **IsotopicAbundancesByChemicalElement** instance of it.</span>
 
@@ -488,48 +540,92 @@
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="k">return</span> <span class="n">IsotopicAbundancesByChemicalElement</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">fileName</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
 </pre></div>
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../../index.html">
-              <img class="logo" src="../../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+<h1 class="logo"><a href="../../index.html">Fudge and GNDS</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PoPs/index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">isotopicAbundances.isotopicAbundances</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

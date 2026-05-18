@@ -1078,7 +1078,7 @@ def get_test_matrix(endfFile=None, MT=None, MF=None):
                 idata += 1
                 if i != j:
                     aTestMatrix[j].append(aTestMatrix[i][j])
-        return numpy.mat(aTestMatrix)
+        return numpy.asmatrix(aTestMatrix)
 
 
 def get_covariances_from_endf(endfFile, MT, MF=33):

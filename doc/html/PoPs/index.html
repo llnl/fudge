@@ -1,55 +1,42 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Properties of Particles (PoPs) &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../_static/gnd-20121206-favicon.ico"/>
+    <title>Properties of Particles (PoPs) &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Introduction" href="intro.html" />
-    <link rel="prev" title="xData" href="../xData/index.html" /> 
+    <link rel="prev" title="xData" href="../xData/index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="intro.html" title="Introduction"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="../xData/index.html" title="xData"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Properties of Particles (PoPs)</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <section id="properties-of-particles-pops">
-<h1>Properties of Particles (PoPs)<a class="headerlink" href="#properties-of-particles-pops" title="Permalink to this heading">¶</a></h1>
+<h1>Properties of Particles (PoPs)<a class="headerlink" href="#properties-of-particles-pops" title="Link to this heading">¶</a></h1>
 <p>Welcome to documentation for the Properties of Particles (PoPs) database!
 PoPs is designed to store information about a range of particles, from leptons and bosons
 up to nuclei, atoms, and possibly molecules. Properties like mass, charge, spin and parity, half-life
@@ -57,77 +44,789 @@ and decay properties can be added to each particle in the database. The database
 access any particle that it contains.</p>
 </section>
 <section id="contents">
-<h1>Contents<a class="headerlink" href="#contents" title="Permalink to this heading">¶</a></h1>
+<h1>Contents<a class="headerlink" href="#contents" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial and examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="database.html">The PoPs database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">The PoPs database</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="database.html#PoPs.database.Database"><code class="docutils literal notranslate"><span class="pre">Database</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#PoPs.database.Database.QValue"><code class="docutils literal notranslate"><span class="pre">Database.QValue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#PoPs.database.Database.add"><code class="docutils literal notranslate"><span class="pre">Database.add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#PoPs.database.Database.addFile"><code class="docutils literal notranslate"><span class="pre">Database.addFile()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#PoPs.database.Database.check"><code class="docutils literal notranslate"><span class="pre">Database.check()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#PoPs.database.Database.convertUnits"><code class="docutils literal notranslate"><span class="pre">Database.convertUnits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#PoPs.database.Database.copy"><code class="docutils literal notranslate"><span class="pre">Database.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#PoPs.database.Database.documentation"><code class="docutils literal notranslate"><span class="pre">Database.documentation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#PoPs.database.Database.estimateMass"><code class="docutils literal notranslate"><span class="pre">Database.estimateMass()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#PoPs.database.Database.final"><code class="docutils literal notranslate"><span class="pre">Database.final()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#PoPs.database.Database.keys"><code class="docutils literal notranslate"><span class="pre">Database.keys()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#PoPs.database.Database.parentDatabase"><code class="docutils literal notranslate"><span class="pre">Database.parentDatabase()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#PoPs.database.Database.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Database.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#PoPs.database.Database.read"><code class="docutils literal notranslate"><span class="pre">Database.read()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#PoPs.database.Database.saveToFile"><code class="docutils literal notranslate"><span class="pre">Database.saveToFile()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#PoPs.database.Database.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Database.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#PoPs.database.read"><code class="docutils literal notranslate"><span class="pre">read()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="families.html">Particle families</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="families.html#module-PoPs.families.particle">Base particle</a></li>
-<li class="toctree-l2"><a class="reference internal" href="families.html#module-PoPs.families.gaugeBoson">gaugeBoson</a></li>
-<li class="toctree-l2"><a class="reference internal" href="families.html#module-PoPs.families.lepton">lepton</a></li>
-<li class="toctree-l2"><a class="reference internal" href="families.html#module-PoPs.families.baryon">baryon</a></li>
-<li class="toctree-l2"><a class="reference internal" href="families.html#module-PoPs.families.nuclide">nuclide</a></li>
-<li class="toctree-l2"><a class="reference internal" href="families.html#module-PoPs.families.nucleus">nucleus</a></li>
-<li class="toctree-l2"><a class="reference internal" href="families.html#module-PoPs.families.unorthodox">unorthodox</a></li>
+<li class="toctree-l2"><a class="reference internal" href="families.html#module-PoPs.families.particle">Base particle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="families.html#PoPs.families.particle.Particle"><code class="docutils literal notranslate"><span class="pre">Particle</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.__eq__"><code class="docutils literal notranslate"><span class="pre">Particle.__eq__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.__hash__"><code class="docutils literal notranslate"><span class="pre">Particle.__hash__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.__init__"><code class="docutils literal notranslate"><span class="pre">Particle.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.buildFromClassAndRawData"><code class="docutils literal notranslate"><span class="pre">Particle.buildFromClassAndRawData()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.buildFromRawData"><code class="docutils literal notranslate"><span class="pre">Particle.buildFromRawData()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.charge"><code class="docutils literal notranslate"><span class="pre">Particle.charge</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.check"><code class="docutils literal notranslate"><span class="pre">Particle.check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.convertUnits"><code class="docutils literal notranslate"><span class="pre">Particle.convertUnits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.copy"><code class="docutils literal notranslate"><span class="pre">Particle.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.decayData"><code class="docutils literal notranslate"><span class="pre">Particle.decayData</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.family"><code class="docutils literal notranslate"><span class="pre">Particle.family</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.getMass"><code class="docutils literal notranslate"><span class="pre">Particle.getMass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.halflife"><code class="docutils literal notranslate"><span class="pre">Particle.halflife</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.isAnti"><code class="docutils literal notranslate"><span class="pre">Particle.isAnti</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.mass"><code class="docutils literal notranslate"><span class="pre">Particle.mass</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.parity"><code class="docutils literal notranslate"><span class="pre">Particle.parity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Particle.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.particleCompare"><code class="docutils literal notranslate"><span class="pre">Particle.particleCompare()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.replicate"><code class="docutils literal notranslate"><span class="pre">Particle.replicate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.sortCompare"><code class="docutils literal notranslate"><span class="pre">Particle.sortCompare()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.spin"><code class="docutils literal notranslate"><span class="pre">Particle.spin</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Particle.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Particle.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="families.html#PoPs.families.particle.ParticleSorter"><code class="docutils literal notranslate"><span class="pre">ParticleSorter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.ParticleSorter.__getitem__"><code class="docutils literal notranslate"><span class="pre">ParticleSorter.__getitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.ParticleSorter.__init__"><code class="docutils literal notranslate"><span class="pre">ParticleSorter.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.ParticleSorter.__iter__"><code class="docutils literal notranslate"><span class="pre">ParticleSorter.__iter__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.ParticleSorter.__len__"><code class="docutils literal notranslate"><span class="pre">ParticleSorter.__len__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.ParticleSorter.__weakref__"><code class="docutils literal notranslate"><span class="pre">ParticleSorter.__weakref__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.ParticleSorter.add"><code class="docutils literal notranslate"><span class="pre">ParticleSorter.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.ParticleSorter.overwrite"><code class="docutils literal notranslate"><span class="pre">ParticleSorter.overwrite</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="families.html#PoPs.families.particle.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Suite.__init__"><code class="docutils literal notranslate"><span class="pre">Suite.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.particle.Suite.parseNode"><code class="docutils literal notranslate"><span class="pre">Suite.parseNode()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="families.html#module-PoPs.families.gaugeBoson">gaugeBoson</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="families.html#PoPs.families.gaugeBoson.Particle"><code class="docutils literal notranslate"><span class="pre">Particle</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.gaugeBoson.Particle.__lt__"><code class="docutils literal notranslate"><span class="pre">Particle.__lt__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="families.html#PoPs.families.gaugeBoson.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.gaugeBoson.Suite.particle"><code class="docutils literal notranslate"><span class="pre">Suite.particle</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="families.html#module-PoPs.families.lepton">lepton</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="families.html#PoPs.families.lepton.Generation"><code class="docutils literal notranslate"><span class="pre">Generation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.lepton.Generation.__new__"><code class="docutils literal notranslate"><span class="pre">Generation.__new__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="families.html#PoPs.families.lepton.Particle"><code class="docutils literal notranslate"><span class="pre">Particle</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.lepton.Particle.__init__"><code class="docutils literal notranslate"><span class="pre">Particle.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.lepton.Particle.__lt__"><code class="docutils literal notranslate"><span class="pre">Particle.__lt__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.lepton.Particle.copy"><code class="docutils literal notranslate"><span class="pre">Particle.copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="families.html#PoPs.families.lepton.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.lepton.Suite.particle"><code class="docutils literal notranslate"><span class="pre">Suite.particle</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="families.html#module-PoPs.families.baryon">baryon</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="families.html#PoPs.families.baryon.Particle"><code class="docutils literal notranslate"><span class="pre">Particle</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.baryon.Particle.__lt__"><code class="docutils literal notranslate"><span class="pre">Particle.__lt__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="families.html#PoPs.families.baryon.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.baryon.Suite.particle"><code class="docutils literal notranslate"><span class="pre">Suite.particle</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="families.html#module-PoPs.families.nuclide">nuclide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="families.html#PoPs.families.nuclide.Particle"><code class="docutils literal notranslate"><span class="pre">Particle</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nuclide.Particle.__init__"><code class="docutils literal notranslate"><span class="pre">Particle.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nuclide.Particle.__lt__"><code class="docutils literal notranslate"><span class="pre">Particle.__lt__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nuclide.Particle.check"><code class="docutils literal notranslate"><span class="pre">Particle.check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nuclide.Particle.convertUnits"><code class="docutils literal notranslate"><span class="pre">Particle.convertUnits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nuclide.Particle.copy"><code class="docutils literal notranslate"><span class="pre">Particle.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nuclide.Particle.getMass"><code class="docutils literal notranslate"><span class="pre">Particle.getMass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nuclide.Particle.intid"><code class="docutils literal notranslate"><span class="pre">Particle.intid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nuclide.Particle.particleCompare"><code class="docutils literal notranslate"><span class="pre">Particle.particleCompare()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nuclide.Particle.sortCompare"><code class="docutils literal notranslate"><span class="pre">Particle.sortCompare()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="families.html#PoPs.families.nuclide.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nuclide.Suite.particle"><code class="docutils literal notranslate"><span class="pre">Suite.particle</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="families.html#module-PoPs.families.nucleus">nucleus</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="families.html#PoPs.families.nucleus.Particle"><code class="docutils literal notranslate"><span class="pre">Particle</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nucleus.Particle.__init__"><code class="docutils literal notranslate"><span class="pre">Particle.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nucleus.Particle.__lt__"><code class="docutils literal notranslate"><span class="pre">Particle.__lt__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nucleus.Particle.convertUnits"><code class="docutils literal notranslate"><span class="pre">Particle.convertUnits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nucleus.Particle.copy"><code class="docutils literal notranslate"><span class="pre">Particle.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nucleus.Particle.getMass"><code class="docutils literal notranslate"><span class="pre">Particle.getMass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nucleus.Particle.intid"><code class="docutils literal notranslate"><span class="pre">Particle.intid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nucleus.Particle.particleCompare"><code class="docutils literal notranslate"><span class="pre">Particle.particleCompare()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nucleus.Particle.replicate"><code class="docutils literal notranslate"><span class="pre">Particle.replicate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.nucleus.Particle.sortCompare"><code class="docutils literal notranslate"><span class="pre">Particle.sortCompare()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="families.html#module-PoPs.families.unorthodox">unorthodox</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="families.html#PoPs.families.unorthodox.Particle"><code class="docutils literal notranslate"><span class="pre">Particle</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.unorthodox.Particle.__lt__"><code class="docutils literal notranslate"><span class="pre">Particle.__lt__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="families.html#PoPs.families.unorthodox.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="families.html#PoPs.families.unorthodox.Suite.particle"><code class="docutils literal notranslate"><span class="pre">Suite.particle</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="groups.html">Particle groups</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="groups.html#module-PoPs.chemicalElements.chemicalElements">chemicalElements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="groups.html#module-PoPs.chemicalElements.chemicalElement">chemicalElement</a></li>
-<li class="toctree-l2"><a class="reference internal" href="groups.html#module-PoPs.chemicalElements.isotope">isotope</a></li>
-<li class="toctree-l2"><a class="reference internal" href="groups.html#module-PoPs.chemicalElements.misc">misc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="groups.html#module-PoPs.chemicalElements.chemicalElements">chemicalElements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElements.ChemicalElements"><code class="docutils literal notranslate"><span class="pre">ChemicalElements</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElements.ChemicalElements.__contains__"><code class="docutils literal notranslate"><span class="pre">ChemicalElements.__contains__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElements.ChemicalElements.__getitem__"><code class="docutils literal notranslate"><span class="pre">ChemicalElements.__getitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElements.ChemicalElements.__init__"><code class="docutils literal notranslate"><span class="pre">ChemicalElements.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElements.ChemicalElements.add"><code class="docutils literal notranslate"><span class="pre">ChemicalElements.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElements.ChemicalElements.convertUnits"><code class="docutils literal notranslate"><span class="pre">ChemicalElements.convertUnits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElements.ChemicalElements.getSymbol"><code class="docutils literal notranslate"><span class="pre">ChemicalElements.getSymbol()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElements.ChemicalElements.hasSymbol"><code class="docutils literal notranslate"><span class="pre">ChemicalElements.hasSymbol()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElements.ChemicalElements.parseNode"><code class="docutils literal notranslate"><span class="pre">ChemicalElements.parseNode()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="groups.html#module-PoPs.chemicalElements.chemicalElement">chemicalElement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElement.ChemicalElement"><code class="docutils literal notranslate"><span class="pre">ChemicalElement</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElement.ChemicalElement.__init__"><code class="docutils literal notranslate"><span class="pre">ChemicalElement.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElement.ChemicalElement.__iter__"><code class="docutils literal notranslate"><span class="pre">ChemicalElement.__iter__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElement.ChemicalElement.add"><code class="docutils literal notranslate"><span class="pre">ChemicalElement.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElement.ChemicalElement.check"><code class="docutils literal notranslate"><span class="pre">ChemicalElement.check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElement.ChemicalElement.convertUnits"><code class="docutils literal notranslate"><span class="pre">ChemicalElement.convertUnits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElement.ChemicalElement.copy"><code class="docutils literal notranslate"><span class="pre">ChemicalElement.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElement.ChemicalElement.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">ChemicalElement.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.chemicalElement.ChemicalElement.toXML_strList"><code class="docutils literal notranslate"><span class="pre">ChemicalElement.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="groups.html#module-PoPs.chemicalElements.isotope">isotope</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.isotope.Isotope"><code class="docutils literal notranslate"><span class="pre">Isotope</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.isotope.Isotope.__getitem__"><code class="docutils literal notranslate"><span class="pre">Isotope.__getitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.isotope.Isotope.__init__"><code class="docutils literal notranslate"><span class="pre">Isotope.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.isotope.Isotope.__iter__"><code class="docutils literal notranslate"><span class="pre">Isotope.__iter__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.isotope.Isotope.copy"><code class="docutils literal notranslate"><span class="pre">Isotope.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.isotope.Isotope.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Isotope.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.isotope.Isotope.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Isotope.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.isotope.Isotopes"><code class="docutils literal notranslate"><span class="pre">Isotopes</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.isotope.Isotopes.__init__"><code class="docutils literal notranslate"><span class="pre">Isotopes.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.isotope.Isotopes.add"><code class="docutils literal notranslate"><span class="pre">Isotopes.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="groups.html#PoPs.chemicalElements.isotope.Isotopes.convertUnits"><code class="docutils literal notranslate"><span class="pre">Isotopes.convertUnits()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="groups.html#module-PoPs.chemicalElements.misc">misc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.misc.ZA"><code class="docutils literal notranslate"><span class="pre">ZA()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.misc.ZAInfo"><code class="docutils literal notranslate"><span class="pre">ZAInfo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.misc.ZAInfo_fromString"><code class="docutils literal notranslate"><span class="pre">ZAInfo_fromString()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.misc.chemicalElementALevelIDsAndAnti"><code class="docutils literal notranslate"><span class="pre">chemicalElementALevelIDsAndAnti()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.misc.hasNucleus"><code class="docutils literal notranslate"><span class="pre">hasNucleus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.misc.idFromZA"><code class="docutils literal notranslate"><span class="pre">idFromZA()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.misc.idFromZAndA"><code class="docutils literal notranslate"><span class="pre">idFromZAndA()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.misc.nuclearBindingEnergyPerNucleonSemiEmpirical"><code class="docutils literal notranslate"><span class="pre">nuclearBindingEnergyPerNucleonSemiEmpirical()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.misc.nucleusIDFromNuclideID"><code class="docutils literal notranslate"><span class="pre">nucleusIDFromNuclideID()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.misc.nucleusIDFromZAndA"><code class="docutils literal notranslate"><span class="pre">nucleusIDFromZAndA()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.misc.nuclideIDFromNucleusID"><code class="docutils literal notranslate"><span class="pre">nuclideIDFromNucleusID()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="groups.html#PoPs.chemicalElements.misc.nuclideIDFromZ_A_AndIndex"><code class="docutils literal notranslate"><span class="pre">nuclideIDFromZ_A_AndIndex()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quantities.html">Particle properties</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.quantity">quantity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.mass">mass</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.charge">charge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.spin">spin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.parity">parity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.halflife">halflife</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.nuclearEnergyLevel">nuclearEnergyLevel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.bindingEnergy">bindingEnergy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.quantity">quantity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Double"><code class="docutils literal notranslate"><span class="pre">Double</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Double.__init__"><code class="docutils literal notranslate"><span class="pre">Double.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Double.convertUnits"><code class="docutils literal notranslate"><span class="pre">Double.convertUnits()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="atomic.html">Atomic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="atomic.html#module-PoPs.atomic.configuration">Atomic configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Fraction"><code class="docutils literal notranslate"><span class="pre">Fraction</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Fraction.__init__"><code class="docutils literal notranslate"><span class="pre">Fraction.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Integer"><code class="docutils literal notranslate"><span class="pre">Integer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Number"><code class="docutils literal notranslate"><span class="pre">Number</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Number.float"><code class="docutils literal notranslate"><span class="pre">Number.float()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Number.pqu"><code class="docutils literal notranslate"><span class="pre">Number.pqu()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.NumberSuite"><code class="docutils literal notranslate"><span class="pre">NumberSuite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.NumberSuite.float"><code class="docutils literal notranslate"><span class="pre">NumberSuite.float()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.NumberSuite.pqu"><code class="docutils literal notranslate"><span class="pre">NumberSuite.pqu()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Quantity"><code class="docutils literal notranslate"><span class="pre">Quantity</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Quantity.__init__"><code class="docutils literal notranslate"><span class="pre">Quantity.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Quantity.__str__"><code class="docutils literal notranslate"><span class="pre">Quantity.__str__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Quantity.convertUnits"><code class="docutils literal notranslate"><span class="pre">Quantity.convertUnits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Quantity.copy"><code class="docutils literal notranslate"><span class="pre">Quantity.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Quantity.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Quantity.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Quantity.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Quantity.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.String"><code class="docutils literal notranslate"><span class="pre">String</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quantities.html#PoPs.quantities.quantity.Suite.__init__"><code class="docutils literal notranslate"><span class="pre">Suite.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.mass">mass</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.mass.Double"><code class="docutils literal notranslate"><span class="pre">Double</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.mass.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.charge">charge</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.charge.Integer"><code class="docutils literal notranslate"><span class="pre">Integer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.charge.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.spin">spin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.spin.Fraction"><code class="docutils literal notranslate"><span class="pre">Fraction</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.spin.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.parity">parity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.parity.Integer"><code class="docutils literal notranslate"><span class="pre">Integer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="quantities.html#PoPs.quantities.parity.Integer.__init__"><code class="docutils literal notranslate"><span class="pre">Integer.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.parity.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.halflife">halflife</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.halflife.Double"><code class="docutils literal notranslate"><span class="pre">Double</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.halflife.String"><code class="docutils literal notranslate"><span class="pre">String</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.halflife.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.nuclearEnergyLevel">nuclearEnergyLevel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.nuclearEnergyLevel.Double"><code class="docutils literal notranslate"><span class="pre">Double</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.nuclearEnergyLevel.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quantities.html#module-PoPs.quantities.bindingEnergy">bindingEnergy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.bindingEnergy.Double"><code class="docutils literal notranslate"><span class="pre">Double</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="quantities.html#PoPs.quantities.bindingEnergy.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="atomic.html">Atomic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="atomic.html#PoPs.atomic.atomic.Atomic"><code class="docutils literal notranslate"><span class="pre">Atomic</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomic.html#PoPs.atomic.atomic.Atomic.convertUnits"><code class="docutils literal notranslate"><span class="pre">Atomic.convertUnits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomic.html#PoPs.atomic.atomic.Atomic.copy"><code class="docutils literal notranslate"><span class="pre">Atomic.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomic.html#PoPs.atomic.atomic.Atomic.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Atomic.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomic.html#PoPs.atomic.atomic.Atomic.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Atomic.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="atomic.html#module-PoPs.atomic.configuration">Atomic configurations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="atomic.html#PoPs.atomic.configuration.Configuration"><code class="docutils literal notranslate"><span class="pre">Configuration</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomic.html#PoPs.atomic.configuration.Configuration.bindingEnergy"><code class="docutils literal notranslate"><span class="pre">Configuration.bindingEnergy</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomic.html#PoPs.atomic.configuration.Configuration.convertUnits"><code class="docutils literal notranslate"><span class="pre">Configuration.convertUnits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomic.html#PoPs.atomic.configuration.Configuration.copy"><code class="docutils literal notranslate"><span class="pre">Configuration.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomic.html#PoPs.atomic.configuration.Configuration.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Configuration.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="atomic.html#PoPs.atomic.configuration.Configuration.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Configuration.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="atomic.html#PoPs.atomic.configuration.Configurations"><code class="docutils literal notranslate"><span class="pre">Configurations</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="atomic.html#PoPs.atomic.configuration.Configurations.parseNode"><code class="docutils literal notranslate"><span class="pre">Configurations.parseNode()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="decays.html">Decay data</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="decays.html#module-PoPs.decays.averageEnergy">averageEnergy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decays.html#module-PoPs.decays.probability">probability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decays.html#module-PoPs.decays.Q">Q</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decays.html#module-PoPs.decays.spectrum">spectrum</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decays.html#module-PoPs.decays.product">product</a></li>
-<li class="toctree-l2"><a class="reference internal" href="decays.html#module-PoPs.decays.misc">misc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="decays.html#PoPs.decays.decayData.Decay"><code class="docutils literal notranslate"><span class="pre">Decay</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.Decay.__init__"><code class="docutils literal notranslate"><span class="pre">Decay.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.Decay.convertUnits"><code class="docutils literal notranslate"><span class="pre">Decay.convertUnits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.Decay.copy"><code class="docutils literal notranslate"><span class="pre">Decay.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.Decay.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Decay.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.Decay.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Decay.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayData"><code class="docutils literal notranslate"><span class="pre">DecayData</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayData.__init__"><code class="docutils literal notranslate"><span class="pre">DecayData.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayData.convertUnits"><code class="docutils literal notranslate"><span class="pre">DecayData.convertUnits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayData.copy"><code class="docutils literal notranslate"><span class="pre">DecayData.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayData.copyItems"><code class="docutils literal notranslate"><span class="pre">DecayData.copyItems()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayData.parseNode"><code class="docutils literal notranslate"><span class="pre">DecayData.parseNode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayData.toXML_strList"><code class="docutils literal notranslate"><span class="pre">DecayData.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayMode"><code class="docutils literal notranslate"><span class="pre">DecayMode</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayMode.__init__"><code class="docutils literal notranslate"><span class="pre">DecayMode.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayMode.convertUnits"><code class="docutils literal notranslate"><span class="pre">DecayMode.convertUnits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayMode.copy"><code class="docutils literal notranslate"><span class="pre">DecayMode.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayMode.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">DecayMode.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayMode.toXML_strList"><code class="docutils literal notranslate"><span class="pre">DecayMode.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayModes"><code class="docutils literal notranslate"><span class="pre">DecayModes</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayModes.__init__"><code class="docutils literal notranslate"><span class="pre">DecayModes.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayModes.parseNode"><code class="docutils literal notranslate"><span class="pre">DecayModes.parseNode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayPath"><code class="docutils literal notranslate"><span class="pre">DecayPath</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayPath.__init__"><code class="docutils literal notranslate"><span class="pre">DecayPath.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.decayData.DecayPath.parseNode"><code class="docutils literal notranslate"><span class="pre">DecayPath.parseNode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="decays.html#module-PoPs.decays.averageEnergy">averageEnergy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.Alpha"><code class="docutils literal notranslate"><span class="pre">Alpha</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.Annihilation"><code class="docutils literal notranslate"><span class="pre">Annihilation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.AugerElectron"><code class="docutils literal notranslate"><span class="pre">AugerElectron</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.AverageEnergies"><code class="docutils literal notranslate"><span class="pre">AverageEnergies</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.AverageEnergies.__init__"><code class="docutils literal notranslate"><span class="pre">AverageEnergies.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.AverageEnergies.parseNode"><code class="docutils literal notranslate"><span class="pre">AverageEnergies.parseNode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.AverageEnergy"><code class="docutils literal notranslate"><span class="pre">AverageEnergy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.AverageEnergy.__init__"><code class="docutils literal notranslate"><span class="pre">AverageEnergy.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.AverageEnergy.copy"><code class="docutils literal notranslate"><span class="pre">AverageEnergy.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.AverageEnergy.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">AverageEnergy.parseNodeUsingClass()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.BetaMinus"><code class="docutils literal notranslate"><span class="pre">BetaMinus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.BetaPlus"><code class="docutils literal notranslate"><span class="pre">BetaPlus</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.ConversionElectron"><code class="docutils literal notranslate"><span class="pre">ConversionElectron</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.ElectroMagneticRadiation"><code class="docutils literal notranslate"><span class="pre">ElectroMagneticRadiation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.FissionNeutrons"><code class="docutils literal notranslate"><span class="pre">FissionNeutrons</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.Gamma"><code class="docutils literal notranslate"><span class="pre">Gamma</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.HeavyParticles"><code class="docutils literal notranslate"><span class="pre">HeavyParticles</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.InternalBremsstrahlung"><code class="docutils literal notranslate"><span class="pre">InternalBremsstrahlung</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.LightParticles"><code class="docutils literal notranslate"><span class="pre">LightParticles</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.Neutrino"><code class="docutils literal notranslate"><span class="pre">Neutrino</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.Proton"><code class="docutils literal notranslate"><span class="pre">Proton</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.Recoil"><code class="docutils literal notranslate"><span class="pre">Recoil</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.SpontaneousFission"><code class="docutils literal notranslate"><span class="pre">SpontaneousFission</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.averageEnergy.XRay"><code class="docutils literal notranslate"><span class="pre">XRay</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="decays.html#module-PoPs.decays.probability">probability</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.probability.Double"><code class="docutils literal notranslate"><span class="pre">Double</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.probability.Double.__init__"><code class="docutils literal notranslate"><span class="pre">Double.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.probability.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="decays.html#module-PoPs.decays.Q">Q</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.Q.Double"><code class="docutils literal notranslate"><span class="pre">Double</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.Q.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="decays.html#module-PoPs.decays.spectrum">spectrum</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Continuum"><code class="docutils literal notranslate"><span class="pre">Continuum</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Continuum.__init__"><code class="docutils literal notranslate"><span class="pre">Continuum.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Continuum.convertUnits"><code class="docutils literal notranslate"><span class="pre">Continuum.convertUnits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Continuum.copy"><code class="docutils literal notranslate"><span class="pre">Continuum.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Continuum.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Continuum.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Continuum.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Continuum.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Discrete"><code class="docutils literal notranslate"><span class="pre">Discrete</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Discrete.__init__"><code class="docutils literal notranslate"><span class="pre">Discrete.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Discrete.copy"><code class="docutils literal notranslate"><span class="pre">Discrete.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Discrete.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Discrete.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Discrete.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Discrete.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Energy"><code class="docutils literal notranslate"><span class="pre">Energy</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Intensity"><code class="docutils literal notranslate"><span class="pre">Intensity</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.InternalConversionCoefficients"><code class="docutils literal notranslate"><span class="pre">InternalConversionCoefficients</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.InternalConversionCoefficients.__init__"><code class="docutils literal notranslate"><span class="pre">InternalConversionCoefficients.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.InternalPairFormationCoefficient"><code class="docutils literal notranslate"><span class="pre">InternalPairFormationCoefficient</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.PhotonEmissionProbabilities"><code class="docutils literal notranslate"><span class="pre">PhotonEmissionProbabilities</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.PhotonEmissionProbabilities.__init__"><code class="docutils literal notranslate"><span class="pre">PhotonEmissionProbabilities.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.PositronEmissionIntensity"><code class="docutils literal notranslate"><span class="pre">PositronEmissionIntensity</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Shell"><code class="docutils literal notranslate"><span class="pre">Shell</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Spectra"><code class="docutils literal notranslate"><span class="pre">Spectra</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Spectra.__init__"><code class="docutils literal notranslate"><span class="pre">Spectra.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Spectra.parseNode"><code class="docutils literal notranslate"><span class="pre">Spectra.parseNode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Spectrum"><code class="docutils literal notranslate"><span class="pre">Spectrum</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Spectrum.__init__"><code class="docutils literal notranslate"><span class="pre">Spectrum.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Spectrum.append"><code class="docutils literal notranslate"><span class="pre">Spectrum.append()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Spectrum.convertUnits"><code class="docutils literal notranslate"><span class="pre">Spectrum.convertUnits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Spectrum.copy"><code class="docutils literal notranslate"><span class="pre">Spectrum.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Spectrum.emissions"><code class="docutils literal notranslate"><span class="pre">Spectrum.emissions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Spectrum.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Spectrum.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Spectrum.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Spectrum.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.TransitionType"><code class="docutils literal notranslate"><span class="pre">TransitionType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.TransitionType.__new__"><code class="docutils literal notranslate"><span class="pre">TransitionType.__new__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Unitless"><code class="docutils literal notranslate"><span class="pre">Unitless</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Unitless.__init__"><code class="docutils literal notranslate"><span class="pre">Unitless.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Unitless.copy"><code class="docutils literal notranslate"><span class="pre">Unitless.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.spectrum.Unitless.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Unitless.parseNodeUsingClass()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="decays.html#module-PoPs.decays.product">product</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.product.Product"><code class="docutils literal notranslate"><span class="pre">Product</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.product.Product.__init__"><code class="docutils literal notranslate"><span class="pre">Product.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.product.Product.copy"><code class="docutils literal notranslate"><span class="pre">Product.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.product.Product.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Product.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.product.Product.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Product.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.product.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.product.Suite.__init__"><code class="docutils literal notranslate"><span class="pre">Suite.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.product.Suite.parseNode"><code class="docutils literal notranslate"><span class="pre">Suite.parseNode()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="decays.html#module-PoPs.decays.misc">misc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.misc.Mode"><code class="docutils literal notranslate"><span class="pre">Mode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="decays.html#PoPs.decays.misc.Mode.__new__"><code class="docutils literal notranslate"><span class="pre">Mode.__new__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.misc.angleBiasingPhotonBranchingData"><code class="docutils literal notranslate"><span class="pre">angleBiasingPhotonBranchingData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.misc.completePhotonBranchingData"><code class="docutils literal notranslate"><span class="pre">completePhotonBranchingData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="decays.html#PoPs.decays.misc.photonBranchingData"><code class="docutils literal notranslate"><span class="pre">photonBranchingData()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="fissionFragmentData.html">Fission fragment data</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.nuclides">nuclides</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.productYield">productYield</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.elapsedTime">elapsedTime</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.spectrum">spectrum</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.time">time</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.yields">yields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.QMatrix">QMatrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.product">product</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.multiplicity">multiplicity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.delayedNeutronData">delayedNeutronData</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.decayConstant">decayConstant</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.rate">rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData"><code class="docutils literal notranslate"><span class="pre">FissionFragmentData</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.__init__"><code class="docutils literal notranslate"><span class="pre">FissionFragmentData.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.convertUnits"><code class="docutils literal notranslate"><span class="pre">FissionFragmentData.convertUnits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.delayedNeutronData"><code class="docutils literal notranslate"><span class="pre">FissionFragmentData.delayedNeutronData</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">FissionFragmentData.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.productYields"><code class="docutils literal notranslate"><span class="pre">FissionFragmentData.productYields</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.toXML_strList"><code class="docutils literal notranslate"><span class="pre">FissionFragmentData.toXML_strList()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html">Particle IDs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html#module-PoPs.styles">Styles</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html#module-PoPs.suite">Suite</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html#module-PoPs.alias">Aliases</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html#id1">Misc</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc.html#module-PoPs.warning">Warnings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.nuclides">nuclides</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.nuclides.Nuclides"><code class="docutils literal notranslate"><span class="pre">Nuclides</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.nuclides.Nuclides.__eq__"><code class="docutils literal notranslate"><span class="pre">Nuclides.__eq__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.nuclides.Nuclides.__hash__"><code class="docutils literal notranslate"><span class="pre">Nuclides.__hash__</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.nuclides.Nuclides.__init__"><code class="docutils literal notranslate"><span class="pre">Nuclides.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.nuclides.Nuclides.__len__"><code class="docutils literal notranslate"><span class="pre">Nuclides.__len__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.nuclides.Nuclides.__ne__"><code class="docutils literal notranslate"><span class="pre">Nuclides.__ne__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.nuclides.Nuclides.data"><code class="docutils literal notranslate"><span class="pre">Nuclides.data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.nuclides.Nuclides.nuclides"><code class="docutils literal notranslate"><span class="pre">Nuclides.nuclides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.nuclides.Nuclides.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Nuclides.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.nuclides.Nuclides.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Nuclides.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.productYield">productYield</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.productYield.ProductYield"><code class="docutils literal notranslate"><span class="pre">ProductYield</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.productYield.ProductYield.__init__"><code class="docutils literal notranslate"><span class="pre">ProductYield.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.productYield.ProductYield.convertUnits"><code class="docutils literal notranslate"><span class="pre">ProductYield.convertUnits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.productYield.ProductYield.durations"><code class="docutils literal notranslate"><span class="pre">ProductYield.durations</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.productYield.ProductYield.elapsedTimes"><code class="docutils literal notranslate"><span class="pre">ProductYield.elapsedTimes</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.productYield.ProductYield.nuclides"><code class="docutils literal notranslate"><span class="pre">ProductYield.nuclides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.productYield.ProductYield.parseNode"><code class="docutils literal notranslate"><span class="pre">ProductYield.parseNode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.productYield.ProductYield.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">ProductYield.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.productYield.ProductYield.toXML_strList"><code class="docutils literal notranslate"><span class="pre">ProductYield.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.productYield.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.productYield.Suite.__init__"><code class="docutils literal notranslate"><span class="pre">Suite.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.elapsedTime">elapsedTime</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.elapsedTime.ElapsedTime"><code class="docutils literal notranslate"><span class="pre">ElapsedTime</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.elapsedTime.ElapsedTime.__init__"><code class="docutils literal notranslate"><span class="pre">ElapsedTime.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.elapsedTime.ElapsedTime.label"><code class="docutils literal notranslate"><span class="pre">ElapsedTime.label</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.elapsedTime.ElapsedTime.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">ElapsedTime.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.elapsedTime.ElapsedTime.toXML_strList"><code class="docutils literal notranslate"><span class="pre">ElapsedTime.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.elapsedTime.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.elapsedTime.Suite.__init__"><code class="docutils literal notranslate"><span class="pre">Suite.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.spectrum">spectrum</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.spectrum.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.spectrum.Suite.__init__"><code class="docutils literal notranslate"><span class="pre">Suite.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.spectrum.XYs1d"><code class="docutils literal notranslate"><span class="pre">XYs1d</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.time">time</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.time.Double"><code class="docutils literal notranslate"><span class="pre">Double</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.time.String"><code class="docutils literal notranslate"><span class="pre">String</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.time.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.time.Suite.__init__"><code class="docutils literal notranslate"><span class="pre">Suite.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.yields">yields</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Covariance"><code class="docutils literal notranslate"><span class="pre">Covariance</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Covariance.__init__"><code class="docutils literal notranslate"><span class="pre">Covariance.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Covariance.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Covariance.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Covariance.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Covariance.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.NuclidesLink"><code class="docutils literal notranslate"><span class="pre">NuclidesLink</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Uncertainty"><code class="docutils literal notranslate"><span class="pre">Uncertainty</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Uncertainty.__init__"><code class="docutils literal notranslate"><span class="pre">Uncertainty.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Uncertainty.form"><code class="docutils literal notranslate"><span class="pre">Uncertainty.form()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Uncertainty.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Uncertainty.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Uncertainty.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Uncertainty.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Values"><code class="docutils literal notranslate"><span class="pre">Values</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Values.__init__"><code class="docutils literal notranslate"><span class="pre">Values.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Values.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Values.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Values.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Values.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Yields"><code class="docutils literal notranslate"><span class="pre">Yields</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Yields.__init__"><code class="docutils literal notranslate"><span class="pre">Yields.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Yields.nuclides"><code class="docutils literal notranslate"><span class="pre">Yields.nuclides</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Yields.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Yields.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Yields.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Yields.toXML_strList()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Yields.uncertainty"><code class="docutils literal notranslate"><span class="pre">Yields.uncertainty</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.yields.Yields.values"><code class="docutils literal notranslate"><span class="pre">Yields.values</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.QMatrix">QMatrix</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.QMatrix.Full"><code class="docutils literal notranslate"><span class="pre">Full</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.QMatrix.QMatrix"><code class="docutils literal notranslate"><span class="pre">QMatrix</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.QMatrix.QMatrix.__init__"><code class="docutils literal notranslate"><span class="pre">QMatrix.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.QMatrix.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.QMatrix.Suite.__init__"><code class="docutils literal notranslate"><span class="pre">Suite.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.product">product</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.product.Product"><code class="docutils literal notranslate"><span class="pre">Product</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.product.Product.__init__"><code class="docutils literal notranslate"><span class="pre">Product.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.product.Product.multiplicity"><code class="docutils literal notranslate"><span class="pre">Product.multiplicity</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.product.Product.pid"><code class="docutils literal notranslate"><span class="pre">Product.pid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.product.Product.productFrame"><code class="docutils literal notranslate"><span class="pre">Product.productFrame</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.product.Product.spectrum"><code class="docutils literal notranslate"><span class="pre">Product.spectrum</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.product.Product.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Product.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.multiplicity">multiplicity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.multiplicity.Double"><code class="docutils literal notranslate"><span class="pre">Double</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.multiplicity.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.multiplicity.Suite.__init__"><code class="docutils literal notranslate"><span class="pre">Suite.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.delayedNeutronData">delayedNeutronData</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData"><code class="docutils literal notranslate"><span class="pre">DelayedNeutronData</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData.__init__"><code class="docutils literal notranslate"><span class="pre">DelayedNeutronData.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">DelayedNeutronData.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData.toXML_strList"><code class="docutils literal notranslate"><span class="pre">DelayedNeutronData.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.decayConstant">decayConstant</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.decayConstant.DecayConstant"><code class="docutils literal notranslate"><span class="pre">DecayConstant</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.decayConstant.DecayConstant.__init__"><code class="docutils literal notranslate"><span class="pre">DecayConstant.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.decayConstant.DecayConstant.toXML_strList"><code class="docutils literal notranslate"><span class="pre">DecayConstant.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.decayConstant.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.decayConstant.Suite.__init__"><code class="docutils literal notranslate"><span class="pre">Suite.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fissionFragmentData.html#module-PoPs.fissionFragmentData.rate">rate</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.rate.Double"><code class="docutils literal notranslate"><span class="pre">Double</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.rate.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fissionFragmentData.html#PoPs.fissionFragmentData.rate.Suite.__init__"><code class="docutils literal notranslate"><span class="pre">Suite.__init__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Particle IDs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.specialNuclearParticleID.Mode"><code class="docutils literal notranslate"><span class="pre">Mode</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.specialNuclearParticleID.Mode._generate_next_value_"><code class="docutils literal notranslate"><span class="pre">Mode._generate_next_value_()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.specialNuclearParticleID.familiarID"><code class="docutils literal notranslate"><span class="pre">familiarID()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.specialNuclearParticleID.findID"><code class="docutils literal notranslate"><span class="pre">findID()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.specialNuclearParticleID.nucleusID"><code class="docutils literal notranslate"><span class="pre">nucleusID()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.specialNuclearParticleID.nuclideID"><code class="docutils literal notranslate"><span class="pre">nuclideID()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.specialNuclearParticleID.sameSpecialNuclearParticle"><code class="docutils literal notranslate"><span class="pre">sameSpecialNuclearParticle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.specialNuclearParticleID.sortLightParticle"><code class="docutils literal notranslate"><span class="pre">sortLightParticle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.specialNuclearParticleID.specialNuclearParticleID"><code class="docutils literal notranslate"><span class="pre">specialNuclearParticleID()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html#module-PoPs.styles">Styles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.styles.Evaluated"><code class="docutils literal notranslate"><span class="pre">Evaluated</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.styles.Evaluated.copy"><code class="docutils literal notranslate"><span class="pre">Evaluated.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.styles.Evaluated.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Evaluated.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.styles.Evaluated.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Evaluated.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.styles.Style"><code class="docutils literal notranslate"><span class="pre">Style</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.styles.Style.XMLCommonAttributes"><code class="docutils literal notranslate"><span class="pre">Style.XMLCommonAttributes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.styles.Style.date"><code class="docutils literal notranslate"><span class="pre">Style.date</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.styles.Style.derivedFrom"><code class="docutils literal notranslate"><span class="pre">Style.derivedFrom</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.styles.Style.derivedFromStyle"><code class="docutils literal notranslate"><span class="pre">Style.derivedFromStyle</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.styles.Style.findDerivedFromStyle"><code class="docutils literal notranslate"><span class="pre">Style.findDerivedFromStyle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.styles.Style.findFormMatchingDerivedStyle"><code class="docutils literal notranslate"><span class="pre">Style.findFormMatchingDerivedStyle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.styles.Style.parseBaseNodeCommons"><code class="docutils literal notranslate"><span class="pre">Style.parseBaseNodeCommons()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.styles.Style.sibling"><code class="docutils literal notranslate"><span class="pre">Style.sibling()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.styles.Styles"><code class="docutils literal notranslate"><span class="pre">Styles</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.styles.Styles.add"><code class="docutils literal notranslate"><span class="pre">Styles.add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.styles.Styles.convertUnits"><code class="docutils literal notranslate"><span class="pre">Styles.convertUnits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.styles.Styles.remove"><code class="docutils literal notranslate"><span class="pre">Styles.remove()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.styles.Styles.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Styles.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html#module-PoPs.suite">Suite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.suite.SortedSuite"><code class="docutils literal notranslate"><span class="pre">SortedSuite</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.suite.SortedSuite.addIndex"><code class="docutils literal notranslate"><span class="pre">SortedSuite.addIndex()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.suite.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.suite.Suite.add"><code class="docutils literal notranslate"><span class="pre">Suite.add()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.suite.Suite.addIndex"><code class="docutils literal notranslate"><span class="pre">Suite.addIndex()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.suite.Suite.allowedClasses"><code class="docutils literal notranslate"><span class="pre">Suite.allowedClasses</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.suite.Suite.check"><code class="docutils literal notranslate"><span class="pre">Suite.check()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.suite.Suite.convertUnits"><code class="docutils literal notranslate"><span class="pre">Suite.convertUnits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.suite.Suite.keys"><code class="docutils literal notranslate"><span class="pre">Suite.keys()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.suite.Suite.parseNode"><code class="docutils literal notranslate"><span class="pre">Suite.parseNode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.suite.Suite.pop"><code class="docutils literal notranslate"><span class="pre">Suite.pop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.suite.Suite.remove"><code class="docutils literal notranslate"><span class="pre">Suite.remove()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.suite.Suite.replicate"><code class="docutils literal notranslate"><span class="pre">Suite.replicate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.suite.Suite.toXML_strList"><code class="docutils literal notranslate"><span class="pre">Suite.toXML_strList()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.suite.Suite.uniqueLabel"><code class="docutils literal notranslate"><span class="pre">Suite.uniqueLabel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html#module-PoPs.alias">Aliases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.alias.Alias"><code class="docutils literal notranslate"><span class="pre">Alias</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.alias.Alias.intid"><code class="docutils literal notranslate"><span class="pre">Alias.intid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.alias.Alias.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">Alias.parseNodeUsingClass()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.alias.BaseAlias"><code class="docutils literal notranslate"><span class="pre">BaseAlias</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.alias.BaseAlias.copy"><code class="docutils literal notranslate"><span class="pre">BaseAlias.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.alias.BaseAlias.getMass"><code class="docutils literal notranslate"><span class="pre">BaseAlias.getMass()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.alias.BaseAlias.toXML_strList"><code class="docutils literal notranslate"><span class="pre">BaseAlias.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.alias.MetaStable"><code class="docutils literal notranslate"><span class="pre">MetaStable</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.alias.MetaStable.copy"><code class="docutils literal notranslate"><span class="pre">MetaStable.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.alias.MetaStable.intid"><code class="docutils literal notranslate"><span class="pre">MetaStable.intid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.alias.MetaStable.nuclideNameAndMetaStableIndexFromName"><code class="docutils literal notranslate"><span class="pre">MetaStable.nuclideNameAndMetaStableIndexFromName()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.alias.MetaStable.parseNodeUsingClass"><code class="docutils literal notranslate"><span class="pre">MetaStable.parseNodeUsingClass()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.alias.MetaStable.toXML_strList"><code class="docutils literal notranslate"><span class="pre">MetaStable.toXML_strList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.alias.Suite"><code class="docutils literal notranslate"><span class="pre">Suite</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.alias.Suite.has_pid"><code class="docutils literal notranslate"><span class="pre">Suite.has_pid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.alias.Suite.parseNode"><code class="docutils literal notranslate"><span class="pre">Suite.parseNode()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html#id1">Misc</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.misc.ClassWithIDKey"><code class="docutils literal notranslate"><span class="pre">ClassWithIDKey</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.misc.ClassWithIDKey.keyValue"><code class="docutils literal notranslate"><span class="pre">ClassWithIDKey.keyValue</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.misc.ClassWithIndexKey"><code class="docutils literal notranslate"><span class="pre">ClassWithIndexKey</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.misc.ClassWithLabelKey"><code class="docutils literal notranslate"><span class="pre">ClassWithLabelKey</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.misc.ClassWithSubshellKey"><code class="docutils literal notranslate"><span class="pre">ClassWithSubshellKey</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.misc.ClassWithSymbolKey"><code class="docutils literal notranslate"><span class="pre">ClassWithSymbolKey</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.misc.baseAntiFromID"><code class="docutils literal notranslate"><span class="pre">baseAntiFromID()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.misc.idWithQualifierRemoved"><code class="docutils literal notranslate"><span class="pre">idWithQualifierRemoved()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.misc.parseParticleList"><code class="docutils literal notranslate"><span class="pre">parseParticleList()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.misc.returnAntiParticleIDFromId"><code class="docutils literal notranslate"><span class="pre">returnAntiParticleIDFromId()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.misc.toLimitedString"><code class="docutils literal notranslate"><span class="pre">toLimitedString()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html#module-PoPs.warning">Warnings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.warning.AliasToNonExistentParticle"><code class="docutils literal notranslate"><span class="pre">AliasToNonExistentParticle</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.warning.Context"><code class="docutils literal notranslate"><span class="pre">Context</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.warning.Context.filter"><code class="docutils literal notranslate"><span class="pre">Context.filter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.warning.Context.flatten"><code class="docutils literal notranslate"><span class="pre">Context.flatten()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#PoPs.warning.Context.toStringList"><code class="docutils literal notranslate"><span class="pre">Context.toStringList()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.warning.DiscreteLevelsOutOfOrder"><code class="docutils literal notranslate"><span class="pre">DiscreteLevelsOutOfOrder</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.warning.NotImplemented"><code class="docutils literal notranslate"><span class="pre">NotImplemented</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.warning.UnknownEnergy"><code class="docutils literal notranslate"><span class="pre">UnknownEnergy</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.warning.UnnormalizedDecayProbabilities"><code class="docutils literal notranslate"><span class="pre">UnnormalizedDecayProbabilities</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#PoPs.warning.Warning"><code class="docutils literal notranslate"><span class="pre">Warning</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
 <section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">¶</a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="../genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="../py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
@@ -136,77 +835,92 @@ access any particle that it contains.</p>
 </section>
 
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-  <div>
-    <h3><a href="../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">Properties of Particles (PoPs)</a></li>
-<li><a class="reference internal" href="#contents">Contents</a></li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
-</ul>
+<h1 class="logo"><a href="../index.html">Fudge and GNDS</a></h1>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="../xData/index.html"
-                          title="previous chapter">xData</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="intro.html"
-                          title="next chapter">Introduction</a></p>
-  </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/PoPs/index.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xData/index.html">xData</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../xData/index.html" title="previous chapter">xData</a></li>
+      <li>Next: <a href="intro.html" title="next chapter">Introduction</a></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="intro.html" title="Introduction"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="../xData/index.html" title="xData"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Properties of Particles (PoPs)</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/PoPs/index.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

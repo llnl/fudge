@@ -10,22 +10,16 @@ SHELL := /bin/bash
 SUBMODULES = xData PoPs numericalFunctions brownies Merced crossSectionAdjustForHeatedTarget pqu
 
 .PHONY: default build inplace bin rebuild-test-data clean realclean build \
-        crossSectionAdjustForHeatedTarget numericalFunctions fudgeVersion gitSubmodulesUpToDate
+        crossSectionAdjustForHeatedTarget numericalFunctions fudgeVersion
 
 PYTHON = python3
 
 default: all
 
-all: gitSubmodulesUpToDate fudgeVersion inplace2 bin
+all: fudgeVersion inplace2 bin
 
 fudgeVersion:
 	$(PYTHON) getFudgeVersion.py
-
-gitSubmodulesUpToDate:
-	for submodule in $(SUBMODULES); do if [[ `git diff $$submodule` ]]; then echo 'INFO: Have you executed "git submodule update --recursive"?'; break; fi; done
-
-build:
-	$(PYTHON) setup.py --quiet build
 
 inplace: inplace2
 	@echo 'INFO: This target does not build bin'
@@ -68,6 +62,7 @@ tar:
 	tar -cf $${fileName}.tar $$fileName
 
 docs:
+	cd Merced; $(MAKE) doc; cd ..
 	cd doc/sphinx; $(MAKE) $(MODE) html; cd ../..
 
 rebuild-test-data:
@@ -151,12 +146,12 @@ check-fudge: rebuild-test-data
 
 crossSectionAdjustForHeatedTarget:
 	if [[ -d crossSectionAdjustForHeatedTarget/build ]]; then rm -rf crossSectionAdjustForHeatedTarget/build; fi
-	cd crossSectionAdjustForHeatedTarget; $(PYTHON) setup.py --quiet build 
+	cd crossSectionAdjustForHeatedTarget; $(PYTHON) -m pip install --quiet .
 	find crossSectionAdjustForHeatedTarget/build -iname "*crossSectionAdjustForHeatedTarget*" \
 	  -ipath "*build/lib*/crossSectionAdjustForHeatedTarget*/*crossSectionAdjustForHeatedTarget*" \
 	  -exec cp {} crossSectionAdjustForHeatedTarget/lib \;
 
 numericalFunctions:
-	export PYTHONPATH=${PYTHONPATH}:`pwd`; cd numericalFunctions; $(PYTHON) setup.py --quiet build
+	export PYTHONPATH=${PYTHONPATH}:`pwd`; cd numericalFunctions; $(PYTHON) -m pip install --quiet .
 	find numericalFunctions/build -ipath "numericalFunctions/build/lib*/numericalFunctions/*" ! -iname "__init__.py" \
 	  -exec cp {} numericalFunctions/lib \;

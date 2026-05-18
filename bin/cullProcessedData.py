@@ -13,25 +13,27 @@ import pathlib
 from LUPY import argumentsForScripts as argumentsForScriptsModule
 import fudge.styles as stylesModule
 
-summaryDocString__FUDGE = """This script removed all processed data (except resonance reconstructed data) for the specified GNDS protare file."""
+summaryDocString__FUDGE = """Removes all processed data (except optionally reconstructed resonances) from the specified GNDS reactionSuite."""
 
-description = summaryDocString__FUDGE + """ If option "--outputDir" is present, the directory is striped from the output path and replaced 
+description = summaryDocString__FUDGE + """ If option "--outputDir" is present, the directory is stripped from the output path and replaced
 with the specified path."""
 
 parser = argparse.ArgumentParser(description=description, allow_abbrev=False)
 singleProtareArguments = argumentsForScriptsModule.SingleProtareArguments(parser)
-parser.add_argument('outputPath', default=None, type=pathlib.Path,             help='Output file name.')
-parser.add_argument('--outputDir', action='store', default=None, type=pathlib.Path,     help='The output directory to write the output file to.')
+parser.add_argument('outputPath', nargs='?', default=None, type=pathlib.Path,  help='Output file name.')
+parser.add_argument('-o', '--outputDir', default=None, type=pathlib.Path,      help='The output directory to write the output file to.')
+parser.add_argument('-s', '--suffix', default='.culled.xml', type=str,         help='Suffix to add to culled file.')
+parser.add_argument('-r', '--reconstructedResonances', action='store_true',    help='Also cull reconstructed resonances.')
 
 args = parser.parse_args()
 
-protare = singleProtareArguments.protare(args)
-protare.cullProcessedData()
+protare = singleProtareArguments.protare(args, lazyParsing=False)
+protare.cullProcessedData(args.reconstructedResonances)
 
 outputPath = args.outputPath
 if outputPath is None:
-    outputPath = pathlib.Path(protare.sourcePath).with_suffix('.culled.xml')
+    outputPath = pathlib.Path(protare.sourcePath).with_suffix(args.suffix)
 if args.outputDir is not None:
     outputPath = args.outputDir / outputPath.name
 
-protare.saveToFile(outputPath)
+protare.saveAllToFile(outputPath)

@@ -1,56 +1,42 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Particle families &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../_static/gnd-20121206-favicon.ico"/>
+    <title>Particle families &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Particle groups" href="groups.html" />
-    <link rel="prev" title="Database" href="database.html" /> 
+    <link rel="prev" title="Database" href="database.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="groups.html" title="Particle groups"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="database.html" title="Database"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Properties of Particles (PoPs)</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Particle families</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <section id="particle-families">
-<span id="families"></span><h1>Particle families<a class="headerlink" href="#particle-families" title="Permalink to this heading">¶</a></h1>
+<span id="families"></span><h1>Particle families<a class="headerlink" href="#particle-families" title="Link to this heading">¶</a></h1>
 <p>Within a PoPs database, particles are organized into families.
 Several particle families should be familiar to nuclear and particle physicists:</p>
 <ul class="simple">
@@ -96,26 +82,26 @@ like normal particles they may be assigned basic particle properties like a mass
 <p>Each particle family inherits from an abstract base particle class, defined in PoPs.families.particle.
 A family may define additional particle properties that its members can contain.</p>
 <section id="module-PoPs.families.particle">
-<span id="base-particle"></span><h2>Base particle<a class="headerlink" href="#module-PoPs.families.particle" title="Permalink to this heading">¶</a></h2>
+<span id="base-particle"></span><h2>Base particle<a class="headerlink" href="#module-PoPs.families.particle" title="Link to this heading">¶</a></h2>
 <p>This module defines the abstract base class for all types of particle appearing in PoPs.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.particle.</span></span><span class="sig-name descname"><span class="pre">Particle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.particle.</span></span><span class="sig-name descname"><span class="pre">Particle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle" title="Link to this definition">¶</a></dt>
 <dd><p>This is the abstract base class for all particles.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.__eq__">
-<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.__eq__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.__eq__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.__eq__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.__eq__" title="Link to this definition">¶</a></dt>
 <dd><p>Return self==value.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.__hash__">
-<span class="sig-name descname"><span class="pre">__hash__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#PoPs.families.particle.Particle.__hash__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__hash__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#PoPs.families.particle.Particle.__hash__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>id</strong> – The particle id. Every particle in a PoPs database must have a unique id.</p>
@@ -125,7 +111,7 @@ A family may define additional particle properties that its members can contain.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.buildFromClassAndRawData">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">buildFromClassAndRawData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">halflife</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.buildFromClassAndRawData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.buildFromClassAndRawData" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">buildFromClassAndRawData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">halflife</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.buildFromClassAndRawData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.buildFromClassAndRawData" title="Link to this definition">¶</a></dt>
 <dd><p>Helper method to create a particle from class <em>cls</em> and to add common properties to the particle.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -144,7 +130,7 @@ A family may define additional particle properties that its members can contain.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.buildFromRawData">
-<span class="sig-name descname"><span class="pre">buildFromRawData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">halflife</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.buildFromRawData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.buildFromRawData" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">buildFromRawData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charge</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">halflife</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.buildFromRawData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.buildFromRawData" title="Link to this definition">¶</a></dt>
 <dd><p>Helper method to conviniently add the common properties to a particle.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -162,7 +148,7 @@ A family may define additional particle properties that its members can contain.
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.charge">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">charge</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.charge" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">charge</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.charge" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>particle charge</p>
@@ -172,7 +158,7 @@ A family may define additional particle properties that its members can contain.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.check">
-<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.check" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.check" title="Link to this definition">¶</a></dt>
 <dd><p>Basic physics checking for particles.</p>
 <dl class="simple">
 <dt>Options &amp; defaults:</dt><dd><p>‘branchingRatioSumTolerance’      1e-6</p>
@@ -182,13 +168,13 @@ A family may define additional particle properties that its members can contain.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.convertUnits">
-<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.convertUnits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.convertUnits" title="Link to this definition">¶</a></dt>
 <dd><p>See convertUnits documentation in PoPs.database</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.copy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.copy" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>deep copy of self</p>
@@ -198,7 +184,7 @@ A family may define additional particle properties that its members can contain.
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.decayData">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">decayData</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.decayData" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">decayData</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.decayData" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>particle decay information</p>
@@ -208,7 +194,7 @@ A family may define additional particle properties that its members can contain.
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.family">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">family</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.family" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">family</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.family" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>family name of the particle</p>
@@ -218,7 +204,7 @@ A family may define additional particle properties that its members can contain.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.getMass">
-<span class="sig-name descname"><span class="pre">getMass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.getMass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.getMass" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getMass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.getMass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.getMass" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluate the particle mass in the desired unit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -232,7 +218,7 @@ A family may define additional particle properties that its members can contain.
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.halflife">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">halflife</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.halflife" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">halflife</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.halflife" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>particle halflife</p>
@@ -242,7 +228,7 @@ A family may define additional particle properties that its members can contain.
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.isAnti">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isAnti</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.isAnti" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">isAnti</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.isAnti" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>whether this is an anti-particle</p>
@@ -252,7 +238,7 @@ A family may define additional particle properties that its members can contain.
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.mass">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mass</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.mass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mass</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.mass" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>particle mass</p>
@@ -262,7 +248,7 @@ A family may define additional particle properties that its members can contain.
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.parity">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parity</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.parity" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parity</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.parity" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>particle parity</p>
@@ -272,7 +258,7 @@ A family may define additional particle properties that its members can contain.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>This method must be overrwritten by the derived class.
 The overrwritten method must construct a class of instance <em>cls</em> using <em>node</em></p>
 <dl class="field-list simple">
@@ -289,13 +275,13 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.particleCompare">
-<span class="sig-name descname"><span class="pre">particleCompare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.particleCompare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.particleCompare" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">particleCompare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.particleCompare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.particleCompare" title="Link to this definition">¶</a></dt>
 <dd><p>Compares <em>self</em> to particle <em>other</em> which can be from an particle family.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.replicate">
-<span class="sig-name descname"><span class="pre">replicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.replicate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.replicate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">replicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.replicate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.replicate" title="Link to this definition">¶</a></dt>
 <dd><p>Copy data from other into self</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -306,13 +292,13 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.sortCompare">
-<span class="sig-name descname"><span class="pre">sortCompare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.sortCompare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.sortCompare" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">sortCompare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.sortCompare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.sortCompare" title="Link to this definition">¶</a></dt>
 <dd><p>This should be defined in each sub-class.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.spin">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spin</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.spin" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spin</span></span><a class="headerlink" href="#PoPs.families.particle.Particle.spin" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>particle spin</p>
@@ -322,7 +308,7 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.Particle.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Particle.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Particle.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>This methods must be overwritten by the derived class. It must return a Python list of strings that are the XML representation of <em>self</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -335,46 +321,46 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.families.particle.ParticleSorter">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.particle.</span></span><span class="sig-name descname"><span class="pre">ParticleSorter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#ParticleSorter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.ParticleSorter" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.particle.</span></span><span class="sig-name descname"><span class="pre">ParticleSorter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#ParticleSorter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.ParticleSorter" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.ParticleSorter.__getitem__">
-<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#ParticleSorter.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.ParticleSorter.__getitem__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#ParticleSorter.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.ParticleSorter.__getitem__" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the particle(s) specified by <em>index</em>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.ParticleSorter.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#ParticleSorter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.ParticleSorter.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#ParticleSorter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.ParticleSorter.__init__" title="Link to this definition">¶</a></dt>
 <dd><p>Constructor.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.ParticleSorter.__iter__">
-<span class="sig-name descname"><span class="pre">__iter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#ParticleSorter.__iter__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.ParticleSorter.__iter__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__iter__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#ParticleSorter.__iter__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.ParticleSorter.__iter__" title="Link to this definition">¶</a></dt>
 <dd><p>Iterates over the particles in <em>self</em>.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.ParticleSorter.__len__">
-<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#ParticleSorter.__len__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.ParticleSorter.__len__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#ParticleSorter.__len__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.ParticleSorter.__len__" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the number of particles in <em>self</em>.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="PoPs.families.particle.ParticleSorter.__weakref__">
-<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#PoPs.families.particle.ParticleSorter.__weakref__" title="Permalink to this definition">¶</a></dt>
-<dd><p>list of weak references to the object (if defined)</p>
+<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#PoPs.families.particle.ParticleSorter.__weakref__" title="Link to this definition">¶</a></dt>
+<dd><p>list of weak references to the object</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.ParticleSorter.add">
-<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">particle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#ParticleSorter.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.ParticleSorter.add" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">particle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#ParticleSorter.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.ParticleSorter.add" title="Link to this definition">¶</a></dt>
 <dd><p>Determines the location of <em>particle</em> in <em>self</em> and inserts it at that location.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.families.particle.ParticleSorter.overwrite">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">overwrite</span></span><a class="headerlink" href="#PoPs.families.particle.ParticleSorter.overwrite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">overwrite</span></span><a class="headerlink" href="#PoPs.families.particle.ParticleSorter.overwrite" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the value of self.__overwrite.</p>
 </dd></dl>
 
@@ -382,10 +368,10 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.families.particle.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.particle.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.particle.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Suite" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.Suite.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Suite.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Suite.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -400,7 +386,7 @@ having the same key.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.particle.Suite.parseNode">
-<span class="sig-name descname"><span class="pre">parseNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Suite.parseNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Suite.parseNode" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">parseNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/particle.html#Suite.parseNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.particle.Suite.parseNode" title="Link to this definition">¶</a></dt>
 <dd><p>This method must be overrwritten by the derived class.
 The overrwritten method must fill in <em>self</em> with data in <em>node</em>.</p>
 <dl class="field-list simple">
@@ -419,15 +405,15 @@ The overrwritten method must fill in <em>self</em> with data in <em>node</em>.</
 
 </section>
 <section id="module-PoPs.families.gaugeBoson">
-<span id="gaugeboson"></span><h2>gaugeBoson<a class="headerlink" href="#module-PoPs.families.gaugeBoson" title="Permalink to this heading">¶</a></h2>
+<span id="gaugeboson"></span><h2>gaugeBoson<a class="headerlink" href="#module-PoPs.families.gaugeBoson" title="Link to this heading">¶</a></h2>
 <p>This module contains the gaugeBoson class definitions.
 Gauge bosons include the photon, gluon, W and Z particles</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.families.gaugeBoson.Particle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.gaugeBoson.</span></span><span class="sig-name descname"><span class="pre">Particle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/gaugeBoson.html#Particle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.gaugeBoson.Particle" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.gaugeBoson.</span></span><span class="sig-name descname"><span class="pre">Particle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/gaugeBoson.html#Particle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.gaugeBoson.Particle" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.gaugeBoson.Particle.__lt__">
-<span class="sig-name descname"><span class="pre">__lt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/gaugeBoson.html#Particle.__lt__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.gaugeBoson.Particle.__lt__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__lt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/gaugeBoson.html#Particle.__lt__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.gaugeBoson.Particle.__lt__" title="Link to this definition">¶</a></dt>
 <dd><p>Return self&lt;value.</p>
 </dd></dl>
 
@@ -435,10 +421,10 @@ Gauge bosons include the photon, gluon, W and Z particles</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.families.gaugeBoson.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.gaugeBoson.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/gaugeBoson.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.gaugeBoson.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.gaugeBoson.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/gaugeBoson.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.gaugeBoson.Suite" title="Link to this definition">¶</a></dt>
 <dd><dl class="py attribute">
 <dt class="sig sig-object py" id="PoPs.families.gaugeBoson.Suite.particle">
-<span class="sig-name descname"><span class="pre">particle</span></span><a class="headerlink" href="#PoPs.families.gaugeBoson.Suite.particle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">particle</span></span><a class="headerlink" href="#PoPs.families.gaugeBoson.Suite.particle" title="Link to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="#PoPs.families.gaugeBoson.Particle" title="PoPs.families.gaugeBoson.Particle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Particle</span></code></a></p>
 </dd></dl>
 
@@ -446,20 +432,25 @@ Gauge bosons include the photon, gluon, W and Z particles</p>
 
 </section>
 <section id="module-PoPs.families.lepton">
-<span id="lepton"></span><h2>lepton<a class="headerlink" href="#module-PoPs.families.lepton" title="Permalink to this heading">¶</a></h2>
+<span id="lepton"></span><h2>lepton<a class="headerlink" href="#module-PoPs.families.lepton" title="Link to this heading">¶</a></h2>
 <p>This module contains the lepton class definitions.
 Leptons include electrons, neutrinos, etc.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.families.lepton.Generation">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.lepton.</span></span><span class="sig-name descname"><span class="pre">Generation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/lepton.html#Generation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.lepton.Generation" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.lepton.</span></span><span class="sig-name descname"><span class="pre">Generation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/lepton.html#Generation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.lepton.Generation" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="PoPs.families.lepton.Generation.__new__">
+<span class="sig-name descname"><span class="pre">__new__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PoPs.families.lepton.Generation.__new__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
+
+</dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.families.lepton.Particle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.lepton.</span></span><span class="sig-name descname"><span class="pre">Particle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/lepton.html#Particle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.lepton.Particle" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.lepton.</span></span><span class="sig-name descname"><span class="pre">Particle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/lepton.html#Particle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.lepton.Particle" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.lepton.Particle.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/lepton.html#Particle.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.lepton.Particle.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/lepton.html#Particle.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.lepton.Particle.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>id</strong> – The particle id. Every particle in a PoPs database must have a unique id.</p>
@@ -469,13 +460,13 @@ Leptons include electrons, neutrinos, etc.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.lepton.Particle.__lt__">
-<span class="sig-name descname"><span class="pre">__lt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/lepton.html#Particle.__lt__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.lepton.Particle.__lt__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__lt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/lepton.html#Particle.__lt__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.lepton.Particle.__lt__" title="Link to this definition">¶</a></dt>
 <dd><p>Return self&lt;value.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.lepton.Particle.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/lepton.html#Particle.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.lepton.Particle.copy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/lepton.html#Particle.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.lepton.Particle.copy" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>deep copy of self</p>
@@ -487,10 +478,10 @@ Leptons include electrons, neutrinos, etc.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.families.lepton.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.lepton.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/lepton.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.lepton.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.lepton.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/lepton.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.lepton.Suite" title="Link to this definition">¶</a></dt>
 <dd><dl class="py attribute">
 <dt class="sig sig-object py" id="PoPs.families.lepton.Suite.particle">
-<span class="sig-name descname"><span class="pre">particle</span></span><a class="headerlink" href="#PoPs.families.lepton.Suite.particle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">particle</span></span><a class="headerlink" href="#PoPs.families.lepton.Suite.particle" title="Link to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="#PoPs.families.lepton.Particle" title="PoPs.families.lepton.Particle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Particle</span></code></a></p>
 </dd></dl>
 
@@ -498,15 +489,15 @@ Leptons include electrons, neutrinos, etc.</p>
 
 </section>
 <section id="module-PoPs.families.baryon">
-<span id="baryon"></span><h2>baryon<a class="headerlink" href="#module-PoPs.families.baryon" title="Permalink to this heading">¶</a></h2>
+<span id="baryon"></span><h2>baryon<a class="headerlink" href="#module-PoPs.families.baryon" title="Link to this heading">¶</a></h2>
 <p>This module contains the baryon class definitions.
 Baryons include the neutron and proton.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.families.baryon.Particle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.baryon.</span></span><span class="sig-name descname"><span class="pre">Particle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/baryon.html#Particle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.baryon.Particle" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.baryon.</span></span><span class="sig-name descname"><span class="pre">Particle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/baryon.html#Particle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.baryon.Particle" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.baryon.Particle.__lt__">
-<span class="sig-name descname"><span class="pre">__lt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/baryon.html#Particle.__lt__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.baryon.Particle.__lt__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__lt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/baryon.html#Particle.__lt__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.baryon.Particle.__lt__" title="Link to this definition">¶</a></dt>
 <dd><p>Return self&lt;value.</p>
 </dd></dl>
 
@@ -514,10 +505,10 @@ Baryons include the neutron and proton.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.families.baryon.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.baryon.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/baryon.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.baryon.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.baryon.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/baryon.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.baryon.Suite" title="Link to this definition">¶</a></dt>
 <dd><dl class="py attribute">
 <dt class="sig sig-object py" id="PoPs.families.baryon.Suite.particle">
-<span class="sig-name descname"><span class="pre">particle</span></span><a class="headerlink" href="#PoPs.families.baryon.Suite.particle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">particle</span></span><a class="headerlink" href="#PoPs.families.baryon.Suite.particle" title="Link to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="#PoPs.families.baryon.Particle" title="PoPs.families.baryon.Particle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Particle</span></code></a></p>
 </dd></dl>
 
@@ -525,14 +516,14 @@ Baryons include the neutron and proton.</p>
 
 </section>
 <section id="module-PoPs.families.nuclide">
-<span id="nuclide"></span><h2>nuclide<a class="headerlink" href="#module-PoPs.families.nuclide" title="Permalink to this heading">¶</a></h2>
+<span id="nuclide"></span><h2>nuclide<a class="headerlink" href="#module-PoPs.families.nuclide" title="Link to this heading">¶</a></h2>
 <p>This module contains the nuclear level classes.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.families.nuclide.Particle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.nuclide.</span></span><span class="sig-name descname"><span class="pre">Particle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.nuclide.</span></span><span class="sig-name descname"><span class="pre">Particle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nuclide.Particle.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>id</strong> – The particle id. Every particle in a PoPs database must have a unique id.</p>
@@ -542,13 +533,13 @@ Baryons include the neutron and proton.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nuclide.Particle.__lt__">
-<span class="sig-name descname"><span class="pre">__lt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.__lt__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.__lt__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__lt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.__lt__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.__lt__" title="Link to this definition">¶</a></dt>
 <dd><p>Return self&lt;value.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nuclide.Particle.check">
-<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.check" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.check" title="Link to this definition">¶</a></dt>
 <dd><p>Basic physics checking for particles.</p>
 <dl class="simple">
 <dt>Options &amp; defaults:</dt><dd><p>‘branchingRatioSumTolerance’      1e-6</p>
@@ -558,13 +549,13 @@ Baryons include the neutron and proton.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nuclide.Particle.convertUnits">
-<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.convertUnits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.convertUnits" title="Link to this definition">¶</a></dt>
 <dd><p>See convertUnits documentation in PoPs.database</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nuclide.Particle.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.copy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.copy" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>deep copy of self</p>
@@ -574,7 +565,7 @@ Baryons include the neutron and proton.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nuclide.Particle.getMass">
-<span class="sig-name descname"><span class="pre">getMass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.getMass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.getMass" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getMass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.getMass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.getMass" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluate the particle mass in the desired unit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -588,19 +579,19 @@ Baryons include the neutron and proton.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nuclide.Particle.intid">
-<span class="sig-name descname"><span class="pre">intid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intidDB</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.intid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.intid" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">intid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intidDB</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.intid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.intid" title="Link to this definition">¶</a></dt>
 <dd><p>Converts the particle id into a unique integer dubbed an INTeger ID (INTID).</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nuclide.Particle.particleCompare">
-<span class="sig-name descname"><span class="pre">particleCompare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.particleCompare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.particleCompare" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">particleCompare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.particleCompare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.particleCompare" title="Link to this definition">¶</a></dt>
 <dd><p>Compares <em>self</em> to particle <em>other</em> which can be from an particle family.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nuclide.Particle.sortCompare">
-<span class="sig-name descname"><span class="pre">sortCompare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.sortCompare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.sortCompare" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">sortCompare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Particle.sortCompare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Particle.sortCompare" title="Link to this definition">¶</a></dt>
 <dd><p>This should be defined in each sub-class.</p>
 </dd></dl>
 
@@ -608,10 +599,10 @@ Baryons include the neutron and proton.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.families.nuclide.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.nuclide.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.nuclide.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nuclide.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nuclide.Suite" title="Link to this definition">¶</a></dt>
 <dd><dl class="py attribute">
 <dt class="sig sig-object py" id="PoPs.families.nuclide.Suite.particle">
-<span class="sig-name descname"><span class="pre">particle</span></span><a class="headerlink" href="#PoPs.families.nuclide.Suite.particle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">particle</span></span><a class="headerlink" href="#PoPs.families.nuclide.Suite.particle" title="Link to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="#PoPs.families.nuclide.Particle" title="PoPs.families.nuclide.Particle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Particle</span></code></a></p>
 </dd></dl>
 
@@ -619,16 +610,16 @@ Baryons include the neutron and proton.</p>
 
 </section>
 <section id="module-PoPs.families.nucleus">
-<span id="nucleus"></span><h2>nucleus<a class="headerlink" href="#module-PoPs.families.nucleus" title="Permalink to this heading">¶</a></h2>
+<span id="nucleus"></span><h2>nucleus<a class="headerlink" href="#module-PoPs.families.nucleus" title="Link to this heading">¶</a></h2>
 <p>This module contains the nucleus class definitions.
 The nucleus consists only of baryons, so quantities like spin, charge, etc. do not include atomic electrons.
 For the compound particle formed of a nucleus + electrons, see the <cite>nuclide</cite> module.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.families.nucleus.Particle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.nucleus.</span></span><span class="sig-name descname"><span class="pre">Particle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.nucleus.</span></span><span class="sig-name descname"><span class="pre">Particle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nucleus.Particle.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -641,19 +632,19 @@ For the compound particle formed of a nucleus + electrons, see the <cite>nuclide
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nucleus.Particle.__lt__">
-<span class="sig-name descname"><span class="pre">__lt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.__lt__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.__lt__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__lt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.__lt__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.__lt__" title="Link to this definition">¶</a></dt>
 <dd><p>Return self&lt;value.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nucleus.Particle.convertUnits">
-<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.convertUnits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.convertUnits" title="Link to this definition">¶</a></dt>
 <dd><p>See convertUnits documentation in PoPs.database</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nucleus.Particle.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.copy" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.copy" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>deep copy of self</p>
@@ -663,7 +654,7 @@ For the compound particle formed of a nucleus + electrons, see the <cite>nuclide
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nucleus.Particle.getMass">
-<span class="sig-name descname"><span class="pre">getMass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.getMass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.getMass" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">getMass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unit</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.getMass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.getMass" title="Link to this definition">¶</a></dt>
 <dd><p>Evaluate the nucleus mass in the desired unit. Mass is adjusted for excitation energy,
 but not for electron masses / binding energy.
 :param unit: desired unit (string)
@@ -672,26 +663,26 @@ but not for electron masses / binding energy.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nucleus.Particle.intid">
-<span class="sig-name descname"><span class="pre">intid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intidDB</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.intid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.intid" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">intid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intidDB</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.intid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.intid" title="Link to this definition">¶</a></dt>
 <dd><p>Converts the particle id into a unique integer dubbed an INTeger ID (INTID).</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nucleus.Particle.particleCompare">
-<span class="sig-name descname"><span class="pre">particleCompare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.particleCompare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.particleCompare" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">particleCompare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.particleCompare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.particleCompare" title="Link to this definition">¶</a></dt>
 <dd><p>Compares <em>self</em> to particle <em>other</em> which can be from an particle family.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nucleus.Particle.replicate">
-<span class="sig-name descname"><span class="pre">replicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.replicate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.replicate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">replicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.replicate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.replicate" title="Link to this definition">¶</a></dt>
 <dd><p>Copy data from other into self
 :param other: another nucleus.Particle instance</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.nucleus.Particle.sortCompare">
-<span class="sig-name descname"><span class="pre">sortCompare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.sortCompare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.sortCompare" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">sortCompare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/nucleus.html#Particle.sortCompare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.nucleus.Particle.sortCompare" title="Link to this definition">¶</a></dt>
 <dd><p>This should be defined in each sub-class.</p>
 </dd></dl>
 
@@ -699,7 +690,7 @@ but not for electron masses / binding energy.
 
 </section>
 <section id="module-PoPs.families.unorthodox">
-<span id="unorthodox"></span><h2>unorthodox<a class="headerlink" href="#module-PoPs.families.unorthodox" title="Permalink to this heading">¶</a></h2>
+<span id="unorthodox"></span><h2>unorthodox<a class="headerlink" href="#module-PoPs.families.unorthodox" title="Link to this heading">¶</a></h2>
 <p>This module contains the ‘unorthodox’ class definitions.
 Unorthodox particles are used when a particle-like object needs to be described in PoPs even though
 it does not fit in the normal definition of a particle.
@@ -708,10 +699,10 @@ Currently used to store average fission product particles
 In the future, may also be used for ‘thermal scattering law’ particles.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.families.unorthodox.Particle">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.unorthodox.</span></span><span class="sig-name descname"><span class="pre">Particle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/unorthodox.html#Particle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.unorthodox.Particle" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.unorthodox.</span></span><span class="sig-name descname"><span class="pre">Particle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/unorthodox.html#Particle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.unorthodox.Particle" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.families.unorthodox.Particle.__lt__">
-<span class="sig-name descname"><span class="pre">__lt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/unorthodox.html#Particle.__lt__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.unorthodox.Particle.__lt__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__lt__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/unorthodox.html#Particle.__lt__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.unorthodox.Particle.__lt__" title="Link to this definition">¶</a></dt>
 <dd><p>Return self&lt;value.</p>
 </dd></dl>
 
@@ -719,10 +710,10 @@ In the future, may also be used for ‘thermal scattering law’ particles.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.families.unorthodox.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.unorthodox.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/unorthodox.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.unorthodox.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.families.unorthodox.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">replace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/families/unorthodox.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.families.unorthodox.Suite" title="Link to this definition">¶</a></dt>
 <dd><dl class="py attribute">
 <dt class="sig sig-object py" id="PoPs.families.unorthodox.Suite.particle">
-<span class="sig-name descname"><span class="pre">particle</span></span><a class="headerlink" href="#PoPs.families.unorthodox.Suite.particle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">particle</span></span><a class="headerlink" href="#PoPs.families.unorthodox.Suite.particle" title="Link to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="#PoPs.families.unorthodox.Particle" title="PoPs.families.unorthodox.Particle"><code class="xref py py-class docutils literal notranslate"><span class="pre">Particle</span></code></a></p>
 </dd></dl>
 
@@ -732,85 +723,94 @@ In the future, may also be used for ‘thermal scattering law’ particles.</p>
 </section>
 
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-  <div>
-    <h3><a href="../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">Particle families</a><ul>
-<li><a class="reference internal" href="#module-PoPs.families.particle">Base particle</a></li>
-<li><a class="reference internal" href="#module-PoPs.families.gaugeBoson">gaugeBoson</a></li>
-<li><a class="reference internal" href="#module-PoPs.families.lepton">lepton</a></li>
-<li><a class="reference internal" href="#module-PoPs.families.baryon">baryon</a></li>
-<li><a class="reference internal" href="#module-PoPs.families.nuclide">nuclide</a></li>
-<li><a class="reference internal" href="#module-PoPs.families.nucleus">nucleus</a></li>
-<li><a class="reference internal" href="#module-PoPs.families.unorthodox">unorthodox</a></li>
-</ul>
-</li>
-</ul>
+<h1 class="logo"><a href="../index.html">Fudge and GNDS</a></h1>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="database.html"
-                          title="previous chapter">Database</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="groups.html"
-                          title="next chapter">Particle groups</a></p>
-  </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/PoPs/families.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Properties of Particles (PoPs)</a><ul>
+      <li>Previous: <a href="database.html" title="previous chapter">Database</a></li>
+      <li>Next: <a href="groups.html" title="next chapter">Particle groups</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="groups.html" title="Particle groups"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="database.html" title="Database"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Properties of Particles (PoPs)</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Particle families</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/PoPs/families.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

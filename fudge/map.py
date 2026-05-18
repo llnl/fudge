@@ -39,6 +39,8 @@ from . import GNDS_file as GNDS_fileModule
 from fudge.core.utilities import guessInteraction as guessInteractionModule
 from fudge import reactionSuite as reactionSuiteModule
 
+from PoPs.specialNuclearParticleID import specialNuclearParticleID
+
 
 __todo = """
     -) Need to make Base and some other classes a meta class.
@@ -48,7 +50,7 @@ class FormatVersion:
     """
     This class is only needed because some legacy map files (map files created before the map node was
     defined in **GNDS**) are still used at LLNL. When these map files are no longer used, this class
-    will be removed. New map files should only be created with **GNDS** format '2.0'.
+    will be removed. New map files should only be created with **GNDS** format '2.0' or later.
     """
 
     version_0_1 = "0.1"
@@ -59,6 +61,7 @@ class FormatVersion:
         GNDS_formatVersionModule.version_1_10,
         GNDS_formatVersionModule.version_2_0_LLNL_4,
         GNDS_formatVersionModule.version_2_0,
+        GNDS_formatVersionModule.version_2_1,
     )
     default = GNDS_formatVersionModule.default
 
@@ -877,9 +880,9 @@ class ProtareBase(EntryBase):
         return False
 
     def preview(self, haltParsingMoniker=stylesModule.Styles.moniker):
-        """
-        This method calls :py:func:`GNDS_fileModule.preview with *haltParsingMoniker*` with *self*'s *fileName* and returns
-        its retults.  See :py:func:`GNDS_fileModule.preview for more details.
+        r"""
+        This method calls :py:func:`GNDS_fileModule.preview with *haltParsingMoniker*` with *self*\'s *fileName*
+        and returns its results.  See :py:func:`GNDS_fileModule.preview` for more details.
 
         :param haltParsingMoniker:  The child node of the protare to halt parsing on.
 
@@ -931,6 +934,13 @@ class ProtareBase(EntryBase):
 
         if item2 is None:
             return True
+
+        if specialNuclearParticleID(item1) == specialNuclearParticleID(item2):
+            return True
+
+        if item1 == item2:      # For case when TNSL target has a regular expression special character in its name.
+            return True
+
         return re.fullmatch(item2, item1) is not None
 
 

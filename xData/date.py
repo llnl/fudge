@@ -15,27 +15,27 @@ following three forms::
 
 This module contains the following classes:
 
-    +-----------------------------------+-----------------------------------------------------------------------+
-    | Class                             | Description                                                           |
-    +===================================+=======================================================================+
-    | Resolution                        | This class is an enum of the supported resolutions for a data/time.   |
-    +-----------------------------------+-----------------------------------------------------------------------+
-    | Date                              | This class represents a GNDS date/time.                               |
-    +-----------------------------------+-----------------------------------------------------------------------+
+    +-----------------------------------+------------------------------------------------------------------------+
+    | Class                             | Description                                                            |
+    +===================================+========================================================================+
+    | Resolution                        | This class is an enum of the supported resolutions for a data/time.    |
+    +-----------------------------------+------------------------------------------------------------------------+
+    | Date                              | This class represents a GNDS date/time.                                |
+    +-----------------------------------+------------------------------------------------------------------------+
 
 This module contains the following functions:
 
-    +-----------------------------------+-----------------------------------------------------------------------+
-    | Function                          | Description                                                           |
-    +===================================+=======================================================================+
-    | raiseIfNotDate                    | This function checks the type of *date* and executes a raise if it    |
-    |                                   | is not a :py:class:`Date` instance.                                   |
-    +-----------------------------------+-----------------------------------------------------------------------+
-    | raiseIfNotPythonDateTime          | This function checks the type of *_datetime* and executes a raise     |
-    |                                   |if it is not a :py:class:`datetime.datetime` instance.  If *_datetime* |
-    |                                   | is an instance of :py:class:`datetime.datetime`, a :py:class:`Date`   |
-    |                                   | representation of it is returned.                                     |
-    +-----------------------------------+-----------------------------------------------------------------------+
+    +-----------------------------------+------------------------------------------------------------------------+
+    | Function                          | Description                                                            |
+    +===================================+========================================================================+
+    | raiseIfNotDate                    | This function checks the type of *date* and executes a raise if it     |
+    |                                   | is not a :py:class:`Date` instance.                                    |
+    +-----------------------------------+------------------------------------------------------------------------+
+    | raiseIfNotPythonDateTime          | This function checks the type of *_datetime* and executes a raise      |
+    |                                   | if it is not a :py:class:`datetime.datetime` instance.  If *_datetime* |
+    |                                   | is an instance of :py:class:`datetime.datetime`, a :py:class:`Date`    |
+    |                                   | representation of it is returned.                                      |
+    +-----------------------------------+------------------------------------------------------------------------+
 """
 
 import sys

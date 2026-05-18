@@ -13,7 +13,7 @@ python parse_endl_covariances.py /usr/gapps/data/nuclear/endl_official/endl2009.
 import sys
 import os
 import numpy
-from xml.etree import cElementTree
+from xml.etree import ElementTree
 
 def covarianceDict(rootdir):  #  ACD ADDED THIS CHUNK
     """
@@ -37,7 +37,7 @@ def parse_endl_covariance(covFile):
     Returns a list of (energy bins,  covariance matrix, covariance_type) tuples.
     The list may be empty (some ENDL cov.xml files are empty).
     """
-    xdoc = cElementTree.parse(covFile)
+    xdoc = ElementTree.parse(covFile)
     root = xdoc.getroot()
     if root.tag not in ('cross_section_covariance'):
         # to-be-done: support energy distribution covariances like za094239/yo01c15i005s000_cov.xml

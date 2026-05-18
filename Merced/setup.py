@@ -5,12 +5,8 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # <<END-copyright>>
 """
-setup.py to support installing Merced via pip.
-
-This setup.py was based on the example at
-https://stackoverflow.com/questions/33168482/compiling-installing-c-executable-using-pythons-setuptools-setup-py
-
-Run as 'python setup.py install'
+This file is required for the custom build process.
+The main configuration is in pyproject.toml, but we still need this for the custom install command.
 """
 
 from setuptools import setup
@@ -26,13 +22,8 @@ class CustomInstall(install):
         super().run()
 
 
+# This setup() function is called by setuptools from pyproject.toml
 setup(
-    name='merced',
-    version='1.0.0',
-    maintainer='mattoon1@llnl.gov',
-    packages=['merced'],
-    package_dir={'merced': 'bin'},
     data_files=[('bin', ['bin/merced'])],
     cmdclass={'install': CustomInstall}
 )
-

@@ -139,13 +139,13 @@ class XYs1d( BaseMultiplicityForm, XYs1dModule.XYs1d ) :
 
         return self.rangeMin == self.rangeMax
 
-    def processMultiGroup( self, style, tempInfo, indent ) :
+    def processMultiGroup(self, style, tempInfo, indent):
 
         from fudge.processing import miscellaneous as miscellaneousModule
 
-        if( tempInfo['verbosity'] > 2 ) : print('%sMulti-grouping XYs1d mutiplicity' % indent)
+        if tempInfo['verbosity'] > 2: print('%sMulti-grouping XYs1d multiplicity' % indent)
 
-        return( miscellaneousModule.groupFunctionCrossSectionAndFlux( Gridded1d, style, tempInfo, self ) )
+        return miscellaneousModule.groupFunctionCrossSectionAndFlux(Gridded1d, style, tempInfo, self)
 
 class Regions1d( BaseMultiplicityForm, regionsModule.Regions1d ) :
 
@@ -406,82 +406,86 @@ def parseNodeUsingClass(cls, multElement, xPath, linkData, **kwargs):
 #
 # multiplicity component
 #
-class Component( abstractClassesModule.Component ) :
+class Component(abstractClassesModule.Component):
 
     moniker = 'multiplicity'
 
-    def __init__( self ) :
+    def __init__(self):
 
-        abstractClassesModule.Component.__init__( self, ( Unspecified, Constant1d, XYs1d, Regions1d, Reference, Polynomial1d,
-                PartialProduction, Gridded1d, Branching1d ) )
+        abstractClassesModule.Component.__init__(
+            self, (Unspecified, Constant1d, XYs1d, Regions1d, Reference, Polynomial1d,
+                   PartialProduction, Gridded1d, Branching1d))
 
-    def isConstant( self ) :
+    def isConstant(self):
 
-        return( isinstance( self.evaluated, Constant1d ) )
+        return isinstance(self.evaluated, Constant1d)
 
-    def getConstant( self ) :
+    def getConstant(self):
 
-        if( self.isConstant()  ) : return( self.evaluated.evaluate( 0 ) )
-        raise Exception( 'multiplicity type = "%s" is not single valued' % self.evaluated.moniker )
-
-    @property
-    def domainMin( self ) :
-
-        return( self.evaluated.domainMin )
+        if self.isConstant(): return self.evaluated.evaluate(0)
+        raise Exception('multiplicity type = "%s" is not single valued' % self.evaluated.moniker)
 
     @property
-    def domainMax( self ) :
+    def domainMin(self):
 
-        return( self.evaluated.domainMax )
+        return self.evaluated.domainMin
 
     @property
-    def domainUnit( self ) :
+    def domainMax(self):
 
-        return( self.evaluated.domainUnit )
+        return self.evaluated.domainMax
 
-    def getEnergyLimits( self, EMin, EMax ) :
+    @property
+    def domainUnit(self):
 
-        return( self.evaluated.getEnergyLimits( EMin, EMax ) )
+        return self.evaluated.domainUnit
+
+    def getEnergyLimits(self, EMin, EMax):
+
+        return self.evaluated.getEnergyLimits(EMin, EMax)
         
-    def evaluate( self, E ) :
+    def evaluate(self, E):
+        """
+        Return the evaluated multiplicity at incident energy E.
+        """
 
-        return( self.evaluated.evaluate( E ) )
+        return self.evaluated.evaluate(E)
 
     def isSpecified(self):
-        '''
-        Returns **True** if *self* has data and if the first is not **Unspecified**.
-        '''
+        """
+        Returns **True** if *self* has data and if the evaluated form is not **Unspecified**.
+        """
 
         if len(self) == 0:
             return False
-        if isinstance(self[0], Unspecified):
+        if isinstance(self.evaluated, Unspecified):
             return False
 
         return True
 
-    def check( self, info ):
+    def check(self, info):
 
         from fudge import warning
         warnings = []
 
         if self.isConstant():
             if self.getConstant() < 1:
-                warnings.append( warning.NegativeMultiplicity( self.getConstant(), self ) )
+                warnings.append(warning.NegativeMultiplicity(self.getConstant(), self))
         else:   # energy-dependent mult.
-            for form in self :
+            for form in self:
                 domain = None
-                if hasattr(form, 'domain') :
+                if hasattr(form, 'domain'):
                     domain = form.domainMin, form.domainMax
-                if( ( domain is not None ) and ( domain != info['crossSectionDomain'] ) ) :
+                if domain is not None and domain != info['crossSectionDomain']:
                     # photon multiplicities can start above cross section domainMin, but domainMax should agree:
-                    if( self.ancestor.pid == IDsPoPsModule.photon ) :
+                    if self.ancestor.pid == IDsPoPsModule.photon:
                         startRatio = domain[0] / info['crossSectionDomain'][0]
                         endRatio = domain[1] / info['crossSectionDomain'][1]
                         if (startRatio < 1 - standardsModule.Floats.epsilon or endRatio < 1 - standardsModule.Floats.epsilon
                             or endRatio > 1 + standardsModule.Floats.epsilon):
                             warnings.append(warning.Domain_mismatch(
                                 *(domain + info['crossSectionDomain']), obj=self))
-                    # For all other products, both domainMin and domainMax should agree within epsilon
+                    # For all other products both domainMin and domainMax should agree within epsilon
                     else:
                         for idx, (e1, e2) in enumerate(zip(domain, info['crossSectionDomain'])):
                             ratio = e1 / e2
@@ -492,6 +496,6 @@ class Component( abstractClassesModule.Component ) :
                                 break
 
                 if hasattr(form, 'rangeMin') and form.rangeMin < 0:
-                    warnings.append( warning.NegativeMultiplicity( form.rangeMin, obj=form ) )
+                    warnings.append(warning.NegativeMultiplicity(form.rangeMin, obj=form))
 
         return warnings

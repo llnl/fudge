@@ -286,6 +286,7 @@ ptwXYPoints *ptwXY_fromString( statusMessageReporting *smr, char const *str, cha
 void ptwXY_showInteralStructure( ptwXYPoints *ptwXY, FILE *f, int printPointersAsNull );
 void ptwXY_simpleWrite( ptwXYPoints *ptwXY, FILE *f, char const *format );
 void ptwXY_simplePrint( ptwXYPoints *ptwXY, char const *format );
+nfu_status ptwXY_simpleSaveToFile( statusMessageReporting *smr, ptwXYPoints *ptwXY, char const *path, char const *format );
 
 /* 
 * Functions in ptwXY_integration.c 
@@ -307,6 +308,8 @@ ptwXPoints *ptwXY_groupTwoFunctions( statusMessageReporting *smr, ptwXYPoints *p
         ptwXPoints *groupBoundaries, ptwXY_group_normType normType, ptwXPoints *ptwX_norm );
 ptwXPoints *ptwXY_groupThreeFunctions( statusMessageReporting *smr, ptwXYPoints *ptwXY1, ptwXYPoints *ptwXY2, 
         ptwXYPoints *ptwXY3, ptwXPoints *groupBoundaries, ptwXY_group_normType normType, ptwXPoints *ptwX_norm );
+ptwXPoints *ptwXY_groupFourFunctions( statusMessageReporting *smr, ptwXYPoints *ptwXY1, ptwXYPoints *ptwXY2,
+        ptwXYPoints *ptwXY3, ptwXYPoints *ptwXY4, ptwXPoints *groupBoundaries, ptwXY_group_normType normType, ptwXPoints *ptwX_norm );
 ptwXPoints *ptwXY_runningIntegral( statusMessageReporting *smr, ptwXYPoints *ptwXY );
 nfu_status ptwXY_integrateWithFunction( statusMessageReporting *smr, ptwXYPoints *ptwXY, ptwXY_createFromFunction_callback func, 
         void *argList, double domainMin, double domainMax, int degree, int recursionLimit, double tolerance,

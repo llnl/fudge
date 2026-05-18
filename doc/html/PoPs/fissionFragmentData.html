@@ -1,56 +1,42 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Fission fragment data &#8212; Fudge and GNDS 6.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
-    
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    
-    <link rel="shortcut icon" href="../_static/gnd-20121206-favicon.ico"/>
+    <title>Fission fragment data &#8212; Fudge and GNDS  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=8203d6f3" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=19b3dfee" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="icon" href="../_static/gnd-20121206-favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Particle IDs" href="misc.html" />
-    <link rel="prev" title="Decay data" href="decays.html" /> 
+    <link rel="prev" title="Decay data" href="decays.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
   </head><body>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="misc.html" title="Particle IDs"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="decays.html" title="Decay data"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Properties of Particles (PoPs)</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Fission fragment data</a></li> 
-      </ul>
-    </div>  
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <section id="module-PoPs.fissionFragmentData.fissionFragmentData">
-<span id="fission-fragment-data"></span><span id="fissionfragmentdata"></span><h1>Fission fragment data<a class="headerlink" href="#module-PoPs.fissionFragmentData.fissionFragmentData" title="Permalink to this heading">¶</a></h1>
+<span id="fission-fragment-data"></span><span id="fissionfragmentdata"></span><h1>Fission fragment data<a class="headerlink" href="#module-PoPs.fissionFragmentData.fissionFragmentData" title="Link to this heading">¶</a></h1>
 <p>This module defines the FissionFragmentData class, used to store spontaneous fission product yields
 and the delayed neutrons and gammas emitted by the decay of those fission products.</p>
 <blockquote>
@@ -64,35 +50,34 @@ and the delayed neutrons and gammas emitted by the decay of those fission produc
 </div></blockquote>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.fissionFragmentData.</span></span><span class="sig-name descname"><span class="pre">FissionFragmentData</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/fissionFragmentData.html#FissionFragmentData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.fissionFragmentData.</span></span><span class="sig-name descname"><span class="pre">FissionFragmentData</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/fissionFragmentData.html#FissionFragmentData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData" title="Link to this definition">¶</a></dt>
 <dd><p>This class stores information about spontaneous fission fragments and their decays.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/fissionFragmentData.html#FissionFragmentData.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/fissionFragmentData.html#FissionFragmentData.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.convertUnits">
-<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/fissionFragmentData.html#FissionFragmentData.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.convertUnits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/fissionFragmentData.html#FissionFragmentData.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.convertUnits" title="Link to this definition">¶</a></dt>
 <dd><p>The convertUnits method recursively searches the <strong>FissionFragmentData</strong> and child classes
 for each unit in the <strong>unitMap</strong> dictionary and converts to the desired new unit.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>unitMap</strong> – dict storing {‘oldUnit’: ‘newUnit’} key-value pairs. Units must be compatible,</p>
+<dd class="field-odd"><p><strong>unitMap</strong> – dict storing {‘oldUnit’: ‘newUnit’}. Units must be compatible, e.g. {‘eV’: ‘MeV’} but not {‘amu’: ‘MeV’}.</p>
 </dd>
 </dl>
-<p>e.g. {‘eV’: ‘MeV’} works but {‘amu’: ‘MeV’} does not.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.delayedNeutronData">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delayedNeutronData</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.delayedNeutronData" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delayedNeutronData</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.delayedNeutronData" title="Link to this definition">¶</a></dt>
 <dd><p>This accesses the delayed neutron data within a <strong>FissionFragmentData</strong> instance.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/fissionFragmentData.html#FissionFragmentData.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/fissionFragmentData.html#FissionFragmentData.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>Parse node from a file, returning a new <strong>FissionFragmentData</strong> instance unless errors were encountered during parsing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -108,13 +93,13 @@ for each unit in the <strong>unitMap</strong> dictionary and converts to the des
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.productYields">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">productYields</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.productYields" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">productYields</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.productYields" title="Link to this definition">¶</a></dt>
 <dd><p>This accesses the fission product yield data within a <strong>FissionFragmentData</strong> instance.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/fissionFragmentData.html#FissionFragmentData.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/fissionFragmentData.html#FissionFragmentData.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.fissionFragmentData.FissionFragmentData.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a list of str instances representing the XML lines of self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -132,28 +117,28 @@ for each unit in the <strong>unitMap</strong> dictionary and converts to the des
 </dd></dl>
 
 <section id="module-PoPs.fissionFragmentData.nuclides">
-<span id="nuclides"></span><h2>nuclides<a class="headerlink" href="#module-PoPs.fissionFragmentData.nuclides" title="Permalink to this heading">¶</a></h2>
+<span id="nuclides"></span><h2>nuclides<a class="headerlink" href="#module-PoPs.fissionFragmentData.nuclides" title="Link to this heading">¶</a></h2>
 <p>This module defines the nuclides class, which stores the list of nuclides produced by fission.
 Meant to be used along with the fissionFragmentData.yields.Yields class to store fission product yields.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.nuclides.Nuclides">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.nuclides.</span></span><span class="sig-name descname"><span class="pre">Nuclides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_nuclides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/nuclides.html#Nuclides"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.nuclides.</span></span><span class="sig-name descname"><span class="pre">Nuclides</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_nuclides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/nuclides.html#Nuclides"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides" title="Link to this definition">¶</a></dt>
 <dd><p>Stores a list of PoPs particle ids. The order (and length) must match the values in the
 corresponding fissionFragmentData.yields.Yields.values.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.nuclides.Nuclides.__eq__">
-<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/nuclides.html#Nuclides.__eq__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.__eq__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/nuclides.html#Nuclides.__eq__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.__eq__" title="Link to this definition">¶</a></dt>
 <dd><p>Returns True iff self and other contain the same list of nuclides in the same order.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.nuclides.Nuclides.__hash__">
-<span class="sig-name descname"><span class="pre">__hash__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.__hash__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__hash__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.__hash__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.nuclides.Nuclides.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_nuclides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/nuclides.html#Nuclides.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_nuclides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/nuclides.html#Nuclides.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.__init__" title="Link to this definition">¶</a></dt>
 <dd><p>Constructs a Nuclides container from a list of product ids.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -164,31 +149,31 @@ corresponding fissionFragmentData.yields.Yields.values.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.nuclides.Nuclides.__len__">
-<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/nuclides.html#Nuclides.__len__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.__len__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__len__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/nuclides.html#Nuclides.__len__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.__len__" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the number of nuclides.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.nuclides.Nuclides.__ne__">
-<span class="sig-name descname"><span class="pre">__ne__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/nuclides.html#Nuclides.__ne__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.__ne__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__ne__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/nuclides.html#Nuclides.__ne__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.__ne__" title="Link to this definition">¶</a></dt>
 <dd><p>Return self!=value.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.nuclides.Nuclides.data">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.data" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.data" title="Link to this definition">¶</a></dt>
 <dd><p>Alternate method for accessing the list of nuclides.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.nuclides.Nuclides.nuclides">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nuclides</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.nuclides" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nuclides</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.nuclides" title="Link to this definition">¶</a></dt>
 <dd><p>Accesses the list of nuclides.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.nuclides.Nuclides.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/nuclides.html#Nuclides.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/nuclides.html#Nuclides.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>Create a new instance of class <strong>cls</strong> and parse contents of node into the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -204,7 +189,7 @@ corresponding fissionFragmentData.yields.Yields.values.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.nuclides.Nuclides.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/nuclides.html#Nuclides.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/nuclides.html#Nuclides.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.nuclides.Nuclides.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a list of str instances representing the XML lines of self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -223,18 +208,18 @@ corresponding fissionFragmentData.yields.Yields.values.</p>
 
 </section>
 <section id="module-PoPs.fissionFragmentData.productYield">
-<span id="productyield"></span><h2>productYield<a class="headerlink" href="#module-PoPs.fissionFragmentData.productYield" title="Permalink to this heading">¶</a></h2>
+<span id="productyield"></span><h2>productYield<a class="headerlink" href="#module-PoPs.fissionFragmentData.productYield" title="Link to this heading">¶</a></h2>
 <p>This module defines the ProductYield and ProductYields classes, storing yields for multiple
 fission products at various elapsed times after fission.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.productYield.ProductYield">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.productYield.</span></span><span class="sig-name descname"><span class="pre">ProductYield</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuclides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#ProductYield"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.productYield.</span></span><span class="sig-name descname"><span class="pre">ProductYield</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuclides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#ProductYield"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield" title="Link to this definition">¶</a></dt>
 <dd><p>The ProductYield class stores a list of fission product nuclides and a list of elapsed times
 after fission.  The prompt fission product yield for each nuclide is stored with elapsedTime.time = 0,
 and delayed product yields are listed with elapsedTime.time &gt; 0.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.productYield.ProductYield.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuclides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#ProductYield.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuclides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#ProductYield.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.__init__" title="Link to this definition">¶</a></dt>
 <dd><p>Constructs a ProductYield with specified style label and list of nuclides.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -248,31 +233,31 @@ and delayed product yields are listed with elapsedTime.time &gt; 0.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.productYield.ProductYield.convertUnits">
-<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#ProductYield.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.convertUnits" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convertUnits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unitMap</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#ProductYield.convertUnits"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.convertUnits" title="Link to this definition">¶</a></dt>
 <dd><p>This method currently does nothing.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.productYield.ProductYield.durations">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">durations</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.durations" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">durations</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.durations" title="Link to this definition">¶</a></dt>
 <dd><p>Deprecated accessor using the GNDS-1.9 name. Returns the Suite of elapsedTimes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.productYield.ProductYield.elapsedTimes">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">elapsedTimes</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.elapsedTimes" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">elapsedTimes</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.elapsedTimes" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the Suite of elapsedTimes.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.productYield.ProductYield.nuclides">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nuclides</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.nuclides" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nuclides</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.nuclides" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the list of nuclides for which fission product yield data are given.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.productYield.ProductYield.parseNode">
-<span class="sig-name descname"><span class="pre">parseNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#ProductYield.parseNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.parseNode" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">parseNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#ProductYield.parseNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.parseNode" title="Link to this definition">¶</a></dt>
 <dd><p>Parses contents of the given node into self (a ProductYield instance).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -287,7 +272,7 @@ and delayed product yields are listed with elapsedTime.time &gt; 0.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.productYield.ProductYield.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#ProductYield.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#ProductYield.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>Create a new instance of class <strong>cls</strong> and parse contents of node into the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -303,7 +288,7 @@ and delayed product yields are listed with elapsedTime.time &gt; 0.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.productYield.ProductYield.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#ProductYield.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#ProductYield.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.ProductYield.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a list of str instances representing the XML lines of self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -322,11 +307,11 @@ and delayed product yields are listed with elapsedTime.time &gt; 0.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.productYield.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.productYield.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.productYield.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.Suite" title="Link to this definition">¶</a></dt>
 <dd><p>Contains one or more ProductYield instances, each with a label corresponding to a unique <strong>style</strong>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.productYield.Suite.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.Suite.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/productYield.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.productYield.Suite.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -343,14 +328,14 @@ having the same key.</p></li>
 
 </section>
 <section id="module-PoPs.fissionFragmentData.elapsedTime">
-<span id="elapsedtime"></span><h2>elapsedTime<a class="headerlink" href="#module-PoPs.fissionFragmentData.elapsedTime" title="Permalink to this heading">¶</a></h2>
+<span id="elapsedtime"></span><h2>elapsedTime<a class="headerlink" href="#module-PoPs.fissionFragmentData.elapsedTime" title="Link to this heading">¶</a></h2>
 <p>This module defines the ElapsedTime and ElapsedTimes classes,
 used to organize independent and cumulative fission product yields by the time elapsed since fission.</p>
 <p>Note: the GNDS-1.9 name ‘duration’ was renamed to ‘elapsedTime’ in GNDS-2.0.
 GNDS-2.0 also removed the ‘QMatrix’, an unused method for transforming product yields to a later elapsedTime.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.elapsedTime.ElapsedTime">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.elapsedTime.</span></span><span class="sig-name descname"><span class="pre">ElapsedTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/elapsedTime.html#ElapsedTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.elapsedTime.ElapsedTime" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.elapsedTime.</span></span><span class="sig-name descname"><span class="pre">ElapsedTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/elapsedTime.html#ElapsedTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.elapsedTime.ElapsedTime" title="Link to this definition">¶</a></dt>
 <dd><p>Contains fission product yields at a specified time, measured since fission.</p>
 <dl class="simple">
 <dt>Class contents:</dt><dd><ul class="simple">
@@ -361,20 +346,20 @@ GNDS-2.0 also removed the ‘QMatrix’, an unused method for transforming produ
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.elapsedTime.ElapsedTime.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/elapsedTime.html#ElapsedTime.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.elapsedTime.ElapsedTime.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/elapsedTime.html#ElapsedTime.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.elapsedTime.ElapsedTime.__init__" title="Link to this definition">¶</a></dt>
 <dd><p>Construct an ElapsedTime with the given label.
 The label is arbitrary but must be unique within the parent ElapsedTimes suite.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.elapsedTime.ElapsedTime.label">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.elapsedTime.ElapsedTime.label" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.elapsedTime.ElapsedTime.label" title="Link to this definition">¶</a></dt>
 <dd><p>Returns string label corresponding to this elapsedTime.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.elapsedTime.ElapsedTime.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/elapsedTime.html#ElapsedTime.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.elapsedTime.ElapsedTime.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/elapsedTime.html#ElapsedTime.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.elapsedTime.ElapsedTime.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>Create a new instance of class <strong>cls</strong> and parse contents of node into the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -390,7 +375,7 @@ The label is arbitrary but must be unique within the parent ElapsedTimes suite.<
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.elapsedTime.ElapsedTime.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/elapsedTime.html#ElapsedTime.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.elapsedTime.ElapsedTime.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/elapsedTime.html#ElapsedTime.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.elapsedTime.ElapsedTime.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a list of str instances representing the XML lines of self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -409,11 +394,11 @@ The label is arbitrary but must be unique within the parent ElapsedTimes suite.<
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.elapsedTime.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.elapsedTime.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/elapsedTime.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.elapsedTime.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.elapsedTime.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/elapsedTime.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.elapsedTime.Suite" title="Link to this definition">¶</a></dt>
 <dd><p>Contains a list of ElapsedTime instances.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.elapsedTime.Suite.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/elapsedTime.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.elapsedTime.Suite.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/elapsedTime.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.elapsedTime.Suite.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -430,16 +415,16 @@ having the same key.</p></li>
 
 </section>
 <section id="module-PoPs.fissionFragmentData.spectrum">
-<span id="spectrum"></span><h2>spectrum<a class="headerlink" href="#module-PoPs.fissionFragmentData.spectrum" title="Permalink to this heading">¶</a></h2>
+<span id="spectrum"></span><h2>spectrum<a class="headerlink" href="#module-PoPs.fissionFragmentData.spectrum" title="Link to this heading">¶</a></h2>
 <p>This module defines the spectrum.Suite and spectrum.XYs1d classes, used to store outgoing energy
 spectra for beta-delayed neutrons from spontaneous fission.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.spectrum.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.spectrum.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/spectrum.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.spectrum.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.spectrum.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/spectrum.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.spectrum.Suite" title="Link to this definition">¶</a></dt>
 <dd><p>Stores one or more delayed neutron spectra, each corresponding to a unique data <strong>style</strong>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.spectrum.Suite.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/spectrum.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.spectrum.Suite.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/spectrum.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.spectrum.Suite.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -456,31 +441,31 @@ having the same key.</p></li>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.spectrum.XYs1d">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.spectrum.</span></span><span class="sig-name descname"><span class="pre">XYs1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataForm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'xys'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Interpolation.linlin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valueType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ValueType.float64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outerDomainValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initialSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overflowSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safeDivide</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/spectrum.html#XYs1d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.spectrum.XYs1d" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.spectrum.</span></span><span class="sig-name descname"><span class="pre">XYs1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dataForm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'xys'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Interpolation.linlin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">valueType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">ValueType.float64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outerDomainValue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initialSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overflowSize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">infill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safeDivide</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/spectrum.html#XYs1d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.spectrum.XYs1d" title="Link to this definition">¶</a></dt>
 <dd><p>Stores an outgoing delayed neutron energy spectrum.</p>
 </dd></dl>
 
 </section>
 <section id="module-PoPs.fissionFragmentData.time">
-<span id="time"></span><h2>time<a class="headerlink" href="#module-PoPs.fissionFragmentData.time" title="Permalink to this heading">¶</a></h2>
+<span id="time"></span><h2>time<a class="headerlink" href="#module-PoPs.fissionFragmentData.time" title="Link to this heading">¶</a></h2>
 <p>This module defines classes for storing the elapsed time since fission.
 Each ‘duration’ instance has an associated time, where time = 0 for prompt fission products and time &gt; 0 for delayed. Time may also be given as a string, e.g. ‘Unspecified’.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.time.Double">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.time.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/time.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.time.Double" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.time.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/time.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.time.Double" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.time.String">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.time.</span></span><span class="sig-name descname"><span class="pre">String</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/time.html#String"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.time.String" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.time.</span></span><span class="sig-name descname"><span class="pre">String</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/time.html#String"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.time.String" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.time.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.time.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/time.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.time.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.time.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/time.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.time.Suite" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.time.Suite.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/time.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.time.Suite.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/time.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.time.Suite.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -497,23 +482,23 @@ having the same key.</p></li>
 
 </section>
 <section id="module-PoPs.fissionFragmentData.yields">
-<span id="yields"></span><h2>yields<a class="headerlink" href="#module-PoPs.fissionFragmentData.yields" title="Permalink to this heading">¶</a></h2>
+<span id="yields"></span><h2>yields<a class="headerlink" href="#module-PoPs.fissionFragmentData.yields" title="Link to this heading">¶</a></h2>
 <p>This module defines the Yields, Values, Uncertainty, Covariance and NuclidesLink classes,
 used to store the fission product yield values and uncertainties corresponding to a set of Nuclides.</p>
 <p>For spontaneous fission, a <strong>Yields</strong> class is stored for each <strong>ElapsedTime</strong>.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Covariance">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.yields.</span></span><span class="sig-name descname"><span class="pre">Covariance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_matrix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Covariance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Covariance" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.yields.</span></span><span class="sig-name descname"><span class="pre">Covariance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_matrix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Covariance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Covariance" title="Link to this definition">¶</a></dt>
 <dd><p>Class storing the fission product yield covariance matrix. If yields are given for N nuclides,
 the matrix has dimension NxN and correlates the yields for outgoing nuclide at the given elapsed time.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Covariance.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_matrix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Covariance.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Covariance.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_matrix</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Covariance.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Covariance.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Covariance.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Covariance.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Covariance.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Covariance.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Covariance.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>Create a new instance of class <strong>cls</strong> and parse contents of node into the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -529,7 +514,7 @@ the matrix has dimension NxN and correlates the yields for outgoing nuclide at t
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Covariance.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Covariance.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Covariance.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Covariance.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Covariance.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a list of str instances representing the XML lines of self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -548,29 +533,29 @@ the matrix has dimension NxN and correlates the yields for outgoing nuclide at t
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.NuclidesLink">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.yields.</span></span><span class="sig-name descname"><span class="pre">NuclidesLink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#NuclidesLink"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.NuclidesLink" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.yields.</span></span><span class="sig-name descname"><span class="pre">NuclidesLink</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#NuclidesLink"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.NuclidesLink" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Uncertainty">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.yields.</span></span><span class="sig-name descname"><span class="pre">Uncertainty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Uncertainty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Uncertainty" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.yields.</span></span><span class="sig-name descname"><span class="pre">Uncertainty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Uncertainty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Uncertainty" title="Link to this definition">¶</a></dt>
 <dd><p>Class containing the fission product yield uncertainty. Uncertainty could be stored various ways,
 but in practice it is currently always stored as a covariance matrix (although the matrix typically
 has no non-zero terms off the diagonal.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Uncertainty.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Uncertainty.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Uncertainty.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Uncertainty.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Uncertainty.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Uncertainty.form">
-<span class="sig-name descname"><span class="pre">form</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Uncertainty.form"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Uncertainty.form" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">form</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Uncertainty.form"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Uncertainty.form" title="Link to this definition">¶</a></dt>
 <dd><p>Return the uncertainty form, typically a Covariance instance.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Uncertainty.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Uncertainty.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Uncertainty.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Uncertainty.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Uncertainty.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>Create a new instance of class <strong>cls</strong> and parse contents of node into the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -586,7 +571,7 @@ has no non-zero terms off the diagonal.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Uncertainty.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Uncertainty.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Uncertainty.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Uncertainty.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Uncertainty.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a list of str instances representing the XML lines of self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -605,12 +590,12 @@ has no non-zero terms off the diagonal.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Values">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.yields.</span></span><span class="sig-name descname"><span class="pre">Values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Values" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.yields.</span></span><span class="sig-name descname"><span class="pre">Values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Values" title="Link to this definition">¶</a></dt>
 <dd><p>Stores a list of fission product yield values. The length and order must be consistent
 with the corresponding <strong>Nuclides</strong> list.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Values.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Values.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Values.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Values.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Values.__init__" title="Link to this definition">¶</a></dt>
 <dd><p>Construct a <strong>Values</strong> instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -621,7 +606,7 @@ with the corresponding <strong>Nuclides</strong> list.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Values.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Values.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Values.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Values.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Values.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>Create a new instance of class <strong>cls</strong> and parse contents of node into the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -637,7 +622,7 @@ with the corresponding <strong>Nuclides</strong> list.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Values.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Values.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Values.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Values.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Values.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a list of str instances representing the XML lines of self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -656,23 +641,23 @@ with the corresponding <strong>Nuclides</strong> list.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Yields">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.yields.</span></span><span class="sig-name descname"><span class="pre">Yields</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Yields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Yields" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.yields.</span></span><span class="sig-name descname"><span class="pre">Yields</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Yields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Yields" title="Link to this definition">¶</a></dt>
 <dd><p>Class storing product yields for an elapsed time. Class contains a list of nuclides (may be a link),
 a list of values storing the product yield for each nuclide, and an optional uncertainty.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Yields.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Yields.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Yields.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Yields.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Yields.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Yields.nuclides">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nuclides</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Yields.nuclides" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nuclides</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Yields.nuclides" title="Link to this definition">¶</a></dt>
 <dd><p>Return the list of nuclides, or a link if the nuclides are defined elsewhere.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Yields.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Yields.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Yields.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Yields.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Yields.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>Create a new instance of class <strong>cls</strong> and parse contents of node into the instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -688,7 +673,7 @@ a list of values storing the product yield for each nuclide, and an optional unc
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Yields.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Yields.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Yields.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/yields.html#Yields.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Yields.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a list of str instances representing the XML lines of self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -705,13 +690,13 @@ a list of values storing the product yield for each nuclide, and an optional unc
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Yields.uncertainty">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">uncertainty</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Yields.uncertainty" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">uncertainty</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Yields.uncertainty" title="Link to this definition">¶</a></dt>
 <dd><p>Return the fission product yield uncertainty (may be None).</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.yields.Yields.values">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Yields.values" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.yields.Yields.values" title="Link to this definition">¶</a></dt>
 <dd><p>Return the fission product yield values.</p>
 </dd></dl>
 
@@ -719,28 +704,28 @@ a list of values storing the product yield for each nuclide, and an optional unc
 
 </section>
 <section id="module-PoPs.fissionFragmentData.QMatrix">
-<span id="qmatrix"></span><h2>QMatrix<a class="headerlink" href="#module-PoPs.fissionFragmentData.QMatrix" title="Permalink to this heading">¶</a></h2>
+<span id="qmatrix"></span><h2>QMatrix<a class="headerlink" href="#module-PoPs.fissionFragmentData.QMatrix" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.QMatrix.Full">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.QMatrix.</span></span><span class="sig-name descname"><span class="pre">Full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Symmetry.none</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storageOrder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StorageOrder.rowMajor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Permutation.plus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/QMatrix.html#Full"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.QMatrix.Full" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.QMatrix.</span></span><span class="sig-name descname"><span class="pre">Full</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Symmetry.none</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">storageOrder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">StorageOrder.rowMajor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Permutation.plus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/QMatrix.html#Full"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.QMatrix.Full" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.QMatrix.QMatrix">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.QMatrix.</span></span><span class="sig-name descname"><span class="pre">QMatrix</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/QMatrix.html#QMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.QMatrix.QMatrix" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.QMatrix.</span></span><span class="sig-name descname"><span class="pre">QMatrix</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/QMatrix.html#QMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.QMatrix.QMatrix" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.QMatrix.QMatrix.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/QMatrix.html#QMatrix.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.QMatrix.QMatrix.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/QMatrix.html#QMatrix.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.QMatrix.QMatrix.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.QMatrix.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.QMatrix.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/QMatrix.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.QMatrix.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.QMatrix.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/QMatrix.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.QMatrix.Suite" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.QMatrix.Suite.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/QMatrix.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.QMatrix.Suite.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/QMatrix.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.QMatrix.Suite.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -757,21 +742,21 @@ having the same key.</p></li>
 
 </section>
 <section id="module-PoPs.fissionFragmentData.product">
-<span id="product"></span><h2>product<a class="headerlink" href="#module-PoPs.fissionFragmentData.product" title="Permalink to this heading">¶</a></h2>
+<span id="product"></span><h2>product<a class="headerlink" href="#module-PoPs.fissionFragmentData.product" title="Link to this heading">¶</a></h2>
 <p>This module defines the PoPs.fissionFragmentData.Product class, used to store
 spontaneous fission products including multiplicities and outgoing energy spectra.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.product.Product">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.product.</span></span><span class="sig-name descname"><span class="pre">Product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">productFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/product.html#Product"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.product.Product" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.product.</span></span><span class="sig-name descname"><span class="pre">Product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">productFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/product.html#Product"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.product.Product" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.product.Product.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">productFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/product.html#Product.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.product.Product.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">productFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/product.html#Product.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.product.Product.__init__" title="Link to this definition">¶</a></dt>
 <dd><p>Construct a Product instance for the given particle and product frame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pid</strong> – string identifying the PoPs particle, e.g. ‘n’</p></li>
-<li><p><strong>productFrame</strong> – </p></li>
+<li><p><strong>productFrame</strong></p></li>
 </ul>
 </dd>
 </dl>
@@ -779,31 +764,31 @@ spontaneous fission products including multiplicities and outgoing energy spectr
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.product.Product.multiplicity">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">multiplicity</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.product.Product.multiplicity" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">multiplicity</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.product.Product.multiplicity" title="Link to this definition">¶</a></dt>
 <dd><p>Return the product multiplicity (multiplicity.Suite instance).</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.product.Product.pid">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pid</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.product.Product.pid" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pid</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.product.Product.pid" title="Link to this definition">¶</a></dt>
 <dd><p>Return the PoPs particle id or ‘pid’ for this product.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.product.Product.productFrame">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">productFrame</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.product.Product.productFrame" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">productFrame</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.product.Product.productFrame" title="Link to this definition">¶</a></dt>
 <dd><p>Return the reference frame (typically ‘lab’) for the outgoing spectrum.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.product.Product.spectrum">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spectrum</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.product.Product.spectrum" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spectrum</span></span><a class="headerlink" href="#PoPs.fissionFragmentData.product.Product.spectrum" title="Link to this definition">¶</a></dt>
 <dd><p>Return the product outgoing energy spectrum (spectrum.Suite instance).</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.product.Product.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/product.html#Product.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.product.Product.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/product.html#Product.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.product.Product.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a list of str instances representing the XML lines of self.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -822,23 +807,23 @@ spontaneous fission products including multiplicities and outgoing energy spectr
 
 </section>
 <section id="module-PoPs.fissionFragmentData.multiplicity">
-<span id="multiplicity"></span><h2>multiplicity<a class="headerlink" href="#module-PoPs.fissionFragmentData.multiplicity" title="Permalink to this heading">¶</a></h2>
+<span id="multiplicity"></span><h2>multiplicity<a class="headerlink" href="#module-PoPs.fissionFragmentData.multiplicity" title="Link to this heading">¶</a></h2>
 <p>This module defines the Suite and Double classes, used to store
 spontaneous fission delayed neutron multiplicities.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.multiplicity.Double">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.multiplicity.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/multiplicity.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.multiplicity.Double" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.multiplicity.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/multiplicity.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.multiplicity.Double" title="Link to this definition">¶</a></dt>
 <dd><p>Average delayed neutron multiplicity, stored as a double.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.multiplicity.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.multiplicity.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/multiplicity.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.multiplicity.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.multiplicity.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/multiplicity.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.multiplicity.Suite" title="Link to this definition">¶</a></dt>
 <dd><p>This class stores one or more multiplicity values, e.g. corresponding
 to the ‘evaluated’ data style.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.multiplicity.Suite.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/multiplicity.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.multiplicity.Suite.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/multiplicity.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.multiplicity.Suite.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -855,18 +840,18 @@ having the same key.</p></li>
 
 </section>
 <section id="module-PoPs.fissionFragmentData.delayedNeutronData">
-<span id="delayedneutrondata"></span><h2>delayedNeutronData<a class="headerlink" href="#module-PoPs.fissionFragmentData.delayedNeutronData" title="Permalink to this heading">¶</a></h2>
+<span id="delayedneutrondata"></span><h2>delayedNeutronData<a class="headerlink" href="#module-PoPs.fissionFragmentData.delayedNeutronData" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.delayedNeutronData.</span></span><span class="sig-name descname"><span class="pre">DelayedNeutronData</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/delayedNeutronData.html#DelayedNeutronData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.delayedNeutronData.</span></span><span class="sig-name descname"><span class="pre">DelayedNeutronData</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/delayedNeutronData.html#DelayedNeutronData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/delayedNeutronData.html#DelayedNeutronData.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/delayedNeutronData.html#DelayedNeutronData.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData.parseNodeUsingClass">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/delayedNeutronData.html#DelayedNeutronData.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData.parseNodeUsingClass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parseNodeUsingClass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xPath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linkData</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/delayedNeutronData.html#DelayedNeutronData.parseNodeUsingClass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData.parseNodeUsingClass" title="Link to this definition">¶</a></dt>
 <dd><p>This method must be overrwritten by the derived class.
 The overrwritten method must construct a class of instance <em>cls</em> using <em>node</em></p>
 <dl class="field-list simple">
@@ -883,7 +868,7 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/delayedNeutronData.html#DelayedNeutronData.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/delayedNeutronData.html#DelayedNeutronData.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.delayedNeutronData.DelayedNeutronData.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>This methods must be overwritten by the derived class. It must return a Python list of strings that are the XML representation of <em>self</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -896,18 +881,18 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 </section>
 <section id="module-PoPs.fissionFragmentData.decayConstant">
-<span id="decayconstant"></span><h2>decayConstant<a class="headerlink" href="#module-PoPs.fissionFragmentData.decayConstant" title="Permalink to this heading">¶</a></h2>
+<span id="decayconstant"></span><h2>decayConstant<a class="headerlink" href="#module-PoPs.fissionFragmentData.decayConstant" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.decayConstant.DecayConstant">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.decayConstant.</span></span><span class="sig-name descname"><span class="pre">DecayConstant</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/decayConstant.html#DecayConstant"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.decayConstant.DecayConstant" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.decayConstant.</span></span><span class="sig-name descname"><span class="pre">DecayConstant</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/decayConstant.html#DecayConstant"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.decayConstant.DecayConstant" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.decayConstant.DecayConstant.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/decayConstant.html#DecayConstant.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.decayConstant.DecayConstant.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/decayConstant.html#DecayConstant.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.decayConstant.DecayConstant.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.decayConstant.DecayConstant.toXML_strList">
-<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/decayConstant.html#DecayConstant.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.decayConstant.DecayConstant.toXML_strList" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">toXML_strList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/decayConstant.html#DecayConstant.toXML_strList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.decayConstant.DecayConstant.toXML_strList" title="Link to this definition">¶</a></dt>
 <dd><p>This methods must be overwritten by the derived class. It must return a Python list of strings that are the XML representation of <em>self</em>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -920,10 +905,10 @@ The overrwritten method must construct a class of instance <em>cls</em> using <e
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.decayConstant.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.decayConstant.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/decayConstant.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.decayConstant.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.decayConstant.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/decayConstant.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.decayConstant.Suite" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.decayConstant.Suite.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/decayConstant.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.decayConstant.Suite.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/decayConstant.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.decayConstant.Suite.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -940,22 +925,22 @@ having the same key.</p></li>
 
 </section>
 <section id="module-PoPs.fissionFragmentData.rate">
-<span id="rate"></span><h2>rate<a class="headerlink" href="#module-PoPs.fissionFragmentData.rate" title="Permalink to this heading">¶</a></h2>
+<span id="rate"></span><h2>rate<a class="headerlink" href="#module-PoPs.fissionFragmentData.rate" title="Link to this heading">¶</a></h2>
 <p>This module defines classes for storing the characteristic beta-decay rate
 for beta-delayed neutron products.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.rate.Double">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.rate.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/rate.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.rate.Double" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.rate.</span></span><span class="sig-name descname"><span class="pre">Double</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/rate.html#Double"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.rate.Double" title="Link to this definition">¶</a></dt>
 <dd><p>Stores a characteristic decay rate.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.rate.Suite">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.rate.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/rate.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.rate.Suite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PoPs.fissionFragmentData.rate.</span></span><span class="sig-name descname"><span class="pre">Suite</span></span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/rate.html#Suite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.rate.Suite" title="Link to this definition">¶</a></dt>
 <dd><p>Suite containing one or more rates, each corresponding to a unique data <strong>style</strong>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="PoPs.fissionFragmentData.rate.Suite.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/rate.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.rate.Suite.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/PoPs/fissionFragmentData/rate.html#Suite.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#PoPs.fissionFragmentData.rate.Suite.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -974,90 +959,94 @@ having the same key.</p></li>
 </section>
 
 
-            <div class="clearer"></div>
           </div>
+          
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/gnd.png" alt="Logo"/>
+              <img class="logo" src="../_static/gnd.png" alt="Logo of Fudge and GNDS"/>
             </a></p>
-  <div>
-    <h3><a href="../index.html">Table of Contents</a></h3>
-    <ul>
-<li><a class="reference internal" href="#">Fission fragment data</a><ul>
-<li><a class="reference internal" href="#module-PoPs.fissionFragmentData.nuclides">nuclides</a></li>
-<li><a class="reference internal" href="#module-PoPs.fissionFragmentData.productYield">productYield</a></li>
-<li><a class="reference internal" href="#module-PoPs.fissionFragmentData.elapsedTime">elapsedTime</a></li>
-<li><a class="reference internal" href="#module-PoPs.fissionFragmentData.spectrum">spectrum</a></li>
-<li><a class="reference internal" href="#module-PoPs.fissionFragmentData.time">time</a></li>
-<li><a class="reference internal" href="#module-PoPs.fissionFragmentData.yields">yields</a></li>
-<li><a class="reference internal" href="#module-PoPs.fissionFragmentData.QMatrix">QMatrix</a></li>
-<li><a class="reference internal" href="#module-PoPs.fissionFragmentData.product">product</a></li>
-<li><a class="reference internal" href="#module-PoPs.fissionFragmentData.multiplicity">multiplicity</a></li>
-<li><a class="reference internal" href="#module-PoPs.fissionFragmentData.delayedNeutronData">delayedNeutronData</a></li>
-<li><a class="reference internal" href="#module-PoPs.fissionFragmentData.decayConstant">decayConstant</a></li>
-<li><a class="reference internal" href="#module-PoPs.fissionFragmentData.rate">rate</a></li>
-</ul>
-</li>
-</ul>
+<h1 class="logo"><a href="../index.html">Fudge and GNDS</a></h1>
 
-  </div>
-  <div>
-    <h4>Previous topic</h4>
-    <p class="topless"><a href="decays.html"
-                          title="previous chapter">Decay data</a></p>
-  </div>
-  <div>
-    <h4>Next topic</h4>
-    <p class="topless"><a href="misc.html"
-                          title="next chapter">Particle IDs</a></p>
-  </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/PoPs/fissionFragmentData.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
       <input type="submit" value="Go" />
     </form>
     </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../downloading.html">Downloading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sub-packages.html">Sub-packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gnds.html">Generalized Nuclear Data (GNDS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/index.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../externals.html">External Packages used in Fudge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reporting-bugs.html">Reporting Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">To Do</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../LUPY/index.html">LUPY</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pqu/modules.html">pqu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xData/index.html">xData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Properties of Particles (PoPs)</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html#contents">Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#indices-and-tables">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../isotopicAbundances/index.html">Isotopic abundance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../thanks.html">Thanks</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../fudge/index.html">The FUDGE Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Properties of Particles (PoPs)</a><ul>
+      <li>Previous: <a href="decays.html" title="previous chapter">Decay data</a></li>
+      <li>Next: <a href="misc.html" title="next chapter">Particle IDs</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
 </div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="misc.html" title="Particle IDs"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="decays.html" title="Decay data"
-             >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Fudge and GNDS 6.1.0 documentation</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="index.html" >Properties of Particles (PoPs)</a> &#187;</li>
-        <li class="nav-item nav-item-this"><a href="">Fission fragment data</a></li> 
-      </ul>
+    <div class="footer">
+      &#169;2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/PoPs/fissionFragmentData.rst.txt"
+          rel="nofollow">Page source</a>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2012, B.Beck, D. Brown, C. Mattoon, N. Patel, N. Summers.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.2.
-    </div>
+
+    
+
+    
   </body>
 </html>

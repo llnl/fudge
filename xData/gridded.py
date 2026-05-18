@@ -29,6 +29,7 @@ from . import enums as enumsModule
 from . import base as baseModule
 from . import axes as axesModule
 from . import xDataArray as arrayModule
+from . import XYs1d as XYs1dModule
 
 class Gridded( baseModule.XDataFunctional ) :
     """
@@ -193,6 +194,26 @@ class Gridded1d( Gridded ) :
 
     moniker = 'gridded1d'
     dimension = 1
+
+    def asXYs1d(self, asLinLin, accuracy, lowerEps, upperEps, biSectionMax=16):
+        """
+        This method returns a representation of the data in *self* as an :py:class:`XYs1dModule.XYs1d` instance.
+
+        :param asLinLin:    If **True**, the returned data will have lin-lin interpolation.
+        :param accuracy:    Used to determine the accuracy if converting data to lin-lin interpolated data.
+        :param lowerEps:    Used to dull the lower point for "flat" interpolation.
+        :param upperEps:    Used to dull the upper point for "flat" interpolation.
+
+        :returns:           A :py:class:`XYs1dModule.XYs1d` instance.
+        """
+
+        xs, ys = self.copyDataToXsAndYs()
+        cls = self.toLinearXYsClass()
+        xys1d = cls(data=[xs, ys], dataForm='xsandys', axes=self.axes, interpolation=enumsModule.Interpolation.flat)
+        if asLinLin:
+            xys1d = xys1d.changeInterpolation(enumsModule.Interpolation.linlin, accuracy=accuracy, lowerEps=lowerEps, upperEps=upperEps)
+
+        return xys1d
 
     def constructVector(self):
         """

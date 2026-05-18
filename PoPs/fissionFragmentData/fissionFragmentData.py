@@ -51,11 +51,12 @@ class FissionFragmentData(ancestryModule.AncestryIO):
         return( self.__productYields )
 
     def convertUnits( self, unitMap ) :
-        """The convertUnits method recursively searches the **FissionFragmentData** and child classes
+        """
+        The convertUnits method recursively searches the **FissionFragmentData** and child classes
         for each unit in the **unitMap** dictionary and converts to the desired new unit.
 
-        :param unitMap: dict storing {'oldUnit': 'newUnit'} key-value pairs. Units must be compatible,
-        e.g. {'eV': 'MeV'} works but {'amu': 'MeV'} does not."""
+        :param unitMap: dict storing {'oldUnit': 'newUnit'}. Units must be compatible, e.g. {'eV': 'MeV'} but not {'amu': 'MeV'}.
+        """
 
         self.__delayedNeutronData.convertUnits( unitMap )
         self.__productYields.convertUnits( unitMap )

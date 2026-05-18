@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "merced"
+version = "1.0.0"
+authors = [
+    {name = "LLNL", email = "mattoon1@llnl.gov"},
+]
+description = "A C++ library for processing double-differential cross sections"
+readme = "README.md"
+requires-python = ">=3.7"
+
+[tool.setuptools]
+packages = ["merced"]
+package-dir = {"merced" = "bin"}
+
+[project.urls]
+"Homepage" = "https://github.com/LLNL/fudge"

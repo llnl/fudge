@@ -51,6 +51,15 @@ class IncidentEnergy(ancestryModule.Ancestry):
         self.__table = value
         self.__table.setAncestor(self)
 
+    def convertUnits(self, unitMap):
+        from pqu import PQU as PQUModule
+        if self.unit in unitMap:
+            newUnit = unitMap[self.unit]
+            factor = PQUModule.PQU(1, self.unit).getValueAs(newUnit)
+            self.value *= factor
+            self.unit = newUnit
+        self.table.convertUnits(unitMap)
+
     def toXML_strList(self, indent='', **kwargs):
 
         indent2 = indent + '  '
@@ -105,6 +114,14 @@ class ProbabilityTable(ancestryModule.Ancestry):
         assert isinstance(_incidentEnergy, IncidentEnergy), f"Expected IncidentEnergy instance, got {type(_incidentEnergy)} instead"
         _incidentEnergy.setAncestor(self)
         self.__incidentEnergies.append(_incidentEnergy)
+
+    def convertUnits(self, unitMap):
+        """
+        Convert all incidentEnergy units in this probability table.
+        """
+
+        for incidentEnergy in self:
+            incidentEnergy.convertUnits(unitMap)
 
     def toXML_strList(self, indent='', **kwargs):
 

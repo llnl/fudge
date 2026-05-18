@@ -5,8 +5,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # <<END-copyright>>
 
-from __future__ import print_function
-
 from math import *
 C = 2.0
 n = 10

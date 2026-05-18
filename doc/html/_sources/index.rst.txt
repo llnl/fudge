@@ -20,11 +20,11 @@ Welcome to **FUDGE** (For Updating Data and Generating Evaluations), a nuclear d
 reading, viewing, modifying, writing and processing of nuclear data. FUDGE is a product of the Nuclear Data and
 Theory group (NDT) at Lawrence Livermore National Laboratory (LLNL).
 
-For installation instructions please see the file REAME.md or visit https://github.com/llnl/fudge.
+For installation instructions please see the file README.md or visit https://github.com/llnl/fudge.
 
 This release of FUDGE expands support for processing and visualizing data in the Generalized Nuclear Data (GNDS) format.
 GNDS is intended to modernize how nuclear data are stored and used, eventually replacing the legacy ENDF-6 format.
-This version of FUDGE supports the latest version of the GNDS standard, version 2.0, as well as older versions '2.0.LLNL_4' and '1.10'.
+This version of FUDGE supports the latest versions of the GNDS standard, versions 2.0 and 2.1, as well as older versions '2.0.LLNL_4' and '1.10'.
 The package includes tools to translate other formats to and from GNDS, plus tools
 for testing, visualizing and processing GNDS-formatted data.
 Python code within the *fudge* directory only support GNDS formatted data. Python code to support lecagy formats 

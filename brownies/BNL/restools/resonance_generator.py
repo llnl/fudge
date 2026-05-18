@@ -32,7 +32,7 @@ def getFakeResonanceSet(
     :param L: orbital angular momentum
     :param J: total angular momentum
     :param levelDensity: dictionary containing L/J-specific energy-dependent level densities
-    :param aveWidthFuncs': dictionary containing L/J-specific energy-dependent widths
+    :param aveWidthFuncs: dictionary containing L/J-specific energy-dependent widths
     :param DOFs: Chi-square degrees of freedom for each reaction channel, used for drawing resonance widths.
     :param widthKeys: column headers for resulting Table
     :param domainMin: lower bound for generating resonances, usually equal to lower bound for level densities / widths

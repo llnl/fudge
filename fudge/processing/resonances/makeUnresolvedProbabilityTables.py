@@ -68,21 +68,6 @@ class ProbabilityTableGenerator:
         self.tolerance = tolerance
         self.verbose = verbose
 
-        """ # disabled: adding background cross section to realizations biases samples
-        # obtain background cross sections (will be added to each realization).
-        self.backgrounds = {}
-        if not self.URR.URR.useForSelfShieldingOnly:
-            for reaction in self.URR.URR.resonanceReactions:
-                xsc = reaction.link.link.crossSection.evaluated
-                assert isinstance(xsc, crossSectionModule.ResonancesWithBackground)
-                key = reaction.label
-                for simpleKey in ('elastic', 'capture', 'fission', 'total'):
-                    if reaction.link.link is reactionSuite.getReaction(simpleKey):
-                        key = simpleKey
-
-                self.backgrounds[key] = xsc.background.unresolvedRegion.data
-        """
-
         # get mass ratio for heating cross sections:
         projectileMass = reactionSuite.PoPs[reactionSuite.projectile].getMass('amu')
 
@@ -113,6 +98,31 @@ class ProbabilityTableGenerator:
                 while energies and energies[-1] > domainMax:
                     energies.pop()
                     table.data.pop()
+        elif isinstance(self.RRR, commonResonancesModule.EnergyIntervals):
+            newRRR = commonResonancesModule.EnergyIntervals(self.RRR.label)
+            for region in self.RRR:
+                if region.domainMin >= domainMax:
+                    break
+                elif region.domainMax > domainMax:
+                    # truncate this region
+                    if isinstance(region, resolvedModule.BreitWigner):
+                        table = region.resonanceParameters.table
+                        energies = table.getColumn('energy')
+                        while energies and energies[-1] > domainMax:
+                            energies.pop()
+                            table.data.pop()
+                    elif isinstance(region, resolvedModule.RMatrix):
+                        for spinGroup in region.spinGroups:
+                            table = spinGroup.resonanceParameters.table
+                            energies = table.getColumn('energy')
+                            while energies and energies[-1] > domainMax:
+                                energies.pop()
+                                table.data.pop()
+                    newRRR.append(region)
+                else:
+                    newRRR.append(region)
+            newRRR.setAncestor(self.RRR.ancestor)
+            self.RRR = newRRR
         else:
             raise NotImplementedError("truncateResolvedRegion for resonances of type %s" % type(self.RRR))
 
@@ -126,7 +136,7 @@ class ProbabilityTableGenerator:
         if self.RRR:
             # For multiple regions, we need to do each region separately, then add them to the unified xs table & egrid
             if isinstance(self.RRR, commonResonancesModule.EnergyIntervals):
-                return self.RRR[-1]
+                return self.RRR[-1].evaluated
             else:  # Single region, everything goes on unified grid
                 return self.RRR
         else:
@@ -201,26 +211,37 @@ class ProbabilityTableGenerator:
             from xData import constant, regions
             function1d = function1d.copy()  # don't modify original evaluation
             if isinstance(function1d, XYs1dModule.XYs1d):
-                newY = extrapolate(newDomainMin, function1d[0], function1d[1], function1d.interpolation)
-                function1d.setValue(newDomainMin, newY)
+                if newDomainMin < function1d.domainMin:
+                    newY = extrapolate(newDomainMin, function1d[0], function1d[1], function1d.interpolation)
+                    function1d.setValue(newDomainMin, newY)
 
-                newY = extrapolate(newDomainMax, function1d[-2], function1d[-1], function1d.interpolation)
-                function1d.setValue(newDomainMax, newY)
+                if newDomainMax > function1d.domainMax:
+                    newY = extrapolate(newDomainMax, function1d[-2], function1d[-1], function1d.interpolation)
+                    function1d.setValue(newDomainMax, newY)
             elif isinstance(function1d, regions.Regions1d):
-                newY = extrapolate(newDomainMin, function1d[0][0], function1d[0][1], function1d[0].interpolation)
-                function1d[0].setValue(newDomainMin, newY)
+                if newDomainMin < function1d.domainMin:
+                    newY = extrapolate(newDomainMin, function1d[0][0], function1d[0][1], function1d[0].interpolation)
+                    function1d[0].setValue(newDomainMin, newY)
 
-                newY = extrapolate(newDomainMax, function1d[-1][-2], function1d[-1][-1], function1d[-1].interpolation)
-                function1d[-1].setValue(newDomainMax, newY)
+                if newDomainMax > function1d.domainMax:
+                    newY = extrapolate(newDomainMax, function1d[-1][-2], function1d[-1][-1], function1d[-1].interpolation)
+                    function1d[-1].setValue(newDomainMax, newY)
             elif isinstance(function1d, constant.Constant1d):
-                function1d.domainMin = newDomainMin
-                function1d.domainMax = newDomainMax
+                function1d.domainMin = min(function1d.domainMin, newDomainMin)
+                function1d.domainMax = max(function1d.domainMax, newDomainMax)
 
             return function1d.toPointwise_withLinearXYs(lowerEps=1e-8)
 
-        # extrapolate local copies of widths, densities and scattering radius, all as lin-lin functions
+        self.calculateChannelRadius = self.URR.URR.calculateChannelRadius
+
+        # extrapolate local copies of widths, densities, scattering and hard-sphere radius, all as lin-lin functions
         self.scatteringRadius = self.URR.URR.getScatteringRadius().copy()
         self.scatteringRadius.evaluated = addPoints(self.scatteringRadius.evaluated, newDomainMin, newDomainMax)
+
+        self.hardSphereRadius = None
+        if self.URR.URR.hardSphereRadius:
+            self.hardSphereRadius = self.URR.URR.hardSphereRadius.copy()
+            self.hardSphereRadius.evaluated = addPoints(self.hardSphereRadius.evaluated, newDomainMin, newDomainMax)
 
         self.levelSpacings = {}
         self.levelDensities = {}
@@ -549,14 +570,16 @@ class ProbabilityTableGenerator:
                 approximation=resolvedModule.BreitWigner.Approximation.SingleLevel,
                 resonanceParameters=commonResonancesModule.ResonanceParameters(combinedTable),
                 scatteringRadius=self.scatteringRadius,
-                PoPs=self.URR.URR.getLocalPoPs())
+                hardSphereRadius=self.hardSphereRadius,
+                PoPs=self.URR.URR.getLocalPoPs(),
+                calculateChannelRadius=self.calculateChannelRadius)
             if verbose:
                 print("  drew %d resonances, elapsed time = %.3fs" % (len(combinedTable), time.time() - start))
 
             # FIXME: next lines are required since the domain currently lives on <resolved> rather than the form
             resolvedContainer = resolvedModule.Resolved(self.lowerBound, self.upperBound, self.URR.energyUnit)
             resolvedContainer.add(resolvedRealization)
-            resolvedContainer.setAncestor(self.reactionSuite)
+            resolvedContainer.setAncestor(self.reactionSuite.resonances)
 
             # Setup the reconstruction class
             resonanceReconstructor = self.reconstructionClass(
@@ -699,7 +722,8 @@ class ProbabilityTableGenerator:
                         plotOptions['savePrefix'] = os.path.join(plotDir, "r%d_patch%d_%s" % (iSample, index, label))
 
                     xs, ys = zeroK_xscs[label].domainSlice(Elo_heating, Ehi_heating).copyDataToXsAndYs()
-                    results = heatAndMakePDFs(xs, ys, temperaturesEnergy, Elo, Ehi, self.massRatio, **plotOptions)
+                    results = heatAndMakePDFs(xs, ys, temperaturesEnergy, Elo, Ehi, self.URR.energyUnit,
+                                              samplePoints, self.massRatio, makePDFs, **plotOptions)
                     unpackResults(iSample, index, label, results)
 
             else:

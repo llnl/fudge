@@ -28,7 +28,7 @@ from ..reactionData import availableMomentum as availableMomentumModule
 class Base_reaction(ancestryModule.AncestryIO):
     """Base class for all types of reaction."""
 
-    ancestryMembers = ('crossSection', 'outputChannel')
+    ancestryMembers = ('documentation', 'crossSection', 'outputChannel')
     keyName = 'label'
 
     def __init__(self, label, genre, ENDF_MT):
@@ -36,7 +36,7 @@ class Base_reaction(ancestryModule.AncestryIO):
         ancestryModule.AncestryIO.__init__( self )
         self.__label = label
 
-        self.__documentation = None
+        self.__documentation = documentationModule.Documentation()
         self.ENDF_MT = int( ENDF_MT )
 
         self.__crossSection = crossSectionModule.Component( )
@@ -160,16 +160,18 @@ class Base_reaction(ancestryModule.AncestryIO):
 
         def particleZA(particleID):
 
-            particle = reactionSuite.PoPs[particleID]
-            if hasattr(particle, 'id') and particle.id in reactionSuite.PoPs.aliases:
-                particle = reactionSuite.PoPs[ particle.pid ]
+            particle = reactionSuite.PoPs.final(particleID)
             return chemicalElementMiscPoPsModule.ZA(particle)
 
+
+        info['crossSectionDomain'] = self.crossSection.domainMin, self.crossSection.domainMax
+        info['isTwoBody'] = self.__outputChannel.genre == enumsModule.Genre.twoBody
         try:
-# BRB6 hardwired
             info['Q'] = self.getQ(energyUnit, final=False)
         except ValueError:
-            pass
+            # Q is energy-dependent. Compute Q at threshold
+            info['Q'] = self.outputChannel.Q.evaluated.evaluate(self.crossSection.domainMin)
+
         cpcount = sum([(particleZA(prod.pid) // 1000) > 0 for prod in self.__outputChannel])
         info['CoulombOutputChannel'] = cpcount > 1
         info['ContinuumOutputChannel'] = self.outputChannel.process == outputChannelModule.Processes.continuum
@@ -183,7 +185,6 @@ class Base_reaction(ancestryModule.AncestryIO):
         if crossSectionWarnings:
             warnings.append(warning.Context("Cross section:", crossSectionWarnings))
 
-        if 'Q' in info: del info['Q']
         del info['CoulombOutputChannel']
         del info['ContinuumOutputChannel']
 
@@ -192,12 +193,12 @@ class Base_reaction(ancestryModule.AncestryIO):
 
         # compare calculated and listed Q-values:
         if not isinstance(self, (productionModule.Production, fissionComponentModule.FissionComponent,
-                                 incompleteReactionModule.IncompleteReaction)):
+                                 incompleteReactionModule.IncompleteReaction, orphanProductModule.OrphanProduct)):
             try:
-                Q = self.getQ(energyUnit, final=False)
+                Q = info['Q']
                 Qcalc = info['availableEnergy']
                 if Qcalc is None: raise ValueError  # caught below. Skips Q-value check for elemental targets
-                for prod in self.__outputChannel:
+                for prod in self.__outputChannel.products:
                     try:
                         productMass = prod.getMass(f'{energyUnit}/c**2')
                     except Exception:
@@ -219,12 +220,28 @@ class Base_reaction(ancestryModule.AncestryIO):
             except ValueError:
                 pass    # this test only works if multiplicity and Q are both constant for all non-gamma products
 
-        if not (self.__outputChannel.genre == enumsModule.Genre.sumOfRemainingOutputChannels or self.isFission() or
+        if self.__outputChannel.genre == enumsModule.Genre.sumOfRemainingOutputChannels:
+            # ZA should balance on average
+            mean_ZA = None
+            for product in self.__outputChannel.products:
+                if product.pid == IDsPoPsModule.photon: continue
+                ZA = particleZA(product.pid)
+                ZA_now = product.multiplicity.evaluated.toPointwise_withLinearXYs(lowerEps=1e-8, upperEps=1e-8) * ZA
+                if mean_ZA is None:
+                    mean_ZA = ZA_now
+                else:
+                    mean_ZA, ZA_now = mean_ZA.mutualify(1e-8, 1e-8, 0, ZA_now, 1e-8, 1e-8, 0)
+                    mean_ZA += ZA_now
+
+            if mean_ZA.rangeMax > info['compoundZA']:
+                warnings.append(warning.AverageZAbalanceWarning(info['compoundZA'], mean_ZA.rangeMax, self))
+
+        elif not (self.isFission() or
                 isinstance(self, (productionModule.Production, orphanProductModule.OrphanProduct,
                                   incompleteReactionModule.IncompleteReaction))):
             # check that ZA balances:
             ZAsum = 0
-            for product in self.__outputChannel:
+            for product in self.__outputChannel.products:
                 if product.pid == IDsPoPsModule.photon: continue
                 try:
                     mult = product.multiplicity.getConstant()
@@ -238,11 +255,8 @@ class Base_reaction(ancestryModule.AncestryIO):
             if ZAsum != info['compoundZA']:
                 warnings.append( warning.ZAbalanceWarning( self ) )
 
-        info['crossSectionDomain'] = self.crossSection.domainMin, self.crossSection.domainMax
-        info['isTwoBody'] = self.__outputChannel.genre == enumsModule.Genre.twoBody
-
         if not isinstance(self, productionModule.Production):
-            for product in self.__outputChannel:
+            for product in self.__outputChannel.products:
                 productWarnings = product.check(info)
                 if productWarnings:
                     warnings.append(warning.Context("Product: %s" % product.label, productWarnings))
@@ -253,6 +267,7 @@ class Base_reaction(ancestryModule.AncestryIO):
 
         del info['crossSectionDomain']
         del info['isTwoBody']
+        del info['Q']
 
         if (info['checkEnergyBalance']
                 and not isinstance(self, productionModule.Production)
@@ -567,7 +582,7 @@ class Base_reaction(ancestryModule.AncestryIO):
 
         self.crossSection.processGriddedCrossSections( style, verbosity = verbosity, indent = indent, incrementalIndent = incrementalIndent, isPhotoAtomic = isPhotoAtomic )
 
-    def processMultiGroup( self, style, tempInfo, indent ) :
+    def processMultiGroup(self, style, tempInfo, indent):
         """ See documentation for reactionSuite.processMultiGroup. """
 
         from . import reaction as reactionModule
@@ -575,10 +590,20 @@ class Base_reaction(ancestryModule.AncestryIO):
         tempInfo['workFile'].append( 'r%s' % tempInfo['reactionIndex'] )
         tempInfo['transferMatrixComment'] = tempInfo['reactionSuite'].inputParticlesToReactionString( suffix = " --> " ) + self.toString( )
 
+        tempInfo['crossSectionModified'] = False
+        reprocessingOpts = tempInfo['partialReprocessingOptions']
+        if reprocessingOpts is not None:
+            reprocessingOpts['otherStyleLabel'], = [
+                s.heatedMultiGroup for s in reprocessingOpts['processedDataSource'].styles.temperatures()
+                if s.temperature == style.temperature.value]
+
+            if self in reprocessingOpts['crossSectionChanged']:
+                tempInfo['crossSectionModified'] = True
+
         indent2 = indent + tempInfo['incrementalIndent']
         verbosity = tempInfo['verbosity']
 
-        if( verbosity > 0 ) : print( '%s%s' % (indent, self.__outputChannel.toString( simpleString = True, MT = self.ENDF_MT ) ) )
+        if verbosity > 0: print('%s%s' % (indent, self.__outputChannel.toString(simpleString = True, MT = self.ENDF_MT)))
 
         tempInfo['reaction'] = self
         norm = tempInfo['groupedFlux']
@@ -586,25 +611,28 @@ class Base_reaction(ancestryModule.AncestryIO):
 
         crossSection = style.findFormMatchingDerivedStyle( self.crossSection )
 # BRB FIXME The next line is a kludge, see note on crossSection.resonancesWithBackground.processMultiGroup.
-        if( isinstance( crossSection, crossSectionModule.Reference ) ) :
+        if isinstance(crossSection, crossSectionModule.Reference):
             crossSection = crossSection.crossSection
-        if( isinstance( crossSection, crossSectionModule.ResonancesWithBackground ) ) :
+        if isinstance(crossSection, crossSectionModule.ResonancesWithBackground):
             crossSection = crossSection.ancestor['recon']
-        if( not( isinstance( crossSection, crossSectionModule.XYs1d ) ) ) :
+        if not isinstance(crossSection, crossSectionModule.XYs1d):
             crossSection = crossSection.toPointwise_withLinearXYs( accuracy = 1e-5, upperEps = 1e-8 )
         tempInfo['crossSection'] = crossSection
-        tempInfo['multiGroupCrossSection'] = self.crossSection.processMultiGroup( style, tempInfo, indent2 )
-        self.crossSection.remove( style.label )                             # Not normalized by tempInfo['groupedFlux'] so remove.
+        tempInfo['multiGroupCrossSection'] = self.crossSection.processMultiGroup(style, tempInfo, indent2)
+        self.crossSection.remove(style.label)                             # Not normalized by tempInfo['groupedFlux'] so remove.
 
         tempInfo['groupedFlux'] = norm
-        tempInfo['multiGroupCrossSectionNormed'] = self.crossSection.processMultiGroup( style, tempInfo, indent2 )     # Normalized by tempInfo['groupedFlux'].
+        tempInfo['multiGroupCrossSectionNormed'] = self.crossSection.processMultiGroup(style, tempInfo, indent2)     # Normalized by tempInfo['groupedFlux'].
 
-        if( isinstance( self, reactionModule.Reaction ) ) :
-            self.availableEnergy.processMultiGroup( style, tempInfo, indent2 )
-            self.availableMomentum.processMultiGroup( style, tempInfo, indent2 )
-        self.__outputChannel.processMultiGroup( style, tempInfo, indent2 )
+        if isinstance(self, reactionModule.Reaction):
+            self.availableEnergy.processMultiGroup(style, tempInfo, indent2)
+            self.availableMomentum.processMultiGroup(style, tempInfo, indent2)
+        self.__outputChannel.processMultiGroup(style, tempInfo, indent2)
 
+        if reprocessingOpts is not None:
+            del reprocessingOpts['otherStyleLabel']
         del tempInfo['workFile'][-1]
+        del tempInfo['crossSectionModified']
 
     def multiGroupCrossSection(self, multiGroupSettings, temperatureInfo):
         """
@@ -914,7 +942,8 @@ class Base_reaction(ancestryModule.AncestryIO):
             self.fissionGenre = node.get('fissionGenre', enumsModule.FissionGenre.none)
 
         childNodesNotParse, membersNotFoundInNode = self.parseAncestryMembers(node, xPath, linkData, **kwargs)
-        if len(childNodesNotParse) > 0: raise Exception("Encountered unexpected child nodes '%s' in %s!" % (self.moniker, ', '.join(list(childNodesNotParse.keys()))))
+        if len(childNodesNotParse) > 0: raise Exception("Encountered unexpected child nodes '%s' in %s!" %
+            (', '.join(list(childNodesNotParse.keys())), self.moniker))
 
         if hasattr(self, 'fissionGenre'):
             if self.fissionGenre is enumsModule.FissionGenre.none:      # See note in outputChannel.parseNode.

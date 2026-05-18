@@ -91,7 +91,7 @@ def plot_matrix( matrix, energyBoundariesX=None, energyBoundariesY=None, title="
 
     if xylog:
         if energyBoundariesX is None: raise Exception("xylog option requires energy group boundary info")
-        X,Y = numpy.lib.function_base.meshgrid(energyBoundariesX,energyBoundariesY)
+        X,Y = numpy.meshgrid(energyBoundariesX,energyBoundariesY)
         pyplot.pcolormesh( X,Y, matrix, **zopts )
         pyplot.setp( subplot, xscale='log', yscale='log' )
     elif energyBoundariesX is not None:

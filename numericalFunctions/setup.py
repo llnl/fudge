@@ -4,12 +4,11 @@
 # 
 # SPDX-License-Identifier: BSD-3-Clause
 # <<END-copyright>>
+# This file is required for the C extensions
+# The main configuration is in pyproject.toml, but setuptools still uses this for extensions
 
 import glob, os
-
-import setuptools
 from setuptools import setup, Extension
-
 
 def setup_package():
     statusMessageReporting_c = glob.glob(os.path.join('statusMessageReporting', 'Src', '*.c'))
@@ -50,48 +49,42 @@ def setup_package():
 
     extra_compile_args = []
 
-    listOfDoubles_C = Extension( 'numericalFunctions.listOfDoubles_C',
+    listOfDoubles_C = Extension('numericalFunctions.listOfDoubles_C',
         extra_compile_args = extra_compile_args,
         sources = statusMessageReporting_c + ptwC_c + ptwX_c + ptwX_Py_c,
-        include_dirs = [ statusMessageReporting_hDir, ptwC_hDir, ptwX_hDir ] )
+        include_dirs = [statusMessageReporting_hDir, ptwC_hDir, ptwX_hDir])
     
-    pointwiseXY_C = Extension( 'numericalFunctions.pointwiseXY_C',
+    pointwiseXY_C = Extension('numericalFunctions.pointwiseXY_C',
         extra_compile_args = extra_compile_args,
         sources = statusMessageReporting_c + ptwC_c + ptwX_c + nf_Legendre_c + nf_integration_c + ptwXY_c + ptwXY_Py_c,
-        include_dirs = [ statusMessageReporting_hDir, ptwC_hDir, ptwX_hDir, nf_Legendre_hDir, nf_integration_hDir, 
-                ptwXY_hDir, ptwXY_Py_hDir ] )
+        include_dirs = [statusMessageReporting_hDir, ptwC_hDir, ptwX_hDir, nf_Legendre_hDir, nf_integration_hDir, 
+                ptwXY_hDir, ptwXY_Py_hDir])
 
-    Legendre = Extension( 'numericalFunctions.Legendre',
+    Legendre = Extension('numericalFunctions.Legendre',
         extra_compile_args = extra_compile_args,
         sources = statusMessageReporting_c + ptwC_c + ptwX_c + ptwXY_c + nf_integration_c + nf_Legendre_c + nf_Legendre_Py_c,
-        include_dirs = [ statusMessageReporting_hDir, ptwC_hDir, ptwX_hDir, ptwXY_hDir, ptwXY_Py_hDir, 
-                nf_integration_hDir, nf_Legendre_hDir ] )
+        include_dirs = [statusMessageReporting_hDir, ptwC_hDir, ptwX_hDir, ptwXY_hDir, ptwXY_Py_hDir, 
+                nf_integration_hDir, nf_Legendre_hDir])
     
-    specialFunctions = Extension( 'numericalFunctions.specialFunctions',
+    specialFunctions = Extension('numericalFunctions.specialFunctions',
         extra_compile_args = extra_compile_args,
         sources = statusMessageReporting_c + ptwC_c + nf_specialFunctions_c + nf_specialFunctions_Py_c,
-        include_dirs = [ statusMessageReporting_hDir, ptwC_hDir, nf_specialFunctions_hDir, nf_specialFunctions_Py_hDir ] )
+        include_dirs = [statusMessageReporting_hDir, ptwC_hDir, nf_specialFunctions_hDir, nf_specialFunctions_Py_hDir])
     
-    angularMomentumCoupling = Extension( 'numericalFunctions.angularMomentumCoupling',
+    angularMomentumCoupling = Extension('numericalFunctions.angularMomentumCoupling',
         extra_compile_args = extra_compile_args,
-        sources = statusMessageReporting_c + ptwC_c + nf_angularMomentumCoupling_c + nf_angularMomentumCoupling_Py_c ,
-        include_dirs = [ statusMessageReporting_hDir, ptwC_hDir, nf_specialFunctions_hDir, nf_specialFunctions_Py_hDir ] )
+        sources = statusMessageReporting_c + ptwC_c + nf_angularMomentumCoupling_c + nf_angularMomentumCoupling_Py_c,
+        include_dirs = [statusMessageReporting_hDir, ptwC_hDir, nf_specialFunctions_hDir, nf_specialFunctions_Py_hDir])
     
-    integration = Extension( 'numericalFunctions.integration',
+    integration = Extension('numericalFunctions.integration',
         extra_compile_args = extra_compile_args,
         sources = statusMessageReporting_c + ptwC_c + ptwX_c + ptwXY_c + nf_Legendre_c + nf_integration_c + nf_integration_Py_c,
-        include_dirs = [ statusMessageReporting_hDir, ptwC_hDir, ptwX_hDir, ptwXY_hDir, nf_Legendre_hDir, nf_integration_hDir ] )
+        include_dirs = [statusMessageReporting_hDir, ptwC_hDir, ptwX_hDir, ptwXY_hDir, nf_Legendre_hDir, nf_integration_hDir])
 
+    # This setup() is called by setuptools from pyproject.toml
     setup(
-        name='numericalFunctions',
-        version='1.0.0',
-        maintainer='mattoon1@llnl.gov',
-        packages=['numericalFunctions'],
-        package_dir={'numericalFunctions': '.'},
         ext_modules=[listOfDoubles_C, pointwiseXY_C, Legendre, specialFunctions, angularMomentumCoupling, integration],
-        description='',
-        license=''
-        )
+    )
 
 if __name__ == '__main__':
-    setup_package()    
+    setup_package()
