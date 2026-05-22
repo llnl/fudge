@@ -240,6 +240,13 @@ class XYs3d( Subform, multiD_XYsModule.XYs3d ) :
                                                                  index, integral, self.toXLink()))
             energy_outs = {}
             for xy in energy_in:
+                if isinstance(xy, Legendre):
+                    if xy[0] == 0 and any([coefficient != 0 for coefficient in xy[1:]]):
+                        incident = PQU.PQU(energy_in.outerDomainValue, axes[0].unit)
+                        outgoing = PQU.PQU(xy.outerDomainValue, axes[1].unit)
+
+                        warnings.append(warning.InvalidLegendreSeries(incident, outgoing, xy))
+
                 energy_outs[xy.toPointwise_withLinearXYs(accuracy=XYs1dModule.defaultAccuracy, upperEps=1e-8).rangeMin] = xy.outerDomainValue
             minProb = min(energy_outs.keys())
             if minProb < 0:
@@ -285,8 +292,6 @@ class XYs3d( Subform, multiD_XYsModule.XYs3d ) :
                 functional1d = XYs1dModule.pointwiseXY_C.unitbaseInterpolate(energyIn, functional2d1.outerDomainValue, functional1d.nf_pointwiseXY,
                         functional2d2.outerDomainValue, functional1d2.nf_pointwiseXY, 1)
                 functional1d = energyModule.XYs1d(functional1d, interpolation = functional1d.getInterpolation(), axes = energyModule.defaultAxes(energyUnit))
-
-        functional1d.normalize(insitu=True)
 
         return functional1d
 

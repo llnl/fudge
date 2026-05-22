@@ -639,7 +639,7 @@ class Import(EntryBase):
 
         ancestor = self.ancestor
         if isinstance(ancestor, Map):
-            return pathlib.Path(ancestor.fileName).parent
+            return pathlib.Path(ancestor.fileName).resolve().parent
 
         raise TypeError('Import not an entry of a Map instance.')
 

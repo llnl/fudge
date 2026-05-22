@@ -31,6 +31,7 @@ This module contains the following functions:
 import os, sys, subprocess
 
 import fudge as fudgeModule
+from LUPY import locateFudgeBin
 from LUPY import subprocessing as subprocessingModule
 from LUPY import times as timesModule
 from fudge.processing.deterministic import transferMatrices as transferMatricesModule
@@ -56,8 +57,7 @@ def SnElasticUpScatter(style, tempInfo):
         dataFile.close()
 
         ### run the calcUpscatter code -- ./calcUpscatterKernel 42092 3.1e-8 ==> upscatterEMuEp.out
-        cmd = os.path.join(os.path.split(os.path.dirname(fudgeModule.__file__))[0],
-                           'bin', 'calcUpscatterKernel')
+        cmd = locateFudgeBin.locateFileInBin('calcUpscatterKernel')
         cmd += '  %s %g %g %g %g %d ' % (
             'groupStructure.dat', tempInfo['targetMassRatio'], tempInfo['temperature'],
             tempInfo['minEval'], tempInfo['maxEval'], tempInfo['legendreOrder'])

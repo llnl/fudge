@@ -6,6 +6,7 @@
 # <<END-copyright>>
 
 """Defines the supported version numbers for the GNDS format (not the same as the FUDGE version number)."""
+import os
 
 version_1_10 = '1.10'
 version_2_0_LLNL_3 = '2.0.LLNL_3'
@@ -17,7 +18,11 @@ version_2_2        = '2.2.rc1'
 allowed = (version_1_10, version_2_0, version_2_1, version_2_2)
 allowedPlus = allowed + (version_2_0_LLNL_3, version_2_0_LLNL_4)
 
-default = version_2_1       # version written by default in translation scripts
+if os.environ.get('GNDS_FORMAT_VERSION'):
+    default = os.environ['GNDS_FORMAT_VERSION']
+    assert default in allowedPlus, "Invalid GNDS_FORMAT_VERSION environment variable: %s" % default
+else:
+    default = version_2_1       # version written by default in translation scripts
 
 MAJORVERSION, MINORVERSION = default.split( '.' )[:2]
 

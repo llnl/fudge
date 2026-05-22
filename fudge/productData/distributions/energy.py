@@ -2257,6 +2257,17 @@ class NBodyPhaseSpace( Subform ) :
 
         return data
 
+    def energySpectrumAtEnergy(self, energy_in):
+        """
+        This method returns the energy spectrum at the given projectile energy.
+
+        :param energy_in:       The projectile energy.
+
+        :return:                An :py:class:`XYs1d` instance.
+        """
+
+        return self.evaluate(energy_in)
+
     def fixDomains(self, labels, energyMin, energyMax):
         """This method does nothing."""
 

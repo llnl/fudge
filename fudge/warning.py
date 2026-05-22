@@ -1147,6 +1147,20 @@ class ExtraOutgoingEnergy(Warning):
         return self.xpath == other.xpath and self.energy_in == other.energy_in
 
 
+class InvalidLegendreSeries(Warning):
+    def __init__(self, energy_in, energy_out, obj=None):
+        Warning.__init__(self, Level.Moderate, obj)
+        self.energy_in = energy_in
+        self.energy_out = energy_out
+
+    def __str__(self):
+        return ("Non-zero higher Legendre coefficients when L0 = 0 at incident energy %s, outgoing energy %s"
+                % (self.energy_in, self.energy_out))
+
+    def __eq__(self, other):
+        return self.xpath == other.xpath and self.energy_in == other.energy_in and self.energy_out == other.energy_out
+
+
 class MissingCoulombIdenticalParticlesFlag(Warning):
     def __init__(self, obj=None):
         Warning.__init__(self, Level.Severe, obj)

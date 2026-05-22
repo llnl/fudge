@@ -406,7 +406,7 @@ class Suite(ancestryModule.AncestryIO_bare, abc.ABC):
             if cls is None:
                 cls = allowedClasses.get(self.legacyMemberNameMapping[child.tag])
                 if cls is None:
-                    nodesNotParsed.append(tag)
+                    nodesNotParsed.append(child.tag)
                     continue
             self.add(cls.parseNodeUsingClass(child, xPath, linkData, **kwargs))
 

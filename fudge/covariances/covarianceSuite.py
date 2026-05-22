@@ -65,10 +65,13 @@ class CovarianceSuite(ancestryModule.AncestryIO):
     childNodeOrder = {
         GNDS_formatVersionModule.version_1_10: (suitesModule.ExternalFiles.moniker, stylesModule.Styles.moniker,
                                                 CovarianceSections.moniker, ParameterCovariances.moniker),
-        GNDS_formatVersionModule.version_2_0_LLNL_4: (suitesModule.ExternalFiles.moniker, stylesModule.Styles.moniker,
-                                                      CovarianceSections.moniker, ParameterCovariances.moniker),
         GNDS_formatVersionModule.version_2_0: (suitesModule.ExternalFiles.moniker, stylesModule.Styles.moniker,
                                                CovarianceSections.moniker, ParameterCovariances.moniker)}
+    for formatVersion in (
+            GNDS_formatVersionModule.version_2_0_LLNL_4,
+            GNDS_formatVersionModule.version_2_1,
+            GNDS_formatVersionModule.version_2_2):
+        childNodeOrder[formatVersion] = childNodeOrder[GNDS_formatVersionModule.version_2_0]
 
     def __init__(self, projectile, target, evaluation, interaction=None,
                  formatVersion=GNDS_formatVersionModule.default, sourcePath=None):

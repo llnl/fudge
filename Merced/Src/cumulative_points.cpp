@@ -46,7 +46,7 @@ double Cum::cumulative_prob_entry::get_cum_inv( double A ) const
   double dA = A - cum_prob;
   double this_E;
   
-  static double abs_tol = Global.Value( "tight_tol" );
+  static double abs_tol = 3e-16; //Global.Value( "tight_tol" );
   if( dA <= abs_tol )
   {
     this_E = E_out;

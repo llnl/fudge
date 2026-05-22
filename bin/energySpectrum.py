@@ -190,11 +190,13 @@ def addCurves(curve1, curve2):
 
 def output( MT, reactionStr, prefix, spectrum, crossSection ) :
 
-    def write( curve, suffix, yLabel ) :
+    def write( curve, suffix, yLabel, productionCrossSection ) :
 
         fOut = open( os.path.join( outputDir, prefix + '_%.3d.' % MT + suffix ), 'w' )
         fOut.write( '# reaction = "%s"\n' % reactionStr )
         fOut.write( '# cross section = %.5g\n' % crossSection )
+        fOut.write( '# production cross section = %.5g\n' % ( productionCrossSection ) )
+        fOut.write( '# multiplicity = %.5g\n' % ( productionCrossSection / crossSection ) )
         fOut.write( '# x axes label = "Outgoing %s energy [%s]"\n' % ( args.product, args.energyUnit ) )
         fOut.write( '# y axes label = "%s"\n' % yLabel )
         if len(curve) > 0:
@@ -219,17 +221,19 @@ def output( MT, reactionStr, prefix, spectrum, crossSection ) :
 
     spectrum = addPointForLogPlotting( spectrum )
 
-    write( spectrum, 'spec', 'spectrum [%s/%s]' % ( crossSectionUnit, args.energyUnit ) )
+    productionCrossSection = spectrum.integrate()
+
+    write( spectrum, 'spec', 'spectrum [%s/%s]' % ( crossSectionUnit, args.energyUnit ), productionCrossSection )
 
     pdf = spectrum
     try :
         pdf = spectrum.normalize( )
     except :
         return
-    write( pdf, '_pdf', 'pdf [1/%s]' % args.energyUnit )
+    write( pdf, '_pdf', 'pdf [1/%s]' % args.energyUnit, productionCrossSection )
 
     cdf = XYs1dModule.XYs1d( data = [ pdf.domainGrid, pdf.runningIntegral( ) ], dataForm = 'xsandys' )
-    write( cdf, '_cdf', 'cdf' )
+    write( cdf, '_cdf', 'cdf', productionCrossSection )
 
 def productSpectrum(self, pid, energy, parentMultiplicity, spectrum, discreteGammaData):
 
@@ -307,20 +311,24 @@ def reactionSpectrum(self, pid, energy, totalSpectrum, totolDiscreteGammaData, t
                 totolDiscreteGammaData[energy] += discreteGammaData[energy]
 
     if( ( outputDir is not None ) or args.selfCheck ) :
-        if( crossSection > 0.0 ) :
-            spectrum2 = addCurves( spectrum, discreteGammaSpectrumToPDF( discreteGammaData ) )
-            if( outputDir is not None ) : output( MT, str( self ), '%3.3d' % reactionCounter, spectrum2, crossSection )
-            integral = spectrum2.integrate() / crossSection
+        productionCrossSection = 0.0
+        integral = 0.0
+        if crossSection > 0.0:
+            spectrum2 = addCurves(spectrum, discreteGammaSpectrumToPDF(discreteGammaData))
+            productionCrossSection = spectrum2.integrate()
+            if outputDir is not None:
+                output(MT, str(self), '%3.3d' % reactionCounter, spectrum2, crossSection)
+            integral = productionCrossSection / crossSection
             for indicies in sums :
                 if( indicies[0] <= MT <= indicies[1] ) :
                     sums[indicies][0] += crossSection
                     sums[indicies][1] = addCurves( sums[indicies][1], spectrum2 )
-        else :
-            integral = 0.0
         total = multiplicityAtEnergy
         error = 0.0
         if( ( total + integral ) != 0.0 ) : error = ( total - integral ) / max( total, integral )
-        if outputDir is not None: outputLog.write('%5d  %3d  %-40s  %12.5e %12.5e %12.5e %8.1e\n' % ( reactionCounter, MT, reactionString, crossSection, total, integral, error ))
+        if outputDir is not None:
+            outputLog.write('%5d  %3d  %-40s  %12.5e %12.5e %12.5e %12.5e %8.1e\n' % 
+                    (reactionCounter, MT, reactionString, crossSection, productionCrossSection, total, integral, error))
         if( abs( error ) > 2e-5 ) :
             if( ( args.verbose > 0 ) or args.selfCheck ) :
                 if( args.verbose == 0 ) : print( '    %-32s' % self, crossSection )
@@ -347,8 +355,9 @@ def getSpectrum(reactions, reactionSuffix):
 
 if outputDir is not None:
     outputLog = open(os.path.join(outputDir, 'index'), 'w')
-    outputLog.write( 'index   MT  label                                     crossSection  multiplicity    integral    error\n' )
-    outputLog.write( '-----------------------------------------------------------------------------------------------------\n' )
+    outputLog.write( 'index   MT  label                                     crossSection   production  multiplicity multiplicity multiplicity\n' )
+    outputLog.write( '                                                                    crossSection                integral      error    \n' )
+    outputLog.write( '-----------------------------------------------------------------------------------------------------------------------\n' )
 
 totalSpectraTime = timesModule.Times( )
 reactionSpectrumNonDiscrete, discreteGammaData, totalCrossSection = getSpectrum(protare.reactions, '')

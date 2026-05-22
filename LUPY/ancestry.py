@@ -416,7 +416,7 @@ class Ancestry(abc.ABC):
         except XPathNotFound:
             raise XPathNotFound("Cannot locate path '%s'" % xPath)
 
-    def printMembers(self, cls2=None, exclude=False, width=3):
+    def printMembers(self, cls2=None, exclude=False, width=3, clsIndex=-1):
         """
         This method prints the type of *self* and then prints all the member added since the base class *cls2*. That is, 
         those members which are not defined in by base class *cls2*.
@@ -424,6 +424,7 @@ class Ancestry(abc.ABC):
         :param cls2:        Must be a base class for *self**.
         :param exclude:     If True, any member starting with an underscore (i.e., '_') is also not printed.
         :param width:       The number of members printed per line.
+        :param clsIndex:    Like cls2 but uses a last *clsIndex* 
         """
 
         if cls2 is None:
@@ -433,10 +434,15 @@ class Ancestry(abc.ABC):
             raise TypeError('self is not a derived fom class cls2')
 
         print(type(self))
+        cls3 = None
         for index, cls in enumerate(inspect.getmro(self.__class__)):
+            if index <= clsIndex:
+                cls3 = cls
             if index == 0:
                 continue
             print('  %s' % cls)
+        if clsIndex >= 0:
+            cls2 = cls3
 
         members = []
         _ancestryMembers = dir(cls2)

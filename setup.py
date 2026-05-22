@@ -4,49 +4,68 @@
 # 
 # SPDX-License-Identifier: BSD-3-Clause
 # <<END-copyright>>
+# This file is required for C extensions and custom build steps.
+# The main configuration is in pyproject.toml.
 
-# This file is required for C extensions and custom installation
-# The main configuration is in pyproject.toml, but we need this for extensions and customizations
-
-import os, sys, glob, shutil
-import setuptools
-from setuptools.command.install import install
-from setuptools.command.build_ext import build_ext
-from setuptools import setup, Extension
-from pathlib import Path
+import glob
+import os
+import shutil
 import subprocess
+from pathlib import Path
+
 import numpy
+from setuptools import Extension, setup
+from setuptools.command.build_py import build_py as _build_py
 
-cwd: str = Path(__file__).parent
+ROOT = Path(__file__).resolve().parent
 
-class CustomInstall(install):
-    """Custom handler for the 'install' command."""
+
+class build_py(_build_py):
+    """Build Python packages, and also build/stage standalone native executables."""
+
     def run(self):
-        # copy C executables Merced/bin/merced and fudge/processing/deterministic/upscatter/bin/calcUpscatterKernel to Python environment bin folder
-        workingFolder = os.getcwd()
-        binFolder = os.path.join(sys.prefix, 'bin')
-        os.chdir('Merced')
-        subprocess.check_call('make -j', shell=True)
-        executable = "bin/merced"
-        if sys.platform.startswith('win'):
-            executable = "bin/merced.exe"
-        shutil.copy(executable, binFolder)
-        os.chdir(workingFolder)
-
-        os.chdir('fudge/processing/deterministic/upscatter')
-        subprocess.check_call('make -j', shell=True)
-        executable = "bin/calcUpscatterKernel"
-        if sys.platform.startswith('win'):
-            executable = "bin/calcUpscatterKernel.exe"
-        shutil.copy(executable, binFolder)
-        os.chdir(workingFolder)
-
+        self._build_native_executables()
         super().run()
 
+    def _build_native_executables(self):
+        targets = [
+            {
+                "workdir": ROOT / "Merced",
+                "source": ROOT / "Merced" / "bin" / self._exe_name("merced"),
+                "dest": ROOT / "fudge" / "bin" / self._exe_name("merced"),
+            },
+            {
+                "workdir": ROOT / "fudge" / "processing" / "deterministic" / "upscatter",
+                "source": ROOT / "fudge" / "processing" / "deterministic" / "upscatter" / "bin" / self._exe_name("calcUpscatterKernel"),
+                "dest": ROOT / "fudge" / "bin" / self._exe_name("calcUpscatterKernel"),
+            },
+        ]
 
-# This setup() is called by setuptools from pyproject.toml
+        for target in targets:
+            self._run_make(target["workdir"])
+            self._stage_binary(target["source"], target["dest"])
+
+    @staticmethod
+    def _exe_name(name):
+        return f"{name}.exe" if os.name == "nt" else name
+
+    def _run_make(self, workdir: Path):
+        subprocess.check_call(["make", "-j"], cwd=str(workdir))
+
+    def _stage_binary(self, source: Path, dest: Path):
+        if not source.exists():
+            raise FileNotFoundError(f"Expected built executable not found: {source}")
+
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, dest)
+
+        build_target = Path(self.build_lib) / dest.relative_to(ROOT)
+        build_target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(dest, build_target)
+
+
 setup(
-    scripts=glob.glob('bin/*.py'),
+    scripts=glob.glob("bin/*.py"),
     ext_modules=[
         Extension('fudge.processing.resonances._getBreitWignerSums',
             sources=['fudge/processing/resonances/getBreitWignerSums.c'], include_dirs=[numpy.get_include()], ),
@@ -57,12 +76,12 @@ setup(
     ],
     install_requires=[
         'numpy',
-        f'crossSectionAdjustForHeatedTarget @ {(cwd / "crossSectionAdjustForHeatedTarget").as_uri()}',
-        f'numericalFunctions @ {(cwd / "numericalFunctions").as_uri()}',
-        f'pqu @ {(cwd / "pqu").as_uri()}',
-        f'xData @ {(cwd / "xData").as_uri()}',
-        f'PoPs @ {(cwd / "PoPs").as_uri()}',
-        f'brownies @ {(cwd / "brownies").as_uri()}',
+        f'crossSectionAdjustForHeatedTarget @ {(ROOT / "crossSectionAdjustForHeatedTarget").as_uri()}',
+        f'numericalFunctions @ {(ROOT / "numericalFunctions").as_uri()}',
+        f'pqu @ {(ROOT / "pqu").as_uri()}',
+        f'xData @ {(ROOT / "xData").as_uri()}',
+        f'PoPs @ {(ROOT / "PoPs").as_uri()}',
+        f'brownies @ {(ROOT / "brownies").as_uri()}',
     ],
-    cmdclass={'install': CustomInstall}
+    cmdclass={"build_py": build_py},
 )

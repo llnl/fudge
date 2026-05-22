@@ -1479,7 +1479,12 @@
           <xs:sequence>
             <xs:element name="XYs1d" type="xData_XYs1d_primary"/>
             <xs:choice>
-              <xs:element name="evaporation"/>
+              <xs:element name="XYs2d" type="xData_XYs2d_primary"/>
+              <xs:element name="evaporation" type="DEU_EvaporationType"/>
+              <xs:element name="generalEvaporation" type="DEU_GeneralEvaporationType"/>
+              <xs:element name="simpleMaxwellianFission" type="DEU_SimpleMaxwellianFissionType"/>
+              <xs:element name="Watt" type="DEU_WattType"/>
+              <xs:element name="MadlandNix" type="DEU_MadlandNixType"/>
             </xs:choice>
           </xs:sequence>
           <xs:attribute name="index" type="xs:integer"/> <!-- FIXME: use="required"/> -->

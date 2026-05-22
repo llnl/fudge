@@ -2464,7 +2464,7 @@ class ReactionSuite(ancestryModule.AncestryIO):
         if not xmlName.parent.exists():
             xmlName.parent.mkdir(parents=True)
         with open( xmlName, "w" ) as fout :
-            fout.write( '<?xml version="1.0" encoding="UTF-8"?>\n')
+            fout.write( ancestryModule.XML_declaration )
             fout.write( '\n'.join( xmlString ) )
             fout.write( '\n' )
 

@@ -484,7 +484,7 @@ class Database(ancestryModule.AncestryIO):
         if( dirname != '' ) :
             if( not( os.path.exists( dirname ) ) ) : os.makedirs( dirname )
         fOut = open( fileName, 'w' )
-        fOut.write( '<?xml version="1.0"?>\n' )
+        fOut.write( ancestryModule.XML_declaration )
         fOut.write( self.toXML( **kwargs ) )
         fOut.write( '\n' )
         fOut.close( )
