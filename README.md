@@ -31,8 +31,8 @@ Optional packages matplotlib and PyQT5 are also recommended to support plotting.
 
       Or, using venv:
 
-          python3 -m venv fudge
-          source fudge/bin/activate
+          python3 -m venv .venv
+          source .venv/bin/activate
           pip install wheel
           pip install setuptools
           pip install numpy
