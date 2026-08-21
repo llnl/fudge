@@ -17,6 +17,7 @@ def read_evaluation(endfFile, reconstructResonances=True):
         from fudge import reactionSuite
         return {'reactionSuite': reactionSuite.ReactionSuite.readXML_file(endfFile), 'covarianceSuite': None, 'info': {}, 'errors': []}
     else:
+        import brownies.legacy.toENDF6.toENDF6     # this import adds 'toENDF6' methods to many GNDS classes
         from brownies.legacy.converting import endfFileToGNDS
         return endfFileToGNDS.endfFileToGNDS(endfFile, toStdOut=False, skipBadData=True, continuumSpectraFix=True,
                                              reconstructResonances=reconstructResonances)
