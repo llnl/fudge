@@ -71,18 +71,15 @@ def processProtare(index, fileName):
 
     return '%s___%s' % (index, '\n'.join(lines))
 
-def buildReactionInfoSummary(input, recursive=False, numberOfProcesses=None):
+def buildReactionInfoSummary(input, recursive, numberOfProcesses):
     '''
-    This function reads the map file specified by *input* and creates it ris file. This function uses the python module
-    multiprocessing to parallelize the processing of all the child nodes nodes.
+    This function reads the map file specified by *input* and creates it ris file. This function uses the python
+    multiprocessing module to parallelize processing of map file entries.
 
     :param input:               The name of the map file to process.
     :param recursive:           If **True**, each map file specified by an import child node is also processed.
     :param numberOfProcesses:   The number of multiprocessing.Process to use.
     '''
-
-    if numberOfProcesses is None:
-        numberOfProcesses = multiprocessing.cpu_count()
 
     map = mapModule.read(input, lazyParsing=True)
 
@@ -142,8 +139,9 @@ if __name__ == '__main__':
     parser.add_argument('output', type=pathlib.Path, default=None, nargs='?',
                                                                             help='The path of the outputted RIS file. Default is to use input map file with extension ".ris".')
     parser.add_argument('--recursive', action='store_true',                 help='If present, imported map files a also processed; otherwise, import map files are not processed.')
-    parser.add_argument('-n', '--numberOfProcesses', action='store', type=int, default=multiprocessing.cpu_count(),
-                                                                            help='Limits the number of child process to it value. Default is the node number of CPUs.')
+    nProc = min(32, multiprocessing.cpu_count())
+    parser.add_argument('-n', '--numberOfProcesses', action='store', type=int, default=nProc,
+                                                                            help=f'Limits the number of child processes to spawn. Default on this system = {nProc}.')
 
     args = parser.parse_args()
 

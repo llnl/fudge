@@ -7,10 +7,16 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # <<END-copyright>>
 
+import re
+import pathlib
+
 import argparse
 from fudge import GNDS_file
 from fudge import reactionSuite
 from fudge import styles
+from LUPY import commandlineArguments as commandlineArgumentsModule
+
+import processProtare
 
 summaryDocstring__FUDGE = "Merge processed GNDS files at various temperatures into one multi-temperature file"
 
@@ -30,6 +36,8 @@ def parse_args():
     parser.add_argument("gndsFiles", nargs="+", help="Files to merge")
     parser.add_argument("-o", "--outputFile", required=True, help="Final merged file name")
     parser.add_argument("--hybrid", action="store_true", help="Write final file in hybrid XML/HDF5")
+    parser.add_argument("--consolidateProcessArgs", action="store_true", help="Consolidate the processProtare.py arguments from the different Gnds files with only differences in the temperature arguments expected")
+    parser.add_argument("--onlyNameOfProcessArgProtare", action="store_true", help="Option to only use name, not full path, of input GNDS file in processing arguments")
 
     return parser.parse_args()
 
@@ -101,22 +109,76 @@ def copy_reaction(src_reaction, dst_reaction, toCopy):
     copy_outputChannel(src_reaction.outputChannel, dst_reaction.outputChannel, toCopy,
             fission=src_reaction.isFission())
 
+def read_processingArguments(rxnSuite, styleWithArgs, fudgeProcessScript, parser):
+    if fudgeProcessScript not in rxnSuite.styles[styleWithArgs].documentation.computerCodes:
+        raise RuntimeError(f"No computer code documentation for {fudgeProcessScript} in style '{styleWithArgs}'")
+    
+    savedArgs = rxnSuite.styles[styleWithArgs].documentation.computerCodes[fudgeProcessScript].executionArguments.body
+    processingArgs = parser.parse_args(savedArgs.split())
+
+    excludeArguments = ['outputFile', 'verbose']
+    positionalArgList, optionalArgList = commandlineArgumentsModule.getArgparseArguments(parser, processingArgs, excludeArguments)
+
+    positionalArgs = set(positionalArgList)
+    if len(positionalArgs) != len(positionalArgList):
+        raise RuntimeError("Duplicate positional processing arguments in protare")
+
+    optionalArgs = set(optionalArgList)
+    if len(optionalArgs) != len(optionalArgList):
+        raise RuntimeError("Duplicate positional processing arguments in protare")
+
+    return positionalArgs, optionalArgs
 
 # --------------------------------------------------------
 # Merge multiple ReactionSuites (first file is accumulator)
 # --------------------------------------------------------
-def merge_reaction_suites(files):
+def merge_reaction_suites(files, consolidateProcessArgs, onlyNameOfProcessArgProtare):
     print(f"Loading base ReactionSuite from {files[0]}")
     base = reactionSuite.read(files[0])
+    baseArgs = {'positional': [], 'optional': []}
+    fudgeProcessScript = pathlib.Path(processProtare.__file__).name
+    otherTemperatureArgs = []
+    if consolidateProcessArgs:
+        baseTemperatureRegex = re.compile(r"^--baseTemperatureIndex \d+$")
+        temperatureRegex = re.compile(r"^-t\s[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?$")
+        parser = processProtare.make_parser()[0]
+        baseStyleWithArgs = getattr(base.styles.temperatures()[0], 'heated')
+        baseArgs['positional'], baseArgs['optional'] = read_processingArguments(base, baseStyleWithArgs, fudgeProcessScript, parser)
+        if len(baseArgs['positional']) != 1:
+            raise RuntimeError("Expected a single positional argument. Found " + ' '.join(baseArgs['positional']))
 
     for idx, fn in enumerate(files[1:]):
         other = reactionSuite.read(fn)
 
         print(f"Merging ReactionSuite from {fn}")
-        toCopy = set([getattr(temp, processedStyle)
-            for processedStyle in ('heated', 'griddedCrossSection', 'heatedMultiGroup', 'URR_probabilityTables', 'heatedMultiGroup', 'SnElasticUpScatter')
+        toCopy = set([getattr(temp, processedStyle) # consider using toCopy = set(s for s in (getattr(temp, processedStyle)
+            for processedStyle in ('heated', 'griddedCrossSection', 'heatedMultiGroup', 'URR_probabilityTables', 'heatedMultiGroup', 'SnElasticUpScatter') # 'heatedMultiGroup' listed twice!
             for temp in other.styles.temperatures()
             ])
+
+        if consolidateProcessArgs:
+            styleWithArgs = [x for x in toCopy if x != '' and isinstance(other.styles[x], styles.Heated)]
+            if len(styleWithArgs) != 1:
+                raise RuntimeError("Expected a single heated style but found %d" % len(styleWithArgs))
+
+            positionalArgs, optionalArgs = read_processingArguments(other, styleWithArgs[0], fudgeProcessScript, parser)
+
+            if positionalArgs != baseArgs['positional']:
+                raise RuntimeError("Mismatched positional arguments in reactionSuites")
+
+            temperatureArg = [x for x in optionalArgs - baseArgs['optional'] if not baseTemperatureRegex.match(x)]
+            if len(temperatureArg) != 1:
+                errorString = "Found none" if len(temperatureArg) == 0 else "Found the following: " + ' '.join(temperatureArg)
+                raise RuntimeError("Unexpected number of mismatched processing arguments. " + errorString)
+
+            if temperatureRegex.match(temperatureArg[0]):
+                otherTemperatureArgs += temperatureArg
+            else:
+                raise RuntimeError("Unexpected temperature argument: " + temperatureArg[0])
+
+            mismatchedBaseArgs = [x for x in baseArgs['optional'] - optionalArgs if not baseTemperatureRegex.match(x) and not temperatureRegex.match(x)]
+            if len(mismatchedBaseArgs) != 0:
+                raise RuntimeError("Unexpected mismatched arguments in base reactionSuite: " + ' '.join(mismatchedBaseArgs))
 
         for otherStyle in toCopy:
             if otherStyle in base.styles:
@@ -155,11 +217,38 @@ def merge_reaction_suites(files):
                         base.applicationData[key]):
                     copy_method(other_appData, base_appData, toCopy)
 
+    if consolidateProcessArgs:
+        consolidatedArgs = list(baseArgs['positional'])[0]
+        if onlyNameOfProcessArgProtare:
+            consolidatedArgs = pathlib.Path(consolidatedArgs).name
+
+        baseTempArgs = []
+        consolidatedArgList = []
+        flagArgs = []
+        for processingArg in baseArgs['optional']:
+            if temperatureRegex.match(processingArg):
+                baseTempArgs.append(processingArg)
+
+            elif '--formatVersion' not in processingArg and not baseTemperatureRegex.match(processingArg):
+                if len(processingArg.split()) == 1:
+                    flagArgs.append(processingArg)
+                else:
+                    consolidatedArgList.append(f' {processingArg}')
+
+        flagArgs.sort()
+        consolidatedArgList.sort()
+        consolidatedArgs += ' ' + ' ' +  ' '.join(flagArgs)+ ' '.join(consolidatedArgList) + ' ' + ' '.join(baseTempArgs) + ' ' + ' '.join(otherTemperatureArgs)
+
+        base.styles[baseStyleWithArgs].documentation.computerCodes[fudgeProcessScript].executionArguments.body = consolidatedArgs
+
     return base
 
 
 if __name__ == "__main__":
     args = parse_args()
+
+    if args.onlyNameOfProcessArgProtare and not args.consolidateProcessArgs:
+        print("Warning: --onlyNameOfProcessArgProtare has no effect unless --consolidateProcessArgs is also set.")
 
     previews = [GNDS_file.preview(gndsFile) for gndsFile in args.gndsFiles]
     # sanity check:
@@ -178,7 +267,7 @@ if __name__ == "__main__":
         raise Exception(f"Error! Temperatures were out of order! {all_temps}")
 
     print(f"Merging {len(all_temps)} temperatures from {len(gndsFiles)} files")
-    merged = merge_reaction_suites(gndsFiles)
+    merged = merge_reaction_suites(gndsFiles, args.consolidateProcessArgs, args.onlyNameOfProcessArgProtare)
 
 
     print(f"\nWriting merged ReactionSuite to {args.outputFile}")

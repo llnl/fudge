@@ -83,14 +83,36 @@
     </xs:restriction>
   </xs:simpleType>
 
+  <!-- ====================== EXTERNALFILES ============================= -->
+
+  <xs:complexType name="ExternalFileListType">
+    <xs:sequence>
+      <xs:element name="externalFile" type="ExternalFileType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ExternalFileType">
+    <xs:attribute name="label" type="xs:NCName" use="required"/>
+    <xs:attribute name="path" type="xs:string" use="required"/>
+    <xs:attribute name="checksum" type="xs:string"/>
+    <xs:attribute name="algorithm" type="xs:string"/>
+  </xs:complexType>
+
   <!-- ========================= STYLES ================================ -->
 
   <xs:complexType name="RS_StylesType">
     <xs:choice maxOccurs="unbounded">
       <xs:element name="evaluated" type="RS_EvaluatedType"/>
+      <xs:element name="realization" type="RS_RealizationType"/>
       <xs:element name="crossSectionReconstructed" type="RS_CrossSectionsReconstructedType"/>
+      <xs:element name="CoulombPlusNuclearElasticMuCutoff" type="RS_CoulombPlusNuclearElasticMuCutoffType"/>
       <xs:element name="heated" type="RS_HeatedType"/>
       <xs:element name="averageProductData" type="RS_AverageProductDataType"/>
+      <xs:element name="MonteCarlo_cdf" type="RS_MonteCarlo_cdfType"/>
+      <xs:element name="griddedCrossSection" type="RS_griddedCrossSectionType"/>
+      <xs:element name="URR_probabilityTables" type="RS_URR_probabilityTablesType"/>
+      <xs:element name="heatedMultiGroup" type="RS_heatedMultiGroupType"/>
+      <xs:element name="SnElasticUpScatter" type="RS_SnElasticUpScatterType"/>
     </xs:choice>
   </xs:complexType>
 
@@ -108,6 +130,12 @@
     <xs:attribute name="derivedFrom" type="xs:string"/>
   </xs:complexType>
 
+  <xs:complexType name="RS_RealizationType">
+    <xs:attribute name="label" type="xs:NCName" use="required"/>
+    <xs:attribute name="date" type="DateAttribute" use="required"/>
+    <xs:attribute name="derivedFrom" type="xs:string" use="required"/>
+  </xs:complexType>
+
   <xs:complexType name="RS_CrossSectionsReconstructedType">
     <xs:all>
       <xs:element name="temperature" type="PhysicalQuantity" minOccurs="0"/>
@@ -118,39 +146,121 @@
     <xs:attribute name="derivedFrom" type="xs:string" use="required"/>
   </xs:complexType>
 
+  <xs:complexType name="RS_CoulombPlusNuclearElasticMuCutoffType">
+    <xs:attribute name="label" type="xs:NCName" use="required"/>
+    <xs:attribute name="date" type="DateAttribute" use="required"/>
+    <xs:attribute name="derivedFrom" type="xs:string" use="required"/>
+    <xs:attribute name="muCutoff" type="xs:double" use="required"/>
+  </xs:complexType>
+
   <xs:complexType name="RS_HeatedType">
-    <xs:sequence>
+    <xs:all>
       <xs:element name="temperature" type="PhysicalQuantity"/>
       <xs:element name="documentation" type="DocumentationType" minOccurs="0"/>
-    </xs:sequence>
+    </xs:all>
     <xs:attribute name="label" type="xs:NCName" use="required"/>
     <xs:attribute name="date" type="DateAttribute" use="required"/>
     <xs:attribute name="derivedFrom" type="xs:string" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="RS_AverageProductDataType">
-    <xs:sequence>
-      <xs:element name="temperature" type="PhysicalQuantity"/>
+    <xs:all>
+      <xs:element name="temperature" type="PhysicalQuantity" minOccurs="0"/>
       <xs:element name="documentation" type="DocumentationType" minOccurs="0"/>
-    </xs:sequence>
+    </xs:all>
     <xs:attribute name="label" type="xs:NCName" use="required"/>
     <xs:attribute name="date" type="DateAttribute" use="required"/>
     <xs:attribute name="derivedFrom" type="xs:string" use="required"/>
   </xs:complexType>
  
-  <xs:complexType name="ExternalFileListType">
+  <xs:complexType name="RS_MonteCarlo_cdfType">
+    <xs:all>
+      <xs:element name="documentation" type="DocumentationType" minOccurs="0"/>
+    </xs:all>
+    <xs:attribute name="label" type="xs:NCName" use="required"/>
+    <xs:attribute name="date" type="DateAttribute" use="required"/>
+    <xs:attribute name="derivedFrom" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="RS_griddedCrossSectionType">
+    <xs:all>
+      <xs:element name="grid" type="GridType"/>
+      <xs:element name="documentation" type="DocumentationType" minOccurs="0"/>
+    </xs:all>
+    <xs:attribute name="label" type="xs:NCName" use="required"/>
+    <xs:attribute name="date" type="DateAttribute" use="required"/>
+    <xs:attribute name="derivedFrom" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="RS_URR_probabilityTablesType">
+    <xs:all>
+      <xs:element name="documentation" type="DocumentationType" minOccurs="0"/>
+    </xs:all>
+    <xs:attribute name="label" type="xs:NCName" use="required"/>
+    <xs:attribute name="date" type="DateAttribute" use="required"/>
+    <xs:attribute name="derivedFrom" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="RS_heatedMultiGroupType">
+    <xs:all>
+      <xs:element name="transportables" type="TransportablesListType"/>
+      <xs:element name="flux" type="FluxType"/>
+      <xs:element name="inverseSpeed" type="InverseSpeedType"/>
+      <xs:element name="documentation" type="DocumentationType" minOccurs="0"/>
+    </xs:all>
+    <xs:attribute name="label" type="xs:NCName" use="required"/>
+    <xs:attribute name="date" type="DateAttribute" use="required"/>
+    <xs:attribute name="derivedFrom" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="RS_SnElasticUpScatterType">
+    <xs:all>
+      <xs:element name="documentation" type="DocumentationType" minOccurs="0"/>
+    </xs:all>
+    <xs:attribute name="label" type="xs:NCName" use="required"/>
+    <xs:attribute name="date" type="DateAttribute" use="required"/>
+    <xs:attribute name="derivedFrom" type="xs:string" use="required"/>
+    <xs:attribute name="upperCalculatedGroup" type="xs:integer"/>
+  </xs:complexType>
+
+  <!-- =========== RS_heatedMultiGroupType child nodes: ========================= -->
+
+  <xs:complexType name="TransportablesListType">
     <xs:sequence>
-      <xs:element name="externalFile" type="ExternalFileType" maxOccurs="unbounded"/>
+      <xs:element name="transportable" type="TransportableType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="href" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="TransportableType">
+    <xs:sequence>
+      <xs:element name="group" type="TransportableGroupDefinition"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:NCName" use="required"/>
+    <!-- FIXME enumerate 'conserve' options -->
+    <xs:attribute name="conserve" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="TransportableGroupDefinition">
+    <xs:sequence>
+      <xs:element name="grid" type="GridType"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:NCName" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="FluxType">
+    <xs:sequence>
+      <xs:element name="XYs2d" type="xData_XYs2d_primary"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:NCName" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="InverseSpeedType">
+    <xs:sequence>
+      <xs:element name="gridded1d" type="xData_gridded1d"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="ExternalFileType">
-    <xs:attribute name="label" type="xs:NCName" use="required"/>
-    <xs:attribute name="path" type="xs:string" use="required"/>
-    <xs:attribute name="checksum" type="xs:string"/>
-    <xs:attribute name="algorithm" type="xs:string"/>
-  </xs:complexType>
- 
   <!-- ========================== targetInfo ================================== -->
 
   <xs:complexType name="TargetInfoType">
@@ -272,14 +382,14 @@
   </xs:complexType>
 
   <xs:complexType name="PoPs_basicParticle">
-    <xs:sequence>
+    <xs:all>
       <xs:element name="mass" type="PoPs_quantity"/>
       <xs:element name="spin" type="PoPs_spin"/>
       <xs:element name="parity" type="PoPs_parity"/>
       <xs:element name="charge" type="PoPs_quantity"/>
-      <xs:element name="halflife" type="PoPs_quantity"/>
+      <xs:element name="halflife" type="PoPs_quantity" minOccurs="0"/>
       <xs:element name="decayData" type="PoPs_decayData" minOccurs="0"/>
-    </xs:sequence>
+    </xs:all>
     <xs:attribute name="id" type="xs:string"/>
   </xs:complexType>
 
@@ -781,6 +891,8 @@
       <xs:element ref="doubleDifferentialCrossSection" minOccurs="0"/>
       <xs:element ref="crossSection"/>
       <xs:element name="outputChannel" type="OutputChannelType"/>
+      <xs:element name="availableEnergy" type="AvailableEnergyType" minOccurs="0"/>
+      <xs:element name="availableMomentum" type="AvailableMomentumType" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="label" type="xs:string" use="required"/>
     <xs:attribute name="partialReaction" type="xs:integer"/>
@@ -932,6 +1044,9 @@
       <xs:element name="reference" type="XLinkType"/>
       <xs:element name="CoulombPlusNuclearElastic" type="XLinkType"/>
       <xs:element name="thermalNeutronScatteringLaw1d" type="XLinkType"/>
+      <!-- in processed data files only: -->
+      <xs:element name="Ys1d" type="xData_Ys1d_primary"/>
+      <xs:element name="gridded1d" type="xData_gridded1d"/>
     </xs:choice>
   </xs:complexType>
 
@@ -1172,6 +1287,8 @@
     <xs:choice maxOccurs="unbounded">
       <xs:element name="constant1d" type="xData_constant1d"/>
       <xs:element name="XYs1d" type="xData_XYs1d_primary"/>
+      <!-- for processed files only: -->
+      <xs:element name="gridded1d" type="xData_gridded1d"/>
     </xs:choice>
   </xs:complexType>
 
@@ -1221,6 +1338,8 @@
     <xs:choice>
       <xs:element name="polynomial1d" type="xData_polynomial_1d_primary"/>
       <xs:element name="XYs1d" type="xData_XYs1d_primary"/>
+      <!-- for processed files only: -->
+      <xs:element name="gridded1d" type="xData_gridded1d"/>
     </xs:choice>
   </xs:complexType>
 
@@ -1294,7 +1413,7 @@
       <xs:element name="products" type="ProductList"/>
       <xs:element ref="fissionFragmentData" minOccurs="0"/>
     </xs:sequence>
-    <xs:attribute name="genre" type="xs:NCName" use="required"/>
+    <xs:attribute name="genre" type="xs:NCName"/> <!-- FIXME make it required and enumerate options? -->
     <xs:attribute name="process" type="xs:string"/>
   </xs:complexType>
 
@@ -1323,8 +1442,9 @@
       <xs:element minOccurs="0" name="documentation" type="DocumentationType"/>
       <xs:element name="multiplicity" type="MultiplicityType"/>
       <xs:element name="distribution" type="DistributionType"/>
-      <xs:element minOccurs="0" name="outputChannel" type="OutputChannelType"/>
       <xs:element minOccurs="0" name="averageProductEnergy" type="AverageProductEnergyType"/>
+      <xs:element minOccurs="0" name="averageProductMomentum" type="AverageProductMomentumType"/>
+      <xs:element minOccurs="0" name="outputChannel" type="OutputChannelType"/>
     </xs:sequence>
     <xs:attribute name="pid" type="xs:string" use="required"/>
     <xs:attribute name="label" type="xs:string" use="required"/>
@@ -1335,11 +1455,20 @@
     </xs:sequence>
   </xs:complexType>
 
-  <!-- optional: product may have energy deposition -->
+  <!-- optional: product may have energy & momentum deposition data -->
   <xs:complexType name="AverageProductEnergyType">
-    <xs:choice minOccurs="0">
+    <xs:choice maxOccurs="unbounded">
       <xs:element name="XYs1d" type="xData_XYs1d_primary"/>
       <xs:element name="regions1d" type="xData_regions_1d_primary"/>
+      <xs:element name="gridded1d" type="xData_gridded1d"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="AverageProductMomentumType">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="XYs1d" type="xData_XYs1d_primary"/>
+      <xs:element name="regions1d" type="xData_regions_1d_primary"/>
+      <xs:element name="gridded1d" type="xData_gridded1d"/>
     </xs:choice>
   </xs:complexType>
 
@@ -1353,6 +1482,8 @@
       <xs:element name="reference" type="XLinkType"/>
       <xs:element name="branching1d" type="Branching1dMultiplicityType"/>
       <xs:element name="unspecified" type="UnspecifiedMultiplicityType"/>
+      <!-- for processed files only: -->
+      <xs:element name="gridded1d" type="xData_gridded1d"/>
     </xs:choice>
   </xs:complexType>
 
@@ -1379,6 +1510,10 @@
       <xs:element name="incoherentPhotonScattering" type="XLinkType"/>
       <xs:element name="thermalNeutronScatteringLaw" type="XLinkType"/>
       <xs:element name="unspecified" type="DistributionUnspecifiedType"/>
+      <!-- for processed files only: -->
+      <xs:element name="multiGroup3d" type="MultiGroup3dType"/>
+      <xs:element name="angularEnergyMC" type="AngularEnergyMCType"/>
+      <xs:element name="energyAngularMC" type="EnergyAngularMCType"/>
     </xs:choice>
   </xs:complexType>
 
@@ -1435,7 +1570,7 @@
   <xs:complexType name="DEU_EvaporationType">
     <xs:sequence>
       <xs:element name="U" type="PhysicalQuantity"/>
-      <xs:element name="theta" type="XYs1dWrapperType"/>
+      <xs:element name="theta" type="OneDFunctionWrapperType"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -1458,15 +1593,15 @@
   <xs:complexType name="DEU_GeneralEvaporationType">
     <xs:sequence>
       <xs:element name="U" type="PhysicalQuantity"/>
-      <xs:element name="theta" type="XYs1dWrapperType"/>
-      <xs:element name="g" type="XYs1dWrapperType"/>
+      <xs:element name="theta" type="OneDFunctionWrapperType"/>
+      <xs:element name="g" type="OneDFunctionWrapperType"/>
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="DEU_SimpleMaxwellianFissionType">
     <xs:sequence>
       <xs:element name="U" type="PhysicalQuantity"/>
-      <xs:element name="theta" type="XYs1dWrapperType"/>
+      <xs:element name="theta" type="OneDFunctionWrapperType"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -1548,7 +1683,77 @@
     <xs:attribute name="label" type="xs:NCName" use="required"/>
     <xs:attribute name="productFrame" type="FrameEnum" use="required"/>
   </xs:complexType>
+
+  <!-- special distribution types that only appear in derived files: -->
+  <xs:complexType name="MultiGroup3dType">
+    <xs:sequence>
+      <xs:element name="gridded3d" type="xData_gridded3d"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:NCName" use="required"/>
+    <xs:attribute name="productFrame" type="FrameEnum" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="AngularEnergyMCType">
+    <xs:sequence>
+      <xs:element name="angular" type="angular_of_AngularEnergyMC"/>
+      <xs:element name="angularEnergy" type="angularEnergy_of_AngularEnergyMC"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:NCName" use="required"/>
+    <xs:attribute name="productFrame" type="FrameEnum" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="angular_of_AngularEnergyMC">
+    <xs:choice>
+      <xs:element name="XYs2d" type="xData_XYs2d_primary"/>
+      <xs:element name="regions2d" type="xData_regions_2d_primary"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="angularEnergy_of_AngularEnergyMC">
+    <xs:choice>
+      <xs:element name="XYs3d" type="xData_XYs3d_primary"/>
+      <xs:element name="regions3d" type="xData_regions_3d_primary"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="EnergyAngularMCType">
+    <xs:sequence>
+      <xs:element name="energy" type="energy_of_EnergyAngularMC"/>
+      <xs:element name="energyAngular" type="energyAngular_of_EnergyAngularMC"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:NCName" use="required"/>
+    <xs:attribute name="productFrame" type="FrameEnum" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="energy_of_EnergyAngularMC">
+    <xs:choice>
+      <xs:element name="XYs2d" type="xData_XYs2d_primary"/>
+      <xs:element name="regions2d" type="xData_regions_2d_primary"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="energyAngular_of_EnergyAngularMC">
+    <xs:choice>
+      <xs:element name="XYs3d" type="xData_XYs3d_primary"/>
+      <xs:element name="regions3d" type="xData_regions_3d_primary"/>
+    </xs:choice>
+  </xs:complexType>
   <!-- end of distribution components. -->
+
+  <!-- containers that appear in processed data only -->
+  <xs:complexType name="AvailableEnergyType">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="XYs1d" type="xData_XYs1d_primary"/>
+      <xs:element name="gridded1d" type="xData_gridded1d"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:complexType name="AvailableMomentumType">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="XYs1d" type="xData_XYs1d_primary"/>
+      <xs:element name="gridded1d" type="xData_gridded1d"/>
+    </xs:choice>
+  </xs:complexType>
 
 
   <!-- Some basic data containers are used throughout GNDS files, and are defined here.

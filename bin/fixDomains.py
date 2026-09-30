@@ -21,7 +21,7 @@ parser = argparse.ArgumentParser(description=description)
 parser.add_argument("inputFile", type=str,                                      help="""The input file whose 'sums' will be fix.""")
 parser.add_argument("outputFile", type=str,                                     help="""The output file name of fixed file.""")
 parser.add_argument("--energyMax", type=float, default=-1.0,                    help="""Trims any incident energy domains to energyMax.""")
-parser.add_argument("--onlyWriteWhenModified", action='store_false',            help="""If this options is entered and there are no domain fixes, then the output file is not written.""")
+parser.add_argument("--onlyWriteWhenModified", action='store_false',            help="""If this option is entered and there are no domain fixes, then the output file is not written.""")
 
 args = parser.parse_args()
 
@@ -68,16 +68,19 @@ def removeReactionsWithHighThresholds(reactions):
         print('    INFO: removing high threshold reaction "%s".' % reaction.label)
         reactions.remove(reaction.label)
 
+    return len(reactionsToRemove)
+
 if args.energyMax == -1.0:
     args.energyMax = protare.styles.projectileEnergyDomain().max
 
-removeReactionsWithHighThresholds(protare.reactions)
-removeReactionsWithHighThresholds(protare.orphanProducts)
-removeReactionsWithHighThresholds(protare.productions)
-removeReactionsWithHighThresholds(protare.fissionComponents)
-removeReactionsWithHighThresholds(protare.incompleteReactions)
+numberOfFixes = 0
+numberOfFixes += removeReactionsWithHighThresholds(protare.reactions)
+numberOfFixes += removeReactionsWithHighThresholds(protare.orphanProducts)
+numberOfFixes += removeReactionsWithHighThresholds(protare.productions)
+numberOfFixes += removeReactionsWithHighThresholds(protare.fissionComponents)
+numberOfFixes += removeReactionsWithHighThresholds(protare.incompleteReactions)
 
-numberOfFixes = protare.fixDomains(args.energyMax)
+numberOfFixes += protare.fixDomains(args.energyMax)
 
 if numberOfFixes != 0 or args.onlyWriteWhenModified:
     protare.saveToFile(args.outputFile, formatVersion=protare.format)

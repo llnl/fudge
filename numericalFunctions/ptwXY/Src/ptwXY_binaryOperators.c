@@ -405,7 +405,7 @@ ptwXYPoints *ptwXY_div_ptwXY( statusMessageReporting *smr, ptwXYPoints *ptwXY1, 
         return( NULL );
     }
 
-    if( ( ptwXY1->interpolation == ptwXY_interpolationFlat ) || ( ptwXY1->interpolation == ptwXY_interpolationFlat ) ) {
+    if( ( ptwXY1->interpolation == ptwXY_interpolationFlat ) || ( ptwXY2->interpolation == ptwXY_interpolationFlat ) ) {
         div = ptwXY_div_ptwXY_forFlats( smr, ptwXY1, ptwXY2, safeDivide );
         if( div == NULL ) smr_setReportError2p( smr, nfu_SMR_libraryID, nfu_Error, "Via." );
         return( div );

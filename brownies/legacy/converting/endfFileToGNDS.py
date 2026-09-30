@@ -222,8 +222,9 @@ def endfFileToGNDS(fileName, useFilesQAlways=True, singleMTOnly=None, evaluation
     info.printBadNK14 = True
     info.continuumSpectraFix = False
     info.acceptBadMF10FissionZAP = False
+    info.ignoreMF32Errors = False
     options = ['printBadNK14', 'continuumSpectraFix', 'ignoreBadDate', 'acceptBadMF10FissionZAP',
-               'JENDL_stylePrimarygammas', 'printMassHistory']
+               'JENDL_stylePrimarygammas', 'printMassHistory', 'ignoreMF32Errors']
     for option in kwargs:
         if option not in options: raise DeprecationWarning('invalid or deprecated option "%s"' % option)
         setattr(info, option, kwargs[option])

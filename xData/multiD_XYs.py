@@ -823,7 +823,7 @@ class XYsnd( baseModule.XDataFunctional ) :
             idx1 += 1
         else :
             if self.dimension == 3:
-                newMultiD.append(self.evaluate(domainMin), **kwargs)
+                newMultiD.append(self.evaluate(domainMin, **kwargs))
             else :
                 newMultiD.append(self.evaluate(domainMin))
 

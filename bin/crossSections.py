@@ -14,6 +14,7 @@ import argparse
 
 from pqu import PQU as PQUModule
 from LUPY import argumentsForScripts as argumentsForScriptsModule
+from xData import axes as axesModule
 from xData import XYs1d as XYs1dModule
 
 from PoPs import IDs as  PoPsIDsModule
@@ -61,7 +62,7 @@ if protare.interaction == enumsModule.Interaction.TNSL:
 labelsToWrite = []
 if args.processed:
     for style in protare.styles:
-        if isinstance(style, (stylesModule.Heated, stylesModule.HeatedMultiGroup, stylesModule.CoulombPlusNuclearElasticMuCutoff)):
+        if isinstance(style, (stylesModule.Heated, stylesModule.HeatedMultiGroup, stylesModule.CoulombPlusNuclearElasticMuCutoff, stylesModule.GriddedCrossSection)):
             labelsToWrite.append(style.label)
 
 outputDir = args.outputDir
@@ -132,7 +133,7 @@ class Gridded1dHistogram:
 
         return '\n'.join(lines)
 
-def output(MT, reactionStr, prefix, crossSection, yLabel, subDir=None):
+def output(MT, reactionStr, prefix, crossSection, yLabel, subDir=None, processedLabel=None):
     """
     This function writes the *crossSection* to a file.
     """
@@ -144,10 +145,7 @@ def output(MT, reactionStr, prefix, crossSection, yLabel, subDir=None):
     if len(crossSection) == 0: return
 
     if crossSection.label in labelsToWrite:
-        subProcessDir = 'heated'
-        if isinstance(crossSection, Gridded1dHistogram):
-            subProcessDir = 'MultiGroup'
-        outputDir2 = outputDir2 / subProcessDir/ crossSection.label
+        outputDir2 = outputDir2 / processedLabel / crossSection.label
 
     fileName = prefix + '_%.3d.dat' % MT
     path = outputDir2 / fileName
@@ -163,9 +161,17 @@ def outputLabel(crossSection, MT, reactionStr, reactionIndex):
     This function writes the processed *crossSection* to a file.
     """
 
+    processedLabel = 'heated'
     if isinstance(crossSection, crossSectionModule.Gridded1d):
         crossSection = Gridded1dHistogram(crossSection)
-    output(MT, reactionStr, reactionIndex, crossSection, 'Cross section')
+        processedLabel = 'MultiGroup'
+    elif isinstance(crossSection, crossSectionModule.Ys1d):
+        linkAxis = crossSection.axes[1].link
+        crossSection = crossSection.asXYs1d(True, 1e-3, 1e-6, 1e-6)
+        crossSection.axes[linkAxis.index] = axesModule.Axis(linkAxis.label, linkAxis.index, linkAxis.unit)
+        processedLabel = 'MonteCarlo'
+
+    output(MT, reactionStr, reactionIndex, crossSection, 'Cross section', processedLabel=processedLabel)
 
 if outputDir is not None:
     if outputDir.exists():
@@ -263,5 +269,11 @@ if outputDir is None and not args.plot:
     print(total.toString(format='  %16.8e %16.8e'))
 elif outputDir is not None:
     output(1, 'total', 'total', total, 'Cross section')
+    temperatures = protare.styles.temperatures( )
+    with open(outputDir / 'temperatures.dat', 'w') as fOut:
+        for temperature in temperatures:
+            print('%16.8e %s %s %s %s' % (temperature.temperature, temperature.heated, temperature.griddedCrossSection, 
+                    temperature.heatedMultiGroup, temperature.SnElasticUpScatter), file=fOut)
+
 if args.plot: crossSections[0].multiPlot(crossSections, title=protareLabel, xLabel='Energy [%s]' % total.axes.axes[1].unit,
         yLabel='Cross section [%s]' % total.axes[0].unit)

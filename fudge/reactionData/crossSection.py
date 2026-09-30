@@ -120,10 +120,15 @@ class XYs1d(BaseCrossSectionForm, XYs1dModule.XYs1d):
         before the first non-zero cross section value. Otherwise, it is the energy of the first point.
         """
 
-        for index, [x, y] in enumerate(self):
+        for index, (x, y) in enumerate(self):
             if y != 0: break
 
+        if y == 0 and index == len(self) - 1:
+            # special case if cross section is 0 everywhere
+            return self[-1][0]
+
         if index > 0: index -= 1
+
         return self[index][0]
 
     def evaluate(self, xValue):

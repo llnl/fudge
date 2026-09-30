@@ -23,6 +23,7 @@ from pqu import PQU as PQUModule
 
 from fudge import GNDS_formatVersion as GNDS_formatVersionModule
 from fudge.core.math import linearAlgebra as linearAlgebraModule
+from fudge.core.math import fudgemath as fudgemathModule
 
 from xData import enums as xDataEnumsModule
 from xData import axes as axesModule
@@ -2518,7 +2519,9 @@ def readMF8(info, MT, MTData, warningList):
             if metastables[ZAP] and ZAP != 0:
                 residual = toGNDSMiscModule.getTypeNameGamma(info, ZAP, level=ELFS, levelIndex=LFS)
                 if ELFS != 0:
-                    if abs(residual.energy.float('eV') - ELFS) / ELFS > 0.005:
+                    residual_energy_eV = residual.energy.float('eV')
+                    absdiff = abs(residual_energy_eV - ELFS)
+                    if absdiff > 10 and absdiff / ELFS > 0.005:
                         warningList.append(
                             f"MF8 residual level energy = {ELFS} for level {LFS} of ZA = {ZAP} not close "
                             f"to value in PoPs (likely computed from MF=3 Q-values) for MT = {MT}")
@@ -2529,6 +2532,15 @@ def readMF8(info, MT, MTData, warningList):
                         if matches:
                             warningList[-1] += f". Possible match: LFS = {matches[0]}"
                         info.doRaise.append(warningList[-1])
+                    elif absdiff > 0:
+                        # Values agree within tolerance but still differ - use the more precise value
+                        sig_digits_residual = fudgemathModule.countSignificantDigits(residual_energy_eV)
+                        sig_digits_ELFS = fudgemathModule.countSignificantDigits(ELFS)
+
+                        if sig_digits_ELFS > sig_digits_residual:
+                            # ELFS has more significant digits, update residual.energy
+                            residual.energy[0].value = ELFS
+                        # If residual has more or equal significant digits, keep it unchanged
 
                 isotopeName = residual.isotope.key
                 aliasName = PoPsAliasModule.MetaStable.metaStableNameFromNuclearLevelNameAndMetaStableIndex(isotopeName, metastables[ZAP])
@@ -3288,565 +3300,574 @@ def readMF32(info, dat, mf, mt, cov_info, warningList):
 
     sections = []
     for subsection in range(NER):
-        EL, EH, LRU, LRF, NRO, NAPS = funkyFI(dat.next(), logFile=info.logs)
-        if NRO!=0: raise BadCovariance("Can't handle non-zero NRO in MF32!")
-        # format is determined mainly by combination of LCOMP and LRU/LRF
-        if LRU == 1:  # resolved resonance covariance section
-            ENDFconversionFlags = []
-            if LRF in (1, 2, 3):  # Breit-Wigner and simplified Reich-Moore formats are similar
-                if not hasattr(resonances.resolved, 'evaluated'):
-                    warningList.append("Resonance covariance data for non-existent resonance region")
-                    break
-                if LRF in (1, 2):
-                    mf2_elist = list(zip(
-                        resonances.resolved.evaluated.resonanceParameters.table.getColumn('energy'),
-                        resonances.resolved.evaluated.resonanceParameters.table.getColumn('neutronWidth'),
-                        resonances.resolved.evaluated.resonanceParameters.table.getColumn('captureWidth')))
-                else:
-                    ENDFconversionFlags.append('LRF3')
-                    elasticLabel, = [r.label for r in resonances.resolved.evaluated.resonanceReactions
-                                     if r.ejectile == IDsPoPsModule.neutron]
-                    captureLabel, = [r.label for r in resonances.resolved.evaluated.resonanceReactions
-                                     if r.ejectile == IDsPoPsModule.photon]
-                    mf2_elist = [[], [], []]
-                    for spinGroup in resonances.resolved.evaluated.spinGroups:
-                        mf2_elist[0].extend( spinGroup.resonanceParameters.table.getColumn('energy'))
-                        mf2_elist[1].extend(spinGroup.resonanceParameters.table.getColumn(elasticLabel + ' width'))
-                        mf2_elist[2].extend(spinGroup.resonanceParameters.table.getColumn(captureLabel + ' width'))
-                    mf2_elist = list(zip(*mf2_elist))
-                SPI, AP, dum, LCOMP, NLS, ISR = funkyFI(dat.next(), logFile=info.logs)
-                DAP = []
-                if ISR > 0:   # scattering radius uncertainty
+        try:
+            EL, EH, LRU, LRF, NRO, NAPS = funkyFI(dat.next(), logFile=info.logs)
+            if NRO!=0: raise BadCovariance("Can't handle non-zero NRO in MF32!")
+            # format is determined mainly by combination of LCOMP and LRU/LRF
+            if LRU == 1:  # resolved resonance covariance section
+                ENDFconversionFlags = []
+                if LRF in (1, 2, 3):  # Breit-Wigner and simplified Reich-Moore formats are similar
+                    if not hasattr(resonances.resolved, 'evaluated'):
+                        warningList.append("Resonance covariance data for non-existent resonance region")
+                        break
                     if LRF in (1, 2):
-                        dum, dap, dum, dum, dum, dum = funkyFI(dat.next(), logFile=info.logs)
-                        DAP = [10*dap]
-                    else:  # LRF==3
-                        dum, dum, dum, dum, MLS, one = funkyFI(dat.next(), logFile=info.logs)
-                        for idx in range(int(math.ceil(MLS/6.0))):
-                            DAP.extend(funkyF(dat.next(), logFile=info.logs) )
-                        DAP = [10*dap for dap in DAP[:MLS]]  # convert from 10*fm to fm
-                if LCOMP == 0:        # internal correlations given for each resonance, no cross-resonance terms
-                    ENDFconversionFlags.append('LCOMP=0')
-                    mf32_resonances, mf32_covars = [], []
-                    NRS = 0
-                    for Lval in range(NLS):
-                        AWRI_lineNumber = dat.index
-                        AWRI, dum, L, dum, tmp, nrs_ = funkyFI(dat.next(), logFile=info.logs)
-                        info.ZA_massLineInfo.add(ZA, AWRI, mt, mf, AWRI_lineNumber, column=0)
-                        NRS += nrs_
-                        for i in range(nrs_):
-                            mf32_resonances.append(funkyF(dat.next(), logFile=info.logs))
-                            mf32_covars.append(
-                                funkyF(dat.next(), logFile=info.logs) + funkyF(dat.next(), logFile=info.logs))
-
-                    dEsq, dNsq, dNdG, dGsq, dNdF, dGdF, dFsq, dJdN, dJdG, dJdF, dJsq, dum = zip(*mf32_covars)
-                    MPAR = 3
-                    if any(dFsq): MPAR = 4
-                    if any(dJsq): raise BadCovariance("Encountered uncertainty on J in MF32!")
-                    matrix = numpy.zeros((MPAR*NRS, MPAR*NRS))
-                    for ridx in range(NRS):
-                        matrix[ridx*MPAR, ridx*MPAR] = dEsq[ridx]
-                        matrix[ridx*MPAR+1, ridx*MPAR+1] = dNsq[ridx]
-                        matrix[ridx*MPAR+2, ridx*MPAR+1:ridx*MPAR+3] = [dNdG[ridx], dGsq[ridx]]
-                        if MPAR == 4:
-                            matrix[ridx*MPAR+3, ridx*MPAR+1:ridx*MPAR+4] = [dNdF[ridx], dGdF[ridx], dFsq[ridx]]
-                    # symmetrize:
-                    for ridx in range(MPAR*NRS):
-                        matrix[ridx, ridx:] = matrix[ridx:, ridx]
-
-                    mf32_elist = [(lis[0], lis[3], lis[4]) for lis in mf32_resonances]
-                    nResonances = len(mf32_elist)
-                    _type = covarianceEnumsModule.Type.absolute
-                    matrixClass = arrayModule.Flattened
-
-                elif LCOMP == 1:
-                    AWRI_lineNumber = dat.index
-                    AWRI, dum, dum, dum, NSRS, NLRS = funkyFI(dat.next(), logFile=info.logs)
-                    info.ZA_massLineInfo.add(ZA, AWRI, mt, mf, AWRI_lineNumber, column=0)
-                    dum, dum, MPAR, dum, tmp, NRB = funkyFI(dat.next(), logFile=info.logs)
-                    dim = NRB * MPAR  # num. of resonances * num. parameters per resonance
-                    matrixSize = dim * (dim+1) // 2
-                    if matrixSize + 6*NRB != tmp:
-                        raise BadCovariance("Incorrect dimension for the matrix!")
-
-                    # resonances are listed again (redundant!):
-                    mf32_resonances = [funkyF(dat.next(), logFile=info.logs) for i in range(NRB)]
-                    if LRF in (1, 2):
-                        mf32_elist = [(lis[0], lis[3], lis[4]) for lis in mf32_resonances]
+                        mf2_elist = list(zip(
+                            resonances.resolved.evaluated.resonanceParameters.table.getColumn('energy'),
+                            resonances.resolved.evaluated.resonanceParameters.table.getColumn('neutronWidth'),
+                            resonances.resolved.evaluated.resonanceParameters.table.getColumn('captureWidth')))
                     else:
-                        mf32_elist = [(lis[0], lis[2], lis[3]) for lis in mf32_resonances]
-                    matrix = read_LCOMP1(dim, matrixSize, dat)
-                    nResonances = len(mf32_elist)
-                    _type = covarianceEnumsModule.Type.absolute
-                    matrixClass = arrayModule.Full
-
-                elif LCOMP == 2:
-                    ENDFconversionFlags.append('LCOMP=2')
-                    AWRI_lineNumber = dat.index
-                    AWRI, QX, dum, LRX, tmp, NRSA = funkyFI(dat.next(), logFile=info.logs)
-                    info.ZA_massLineInfo.add(ZA, AWRI, mt, mf, AWRI_lineNumber, column=0)
-                    # resonance parameters + uncertainties:
-                    mf32_resonances = [funkyF(dat.next(), logFile=info.logs) for i in range(NRSA*2)]
-                    if LRF in (1, 2):
-                        mf32_elist = [(lis[0], lis[3], lis[4]) for lis in mf32_resonances[::2]]
-                    else:
-                        mf32_elist = [(lis[0], lis[2], lis[3]) for lis in mf32_resonances[::2]]
-                    # for LCOMP==2, off-diagonal terms are given as correlation matrix:
-                    dum, dum, NDIGIT, NNN, NM, dum = funkyFI(dat.next(), logFile=info.logs)
-                    MPAR = NNN//NRSA
-                    diagonal = []
-                    for idx in range(NRSA):
+                        ENDFconversionFlags.append('LRF3')
+                        elasticLabel, = [r.label for r in resonances.resolved.evaluated.resonanceReactions
+                                         if r.ejectile == IDsPoPsModule.neutron]
+                        captureLabel, = [r.label for r in resonances.resolved.evaluated.resonanceReactions
+                                         if r.ejectile == IDsPoPsModule.photon]
+                        mf2_elist = [[], [], []]
+                        for spinGroup in resonances.resolved.evaluated.spinGroups:
+                            mf2_elist[0].extend( spinGroup.resonanceParameters.table.getColumn('energy'))
+                            mf2_elist[1].extend(spinGroup.resonanceParameters.table.getColumn(elasticLabel + ' width'))
+                            mf2_elist[2].extend(spinGroup.resonanceParameters.table.getColumn(captureLabel + ' width'))
+                        mf2_elist = list(zip(*mf2_elist))
+                    SPI, AP, dum, LCOMP, NLS, ISR = funkyFI(dat.next(), logFile=info.logs)
+                    DAP = []
+                    if ISR > 0:   # scattering radius uncertainty
                         if LRF in (1, 2):
-                            dE, dum, dum, dGammaN, dGammaG, dGammaF = mf32_resonances[2*idx+1]
-                            diagonal.extend([dE, dGammaN,dGammaG])
-                            if MPAR == 4: diagonal.append(dGammaF)
-                        elif LRF == 3:
-                            dE, dum, dGammaN, dGammaG, dGammaF1, dGammaF2 = mf32_resonances[2*idx+1]
-                            diagonal.extend([dE, dGammaN, dGammaG])
-                            if MPAR == 4: diagonal.extend([dGammaF1])
-                            elif MPAR == 5: diagonal.extend([dGammaF1,dGammaF2])
-                    if len(diagonal) != NNN:
-                        raise BadCovariance("Incorrect dimensions for LCOMP=2 matrix! Expected NNN=%d, got %d." %
-                                            (len(diagonal), NNN))
+                            dum, dap, dum, dum, dum, dum = funkyFI(dat.next(), logFile=info.logs)
+                            DAP = [10*dap]
+                        else:  # LRF==3
+                            dum, dum, dum, dum, MLS, one = funkyFI(dat.next(), logFile=info.logs)
+                            for idx in range(int(math.ceil(MLS/6.0))):
+                                DAP.extend(funkyF(dat.next(), logFile=info.logs) )
+                            DAP = [10*dap for dap in DAP[:MLS]]  # convert from 10*fm to fm
+                    if LCOMP == 0:        # internal correlations given for each resonance, no cross-resonance terms
+                        ENDFconversionFlags.append('LCOMP=0')
+                        mf32_resonances, mf32_covars = [], []
+                        NRS = 0
+                        for Lval in range(NLS):
+                            AWRI_lineNumber = dat.index
+                            AWRI, dum, L, dum, tmp, nrs_ = funkyFI(dat.next(), logFile=info.logs)
+                            info.ZA_massLineInfo.add(ZA, AWRI, mt, mf, AWRI_lineNumber, column=0)
+                            NRS += nrs_
+                            for i in range(nrs_):
+                                mf32_resonances.append(funkyF(dat.next(), logFile=info.logs))
+                                mf32_covars.append(
+                                    funkyF(dat.next(), logFile=info.logs) + funkyF(dat.next(), logFile=info.logs))
 
-                    # off-diagonal parts of matrix are stored as sparse correlation matrix:
-                    ENDFconversionFlags.append('NDIGIT=%d' % NDIGIT)
-                    matrix = read_LCOMP2_correlation(NNN, NM, NDIGIT, dat)
+                        dEsq, dNsq, dNdG, dGsq, dNdF, dGdF, dFsq, dJdN, dJdG, dJdF, dJsq, dum = zip(*mf32_covars)
+                        MPAR = 3
+                        if any(dFsq): MPAR = 4
+                        if any(dJsq): raise BadCovariance("Encountered uncertainty on J in MF32!")
+                        matrix = numpy.zeros((MPAR*NRS, MPAR*NRS))
+                        for ridx in range(NRS):
+                            matrix[ridx*MPAR, ridx*MPAR] = dEsq[ridx]
+                            matrix[ridx*MPAR+1, ridx*MPAR+1] = dNsq[ridx]
+                            matrix[ridx*MPAR+2, ridx*MPAR+1:ridx*MPAR+3] = [dNdG[ridx], dGsq[ridx]]
+                            if MPAR == 4:
+                                matrix[ridx*MPAR+3, ridx*MPAR+1:ridx*MPAR+4] = [dNdF[ridx], dGdF[ridx], dFsq[ridx]]
+                        # symmetrize:
+                        for ridx in range(MPAR*NRS):
+                            matrix[ridx, ridx:] = matrix[ridx:, ridx]
 
-                    # convert correlation -> absolute covariance matrix
-                    matrix = matrix * numpy.outer(diagonal, diagonal)
-                    nResonances = NRSA
-                    _type = covarianceEnumsModule.Type.absolute
-                    matrixClass = arrayModule.Flattened
+                        mf32_elist = [(lis[0], lis[3], lis[4]) for lis in mf32_resonances]
+                        nResonances = len(mf32_elist)
+                        _type = covarianceEnumsModule.Type.absolute
+                        matrixClass = arrayModule.Flattened
 
-                if LRF in (1, 2):
-                    start = 0
-                    MPAR += 3    # expand matrix with zeros to account for L,J and totalWidth columns
-                    index = []
-                    for ridx in range(nResonances):
-                        index.extend([start+1, start+2, start+3])
-                        start += MPAR
-                    n_b = matrix.shape[0] + len(index)
-                    dim = nResonances * MPAR
-                    assert n_b == dim
-                    not_index = numpy.array([k for k in range(n_b) if k not in index])
-                    matrix2 = numpy.zeros((dim, dim))
-                    matrix2[not_index.reshape(-1, 1), not_index] = matrix
-                    matrix = matrix2
-                    matrixClass = arrayModule.Flattened  # even if originally LCOMP=1
+                    elif LCOMP == 1:
+                        AWRI_lineNumber = dat.index
+                        AWRI, dum, dum, dum, NSRS, NLRS = funkyFI(dat.next(), logFile=info.logs)
+                        info.ZA_massLineInfo.add(ZA, AWRI, mt, mf, AWRI_lineNumber, column=0)
+                        dum, dum, MPAR, dum, tmp, NRB = funkyFI(dat.next(), logFile=info.logs)
+                        dim = NRB * MPAR  # num. of resonances * num. parameters per resonance
+                        matrixSize = dim * (dim+1) // 2
+                        if matrixSize + 6*NRB != tmp:
+                            raise BadCovariance("Incorrect dimension for the matrix!")
+
+                        # resonances are listed again (redundant!):
+                        mf32_resonances = [funkyF(dat.next(), logFile=info.logs) for i in range(NRB)]
+                        if LRF in (1, 2):
+                            mf32_elist = [(lis[0], lis[3], lis[4]) for lis in mf32_resonances]
+                        else:
+                            mf32_elist = [(lis[0], lis[2], lis[3]) for lis in mf32_resonances]
+                        matrix = read_LCOMP1(dim, matrixSize, dat)
+                        nResonances = len(mf32_elist)
+                        _type = covarianceEnumsModule.Type.absolute
+                        matrixClass = arrayModule.Full
+
+                    elif LCOMP == 2:
+                        ENDFconversionFlags.append('LCOMP=2')
+                        AWRI_lineNumber = dat.index
+                        AWRI, QX, dum, LRX, tmp, NRSA = funkyFI(dat.next(), logFile=info.logs)
+                        info.ZA_massLineInfo.add(ZA, AWRI, mt, mf, AWRI_lineNumber, column=0)
+                        # resonance parameters + uncertainties:
+                        mf32_resonances = [funkyF(dat.next(), logFile=info.logs) for i in range(NRSA*2)]
+                        if LRF in (1, 2):
+                            mf32_elist = [(lis[0], lis[3], lis[4]) for lis in mf32_resonances[::2]]
+                        else:
+                            mf32_elist = [(lis[0], lis[2], lis[3]) for lis in mf32_resonances[::2]]
+                        # for LCOMP==2, off-diagonal terms are given as correlation matrix:
+                        dum, dum, NDIGIT, NNN, NM, dum = funkyFI(dat.next(), logFile=info.logs)
+                        MPAR = NNN//NRSA
+                        diagonal = []
+                        for idx in range(NRSA):
+                            if LRF in (1, 2):
+                                dE, dum, dum, dGammaN, dGammaG, dGammaF = mf32_resonances[2*idx+1]
+                                diagonal.extend([dE, dGammaN,dGammaG])
+                                if MPAR == 4: diagonal.append(dGammaF)
+                            elif LRF == 3:
+                                dE, dum, dGammaN, dGammaG, dGammaF1, dGammaF2 = mf32_resonances[2*idx+1]
+                                diagonal.extend([dE, dGammaN, dGammaG])
+                                if MPAR == 4: diagonal.extend([dGammaF1])
+                                elif MPAR == 5: diagonal.extend([dGammaF1,dGammaF2])
+                        if len(diagonal) != NNN:
+                            raise BadCovariance("Incorrect dimensions for LCOMP=2 matrix! Expected NNN=%d, got %d." %
+                                                (len(diagonal), NNN))
+
+                        # off-diagonal parts of matrix are stored as sparse correlation matrix:
+                        ENDFconversionFlags.append('NDIGIT=%d' % NDIGIT)
+                        matrix = read_LCOMP2_correlation(NNN, NM, NDIGIT, dat)
+
+                        # convert correlation -> absolute covariance matrix
+                        matrix = matrix * numpy.outer(diagonal, diagonal)
+                        nResonances = NRSA
+                        _type = covarianceEnumsModule.Type.absolute
+                        matrixClass = arrayModule.Flattened
+
+                    if LRF in (1, 2):
+                        start = 0
+                        MPAR += 3    # expand matrix with zeros to account for L,J and totalWidth columns
+                        index = []
+                        for ridx in range(nResonances):
+                            index.extend([start+1, start+2, start+3])
+                            start += MPAR
+                        n_b = matrix.shape[0] + len(index)
+                        dim = nResonances * MPAR
+                        assert n_b == dim
+                        not_index = numpy.array([k for k in range(n_b) if k not in index])
+                        matrix2 = numpy.zeros((dim, dim))
+                        matrix2[not_index.reshape(-1, 1), not_index] = matrix
+                        matrix = matrix2
+                        matrixClass = arrayModule.Flattened  # even if originally LCOMP=1
+
+                    elif LRF == 7:
+                        MPAR = None
+
+                    # mf32 may not contain all resonances from mf2:
+                    mf2_elist_sorted = sorted(mf2_elist, key=lambda res: res[0])
+                    mf32_elist_sorted = sorted(mf32_elist, key=lambda res: res[0])
+                    if mf32_elist != mf32_elist_sorted or LCOMP == 0:
+                        ENDFconversionFlags.append('sortByL')
+
+                    mf2_elist, mf32_elist, matrix = check_MF32_consistency(mf2_elist, mf32_elist, matrix, MPAR)
+                    # FIXME: check if we should use flattened array
+                    # matrixClass = arrayModule.Flattened  # since some rows will be all 0
+
+                    if LRF == 3:  # also swap elastic and capture widths to follow LRF=7 convention
+                        for i1 in range(len(mf2_elist)):
+                            swap_rows(matrix, MPAR * i1 + 1, MPAR * i1 + 2, 1)
+
+                    parameters = covarianceModelParametersModule.Parameters()
+                    parameter_values = []
+                    startIndex = 0
+                    if DAP:     # scattering radius uncertainty was specified. Expand matrix to include it:
+                        if LRF in (1, 2):
+                            scatteringRadius = resonances.resolved.evaluated.getScatteringRadius()
+                        else:
+                            scatteringRadius = resonances.scatteringRadius
+                        parameters.add(covarianceModelParametersModule.ParameterLink(
+                            label="scatteringRadius", root="$reactions", link=scatteringRadius,
+                            matrixStartIndex=startIndex, nParameters=1))
+                        parameter_values.append(scatteringRadius.evaluated.value)
+                        startIndex += 1
+                        if len(DAP) == 1:
+                            DAP_matrix = numpy.array([[DAP[0]**2]])
+                        else:
+                            # L-dependent scattering radius uncertainty, only supported for LRF=3 or 7
+                            RMatrix = resonances.resolved.evaluated
+                            radius = scatteringRadius.evaluated
+                            DAPS_per_L = []
+                            uniqueId = 0
+                            for lidx, DAPnow in enumerate(DAP[1:]):
+                                DAPS_per_L.append([])
+                                if not DAPnow: continue
+                                for spinGroup in RMatrix.spinGroups:
+                                    for channel in spinGroup.channels:
+                                        if RMatrix.resonanceReactions[channel.resonanceReaction].eliminated:
+                                            continue
+                                        if channel.L == lidx:
+                                            if channel.scatteringRadius is None:
+                                                channel.scatteringRadius = scatteringRadiusModule.ScatteringRadius(radius)
+                                                channel.hardSphereRadius = scatteringRadiusModule.HardSphereRadius(radius)
+                                            parameters.add(covarianceModelParametersModule.ParameterLink(
+                                                label=f"scatteringRadius_{uniqueId}", root="$reactions",
+                                                link=channel.scatteringRadius, matrixStartIndex=startIndex,
+                                                nParameters=1))
+                                            parameter_values.append(channel.scatteringRadius.evaluated.value)
+                                            parameters.add(covarianceModelParametersModule.ParameterLink(
+                                                label=f"hardSphereRadius_{uniqueId}", root="$reactions",
+                                                link=channel.hardSphereRadius, matrixStartIndex=startIndex+1,
+                                                nParameters=1))
+                                            parameter_values.append(channel.hardSphereRadius.evaluated.value)
+                                            DAPS_per_L[-1] += [DAPnow, DAPnow]
+                                            uniqueId += 1
+                                            startIndex += 2
+
+                            # DAP for each L forms a fully correlated block in the parameter matrix
+                            N_DAPs = sum([len(tmp) for tmp in DAPS_per_L]) + 1
+                            DAP_matrix = numpy.zeros((N_DAPs, N_DAPs))
+                            DAP_matrix[0,0] = DAP[0]**2
+                            matrix_start_index = 1
+                            for tmp in DAPS_per_L:
+                                if tmp:
+                                    block = numpy.outer(tmp, tmp)
+                                    slice_ = slice(matrix_start_index, matrix_start_index+len(tmp))
+                                    DAP_matrix[slice_, slice_] = block
+                                    matrix_start_index += len(tmp)
+                            assert matrix_start_index == len(DAP_matrix)
+
+                        dim = len(DAP_matrix) + len(matrix)
+                        new_matrix = numpy.zeros((dim, dim))
+                        new_matrix[:len(DAP_matrix), :len(DAP_matrix)] = DAP_matrix
+                        new_matrix[len(DAP_matrix):, len(DAP_matrix):] = matrix
+                        matrix = new_matrix
+
+                    # store into GNDS:
+                    if LRF in (1, 2):
+                        resData = resonances.resolved.evaluated.resonanceParameters.table
+                        nParams = resData.nColumns * resData.nRows
+                        for row in resData.data:
+                            parameter_values += row
+                        parameters.add(covarianceModelParametersModule.ParameterLink(
+                            label="resonanceParameters", root="$reactions", link=resData,
+                            matrixStartIndex=startIndex, nParameters=nParams))
+                    else:
+                        # for RMatrix need links to each spinGroup
+                        excess_rows = []
+                        for spinGroup in resonances.resolved.evaluated:
+                            sgTable = spinGroup.resonanceParameters.table
+                            if sgTable in info.extraFissionWidths:
+                                # 2nd fission width is all 0 for this spin group.
+                                # We can drop that column unless we have non-zero covariance data
+                                cIndex = sgTable.nColumns - 1
+                                assert sgTable.columns[cIndex].name == 'fission width_2'
+                                width2_rows = numpy.array(range(startIndex, startIndex+len(sgTable), cIndex))
+                                if MPAR < 5 or (MPAR == 5 and not numpy.any(matrix[width2_rows])):
+                                    sgTable.removeColumn('fission width_2')
+                                    spinGroup.channels.pop(spinGroup.channels.labels()[-1])
+                                    if MPAR == 5:
+                                        # mark corresponding rows / columns of the matrix for deletion
+                                        excess_rows += list(width2_rows)
+                                info.extraFissionWidths.remove(sgTable)
+                            nParams = sgTable.nColumns * sgTable.nRows
+                            for row in sgTable.data:
+                                parameter_values += row
+                            if nParams == 0: continue
+                            parameters.add(covarianceModelParametersModule.ParameterLink(
+                                label=spinGroup.label, link=sgTable, root="$reactions",
+                                matrixStartIndex=startIndex, nParameters=nParams
+                            ))
+                            startIndex += nParams
+
+                        if excess_rows:
+                            # remove extra covariance matrix rows corresponding to 2nd fission width:
+                            tmp = numpy.delete(matrix, excess_rows, axis=0)
+                            matrix = numpy.delete(tmp, excess_rows, axis=1)
+
+                    assert len(matrix) == len(parameter_values)
+
+                    if _type is covarianceEnumsModule.Type.absolute:
+                        parameter_values = numpy.array(parameter_values)
+                        if not numpy.any(matrix[parameter_values == 0]):
+                            # convert to relative matrix
+                            parameter_values[parameter_values == 0] = 1
+                            matrix = matrix / parameter_values / parameter_values[:,None]
+                            _type = covarianceEnumsModule.Type.relative
+
+                    # switch to diagonal matrix if possible (much more compact):
+                    if numpy.all(matrix == (numpy.identity(len(matrix)) * matrix.diagonal())):
+                        GNDSmatrix = arrayModule.Diagonal(shape=matrix.shape, data=matrix.diagonal())
+                    elif matrixClass is arrayModule.Flattened:
+                        GNDSmatrix = arrayModule.Flattened.fromNumpyArray(matrix, symmetry=arrayModule.Symmetry.lower)
+                    else:
+                        GNDSmatrix = arrayModule.Full(shape=matrix.shape, data=matrix[numpy.tril_indices(len(matrix))],
+                                                      symmetry=arrayModule.Symmetry.lower)
+
+                    covmatrix = covarianceModelParametersModule.ParameterCovarianceMatrix(
+                        info.style, GNDSmatrix, parameters, type=_type)
+                    if ENDFconversionFlags:
+                        info.ENDFconversionFlags.add(covmatrix, ','.join(ENDFconversionFlags))
 
                 elif LRF == 7:
-                    MPAR = None
+                    dum, dum, IFG, LCOMP, NJS, ISR = funkyFI(dat.next(), logFile=info.logs)
+                    mf32_elist = []
+                    assert IFG in (0, 1), f"IFG={IFG} not supported"
+                    if ISR > 0:
+                        raise NotImplementedError("scattering radius uncertainty in MF32 LRF7")
+                    if LCOMP == 1:
+                        AWRI_lineNumber = dat.index
+                        AWRI, dum, dum, dum, NSRS, NLRS = funkyFI(dat.next(), logFile=info.logs)
+                        info.ZA_massLineInfo.add(ZA, AWRI, mt, mf, AWRI_lineNumber, column=0)
+                        dum, dum, NJSX, dum, dum, dum = funkyFI(dat.next(), logFile=info.logs)
 
-                # mf32 may not contain all resonances from mf2:
-                mf2_elist_sorted = sorted(mf2_elist, key=lambda res: res[0])
-                mf32_elist_sorted = sorted(mf32_elist, key=lambda res: res[0])
-                if mf32_elist != mf32_elist_sorted or LCOMP == 0:
-                    ENDFconversionFlags.append('sortByL')
+                        for jdx in range(NJSX):
+                            spinGroup = resonances.resolved.evaluated[jdx]
+                            dum, dum, NCH, NRB, sixNX, NX = funkyFI(dat.next(), logFile=info.logs)
+                            assert sixNX == 6*NX
+                            resonanceParams = []
+                            nlines = int(math.ceil((NCH + 1) / 6.0))  # Extra "1" is for the Eres column
+                            for i in range(max(1,NRB)):
+                                vals = []
+                                for j in range(nlines):
+                                    vals += funkyF(dat.next(), logFile=info.logs)
+                                if NRB>0: resonanceParams.append(vals[:NCH + 1])
 
-                mf2_elist, mf32_elist, matrix = check_MF32_consistency(mf2_elist, mf32_elist, matrix, MPAR)
-                # FIXME: check if we should use flattened array
-                # matrixClass = arrayModule.Flattened  # since some rows will be all 0
+                            mf32_elist += list(map(tuple, resonanceParams))
 
-                if LRF == 3:  # also swap elastic and capture widths to follow LRF=7 convention
-                    for i1 in range(len(mf2_elist)):
-                        swap_rows(matrix, MPAR * i1 + 1, MPAR * i1 + 2, 1)
+                        # rest of matrix:
+                        dum, dum, dum, dum, N, NPARB = funkyFI(dat.next(), logFile=info.logs)
+                        assert N == (NPARB*(NPARB+1))/2
+                        matrix = read_LCOMP1(NPARB, N, dat)
+                        _type = covarianceEnumsModule.Type.absolute
+                        ENDFconversionFlags.append("LCOMP=1")
 
-                parameters = covarianceModelParametersModule.Parameters()
-                parameter_values = []
-                startIndex = 0
-                if DAP:     # scattering radius uncertainty was specified. Expand matrix to include it:
-                    if LRF in (1, 2):
-                        scatteringRadius = resonances.resolved.evaluated.getScatteringRadius()
+                    elif LCOMP == 2:
+                        dum, dum, NPP, NJSX, twelveNPP, twoNPP = funkyFI(dat.next(), logFile=info.logs)
+                        assert (twoNPP == 2*NPP) and (twelveNPP == 12*NPP)
+                        for idx in range(NPP):
+                            # FIXME should check these against MF2 values:
+                            MA, MB, ZA, ZB, IA, IB = funkyF(dat.next(), logFile=info.logs)
+                            Q, PNT, SHF, MT, PA, PB = funkyF(dat.next(), logFile=info.logs)
+
+                        if NJSX not in (NJS, 0):
+                            warningList.append( "WARNING in MF=32: NJSX not consistent with NJS: %d vs %d!" % (NJSX, NJS))
+
+                        allUncerts = []
+                        for jdx in range(NJS):
+                            spinGroup = resonances.resolved.evaluated[jdx]
+                            AJ, PJ, dum, dum, sixNCH, NCH = funkyFI(dat.next(), logFile=info.logs)
+                            for cidx in range(NCH):
+                                # FIXME should also check these against MF2:
+                                PPI, L, SCH, BND, APE, APT = funkyFI(dat.next(), logFile=info.logs)
+
+                            dum, dum, dum, NRSA, twelveNX, NX = funkyFI(dat.next(), logFile=info.logs)
+                            if twelveNX != 12*NX:
+                                warningList.append("WARNING: incorrect LRF7 header, line %d" % dat.index)
+                            if NRSA == 0: dat.next()   # skip empty line
+                            resonanceParams = []
+                            resonanceUncerts = []
+                            nlines = int(math.ceil((NCH+1)/6.0))  # Extra "1" is for the Eres column
+                            for i in range(NRSA):
+                                vals = []
+                                uncerts = []
+                                for j in range(nlines):
+                                    vals += funkyF(dat.next(), logFile=info.logs)
+                                for j in range(nlines):
+                                    uncerts += funkyF(dat.next(), logFile=info.logs)
+                                resonanceParams.append(vals[:NCH+1])
+                                resonanceUncerts.append(uncerts[:NCH+1])
+                                allUncerts += uncerts[:NCH+1]
+
+                            mf32_elist += list(map(tuple, resonanceParams))
+                            J, pi = translateENDFJpi(AJ, PJ)
+                            if not J == spinGroup.spin and pi == spinGroup.parity:
+                                raise BadCovariance("Inconsistent J/pi for MF2 / MF32 spin group %d" % jdx)
+
+                        # correlations:
+                        dum, dum, NDIGIT, NNN, NM, dum = funkyFI(dat.next(), logFile=info.logs)
+                        matrix = read_LCOMP2_correlation(NNN, NM, NDIGIT, dat)
+
+                        # now we can either add uncertainty columns to the parameter tables (and store correlation matrix),
+                        # or convert to covariance matrix. For now do the latter
+                        rsd = numpy.array(allUncerts)
+                        matrix = matrix * numpy.outer(rsd, rsd)
+                        _type = covarianceEnumsModule.Type.absolute
+                        ENDFconversionFlags.append("LCOMP=2")
+                        ENDFconversionFlags.append("NDIGIT=%d" % NDIGIT)
                     else:
-                        scatteringRadius = resonances.scatteringRadius
-                    parameters.add(covarianceModelParametersModule.ParameterLink(
-                        label="scatteringRadius", root="$reactions", link=scatteringRadius,
-                        matrixStartIndex=startIndex, nParameters=1))
-                    parameter_values.append(scatteringRadius.evaluated.value)
-                    startIndex += 1
-                    if len(DAP) == 1:
-                        DAP_matrix = numpy.array([[DAP[0]**2]])
-                    else:
-                        # L-dependent scattering radius uncertainty, only supported for LRF=3 or 7
-                        RMatrix = resonances.resolved.evaluated
-                        radius = scatteringRadius.evaluated
-                        DAPS_per_L = []
-                        uniqueId = 0
-                        for lidx, DAPnow in enumerate(DAP[1:]):
-                            DAPS_per_L.append([])
-                            if not DAPnow: continue
-                            for spinGroup in RMatrix.spinGroups:
-                                for channel in spinGroup.channels:
-                                    if RMatrix.resonanceReactions[channel.resonanceReaction].eliminated:
-                                        continue
-                                    if channel.L == lidx:
-                                        if channel.scatteringRadius is None:
-                                            channel.scatteringRadius = scatteringRadiusModule.ScatteringRadius(radius)
-                                            channel.hardSphereRadius = scatteringRadiusModule.HardSphereRadius(radius)
-                                        parameters.add(covarianceModelParametersModule.ParameterLink(
-                                            label=f"scatteringRadius_{uniqueId}", root="$reactions",
-                                            link=channel.scatteringRadius, matrixStartIndex=startIndex,
-                                            nParameters=1))
-                                        parameter_values.append(channel.scatteringRadius.evaluated.value)
-                                        parameters.add(covarianceModelParametersModule.ParameterLink(
-                                            label=f"hardSphereRadius_{uniqueId}", root="$reactions",
-                                            link=channel.hardSphereRadius, matrixStartIndex=startIndex+1,
-                                            nParameters=1))
-                                        parameter_values.append(channel.hardSphereRadius.evaluated.value)
-                                        DAPS_per_L[-1] += [DAPnow, DAPnow]
-                                        uniqueId += 1
-                                        startIndex += 2
+                        raise NotImplementedError("MF32 LRF=7 LCOMP=%d" % LCOMP)
 
-                        # DAP for each L forms a fully correlated block in the parameter matrix
-                        N_DAPs = sum([len(tmp) for tmp in DAPS_per_L]) + 1
-                        DAP_matrix = numpy.zeros((N_DAPs, N_DAPs))
-                        DAP_matrix[0,0] = DAP[0]**2
-                        matrix_start_index = 1
-                        for tmp in DAPS_per_L:
-                            if tmp:
-                                block = numpy.outer(tmp, tmp)
-                                slice_ = slice(matrix_start_index, matrix_start_index+len(tmp))
-                                DAP_matrix[slice_, slice_] = block
-                                matrix_start_index += len(tmp)
-                        assert matrix_start_index == len(DAP_matrix)
-
-                    dim = len(DAP_matrix) + len(matrix)
-                    new_matrix = numpy.zeros((dim, dim))
-                    new_matrix[:len(DAP_matrix), :len(DAP_matrix)] = DAP_matrix
-                    new_matrix[len(DAP_matrix):, len(DAP_matrix):] = matrix
-                    matrix = new_matrix
-
-                # store into GNDS:
-                if LRF in (1, 2):
-                    resData = resonances.resolved.evaluated.resonanceParameters.table
-                    nParams = resData.nColumns * resData.nRows
-                    for row in resData.data:
-                        parameter_values += row
-                    parameters.add(covarianceModelParametersModule.ParameterLink(
-                        label="resonanceParameters", root="$reactions", link=resData,
-                        matrixStartIndex=startIndex, nParameters=nParams))
-                else:
-                    # for RMatrix need links to each spinGroup
-                    excess_rows = []
+                    mf2_elist = []
                     for spinGroup in resonances.resolved.evaluated:
-                        sgTable = spinGroup.resonanceParameters.table
-                        if sgTable in info.extraFissionWidths:
-                            # 2nd fission width is all 0 for this spin group.
-                            # We can drop that column unless we have non-zero covariance data
-                            cIndex = sgTable.nColumns - 1
-                            assert sgTable.columns[cIndex].name == 'fission width_2'
-                            width2_rows = numpy.array(range(startIndex, startIndex+len(sgTable), cIndex))
-                            if MPAR < 5 or (MPAR == 5 and not numpy.any(matrix[width2_rows])):
-                                sgTable.removeColumn('fission width_2')
-                                spinGroup.channels.pop(spinGroup.channels.labels()[-1])
-                                if MPAR == 5:
-                                    # mark corresponding rows / columns of the matrix for deletion
-                                    excess_rows += list(width2_rows)
-                            info.extraFissionWidths.remove(sgTable)
-                        nParams = sgTable.nColumns * sgTable.nRows
-                        for row in sgTable.data:
+                        mf2_elist += list(map(tuple, spinGroup.resonanceParameters.table.data))
+
+                    mf2_elist, mf32_elist, matrix = check_MF32_consistency(mf2_elist, mf32_elist, matrix)
+                    # FIXME: check if we should use flattened array
+                    # matrixClass = arrayModule.Flattened  # since some rows will be all 0
+
+                    # store into GNDS (need links to each spinGroup)
+                    parameters = covarianceModelParametersModule.Parameters()
+                    parameter_values = []
+                    startIndex = 0
+                    for spinGroup in resonances.resolved.evaluated:
+                        nParams = spinGroup.resonanceParameters.table.nColumns * spinGroup.resonanceParameters.table.nRows
+                        for row in spinGroup.resonanceParameters.table.data:
                             parameter_values += row
                         if nParams == 0: continue
                         parameters.add(covarianceModelParametersModule.ParameterLink(
-                            label=spinGroup.label, link=sgTable, root="$reactions",
+                            label=spinGroup.label, link=spinGroup.resonanceParameters.table, root="$reactions",
                             matrixStartIndex=startIndex, nParameters=nParams
                         ))
                         startIndex += nParams
 
-                    if excess_rows:
-                        # remove extra covariance matrix rows corresponding to 2nd fission width:
-                        tmp = numpy.delete(matrix, excess_rows, axis=0)
-                        matrix = numpy.delete(tmp, excess_rows, axis=1)
+                    if _type is covarianceEnumsModule.Type.absolute:
+                        parameter_values = numpy.array(parameter_values)
+                        if not numpy.any(matrix[parameter_values == 0]):
+                            # convert to relative matrix
+                            parameter_values[parameter_values == 0] = 1
+                            matrix /= numpy.outer(parameter_values, parameter_values)
+                            _type = covarianceEnumsModule.Type.relative
 
-                assert len(matrix) == len(parameter_values)
+                    # switch to diagonal matrix if possible (much more compact):
+                    if numpy.all(matrix == (numpy.identity(len(matrix)) * matrix.diagonal())):
+                        GNDSmatrix = arrayModule.Diagonal(shape=matrix.shape, data=matrix.diagonal())
+                    else:
+                        GNDSmatrix = arrayModule.Flattened.fromNumpyArray(matrix, symmetry=arrayModule.Symmetry.lower)
 
-                if _type is covarianceEnumsModule.Type.absolute:
-                    parameter_values = numpy.array(parameter_values)
-                    if not numpy.any(matrix[parameter_values == 0]):
-                        # convert to relative matrix
-                        parameter_values[parameter_values == 0] = 1
-                        matrix = matrix / parameter_values / parameter_values[:,None]
-                        _type = covarianceEnumsModule.Type.relative
+                    covmatrix = covarianceModelParametersModule.ParameterCovarianceMatrix(
+                        info.style, GNDSmatrix, parameters, type=_type)
+                    if ENDFconversionFlags:
+                        info.ENDFconversionFlags.add(covmatrix, ','.join(ENDFconversionFlags))
 
-                # switch to diagonal matrix if possible (much more compact):
-                if numpy.all(matrix == (numpy.identity(len(matrix)) * matrix.diagonal())):
-                    GNDSmatrix = arrayModule.Diagonal(shape=matrix.shape, data=matrix.diagonal())
-                elif matrixClass is arrayModule.Flattened:
-                    GNDSmatrix = arrayModule.Flattened.fromNumpyArray(matrix, symmetry=arrayModule.Symmetry.lower)
                 else:
-                    GNDSmatrix = arrayModule.Full(shape=matrix.shape, data=matrix[numpy.tril_indices(len(matrix))],
-                                                  symmetry=arrayModule.Symmetry.lower)
+                    raise KeyError("Unknown LRF %d encountered in MF32" % LRF)
 
-                covmatrix = covarianceModelParametersModule.ParameterCovarianceMatrix(
-                    info.style, GNDSmatrix, parameters, type=_type)
-                if ENDFconversionFlags:
-                    info.ENDFconversionFlags.add(covmatrix, ','.join(ENDFconversionFlags))
-
-            elif LRF == 7:
-                dum, dum, IFG, LCOMP, NJS, ISR = funkyFI(dat.next(), logFile=info.logs)
-                mf32_elist = []
-                assert IFG in (0, 1), f"IFG={IFG} not supported"
-                if ISR > 0:
-                    raise NotImplementedError("scattering radius uncertainty in MF32 LRF7")
-                if LCOMP == 1:
-                    AWRI_lineNumber = dat.index
-                    AWRI, dum, dum, dum, NSRS, NLRS = funkyFI(dat.next(), logFile=info.logs)
-                    info.ZA_massLineInfo.add(ZA, AWRI, mt, mf, AWRI_lineNumber, column=0)
-                    dum, dum, NJSX, dum, dum, dum = funkyFI(dat.next(), logFile=info.logs)
-
-                    for jdx in range(NJSX):
-                        spinGroup = resonances.resolved.evaluated[jdx]
-                        dum, dum, NCH, NRB, sixNX, NX = funkyFI(dat.next(), logFile=info.logs)
-                        assert sixNX == 6*NX
-                        resonanceParams = []
-                        nlines = int(math.ceil((NCH + 1) / 6.0))  # Extra "1" is for the Eres column
-                        for i in range(max(1,NRB)):
-                            vals = []
-                            for j in range(nlines):
-                                vals += funkyF(dat.next(), logFile=info.logs)
-                            if NRB>0: resonanceParams.append(vals[:NCH + 1])
-
-                        mf32_elist += list(map(tuple, resonanceParams))
-
-                    # rest of matrix:
-                    dum, dum, dum, dum, N, NPARB = funkyFI(dat.next(), logFile=info.logs)
-                    assert N == (NPARB*(NPARB+1))/2
-                    matrix = read_LCOMP1(NPARB, N, dat)
-                    _type = covarianceEnumsModule.Type.absolute
-                    ENDFconversionFlags.append("LCOMP=1")
-
-                elif LCOMP == 2:
-                    dum, dum, NPP, NJSX, twelveNPP, twoNPP = funkyFI(dat.next(), logFile=info.logs)
-                    assert (twoNPP == 2*NPP) and (twelveNPP == 12*NPP)
-                    for idx in range(NPP):
-                        # FIXME should check these against MF2 values:
-                        MA, MB, ZA, ZB, IA, IB = funkyF(dat.next(), logFile=info.logs)
-                        Q, PNT, SHF, MT, PA, PB = funkyF(dat.next(), logFile=info.logs)
-
-                    if NJSX not in (NJS, 0):
-                        warningList.append( "WARNING in MF=32: NJSX not consistent with NJS: %d vs %d!" % (NJSX, NJS))
-
-                    allUncerts = []
-                    for jdx in range(NJS):
-                        spinGroup = resonances.resolved.evaluated[jdx]
-                        AJ, PJ, dum, dum, sixNCH, NCH = funkyFI(dat.next(), logFile=info.logs)
-                        for cidx in range(NCH):
-                            # FIXME should also check these against MF2:
-                            PPI, L, SCH, BND, APE, APT = funkyFI(dat.next(), logFile=info.logs)
-
-                        dum, dum, dum, NRSA, twelveNX, NX = funkyFI(dat.next(), logFile=info.logs)
-                        if twelveNX != 12*NX:
-                            warningList.append("WARNING: incorrect LRF7 header, line %d" % dat.index)
-                        if NRSA == 0: dat.next()   # skip empty line
-                        resonanceParams = []
-                        resonanceUncerts = []
-                        nlines = int(math.ceil((NCH+1)/6.0))  # Extra "1" is for the Eres column
-                        for i in range(NRSA):
-                            vals = []
-                            uncerts = []
-                            for j in range(nlines):
-                                vals += funkyF(dat.next(), logFile=info.logs)
-                            for j in range(nlines):
-                                uncerts += funkyF(dat.next(), logFile=info.logs)
-                            resonanceParams.append(vals[:NCH+1])
-                            resonanceUncerts.append(uncerts[:NCH+1])
-                            allUncerts += uncerts[:NCH+1]
-
-                        mf32_elist += list(map(tuple, resonanceParams))
-                        J, pi = translateENDFJpi(AJ, PJ)
-                        if not J == spinGroup.spin and pi == spinGroup.parity:
-                            raise BadCovariance("Inconsistent J/pi for MF2 / MF32 spin group %d" % jdx)
-
-                    # correlations:
-                    dum, dum, NDIGIT, NNN, NM, dum = funkyFI(dat.next(), logFile=info.logs)
-                    matrix = read_LCOMP2_correlation(NNN, NM, NDIGIT, dat)
-
-                    # now we can either add uncertainty columns to the parameter tables (and store correlation matrix),
-                    # or convert to covariance matrix. For now do the latter
-                    rsd = numpy.array(allUncerts)
-                    matrix = matrix * numpy.outer(rsd, rsd)
-                    _type = covarianceEnumsModule.Type.absolute
-                    ENDFconversionFlags.append("LCOMP=2")
-                    ENDFconversionFlags.append("NDIGIT=%d" % NDIGIT)
-                else:
-                    raise NotImplementedError("MF32 LRF=7 LCOMP=%d" % LCOMP)
-
-                mf2_elist = []
-                for spinGroup in resonances.resolved.evaluated:
-                    mf2_elist += list(map(tuple, spinGroup.resonanceParameters.table.data))
-
-                mf2_elist, mf32_elist, matrix = check_MF32_consistency(mf2_elist, mf32_elist, matrix)
-                # FIXME: check if we should use flattened array
-                # matrixClass = arrayModule.Flattened  # since some rows will be all 0
-
-                # store into GNDS (need links to each spinGroup)
-                parameters = covarianceModelParametersModule.Parameters()
-                parameter_values = []
-                startIndex = 0
-                for spinGroup in resonances.resolved.evaluated:
-                    nParams = spinGroup.resonanceParameters.table.nColumns * spinGroup.resonanceParameters.table.nRows
-                    for row in spinGroup.resonanceParameters.table.data:
-                        parameter_values += row
-                    if nParams == 0: continue
-                    parameters.add(covarianceModelParametersModule.ParameterLink(
-                        label=spinGroup.label, link=spinGroup.resonanceParameters.table, root="$reactions",
-                        matrixStartIndex=startIndex, nParameters=nParams
-                    ))
-                    startIndex += nParams
-
-                if _type is covarianceEnumsModule.Type.absolute:
-                    parameter_values = numpy.array(parameter_values)
-                    if not numpy.any(matrix[parameter_values == 0]):
-                        # convert to relative matrix
-                        parameter_values[parameter_values == 0] = 1
-                        matrix /= numpy.outer(parameter_values, parameter_values)
-                        _type = covarianceEnumsModule.Type.relative
-
-                # switch to diagonal matrix if possible (much more compact):
-                if numpy.all(matrix == (numpy.identity(len(matrix)) * matrix.diagonal())):
-                    GNDSmatrix = arrayModule.Diagonal(shape=matrix.shape, data=matrix.diagonal())
-                else:
-                    GNDSmatrix = arrayModule.Flattened.fromNumpyArray(matrix, symmetry=arrayModule.Symmetry.lower)
-
-                covmatrix = covarianceModelParametersModule.ParameterCovarianceMatrix(
-                    info.style, GNDSmatrix, parameters, type=_type)
-                if ENDFconversionFlags:
-                    info.ENDFconversionFlags.add(covmatrix, ','.join(ENDFconversionFlags))
+                rowData = covarianceSectionModule.RowData(
+                    info.reactionSuite.resonances.resolved.evaluated, root='$reactions')
+                parameterSection = covarianceModelParametersModule.ParameterCovariance("resolved resonances", rowData)
+                parameterSection.add(covmatrix)
+                sections.append(parameterSection)
 
             else:
-                raise KeyError("Unknown LRF %d encountered in MF32" % LRF)
+                # unresolved resonance parameters
 
-            rowData = covarianceSectionModule.RowData(
-                info.reactionSuite.resonances.resolved.evaluated, root='$reactions')
-            parameterSection = covarianceModelParametersModule.ParameterCovariance("resolved resonances", rowData)
-            parameterSection.add(covmatrix)
-            sections.append(parameterSection)
+                def makeURRcovariance(uncert, energyBounds, conversionFlag=None):
+                    matrix = arrayModule.Full(shape=(1, 1), data=[uncert])
 
-        else:
-            # unresolved resonance parameters
-
-            def makeURRcovariance(uncert, energyBounds, conversionFlag=None):
-                matrix = arrayModule.Full(shape=(1, 1), data=[uncert])
-
-                axes = axesModule.Axes(3, labelsUnits={
-                    0: ('matrix_elements', ''),
-                    1: ('column_energy_bounds', 'eV'),
-                    2: ('row_energy_bounds', 'eV')})
-                axes[2] = axesModule.Grid(axes[2].label, axes[2].index, axes[2].unit,
-                                          style=xDataEnumsModule.GridStyle.boundaries,
-                                          values=valuesModule.Values(energyBounds[0]))
-                if len(energyBounds) == 2:
-                    axes[1] = axesModule.Grid(axes[1].label, axes[1].index, axes[1].unit,
+                    axes = axesModule.Axes(3, labelsUnits={
+                        0: ('matrix_elements', ''),
+                        1: ('column_energy_bounds', 'eV'),
+                        2: ('row_energy_bounds', 'eV')})
+                    axes[2] = axesModule.Grid(axes[2].label, axes[2].index, axes[2].unit,
                                               style=xDataEnumsModule.GridStyle.boundaries,
-                                              values=valuesModule.Values(energyBounds[1]))
-                else:
-                    axes[1] = axesModule.Grid(axes[1].label, axes[1].index, axes[1].unit,
-                                              style=xDataEnumsModule.GridStyle.boundaries,
-                                              values=linkModule.Link(link=axes[2].values, relative=True))
-                covmatrix = covarianceMatrixModule.CovarianceMatrix(
-                    info.style, type=covarianceEnumsModule.Type.relative, matrix=griddedModule.Gridded2d(axes, matrix))
-                if conversionFlag:
-                    info.ENDFconversionFlags.add(covmatrix, conversionFlag)
-                return covmatrix
+                                              values=valuesModule.Values(energyBounds[0]))
+                    if len(energyBounds) == 2:
+                        axes[1] = axesModule.Grid(axes[1].label, axes[1].index, axes[1].unit,
+                                                  style=xDataEnumsModule.GridStyle.boundaries,
+                                                  values=valuesModule.Values(energyBounds[1]))
+                    else:
+                        axes[1] = axesModule.Grid(axes[1].label, axes[1].index, axes[1].unit,
+                                                  style=xDataEnumsModule.GridStyle.boundaries,
+                                                  values=linkModule.Link(link=axes[2].values, relative=True))
+                    covmatrix = covarianceMatrixModule.CovarianceMatrix(
+                        info.style, type=covarianceEnumsModule.Type.relative, matrix=griddedModule.Gridded2d(axes, matrix))
+                    if conversionFlag:
+                        info.ENDFconversionFlags.add(covmatrix, conversionFlag)
+                    return covmatrix
 
-            URR = resonances.unresolved.evaluated
-            LJs = []
+                URR = resonances.unresolved.evaluated
+                LJs = []
 
-            SPI, AP, dum, dum, NLS, dum = funkyFI(dat.next(), logFile=info.logs)
-            for lval in range(NLS):
-                AWRI_lineNumber = dat.index
-                AWRI, dum, L, dum, tmp, NJS = funkyFI(dat.next(), logFile=info.logs)
-                info.ZA_massLineInfo.add(ZA, AWRI, mt, mf, AWRI_lineNumber, column=0)
-                if tmp != 6*NJS: raise BadCovariance("Incorrect header in MF32 unresolved section!")
-                for jval in range(NJS):
-                    D, AJ, GNO, GG, GF, GX = funkyF(dat.next(), logFile=info.logs)
-                    if AJ.is_integer(): AJ = int(AJ)
-                    LJs.append((L, AJ, {'D': D, 'GNO': GNO, 'GG': GG, 'GF': GF, 'GX': GX}))
+                SPI, AP, dum, dum, NLS, dum = funkyFI(dat.next(), logFile=info.logs)
+                for lval in range(NLS):
+                    AWRI_lineNumber = dat.index
+                    AWRI, dum, L, dum, tmp, NJS = funkyFI(dat.next(), logFile=info.logs)
+                    info.ZA_massLineInfo.add(ZA, AWRI, mt, mf, AWRI_lineNumber, column=0)
+                    if tmp != 6*NJS: raise BadCovariance("Incorrect header in MF32 unresolved section!")
+                    for jval in range(NJS):
+                        D, AJ, GNO, GG, GF, GX = funkyF(dat.next(), logFile=info.logs)
+                        if AJ.is_integer(): AJ = int(AJ)
+                        LJs.append((L, AJ, {'D': D, 'GNO': GNO, 'GG': GG, 'GF': GF, 'GX': GX}))
 
-            # matrix:
-            dum, dum, MPAR, dum, tmp, NPAR = funkyFI(dat.next(), logFile=info.logs)
-            if tmp != (NPAR*(NPAR+1))/2: raise BadCovariance("Incorrect header in MF32 unresolved section!")
-            nlines = int(math.ceil(tmp/6.0))
-            data = []
-            for line in range(nlines): data += funkyF(dat.next(), logFile=info.logs)
-            matrix = numpy.zeros((NPAR, NPAR))
-            start, length = 0, NPAR
-            for i1 in range(NPAR):
-                matrix[i1, i1:] = matrix[i1:, i1] = data[start:start+length]
-                start = start+length
-                length = length-1
-            if numpy.all(matrix == 0):
-                warningList.append("ignoring empty unresolved covariance matrix!")
-                continue
-
-            # find URR section corresponding to each row in the matrix:
-            matrixSections = []
-            urr_warnings = []
-            for L, J, averageParams in LJs:
-                conversionFlag = []
-                for key in sorted(averageParams):
-                    value = averageParams[key]
-                    if value: conversionFlag.append('%s=%s' % (key,value))
-                conversionFlag = ','.join(conversionFlag)
-
-                lsections = [lsec for lsec in URR.Ls if lsec.L == L]
-                if len(lsections) == 0:
-                    urr_warnings.append("No match in MF2 for MF32 URR section with L=%d" % L)
+                # matrix:
+                dum, dum, MPAR, dum, tmp, NPAR = funkyFI(dat.next(), logFile=info.logs)
+                if tmp != (NPAR*(NPAR+1))/2: raise BadCovariance("Incorrect header in MF32 unresolved section!")
+                nlines = int(math.ceil(tmp/6.0))
+                data = []
+                for line in range(nlines): data += funkyF(dat.next(), logFile=info.logs)
+                matrix = numpy.zeros((NPAR, NPAR))
+                start, length = 0, NPAR
+                for i1 in range(NPAR):
+                    matrix[i1, i1:] = matrix[i1:, i1] = data[start:start+length]
+                    start = start+length
+                    length = length-1
+                if numpy.all(matrix == 0):
+                    warningList.append("ignoring empty unresolved covariance matrix!")
                     continue
-                lsection, = lsections
-                jsections = [jsec for jsec in lsection.Js if jsec.J == J]
-                if len(jsections) == 0:
-                    urr_warnings.append("No match in MF2 for MF32 URR section with L=%d, J=%d" % (L, J))
+
+                # find URR section corresponding to each row in the matrix:
+                matrixSections = []
+                urr_warnings = []
+                for L, J, averageParams in LJs:
+                    conversionFlag = []
+                    for key in sorted(averageParams):
+                        value = averageParams[key]
+                        if value: conversionFlag.append('%s=%s' % (key,value))
+                    conversionFlag = ','.join(conversionFlag)
+
+                    lsections = [lsec for lsec in URR.Ls if lsec.L == L]
+                    if len(lsections) == 0:
+                        urr_warnings.append("No match in MF2 for MF32 URR section with L=%d" % L)
+                        continue
+                    lsection, = lsections
+                    jsections = [jsec for jsec in lsection.Js if jsec.J == J]
+                    if len(jsections) == 0:
+                        urr_warnings.append("No match in MF2 for MF32 URR section with L=%d, J=%d" % (L, J))
+                        continue
+                    jsection, = jsections
+                    matrixSections.append([lsection.L, jsection.J, jsection.levelSpacing, conversionFlag])
+                    if MPAR > len(jsection.widths) + 1:
+                        urr_warnings.append(f"MF32 MPAR={MPAR} is too large")
+                        continue
+                    for idx in range(MPAR-1):
+                        matrixSections.append([lsection.L, jsection.J, jsection.widths[idx], conversionFlag])
+
+                if urr_warnings:
+                    print("Errors encountered in MF=32 URR covariance section:")
+                    for warning in urr_warnings:
+                        print("    " + warning)
+                    warningList += urr_warnings
+                    if not (hasattr(info, 'ignoreMF32Errors') and info.ignoreMF32Errors):
+                        info.doRaise.append("Encountered malformed MF=32 URR data")
                     continue
-                jsection, = jsections
-                matrixSections.append([lsection.L, jsection.J, jsection.levelSpacing, conversionFlag])
-                if MPAR > len(jsection.widths) + 1:
-                    urr_warnings.append(f"MF32 MPAR={MPAR} is too large")
-                    continue
-                for idx in range(MPAR-1):
-                    matrixSections.append([lsection.L, jsection.J, jsection.widths[idx], conversionFlag])
 
-            if urr_warnings:
-                print("Errors encountered in MF=32 URR covariance section:")
-                for warning in urr_warnings:
-                    print("    " + warning)
-                warningList += urr_warnings
-                info.doRaise.append("Encountered malformed MF=32 URR data")
-                continue
+                assert len(matrixSections) == len(matrix)
 
-            assert len(matrixSections) == len(matrix)
+                crossTermCounter = 0
+                for sidx, (L, J, width, conversionFlag) in enumerate(matrixSections):
 
-            crossTermCounter = 0
-            for sidx, (L, J, width, conversionFlag) in enumerate(matrixSections):
+                    uncert = matrix[sidx, sidx]
+                    rowData = covarianceSectionModule.RowData(width, root='$reactions')
+                    if isinstance(width, unresolvedResonanceModule.LevelSpacing):
+                        label = "URR levelSpacing: L=%s J=%s" % (L, float(J))
+                    else:
+                        label = "%s URR: L=%s J=%s" % (width.resonanceReaction, L, float(J))
+                    covarianceSection = covarianceModelParametersModule.AverageParameterCovariance(
+                        label, rowData=rowData )
+                    covarianceSection.add(makeURRcovariance(uncert, [width.data.domain()], conversionFlag))
+                    width.data.uncertainty = uncertaintiesModule.Uncertainty(
+                                functional=uncertaintiesModule.Covariance(
+                                    link=covarianceSection[info.style], root="$covariances"))
+                    sections.append(covarianceSection)
 
-                uncert = matrix[sidx, sidx]
-                rowData = covarianceSectionModule.RowData(width, root='$reactions')
-                if isinstance(width, unresolvedResonanceModule.LevelSpacing):
-                    label = "URR levelSpacing: L=%s J=%s" % (L, float(J))
-                else:
-                    label = "%s URR: L=%s J=%s" % (width.resonanceReaction, L, float(J))
-                covarianceSection = covarianceModelParametersModule.AverageParameterCovariance(
-                    label, rowData=rowData )
-                covarianceSection.add(makeURRcovariance(uncert, [width.data.domain()], conversionFlag))
-                width.data.uncertainty = uncertaintiesModule.Uncertainty(
-                            functional=uncertaintiesModule.Covariance(
-                                link=covarianceSection[info.style], root="$covariances"))
-                sections.append(covarianceSection)
+                    if numpy.any(matrix[sidx, sidx+1:]): # cross terms present
 
-                if numpy.any(matrix[sidx, sidx+1:]): # cross terms present
+                        for ctidx, crossTerm in enumerate(matrix[sidx, sidx+1:]):
+                            if crossTerm != 0:
+                                otherWidth = matrixSections[sidx+ctidx+1][2]
+                                columnData = covarianceSectionModule.ColumnData(otherWidth, root='$reactions')
+                                label = "URR cross term %d" % crossTermCounter
+                                covarianceSection = covarianceModelParametersModule.AverageParameterCovariance(
+                                    label, rowData=rowData, columnData=columnData)
+                                covarianceSection.add(makeURRcovariance(crossTerm, [width.data.domain()]))
+                                sections.append(covarianceSection)
 
-                    for ctidx, crossTerm in enumerate(matrix[sidx, sidx+1:]):
-                        if crossTerm != 0:
-                            otherWidth = matrixSections[sidx+ctidx+1][2]
-                            columnData = covarianceSectionModule.ColumnData(otherWidth, root='$reactions')
-                            label = "URR cross term %d" % crossTermCounter
-                            covarianceSection = covarianceModelParametersModule.AverageParameterCovariance(
-                                label, rowData=rowData, columnData=columnData)
-                            covarianceSection.add(makeURRcovariance(crossTerm, [width.data.domain()]))
-                            sections.append(covarianceSection)
-
-                            crossTermCounter += 1
+                                crossTermCounter += 1
+        except Exception as e:
+            if hasattr(info, 'ignoreMF32Errors') and info.ignoreMF32Errors:
+                warningList.append('MF32 subsection %d skipped due to error: %s' % (subsection, e))
+                # skip remaining subsections once an MF32 error is encountered
+                break
+            else:
+                raise
     return sections, []
 
 

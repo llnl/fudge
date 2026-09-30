@@ -673,7 +673,7 @@ char *smr_allocateCopyString( statusMessageReporting *smr, char const *s, char c
 */
     char *c = strdup( s );
 
-    if( c == NULL ) smr_setReportError( smr, NULL, file, line, function, smr_smrID, smr_codeMemoryAllocating, " smr_allocateCopyString: strdup failed for strlen( s ) = %z for variable %s",
+    if( c == NULL ) smr_setReportError( smr, NULL, file, line, function, smr_smrID, smr_codeMemoryAllocating, " smr_allocateCopyString: strdup failed for strlen( s ) = %zu for variable %s",
             strlen( s ), forItem );
     return( c );
 }

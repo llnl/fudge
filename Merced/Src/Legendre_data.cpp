@@ -628,7 +628,8 @@ void Lgdata::Flux_List::read_flux( Dpar::data_parser &infile, int num_Ein )
     int file_order = infile.get_next_int( ) - 1;  // Legendre order of input data
     int save_coefs = ( file_order > order ) ? order : file_order;
     int coef_count;
-    double next_flux;
+    // A coefficient-less flux is zero; this also makes padding well-defined.
+    double next_flux = 0.0;
     for( coef_count = 0; coef_count <= save_coefs; ++coef_count )
     {
       next_flux = infile.get_next_double( );

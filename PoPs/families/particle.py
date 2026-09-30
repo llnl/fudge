@@ -131,17 +131,13 @@ class Particle(miscModule.ClassWithIDKey, abc.ABC):
     def check( self, info ):
         """
         Basic physics checking for particles.
-
-        Options & defaults:
-            'branchingRatioSumTolerance'      1e-6
         """
         warnings = []
 
-        BRSumAbsTol = info.get('branchingRatioSumTolerance', 1e-6)
-# CMM FIXME
-#        probabilitySum = sum( [decay.probability for decay in self.decays] )
-#        if self.decays and abs(probabilitySum - 1.0) > BRSumAbsTol:
-#            warnings.append(warningModule.UnnormalizedDecayProbabilities(probabilitySum, self))
+        decayWarnings = self.__decayData.check(info)
+        if decayWarnings:
+            warnings.append(warningModule.Context('decayData', decayWarnings))
+
         return warnings
 
     def buildFromRawData( self, mass = None, spin = None, parity = None, charge = None, halflife = None, label = 'default' ) :

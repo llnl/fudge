@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:include schemaLocation="../../xData/xData.xsd"/>
 
   <!-- xml schema defining structure of a GNDS covarianceSuite file
        author: cmattoon
@@ -45,7 +46,8 @@
     <xs:choice maxOccurs="unbounded">
       <xs:element name="evaluated">
         <xs:complexType>
-          <xs:sequence>
+          <xs:all>
+            <xs:element name="documentation" type="DocumentationType"/>
             <xs:element name="temperature" type="PhysicalQuantity"/>
             <xs:element name="projectileEnergyDomain">
               <xs:complexType>
@@ -54,7 +56,7 @@
                 <xs:attribute name="unit" type="xs:string" use="required"/>
               </xs:complexType>
             </xs:element>
-          </xs:sequence>
+          </xs:all>
           <xs:attribute name="label" type="xs:NCName" use="required"/>
           <xs:attribute name="library" type="xs:string" use="required"/>
           <xs:attribute name="version" type="xs:string" use="required"/>
@@ -116,7 +118,7 @@
 
   <xs:complexType name="covarianceMatrix">
     <xs:sequence>
-      <xs:element name="gridded2d" type="gridded2d"/>
+      <xs:element name="gridded2d" type="xData_gridded2d"/>
     </xs:sequence>
     <xs:attribute name="label" type="xs:string" use="required"/>
     <xs:attribute name="type" type="xs:string"/>
@@ -125,7 +127,7 @@
 
   <xs:complexType name="shortRangeSelfScalingVariance">
     <xs:sequence>
-      <xs:element name="gridded2d" type="gridded2d"/>
+      <xs:element name="gridded2d" type="xData_gridded2d"/>
     </xs:sequence>
     <xs:attribute name="label" type="xs:string" use="required"/>
     <xs:attribute name="type" type="xs:string"/>
@@ -183,7 +185,7 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="array" type="array"/>
+      <xs:element name="array" type="xData_array"/>
     </xs:sequence>
     <xs:attribute name="label" type="xs:string" use="required"/>
     <xs:attribute name="type" type="xs:string" use="required"/>
@@ -201,68 +203,9 @@
     </xs:complexType>
   </xs:element>
 
-  <!-- <editor-fold desc="basic data containers" defaultstate="collapsed"> -->
-  <xs:simpleType name="datalist">
-    <xs:list itemType="xs:double"/>
-  </xs:simpleType>
-
-  <xs:complexType name="values">
-    <xs:simpleContent>
-      <xs:extension base="datalist">
-        <xs:attribute name="label" type="xs:string"/>
-        <xs:attribute name="valueType" type="xs:string"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-
-  <xs:complexType name="axes">
-    <xs:choice maxOccurs="unbounded">
-      <xs:element name="axis">
-        <xs:complexType>
-          <xs:attribute name="index" type="xs:int" use="required"/>
-          <xs:attribute name="label" type="xs:string" use="required"/>
-          <xs:attribute name="unit" type="xs:string" use="required"/>
-        </xs:complexType>
-      </xs:element>
-      <xs:element name="grid">
-        <xs:complexType>
-          <xs:choice>
-            <xs:element name="values" type="values"/>
-            <xs:element name="link">
-              <xs:complexType>
-                <xs:attribute name="href" use="required"/>
-              </xs:complexType>
-            </xs:element>
-          </xs:choice>
-          <xs:attribute name="index" type="xs:int" use="required"/>
-          <xs:attribute name="label" type="xs:string" use="required"/>
-          <xs:attribute name="unit" type="xs:string" use="required"/>
-          <xs:attribute name="style" type="xs:string" use="required"/>
-        </xs:complexType>
-      </xs:element>
-    </xs:choice>
-  </xs:complexType>
-
-  <xs:complexType name="array">
-    <xs:sequence>
-      <xs:element name="values" type="values" maxOccurs="3"/>
-    </xs:sequence>
-    <xs:attribute name="shape" type="xs:string" use="required"/>
-    <xs:attribute name="symmetry" type="xs:string"/>
-    <xs:attribute name="compression" type="xs:string"/>
-  </xs:complexType>
-
-  <xs:complexType name="gridded2d">
-    <xs:sequence>
-      <xs:element name="axes" type="axes"/>
-      <xs:element name="array" type="array"/>
-    </xs:sequence>
-  </xs:complexType>
-
   <xs:complexType name="PhysicalQuantity">
     <xs:attribute name="value" type="xs:double" use="required"/>
-    <xs:attribute name="unit" type="xs:string" use="required"/> <!-- FIXME enumerate allowed units? -->
+    <xs:attribute name="unit" type="xs:string" use="required"/>
   </xs:complexType>
-  <!-- </editor-fold> -->
 
 </xs:schema>

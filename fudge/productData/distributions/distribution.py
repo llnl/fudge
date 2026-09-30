@@ -188,6 +188,9 @@ class Component( abstractClassesModule.Component ) :
             elif isinstance(form, KalbachMannModule.Form):
                 checkSubform( form, form.moniker )
 
+            elif isinstance(form, branching3dModule.Form):
+                checkSubform(form, form.moniker)
+
             else:
                 for subform in form.subforms:
                     checkSubform( subform, form.moniker )

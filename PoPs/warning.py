@@ -171,7 +171,17 @@ class DiscreteLevelsOutOfOrder(Warning):
 class UnnormalizedDecayProbabilities(Warning):
     def __init__(self, branchingSum, obj=None):
         Warning.__init__(self, obj)
+
+        from fudge import warning as fudgeWarningModule
+
         self.branchingSum = branchingSum
+        difference = abs(branchingSum - 1)
+        if difference < 0.005:
+            self.level = fudgeWarningModule.Level.Minor
+        elif difference < 0.05:
+            self.level = fudgeWarningModule.Level.Moderate
+        else:
+            self.level = fudgeWarningModule.Level.Severe
 
     def __str__(self):
         return "Sum of decay probabilities = %s, should be 1.0!" % (self.branchingSum)

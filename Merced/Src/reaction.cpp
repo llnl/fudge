@@ -300,8 +300,27 @@ bool React::reaction::common_input( const std::string &dataID, Dpar::data_parser
     transfer.e_flux.read_flux( input_file, num_flux );
     if( transfer.e_flux.interp != Terp::LINLIN )
     {
-      Msg::FatalError( "React::reaction::common_input", 
+      Msg::FatalError( "React::reaction::common_input",
 		  "only linlear-linear flux is implemented" );
+    }
+    // Validate that flux spans at least the same range as projectile group boundaries
+    if( transfer.in_groups.size( ) > 0 )
+    {
+      double flux_min = transfer.e_flux.begin( )->get_E_in( );
+      double flux_max = ( --transfer.e_flux.end( ) )->get_E_in( );
+      double group_min = transfer.in_groups.front( );
+      double group_max = transfer.in_groups.back( );
+
+      if( flux_min > group_min || flux_max < group_max )
+      {
+        Msg::FatalError( "React::reaction::common_input",
+          Msg::pastenum( "Flux energy range [", flux_min ) +
+          Msg::pastenum( ", ", flux_max ) +
+          "] does not span the projectile group boundaries [" +
+          Msg::pastenum( "", group_min ) +
+          Msg::pastenum( ", ", group_max ) +
+          "]. The flux must be defined over at least the same energy range as the group boundaries." );
+      }
     }
     found_it = true;
   }

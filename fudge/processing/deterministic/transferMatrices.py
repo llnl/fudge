@@ -103,6 +103,7 @@ from LUPY import subprocessing as subprocessingModule
 from LUPY import times as timesModule
 
 from xData import enums as xDataEnumsModule
+from xData import values as valuesModule
 from xData import axes as axesModule
 from xData import XYs1d as XYs1dModule
 from xData import multiD_XYs as multiD_XYsModule
@@ -114,6 +115,7 @@ from fudge.productData.distributions import energy as energyModule
 from fudge.productData.distributions import energyAngular as energyAngularModule
 
 from . import specialCases as specialCasesModule
+from .. import miscellaneous as miscellaneousModule
 
 linlin = xDataEnumsModule.Interpolation.linlin
 linlog = xDataEnumsModule.Interpolation.linlog
@@ -574,6 +576,35 @@ def uncorrelated_EMuP_EEpP_TransferMatrix( style, tempInfo, crossSection, produc
 
     return( executeCommand( logFile, transferMatrixExecute, s, workDir, tempInfo['workFile'], tempInfo['restart'] ) )
 
+def angularAsLegendre(angularData, tempInfo, crossSection):
+
+    numberOfCoefficients = 1
+    ClsVsEnergyVsOrder = []
+    if angularData is not None and not angularData.isIsotropic():
+        for func1d in angularData:
+            if isinstance(func1d, series1dModule.LegendreSeries):
+                numberOfCoefficients = max(numberOfCoefficients, len(func1d))
+            else:
+                numberOfCoefficients = tempInfo['legendreMax'] + 1
+                break
+        numberOfCoefficients = min(numberOfCoefficients, tempInfo['legendreMax'] + 1)
+        ClsVsEnergy = [[] for i in range(numberOfCoefficients)]
+        for func1d in angularData:
+            if isinstance(func1d, series1dModule.LegendreSeries) and False:
+                Legendre = func1d
+            else:
+                xys1d = func1d.toPointwise_withLinearXYs(accuracy=1e-6, lowerEps=1e-8)
+                xys1d.normalize(insitu=True)
+                Legendre = series1dModule.LegendreSeries.fromXYs1d(xys1d, numberOfCoefficients-1)
+            for order, coefficient in enumerate(Legendre.coefficients):
+                ClsVsEnergy[order].append([func1d.outerDomainValue, coefficient])
+        for order in range(numberOfCoefficients):
+            ClsVsEnergyVsOrder.append(XYs1dModule.XYs1d(data=ClsVsEnergy[order]))
+    else:
+        ClsVsEnergyVsOrder.append(XYs1dModule.XYs1d(data=[[crossSection.domainMin, 1.0], [crossSection.domainMax, 1.0]]))
+
+    return numberOfCoefficients, ClsVsEnergyVsOrder
+
 def discreteGammaAngularData(style, tempInfo, gammaEnergy, crossSection, angularData, multiplicity, comment = None):
     """
     This function calculates multi-group product matices for a discrete photon distribution.
@@ -591,28 +622,13 @@ def discreteGammaAngularData(style, tempInfo, gammaEnergy, crossSection, angular
     :returns:                   The number and energy conserving product matices.                                               
     """
 
-    from fudge.processing import miscellaneous as miscellaneousModule
-
     reactionSuite = tempInfo['reactionSuite']
     projectileName = reactionSuite.projectile
     projectileGroupBoundaries = style.transportables[projectileName].group.boundaries.values
     productName = tempInfo['productName']
     productGroupBoundaries = style.transportables[productName].group.boundaries.values
 
-    numberOfCoefficients = 1
-    ClsVsEnergyVsOrder = []
-    if angularData is not None and not angularData.isIsotropic():
-        numberOfCoefficients = tempInfo['legendreMax'] + 1
-        ClsVsEnergy = [[] for i in range(numberOfCoefficients)]
-        for func1d in angularData:
-            xys1d = func1d.toPointwise_withLinearXYs(accuracy=1e-3, lowerEps=1e-8)
-            Legendre = series1dModule.LegendreSeries.fromXYs1d(xys1d, tempInfo['legendreMax'])
-            for order, coefficient in enumerate(Legendre.coefficients):
-                ClsVsEnergy[order].append([func1d.outerDomainValue, coefficient])
-        for order in range(numberOfCoefficients):
-            ClsVsEnergyVsOrder.append(XYs1dModule.XYs1d(data=ClsVsEnergy[order]))
-    else:
-        ClsVsEnergyVsOrder.append(XYs1dModule.XYs1d(data=[[crossSection.domainMin, 1.0], [crossSection.domainMax, 1.0]]))
+    numberOfCoefficients, ClsVsEnergyVsOrder = angularAsLegendre(angularData, tempInfo, crossSection)
 
     nProj = len(projectileGroupBoundaries) - 1
     nProd = len(productGroupBoundaries) - 1
@@ -674,59 +690,90 @@ def primaryGammaAngularData(style, tempInfo, crossSection, energyData, angularDa
 
     reactionSuite = tempInfo['reactionSuite']
     projectileName = reactionSuite.projectile
-    projectileGroupBoundaries = style.transportables[projectileName].group.boundaries.values
+    projectileGroupBoundariesGrid = style.transportables[projectileName].group.boundaries
+    projectileGroupBoundaries = projectileGroupBoundariesGrid.values
     productName = tempInfo['productName']
     productGroupBoundaries = style.transportables[productName].group.boundaries.values
-    flux0 = style.flux.getFluxAtLegendreOrder( 0 )
-    groupedFlux = tempInfo['groupedFlux']
-
-    if not isinstance(angularData, angularModule.Isotropic2d):
-        raise NotImplementedError("Non-isotropic angular distribution for primary gamma")
+    multiplicity = multiplicity.evaluated
 
     bindingEnergy = energyData.value * energyData.axes[1].unitConversionFactor(tempInfo['incidentEnergyUnit'])
     massRatio = energyData.massRatio
 
-    nProj = len(projectileGroupBoundaries) - 1
-    nProd = len(productGroupBoundaries) - 1
+    numberOfCoefficients, ClsVsEnergyVsOrder = angularAsLegendre(angularData, tempInfo, crossSection)
+
+    nProjectile = len(projectileGroupBoundaries) - 1
+    nProduct = len(productGroupBoundaries) - 1
     TM_1, TM_E = {}, {}
-    for i1 in range(nProj):
+    for i1 in range(nProjectile):
         TM_1[i1] = {}
         TM_E[i1] = {}
-        for i2 in range(nProd):
-            TM_1[i1][i2] = [0.]
-            TM_E[i1][i2] = [0.]
-    Eg2 = bindingEnergy + massRatio * projectileGroupBoundaries[0]
-    for indexEo, Eo in enumerate(productGroupBoundaries):
-        if Eg2 <= Eo: break
-    indexEo = min(max(indexEo - 1, 0), nProd - 1)
+        for i2 in range(nProduct):
+            TM_1[i1][i2] = numberOfCoefficients * [0.]
+            TM_E[i1][i2] = numberOfCoefficients * [0.]
 
     if multiplicity.domainMin < productGroupBoundaries[-1]:
-        mult = multiplicity.toPointwise_withLinearXYs(lowerEps=1e-8)
-        crossSection, mult = crossSection.mutualify(1e-8, 1e-8, 0, mult, 1e-8, 1e-8, 0)
-        xsecTimesMult = crossSection * mult
-        EMin, EMax = xsecTimesMult.domainMin, xsecTimesMult.domainMax
-        # primary gamma energy varies linearly with incident energy:
-        Egp = XYs1dModule.XYs1d(data=[[EMin, bindingEnergy + massRatio * EMin],
-                                      [EMax, bindingEnergy + massRatio * EMax]],
-                                      axes=crossSection.axes)
+#
+# Firstly, create additional projectile boundaries at projectile energies which equal
+# ( productGroupBoundary - bindingEnergy ) / massRatio where productGroupBoundary is a product group boundary.
+#
+        fineProjectileGroupBoundaries = list([projectileGroupBoundary for projectileGroupBoundary in projectileGroupBoundaries])
+        n_m1 = len(fineProjectileGroupBoundaries) - 1
+        index1 = 0
+        minEnergy, maxEnergy = projectileGroupBoundaries[0], projectileGroupBoundaries[-1]
+        additionalProjectileGroupBoundaries = []
+        for index in range(nProduct):
+            productGroupBoundary = productGroupBoundaries[index]
+            projectileEnergyAtProductGroupBoundary = ( productGroupBoundary - bindingEnergy ) / massRatio
+            if projectileEnergyAtProductGroupBoundary <= minEnergy:
+                continue
+            if projectileEnergyAtProductGroupBoundary >= maxEnergy:
+                break
+            for index2 in range(index1, n_m1):
+                if projectileEnergyAtProductGroupBoundary < projectileGroupBoundaries[index2]:
+                    break
+            index1 = index2
+            if index1 > 0:
+                if abs(projectileEnergyAtProductGroupBoundary - projectileGroupBoundaries[index1-1]) < 1e-8 * projectileEnergyAtProductGroupBoundary:
+                    continue
+            if abs(projectileEnergyAtProductGroupBoundary - projectileGroupBoundaries[index1]) < 1e-8 * projectileEnergyAtProductGroupBoundary:
+                continue
+            additionalProjectileGroupBoundaries.append(projectileEnergyAtProductGroupBoundary)
+        fineProjectileGroupBoundaries += additionalProjectileGroupBoundaries
+        fineProjectileGroupBoundaries.sort()
 
-        for indexEi in range(nProj):
-            Ei2 = projectileGroupBoundaries[indexEi + 1]
-            Eg2 = bindingEnergy + massRatio * Ei2
-            EiMin = projectileGroupBoundaries[indexEi]
-            while True:
-                incrementIndexEo, EiMax = 0, Ei2
-                if indexEo < (nProd - 1):
-                    if Eg2 > productGroupBoundaries[indexEo + 1]:
-                        incrementIndexEo = 1
-                        EiMax = (productGroupBoundaries[indexEo + 1] - bindingEnergy) / massRatio
-                TM_1[indexEi][indexEo][0] = float(xsecTimesMult.integrateTwoFunctions(flux0,
-                        domainMin = EiMin, domainMax = EiMax) / groupedFlux[indexEi])
-                TM_E[indexEi][indexEo][0] = float(xsecTimesMult.integrateThreeFunctions(flux0, Egp,
-                        domainMin = EiMin, domainMax = EiMax) / groupedFlux[indexEi])
-                if incrementIndexEo == 0: break
-                EiMin = EiMax
-                if indexEo < (nProd - 1): indexEo += 1
+        EMin, EMax = crossSection.domainMin, crossSection.domainMax
+            # Primary gamma energy varies linearly with incident energy.
+        Egp = XYs1dModule.XYs1d(data=[[EMin, bindingEnergy + massRatio * EMin],
+                                      [EMax, bindingEnergy + massRatio * EMax]], axes=crossSection.axes)
+
+        fineProjectileGroupBoundariesGrid = axesModule.Grid(projectileGroupBoundariesGrid.label, 0,
+                projectileGroupBoundariesGrid.unit, projectileGroupBoundariesGrid.style, 
+                valuesModule.Values(fineProjectileGroupBoundaries))
+        Eg2Init = bindingEnergy + massRatio * projectileGroupBoundaries[0]
+        for EoIndex, Eo in enumerate(productGroupBoundaries):
+            if Eg2Init <= Eo:
+                break
+        EoIndexInit = min(max(EoIndex - 1, 0), nProduct - 1)
+
+        for order, ClVsEnergy in enumerate(ClsVsEnergyVsOrder):
+            vector1 = miscellaneousModule.groupThreeFunctionsAndFlux(style, tempInfo, crossSection, multiplicity, 
+                    ClVsEnergy, norm=None, userGroupBoundaries=fineProjectileGroupBoundariesGrid)
+            vectorE = miscellaneousModule.groupFourFunctionsAndFlux(style, tempInfo, crossSection, multiplicity, 
+                    ClVsEnergy, Egp, norm=None, userGroupBoundaries=fineProjectileGroupBoundariesGrid)
+
+            norm = tempInfo['groupedFlux']
+            EoIndex = EoIndexInit
+            fineIndex = 0
+            for indexEi in range(nProjectile):
+                Ei2 = projectileGroupBoundaries[indexEi + 1]
+                while True:
+                    TM_1[indexEi][EoIndex][order] = float(vector1[fineIndex] / norm[indexEi])
+                    TM_E[indexEi][EoIndex][order] = float(vectorE[fineIndex] / norm[indexEi])
+                    if fineProjectileGroupBoundaries[fineIndex+1] >= Ei2:
+                        break
+                    EoIndex = min(EoIndex+1, nProduct-1)
+                    fineIndex += 1
+                fineIndex += 1
 
     return TM_1, TM_E
 

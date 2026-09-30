@@ -59,34 +59,33 @@ def getArgparseArguments(parser, args, excludeArguments=[]):
         if values is None:
             continue
 
-        if len(parserActions[arg].option_strings) == 0:                                         # Positional arguments.
+        if len(parserActions[arg].option_strings) == 0:                                          # Positional arguments.
             if isinstance(values, (list, tuple)):
                 for value in values:
                     positionalArguments.append(value)
             else:
                 positionalArguments.append(values)
-        elif isinstance(instance, argparse._StoreAction):                                       # store
+        elif isinstance(instance, argparse._StoreAction):                                         # store
             optionalArguments.append('%s %s' % (instance.option_strings[0], values))
-        elif isinstance(instance, argparse._StoreConstAction):                                  # store_const
-            optionalArguments.append(instance.option_strings[0])
-        elif isinstance(instance, (argparse._StoreTrueAction, argparse._StoreFalseAction)):     # store_true or store_false
-            if value != instance.default:
+        elif isinstance(instance, (argparse._StoreTrueAction, argparse._StoreFalseAction)):       # store_true or store_false
+            if values != instance.default:
                 optionalArguments.append(instance.option_strings[0])
-        elif isinstance(instance, argparse._AppendAction):                                      # append
+        elif isinstance(instance, argparse._StoreConstAction):                                    # store_const (parent class of both _StoreTrueAction and _StoreFalseAction)
+            optionalArguments.append(instance.option_strings[0])
+        elif hasattr(argparse, '_ExtendAction') and isinstance(instance, argparse._ExtendAction): # extend: only since python 3.8
             for value in values:
                 optionalArguments.append('%s %s' % (instance.option_strings[0], value))
-        elif isinstance(instance, argparse._AppendConstAction):                                 # append_const
+            continue
+        elif isinstance(instance, argparse._AppendAction):                                        # append (parent class of _ExtendAction)
+            for value in values:
+                optionalArguments.append('%s %s' % (instance.option_strings[0], value))
+        elif isinstance(instance, argparse._AppendConstAction):                                   # append_const
             raise ValueError('Action "append_const" is not supported.')
-        elif isinstance(instance, argparse._CountAction):                                       # count
+        elif isinstance(instance, argparse._CountAction):                                         # count
             optionalArguments += values * [instance.option_strings[0]]
-        elif isinstance(instance, argparse._VersionAction):                                     # version
+        elif isinstance(instance, argparse._VersionAction):                                       # version
             raise ValueError('This if should always be false.')
         else:
-            if hasattr(argparse, '_ExtendAction'):                                              # extend: only since python 3.8
-                if isinstance(instance, argparse._ExtendAction):
-                    for value in values:
-                        optionalArguments.append('%s %s' % (instance.option_strings[0], value))
-                    continue
             raise ValueError('Unsupported action.')
 
     return positionalArguments, optionalArguments

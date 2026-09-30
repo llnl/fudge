@@ -9,14 +9,11 @@
 Module containing dictionaries and helper functions for handling particle ids and symbols.
 
 Defines the following dictionaries:
-    symbolFromZ, nameFromZ          # look up chemical symbol or name by Z
-    ZfromSymbol, nameFromSymbol     # look up Z or name by chemical symbol
-    ZfromName, symbolFromName       # look up Z or symbol by chemical name
+    symbolFromZ, nameFromZ          # look up chemical symbol or name by Z (nameFromZ returns default name)
+    ZfromSymbol, nameFromSymbol     # look up Z or name by chemical symbol (nameFromSymbol returns default name)
+    ZfromName, symbolFromName       # look up Z or symbol by chemical name (accepts all alternative spellings)
+    namesFromZ, namesFromSymbol     # look up chemical name by Z or by Symbol (allows alternate names)
 """
-
-MaxA = 400
-continuumID = 1000000
-sumID = continuumID + 1
 
 import math
 
@@ -24,90 +21,117 @@ from pqu import PQU as PQUModule
 from .. import misc as miscModule
 from .. import IDs as IDsModule
 
+MaxA = 400
+continuumID = 1000000
+sumID = continuumID + 1
+
 chemicalElementZSymbolNames = (
-    (   1, "H",  "Hydrogen" ),      (   2, "He", "Helium" ),        (   3, "Li", "Lithium" ),
-    (   4, "Be", "Beryllium" ),     (   5, "B",  "Boron" ),         (   6, "C",  "Carbon" ),
-    (   7, "N",  "Nitrogen" ),      (   8, "O",  "Oxygen" ),        (   9, "F",  "Fluorine" ),
-    (  10, "Ne", "Neon" ),          (  11, "Na", "Sodium" ),        (  12, "Mg", "Magnesium" ),
-    (  13, "Al", "Aluminium" ),     (  14, "Si", "Silicon" ),       (  15, "P",  "Phosphorus" ),
-    (  16, "S",  "Sulphur" ),       (  17, "Cl", "Chlorine" ),      (  18, "Ar", "Argon" ),
-    (  19, "K",  "Potassium" ),     (  20, "Ca", "Calcium" ),       (  21, "Sc", "Scandium" ),
-    (  22, "Ti", "Titanium" ),      (  23, "V",  "Vanadium" ),      (  24, "Cr", "Chromium" ),
-    (  25, "Mn", "Manganese" ),     (  26, "Fe", "Iron" ),          (  27, "Co", "Cobalt" ),
-    (  28, "Ni", "Nickel" ),        (  29, "Cu", "Copper" ),        (  30, "Zn", "Zinc" ),
-    (  31, "Ga", "Gallium" ),       (  32, "Ge", "Germanium" ),     (  33, "As", "Arsenic" ),
-    (  34, "Se", "Selenium" ),      (  35, "Br", "Bromine" ),       (  36, "Kr", "Krypton" ),
-    (  37, "Rb", "Rubidium" ),      (  38, "Sr", "Strontium" ),     (  39, "Y",  "Yttrium" ),
-    (  40, "Zr", "Zirconium" ),     (  41, "Nb", "Niobium" ),       (  42, "Mo", "Molybdenum" ),
-    (  43, "Tc", "Technetium" ),    (  44, "Ru", "Ruthenium" ),     (  45, "Rh", "Rhodium" ),
-    (  46, "Pd", "Palladium" ),     (  47, "Ag", "Silver" ),        (  48, "Cd", "Cadmium" ),
-    (  49, "In", "Indium" ),        (  50, "Sn", "Tin" ),           (  51, "Sb", "Antimony" ),
-    (  52, "Te", "Tellurium" ),     (  53, "I",  "Iodine" ),        (  54, "Xe", "Xenon" ),
-    (  55, "Cs", "Cesium" ),        (  56, "Ba", "Barium" ),        (  57, "La", "Lanthanum" ),
-    (  58, "Ce", "Cerium" ),        (  59, "Pr", "Praseodymium" ),  (  60, "Nd", "Neodymium" ),
-    (  61, "Pm", "Promethium" ),    (  62, "Sm", "Samarium" ),      (  63, "Eu", "Europium" ),
-    (  64, "Gd", "Gadolinium" ),    (  65, "Tb", "Terbium" ),       (  66, "Dy", "Dysprosium" ),
-    (  67, "Ho", "Holmium" ),       (  68, "Er", "Erbium" ),        (  69, "Tm", "Thulium" ),
-    (  70, "Yb", "Ytterbium" ),     (  71, "Lu", "Lutetium" ),      (  72, "Hf", "Hafnium" ),
-    (  73, "Ta", "Tantalum" ),      (  74, "W",  "Tungsten" ),      (  75, "Re", "Rhenium" ),
-    (  76, "Os", "Osmium" ),        (  77, "Ir", "Iridium" ),       (  78, "Pt", "Platinum" ),
-    (  79, "Au", "Gold" ),          (  80, "Hg", "Mercury" ),       (  81, "Tl", "Thallium" ),
-    (  82, "Pb", "Lead" ),          (  83, "Bi", "Bismuth" ),       (  84, "Po", "Polonium" ),
-    (  85, "At", "Astatine" ),      (  86, "Rn", "Radon" ),         (  87, "Fr", "Francium" ),
-    (  88, "Ra", "Radium" ),        (  89, "Ac", "Actinium" ),      (  90, "Th", "Thorium" ),
-    (  91, "Pa", "Protactinium" ),  (  92, "U",  "Uranium" ),       (  93, "Np", "Neptunium" ),
-    (  94, "Pu", "Plutonium" ),     (  95, "Am", "Americium" ),     (  96, "Cm", "Curium" ),
-    (  97, "Bk", "Berkelium" ),     (  98, "Cf", "Californium" ),   (  99, "Es", "Einsteinium" ),
-    ( 100, "Fm", "Fermium" ),       ( 101, "Md", "Mendelevium" ),   ( 102, "No", "Nobelium" ),
-    ( 103, "Lr", "Lawrencium" ),    ( 104, "Rf", "Rutherfordium" ), ( 105, "Db", "Dubnium" ),
-    ( 106, "Sg", "Seaborgium" ),    ( 107, "Bh", "Bohrium" ),       ( 108, "Hs", "Hassium" ),
-    ( 109, "Mt", "Meitnerium" ),    ( 110, "Ds", "Darmstadtium" ),  ( 111, "Rg", "Roentgenium" ),
-    ( 112, "Cn", "Copernicium" ),   ( 113, "Nh", "Nihonium" ),      ( 114, "Fl", "Flerovium" ),
-    ( 115, "Mc", "Moscovium" ),     ( 116, "Lv", "Livermorium" ),   ( 117, "Ts", "Tennessine" ),
-    ( 118, "Og", "Oganesson" ) )
+    (   1, "H",  ("Hydrogen",) ),           (   2, "He", ("Helium",) ),             (   3, "Li", ("Lithium",) ),
+    (   4, "Be", ("Beryllium",) ),          (   5, "B",  ("Boron",) ),              (   6, "C",  ("Carbon",) ),
+    (   7, "N",  ("Nitrogen",) ),           (   8, "O",  ("Oxygen",) ),             (   9, "F",  ("Fluorine",) ),
+    (  10, "Ne", ("Neon",) ),               (  11, "Na", ("Sodium",) ),             (  12, "Mg", ("Magnesium",) ),
+    (  13, "Al", ("Aluminium", "Aluminum") ), (  14, "Si", ("Silicon",) ),          (  15, "P",  ("Phosphorus",) ),
+    (  16, "S",  ("Sulfur", "Sulphur") ),   (  17, "Cl", ("Chlorine",) ),           (  18, "Ar", ("Argon",) ),
+    (  19, "K",  ("Potassium",) ),          (  20, "Ca", ("Calcium",) ),            (  21, "Sc", ("Scandium",) ),
+    (  22, "Ti", ("Titanium",) ),           (  23, "V",  ("Vanadium",) ),           (  24, "Cr", ("Chromium",) ),
+    (  25, "Mn", ("Manganese",) ),          (  26, "Fe", ("Iron",) ),               (  27, "Co", ("Cobalt",) ),
+    (  28, "Ni", ("Nickel",) ),             (  29, "Cu", ("Copper",) ),             (  30, "Zn", ("Zinc",) ),
+    (  31, "Ga", ("Gallium",) ),            (  32, "Ge", ("Germanium",) ),          (  33, "As", ("Arsenic",) ),
+    (  34, "Se", ("Selenium",) ),           (  35, "Br", ("Bromine",) ),            (  36, "Kr", ("Krypton",) ),
+    (  37, "Rb", ("Rubidium",) ),           (  38, "Sr", ("Strontium",) ),          (  39, "Y",  ("Yttrium",) ),
+    (  40, "Zr", ("Zirconium",) ),          (  41, "Nb", ("Niobium",) ),            (  42, "Mo", ("Molybdenum",) ),
+    (  43, "Tc", ("Technetium",) ),         (  44, "Ru", ("Ruthenium",) ),          (  45, "Rh", ("Rhodium",) ),
+    (  46, "Pd", ("Palladium",) ),          (  47, "Ag", ("Silver",) ),             (  48, "Cd", ("Cadmium",) ),
+    (  49, "In", ("Indium",) ),             (  50, "Sn", ("Tin",) ),                (  51, "Sb", ("Antimony",) ),
+    (  52, "Te", ("Tellurium",) ),          (  53, "I",  ("Iodine",) ),             (  54, "Xe", ("Xenon",) ),
+    (  55, "Cs", ("Caesium", "Cesium") ),   (  56, "Ba", ("Barium",) ),             (  57, "La", ("Lanthanum",) ),
+    (  58, "Ce", ("Cerium",) ),             (  59, "Pr", ("Praseodymium",) ),       (  60, "Nd", ("Neodymium",) ),
+    (  61, "Pm", ("Promethium",) ),         (  62, "Sm", ("Samarium",) ),           (  63, "Eu", ("Europium",) ),
+    (  64, "Gd", ("Gadolinium",) ),         (  65, "Tb", ("Terbium",) ),            (  66, "Dy", ("Dysprosium",) ),
+    (  67, "Ho", ("Holmium",) ),            (  68, "Er", ("Erbium",) ),             (  69, "Tm", ("Thulium",) ),
+    (  70, "Yb", ("Ytterbium",) ),          (  71, "Lu", ("Lutetium",) ),           (  72, "Hf", ("Hafnium",) ),
+    (  73, "Ta", ("Tantalum",) ),           (  74, "W",  ("Tungsten",) ),           (  75, "Re", ("Rhenium",) ),
+    (  76, "Os", ("Osmium",) ),             (  77, "Ir", ("Iridium",) ),            (  78, "Pt", ("Platinum",) ),
+    (  79, "Au", ("Gold",) ),               (  80, "Hg", ("Mercury",) ),            (  81, "Tl", ("Thallium",) ),
+    (  82, "Pb", ("Lead",) ),               (  83, "Bi", ("Bismuth",) ),            (  84, "Po", ("Polonium",) ),
+    (  85, "At", ("Astatine",) ),           (  86, "Rn", ("Radon",) ),              (  87, "Fr", ("Francium",) ),
+    (  88, "Ra", ("Radium",) ),             (  89, "Ac", ("Actinium",) ),           (  90, "Th", ("Thorium",) ),
+    (  91, "Pa", ("Protactinium",) ),       (  92, "U",  ("Uranium",) ),            (  93, "Np", ("Neptunium",) ),
+    (  94, "Pu", ("Plutonium",) ),          (  95, "Am", ("Americium",) ),          (  96, "Cm", ("Curium",) ),
+    (  97, "Bk", ("Berkelium",) ),          (  98, "Cf", ("Californium",) ),        (  99, "Es", ("Einsteinium",) ),
+    ( 100, "Fm", ("Fermium",) ),            ( 101, "Md", ("Mendelevium",) ),        ( 102, "No", ("Nobelium",) ),
+    ( 103, "Lr", ("Lawrencium",) ),         ( 104, "Rf", ("Rutherfordium",) ),      ( 105, "Db", ("Dubnium",) ),
+    ( 106, "Sg", ("Seaborgium",) ),         ( 107, "Bh", ("Bohrium",) ),            ( 108, "Hs", ("Hassium",) ),
+    ( 109, "Mt", ("Meitnerium",) ),         ( 110, "Ds", ("Darmstadtium",) ),       ( 111, "Rg", ("Roentgenium",) ),
+    ( 112, "Cn", ("Copernicium",) ),        ( 113, "Nh", ("Nihonium",) ),           ( 114, "Fl", ("Flerovium",) ),
+    ( 115, "Mc", ("Moscovium",) ),          ( 116, "Lv", ("Livermorium",) ),        ( 117, "Ts", ("Tennessine",) ),
+    ( 118, "Og", ("Oganesson",) ) )
 
 symbolFromZ = {}
-for Z, symbol, name in chemicalElementZSymbolNames : symbolFromZ[Z] = symbol
+for Z, symbol, names in chemicalElementZSymbolNames: symbolFromZ[Z] = symbol
 
 nameFromZ = {}
-for Z, symbol, name in chemicalElementZSymbolNames : nameFromZ[Z] = name
+for Z, symbol, names in chemicalElementZSymbolNames: nameFromZ[Z] = names[0]
+
+namesFromZ = {}
+for Z, symbol, names in chemicalElementZSymbolNames: namesFromZ[Z] = names
 
 ZFromSymbol = {}
-for Z, symbol, name in chemicalElementZSymbolNames : ZFromSymbol[symbol] = Z
+for Z, symbol, names in chemicalElementZSymbolNames: ZFromSymbol[symbol] = Z
 
 nameFromSymbol = {}
-for Z, symbol, name in chemicalElementZSymbolNames : nameFromSymbol[symbol] = name
+for Z, symbol, names in chemicalElementZSymbolNames: nameFromSymbol[symbol] = names[0]
+
+namesFromSymbol = {}
+for Z, symbol, names in chemicalElementZSymbolNames: namesFromSymbol[symbol] = names
 
 ZFromName = {}
-for Z, symbol, name in chemicalElementZSymbolNames : ZFromName[name] = Z
+for Z, symbol, names in chemicalElementZSymbolNames:
+    for name in names:
+        ZFromName[name] = Z
 
 symbolFromName = {}
-for Z, symbol, name in chemicalElementZSymbolNames : symbolFromName[name] = symbol
+for Z, symbol, names in chemicalElementZSymbolNames :
+    for name in names:
+        symbolFromName[name] = symbol
 
-def checkZ( Z ) :
 
-    if( not( isinstance( Z, int ) ) ) : raise TypeError( 'Z not an int object.' )
-    if( 0 < Z <= chemicalElementZSymbolNames[-1][0] ) : return( Z )
-    raise ValueError( 'Z = "%s" out of range.' % Z )
+def checkZ(Z):
 
-def checkSymbol( symbol ) :
+    if not isinstance(Z, int):
+        raise TypeError('Z not an int object.')
+    if 0 < Z <= chemicalElementZSymbolNames[-1][0]:
+        return Z
+    raise ValueError('Z = "%s" out of range.' % Z)
 
-    if( not( isinstance( symbol, str ) ) ) : raise TypeError( 'symbol not a str object.' )
-    if( symbol not in ZFromSymbol ) : raise ValueError( 'Invalid symbol: %s.' % miscModule.toLimitedString( symbol ) )
 
-def checkA( A ) :
+def checkSymbol(symbol):
 
-    if( not( isinstance( A, int ) ) ) : raise TypeError( 'A not an int' )
-    if( not( 0 <= A < MaxA ) ) : raise ValueError( 'integer A out of range: A = %s' % A )
-    return( A )
+    if not isinstance(symbol, str):
+        raise TypeError('symbol not a str object.')
+    if symbol not in ZFromSymbol:
+        raise ValueError('Invalid symbol: %s.' % miscModule.toLimitedString(symbol))
 
-def checkIndex( index ) :
 
-    if( not( isinstance( index, int ) ) ) : raise TypeError( 'index attribute not int object.' )
-    if( index < 0 ) : ValueError( 'Negative level index = %s' % index )
-    return( index )
+def checkA(A):
 
-def chemicalElementALevelIDsAndAnti( id, qualifierAllowed = False ) :
+    if not isinstance(A, int):
+        raise TypeError('A not an int')
+    if not 0 <= A < MaxA:
+        raise ValueError('integer A out of range: A = %s' % A)
+    return A
+
+
+def checkIndex(index):
+
+    if not isinstance(index, int):
+        raise TypeError('index attribute not int object.')
+    if index < 0:
+        raise ValueError('Negative level index = %s' % index)
+    return index
+
+
+def chemicalElementALevelIDsAndAnti(id, qualifierAllowed=False):
     """
     Parse a particle id to extract the following information::
 
@@ -126,49 +150,50 @@ def chemicalElementALevelIDsAndAnti( id, qualifierAllowed = False ) :
     :return: tuple(baseId, chemicalElementSymbol, A, levelID, isNucleus, anti, qualifier)
     """
 
-    baseID, anti, qualifier = miscModule.baseAntiQualifierFromID( id, qualifierAllowed = qualifierAllowed )
+    baseID, anti, qualifier = miscModule.baseAntiQualifierFromID(id, qualifierAllowed=qualifierAllowed)
 
     chemicalElementSymbol = None
     A = None
     levelID = None
     isNucleus = False
-    if( baseID.count( '_e' ) < 2 ) :        # Can have 0 or 1 '_e' (e.g., 'O16', 'O16_e3') if chemicalElement derived.
-        isotopeID, sep, levelID = baseID.partition( '_e' )
-        if( sep == '_e' ) :
-            try :
-                levelID = int( levelID )
-                checkIndex( levelID )
-            except :
+    if baseID.count('_e') < 2:        # Can have 0 or 1 '_e' (e.g., 'O16', 'O16_e3') if chemicalElement derived.
+        isotopeID, sep, levelID = baseID.partition('_e')
+        if sep == '_e':
+            try:
+                levelID = int(levelID)
+                checkIndex(levelID)
+            except:
                 levelID = None
                 isotopeID = ''
-        else :
+        else:
             levelID = None
 
-        if( len( isotopeID ) > 0 ) :
-            for i1, character in enumerate( isotopeID ) :
-                if( character.isdigit( ) ) : break
+        if len(isotopeID) > 0:
+            for i1, character in enumerate(isotopeID):
+                if character.isdigit( ): break
             isotopeIDUpper = isotopeID[0].upper( ) + isotopeID[1:]
-            if( character.isdigit( ) ) :
+            if character.isdigit():
                 chemicalElementSymbol = isotopeIDUpper[:i1]
-                try :
-                    A = int( isotopeIDUpper[i1:] )
-                    checkSymbol( chemicalElementSymbol )
-                    checkA( A )
+                try:
+                    A = int(isotopeIDUpper[i1:])
+                    checkSymbol(chemicalElementSymbol)
+                    checkA(A)
                     isNucleus = isotopeIDUpper != isotopeID
-                    if( levelID is None ) : levelID = 0
-                except :
+                    if levelID is None: levelID = 0
+                except:
                     chemicalElementSymbol = None
-            else :
-                try :
-                    checkSymbol( isotopeID )
+            else:
+                try:
+                    checkSymbol(isotopeID)
                     chemicalElementSymbol = isotopeID
-                except :
+                except:
                     chemicalElementSymbol = None
 
-    if( chemicalElementSymbol is None ) : A, levelID, isNucleus = None, None, None
-    return( baseID, chemicalElementSymbol, A, levelID, isNucleus, anti, qualifier )
+    if chemicalElementSymbol is None: A, levelID, isNucleus = None, None, None
+    return baseID, chemicalElementSymbol, A, levelID, isNucleus, anti, qualifier
 
-def ZAInfo( particle ) :
+
+def ZAInfo(particle):
     """
     Compute Z, A, ZA and level index for a particle instance.
 
@@ -177,7 +202,6 @@ def ZAInfo( particle ) :
     :return: tuple( Z, A, ZA, levelIndex ).
     """
 
-    from .. import IDs as IDsModule
     from .. import alias as aliasModule
     from .. import database as databaseModule
     from ..families import nuclide as nuclideModule
@@ -217,7 +241,8 @@ def ZAInfo( particle ) :
     except:
         raise
 
-def ZAInfo_fromString( particleName ):
+
+def ZAInfo_fromString(particleName):
     """
     Parses an isotope name (e.g., 'Mn55_e3') to get its Z, A, ZA and nuclear level index.
     If the level is negative, the particle is a metastable name (e.g., 'Am242_m1').
@@ -235,56 +260,62 @@ def ZAInfo_fromString( particleName ):
 
     import re
 
-    if   particleName == IDsModule.FissionProductENDL99120:
+    if particleName == IDsModule.FissionProductENDL99120:
         return 99, 120, 99120, 0
     elif particleName == IDsModule.FissionProductENDL99125:
         return 99, 125, 99125, 0
 
-    if( len( particleName ) > 1 ) : particleName = particleName.capitalize( )
+    if len(particleName) > 1:
+        particleName = particleName.capitalize( )
 
-    try :
+    try:
         return {IDsModule.neutron: (0, 1, 1, 0),                IDsModule.proton: (1, 1, 1001, 0),
                 IDsModule.familiarDeuteron: (1, 2, 1002, 0),    IDsModule.familiarTriton: (1, 3, 1003, 0),
                 IDsModule.familiarHelion: (2, 3, 2003, 0),      IDsModule.familiarAlpha: (2, 4, 2004, 0)   }[particleName]
-    except :
+    except:
         pass
 
     pattern = re.compile( "([A-Za-z]+)([0-9]+)(_[em])?([0-9]+)?" )
     result = pattern.match( particleName )
-    if( result is None ) :
-        try :
+    if result is None:
+        try:
             Z = ZFromSymbol[particleName]                   # Assumes that particleName is just the chemical element part (e.g., 'Xe').
-        except :
+        except:
             Z = 0                                           # Not a valid isotope or chemical element name so return all 0's.
-        return( Z, 0, 0, 0 )
+        return Z, 0, 0, 0
 
-    symbol, A, levelIndicator, level = result.groups( )
+    symbol, A, levelIndicator, level = result.groups()
 
     reconstructed = symbol + A
-    if( levelIndicator is not None ) :
-        if( level is not None ) : reconstructed += levelIndicator + level
-    if( particleName != reconstructed ) : return( 0, 0, 0, 0 )
+    if levelIndicator is not None:
+        if level is not None:
+            reconstructed += levelIndicator + level
+    if particleName != reconstructed:
+        return 0, 0, 0, 0
 
-    A = int( A )
-    if( level is None ) :
+    A = int(A)
+    if level is None:
         level = 0
-    else :
-        level = int( level )
-        if( levelIndicator == '_m' ) : level = -level
+    else:
+        level = int(level)
+        if levelIndicator == '_m':
+            level = -level
 
     Z = ZFromSymbol[symbol]
 
-    return( Z, A, 1000 * Z + A, level )
+    return Z, A, 1000 * Z + A, level
 
-def ZA( particle ) :
+
+def ZA(particle):
     """
     Uses ZAInfo to compute the particle ZA. See ZAInfo for more detail
     """
 
-    return( ZAInfo( particle )[2] )
+    return ZAInfo(particle)[2]
+
 
 def idFromZAndA(Z, A, allowNeutron=True):
-    '''
+    """
     Compute the PoPs id for a particle given Z and A.
 
     :param Z:               Atomic number of the particle.
@@ -292,7 +323,7 @@ def idFromZAndA(Z, A, allowNeutron=True):
     :param allowNeutron:    If True, Z = 0 and A = 1 will return the neutron id, otherwise a raise is executed.
 
     :return:                String particle id
-    '''
+    """
 
     from .. import IDs as IDsModule
 
@@ -301,20 +332,22 @@ def idFromZAndA(Z, A, allowNeutron=True):
 
     return isotopeSymbolFromChemicalElementIDAndA(symbolFromZ[Z], A)
 
+
 def idFromZA(ZA, allowNeutron=True):
-    '''
+    """
     Computes the PoPs id for a particle given its ZA.
 
     :param ZA:              1000 * Z + A where Z and N are the particle's atomic number and mass number, respectively.
     :param allowNeutron:    If True, Z = 0 and A = 1 will return the neutron id, otherwise a raise is executed.
 
     :return:                Particle's PoPs id.
-    '''
+    """
 
     return idFromZAndA(ZA // 1000, ZA % 1000, allowNeutron)
 
+
 def nucleusIDFromZAndA(Z, A, allowNeutron=True):
-    '''
+    """
     Equivalent to calling nucleusIDFromNuclideID(idFromZAndA(Z, A, allowNeutron)).
 
     :param Z:               Atomic number of the particle.
@@ -322,11 +355,12 @@ def nucleusIDFromZAndA(Z, A, allowNeutron=True):
     :param allowNeutron:    If True, Z = 0 and A = 1 will return the neutron id, otherwise a raise is executed.
 
     :return:                String particle id
-    '''
+    """
 
     return nucleusIDFromNuclideID(idFromZAndA(Z, A, allowNeutron))
 
-def hasNucleus( particle, nucleusReturnsTrue = False ) :
+
+def hasNucleus(particle, nucleusReturnsTrue = False):
     """
     Checks whether particle contains a nucleus.
 
@@ -338,20 +372,25 @@ def hasNucleus( particle, nucleusReturnsTrue = False ) :
     from ..families import nuclide as nuclideModule
     from ..families import nucleus as nucleusModule
 
-    if isinstance(particle, (isotopeModule.Isotope, nuclideModule.Particle)): return True
+    if isinstance(particle, (isotopeModule.Isotope, nuclideModule.Particle)):
+        return True
     return nucleusReturnsTrue and isinstance(particle, nucleusModule.Particle)
 
-def isotopeSymbolFromChemicalElementIDAndA( elementID, A ) :
 
-    checkSymbol( elementID )
-    checkA( A )
-    return( "%s%s" % ( elementID, A ) )
+def isotopeSymbolFromChemicalElementIDAndA(elementID, A):
 
-def nuclideIDFromIsotopeSymbolAndIndex( isotopeSymbol, index ) :
+    checkSymbol(elementID)
+    checkA(A)
+    return "%s%s" % (elementID, A)
 
-    checkIndex( index )
-    if( index == 0 ) : return( isotopeSymbol )
-    return( "%s_e%s" % ( isotopeSymbol, index ) )
+
+def nuclideIDFromIsotopeSymbolAndIndex(isotopeSymbol, index):
+
+    checkIndex(index)
+    if index == 0:
+        return isotopeSymbol
+    return "%s_e%s" % (isotopeSymbol, index)
+
 
 def nuclideIDFromZ_A_AndIndex(Z, A, index):
     """
@@ -362,29 +401,32 @@ def nuclideIDFromZ_A_AndIndex(Z, A, index):
     :param index:   The nuclear level index of the nuclide.
     """
 
-    return nuclideIDFromIsotopeSymbolAndIndex( idFromZAndA(Z, A), index )
+    return nuclideIDFromIsotopeSymbolAndIndex(idFromZAndA(Z, A), index)
+
 
 def nucleusIDFromNuclideID(nuclideID):
-    '''
+    """
     Returns the nucleus PoPs id from a nuclide PoPs id by converting 1st letter to lower case.
     No check is performed on the validity of *nuclideID* as a nuclide PoPs id.
 
     :param nuclideID:       PoPs id for a nuclide.
 
     :return:                The nucleus PoPs id for the specified nuclide PoPs id.
-    '''
+    """
 
     return nuclideID[0].lower() + nuclideID[1:]
 
-def nuclideIDFromNucleusID( nucleusID ) :
+
+def nuclideIDFromNucleusID(nucleusID):
     """ The nuclide id is computed from nucleus id by converting 1st letter to upper case """
 
-    return( nucleusID[0].upper( ) + nucleusID[1:] )
+    return nucleusID[0].upper( ) + nucleusID[1:]
+
 
 def nuclearBindingEnergyPerNucleonSemiEmpirical(Z, A, unit):
-    '''
+    """
     Returns the nuclear binding energy per nucleon from a semi empirical formula (see https://en.wikipedia.org/wiki/Nuclear_binding_energy).
-    '''
+    """
 
     N = A - Z
     pairingTerm = 0

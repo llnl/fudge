@@ -51,6 +51,7 @@ def process_args( ) :       # see https://docs.python.org/2/howto/argparse.html
     parser.add_argument( "--continuumSpectraFix", default = False, action = "store_true",               help = "Skip unnormalizeable continuum gamma distributions" )
     parser.add_argument( "--ignoreBadDate", default = False, action = "store_true",                     help = "If true ignore malformed date in MF=1 MT=")
     parser.add_argument( "--acceptBadMF10FissionZAP", default = False, action = "store_true",           help = "allow MF=10 MT=18 IZAP=0" )
+    parser.add_argument( "--ignoreMF32Errors", default = False, action = "store_true",                  help = "Skip MF32 sections with internal consistency errors and continue processing" )
     parser.add_argument( "--output", default = 'test', dest='outputFile',                               help = "Prefix for resulting endf6 output file names" )
     parser.add_argument( "--pythonInterpreter", default = sys.executable, dest='pythonInterpreter',     help = "Python interpreter to use " )
     parser.add_argument( "--formatVersion", default = GNDS_formatVersionModule.default, choices = GNDS_formatVersionModule.allowed,
@@ -112,6 +113,7 @@ rce = endfFileToGNDS.endfFileToGNDS(args.inputFile, singleMTOnly=args.MT, toStdO
                                     verboseWarnings=args.verboseWarnings, verbose=args.verbose, formatVersion=args.formatVersion,
                                     printBadNK14=args.printBadNK14, continuumSpectraFix=args.continuumSpectraFix,
                                     ignoreBadDate=args.ignoreBadDate, acceptBadMF10FissionZAP=args.acceptBadMF10FissionZAP,
+                                    ignoreMF32Errors=args.ignoreMF32Errors,
                                     reconstructResonances=not args.skipReconstruction, specialNuclearParticleID=specialNuclearParticleID,
                                     printMassHistory=args.printMassHistory)
 

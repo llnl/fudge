@@ -19,11 +19,13 @@ from xData import productArray as productArrayModule
 from xData.Documentation import documentation as documentationModule
 
 from .. import enums as enumsModule
-from .. import outputChannel as outputChannelModule 
+from .. import outputChannel as outputChannelModule
+from .. import reactionProductInfo as reactionProductInfoModule
 from ..reactionData.doubleDifferentialCrossSection import doubleDifferentialCrossSection as doubleDifferentialCrossSectionModule
 from ..reactionData import crossSection as crossSectionModule
 from ..reactionData import availableEnergy as availableEnergyModule
 from ..reactionData import availableMomentum as availableMomentumModule
+from ..productData.distributions import KalbachMann as KalbachMannModule
 
 class Base_reaction(ancestryModule.AncestryIO):
     """Base class for all types of reaction."""
@@ -44,6 +46,8 @@ class Base_reaction(ancestryModule.AncestryIO):
 
         self.__outputChannel = outputChannelModule.OutputChannel(genre)
         self.__outputChannel.setAncestor( self )
+
+        self.__reactionProductInfo = None
 
     def __str__( self ) :
 
@@ -76,6 +80,18 @@ class Base_reaction(ancestryModule.AncestryIO):
 
         if( self.__label is None ) : self.updateLabel( )
         return( self.__label )
+
+    def info(self, reset=False):
+        """
+        Returns an instance of the ReactionProductInfo class which contains infomation about *self*.
+
+        :param reset:   If **True**, creates a new instance of ReactionProductInfo representing *self*.
+        """
+
+        if self.__reactionProductInfo is None or reset:
+            self.__reactionProductInfo = reactionProductInfoModule.ReactionProductInfo(self)
+
+        return self.__reactionProductInfo
 
     def updateLabel( self ) :
         """Sets the reaction's label from outputChannel products."""
@@ -120,6 +136,17 @@ class Base_reaction(ancestryModule.AncestryIO):
 
         return self.fissionGenre != enumsModule.FissionGenre.none
 
+    def isElastic(self):
+        """Returns **True** if this reaction has the incident particles as its only products."""
+
+        if len(self.outputChannel) != 2:
+            return False
+
+        reactionSuite = self.getReactionSuite()
+        incoming = sorted((reactionSuite.projectile, reactionSuite.targetID()))
+        outgoing = sorted(product.pid for product in self.outputChannel)
+        return outgoing == incoming
+
     def isThermalNeutronScatteringLaw(self):
 
         if hasattr(self, 'doubleDifferentialCrossSection'):
@@ -148,7 +175,11 @@ class Base_reaction(ancestryModule.AncestryIO):
         :return list of warnings
         """
 
+        import math
+
         from fudge import warning
+        from fudge.productData.distributions import unspecified as unspecifiedModule, \
+            branching3d as branching3dModule, angular as angularModule, reference as referenceModule
         from . import production as productionModule, orphanProduct as orphanProductModule, \
             incompleteReaction as incompleteReactionModule, fissionComponent as fissionComponentModule
         from fudge.reactionData.doubleDifferentialCrossSection.chargedParticleElastic.CoulombPlusNuclearElastic \
@@ -261,6 +292,21 @@ class Base_reaction(ancestryModule.AncestryIO):
                 if productWarnings:
                     warnings.append(warning.Context("Product: %s" % product.label, productWarnings))
 
+        # Check if any product has KalbachMann distribution - if so, must have mass for all products
+        hasKalbachMann = any([isinstance(product.distribution.evaluated, KalbachMannModule.Form)
+                              for product in self.__outputChannel.products])
+
+        if hasKalbachMann:
+            missingMasses = []
+            for product in self.outputChannel.products:
+                try:
+                    product.getMass('amu')
+                except:
+                    missingMasses.append(product.pid)
+
+            if missingMasses:
+                warnings.append(warning.KalbachMannMissingMass(missingMasses, self))
+
         fissionFragmentWarnings = self.__outputChannel.fissionFragmentData.check(info)
         if fissionFragmentWarnings:
             warnings.append(warning.Context("Fission fragment info:", fissionFragmentWarnings))
@@ -286,10 +332,10 @@ class Base_reaction(ancestryModule.AncestryIO):
                 return warnings
 
             def checkProductsForEnergyBalance(products, Qs, fission=False, decay=False):
-                # sample usage: for the reaction n + F19 -> n + (F19_c -> F19 + gamma), this function
+                # sample usage: for the reaction t + Li6 -> n + (Be8 -> 2a), this function
                 # should be called twice, to test energy balance at each step of the reaction.
-                # First call: products = [n, F19_c] and Qs = [Q_reaction],
-                # second call: products = [n, F19, gamma] and Qs = [Q_reaction, Q_decay].
+                # First call: products = [n, Be8] and Qs = [Q_reaction],
+                # second call: products = [n, 2a] and Qs = [Q_reaction, Q_breakup].
                 edepWarnings = []
 
                 averageProductDataLabel = info['averageProductDataStyle'].label
@@ -327,17 +373,65 @@ class Base_reaction(ancestryModule.AncestryIO):
                         else: result.append((prod, 100.0 * edep/availableEnergy))
                     return sorted(result, key=lambda foo: foo[1])[::-1]
 
+                # Collect union incident energy grid for all product distributions
+                incidentEnergies = set()
+                for prod in products:
+                    found = False
+                    form = prod.distribution[info['style'].label]
+                    if isinstance(form, (unspecifiedModule.Form, branching3dModule.Form, referenceModule.CoulombPlusNuclearElastic)):
+                        continue
+                    if isinstance(form, angularModule.TwoBody) and isinstance(form.angularSubform, angularModule.Recoil):
+                        continue
+
+                    if hasattr(form, 'domainGrid'):
+                        incidentEnergies.update(form.domainGrid)
+                        found = True
+                    else:
+                        for subform in form.subforms:
+                            if hasattr(subform, 'domainGrid'):
+                                incidentEnergies.update(subform.domainGrid)
+                                found = True
+                            elif hasattr(subform, 'data') and hasattr(subform.data, 'domainGrid'):
+                                incidentEnergies.update(subform.data.domainGrid)
+                                found = True
+                    if not found:
+                        message = "Can't determine domain grid for distribution %s" % type(form)
+                        warnings.append(warning.EnergyDepositionExceptionRaised(message, self))
+                        if info['failOnException']: raise Exception("Couldn't determine distribution domain grid!")
+
+                if not incidentEnergies:
+                    return
+
+                # Convert to sorted list and add log-spaced midpoints
+                sortedEnergies = sorted(incidentEnergies)
+                while sortedEnergies[0] < totalEDep.domainMin:
+                    sortedEnergies.pop(0)
+                while sortedEnergies[-1] > totalEDep.domainMax:
+                    sortedEnergies.pop()
+
+                checkEnergies = list(sortedEnergies)
+                for i in range(len(sortedEnergies) - 1):
+                    e1, e2 = sortedEnergies[i], sortedEnergies[i+1]
+                    if e1 > 0:  # use log midpoint
+                        logMidpoint = math.exp((math.log(e1) + math.log(e2)) / 2.0)
+                        checkEnergies.append(logMidpoint)
+                    else:
+                        checkEnergies.append(0.5 * e2)
+                checkEnergies = sorted(checkEnergies)
+
                 # now we have total energy deposition for all particles, use to check energy balance.
                 # a few special cases to consider:
                 if fission:
                     # fission products aren't listed (so far, anyway), so about 85% of available energy should be missing:
-                    for i, (ein, edep) in enumerate(totalEDep):
+                    for i, ein in enumerate(checkEnergies):
+                        edep = totalEDep.evaluate(ein)
                         if edep > abs((ein + Qsum) * info['fissionEnergyBalanceLimit']):
                             edepWarnings.append(warning.FissionEnergyImbalance(PQUModule.PQU(ein, totalEDep.axes[0].unit),
                                 i, ein+Qsum, energyDepositedPerProduct(energyDep, ein), self))
                 elif len(products) == len(energyDep):
                     # have full energy dep. data for all products, so we can rigorously check energy balance:
-                    for i, (ein, edep) in enumerate(totalEDep):
+                    for i, ein in enumerate(checkEnergies):
+                        edep = totalEDep.evaluate(ein)
                         if (abs(edep - (ein+Qsum)) > abs((ein+Qsum) * info['dEnergyBalanceRelative'])
                                 and abs(edep - (ein+Qsum)) > PQUModule.PQU( info['dEnergyBalanceAbsolute'])
                                         .getValueAs(totalEDep.axes[0].unit)):
@@ -345,7 +439,8 @@ class Base_reaction(ancestryModule.AncestryIO):
                                 i, ein+Qsum, energyDepositedPerProduct(energyDep, ein), self))
                 else:
                     # missing some products, so just check that outgoing energy doesn't exceed incoming:
-                    for i, (ein, edep) in enumerate(totalEDep):
+                    for i, ein in enumerate(checkEnergies):
+                        edep = totalEDep.evaluate(ein)
                         if ((edep - (ein+Qsum)) > ((ein+Qsum) * info['dEnergyBalanceRelative'])
                                 and (edep - (ein+Qsum)) > PQUModule.PQU(info['dEnergyBalanceAbsolute'])
                                         .getValueAs(totalEDep.axes[0].unit)):
@@ -358,7 +453,6 @@ class Base_reaction(ancestryModule.AncestryIO):
                     photons = productList.count("photon")
                     if photons > 2:
                         # simplify context message if many photons are produced
-                        photon1 = productList.index('photon')
                         productList[productList.index("photon")] = f"{photons}*photon"
                         productList = [p for p in productList if p != "photon"]
                     context = "Energy balance"

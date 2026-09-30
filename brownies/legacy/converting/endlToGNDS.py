@@ -1614,7 +1614,9 @@ def toGNDS(self, evaluationLibrary, evaluationVersion, formatVersion=GNDS_format
         evaluatedStyle.projectileEnergyDomain.max= min( [ reaction.crossSection.domainMax for reaction in reactionSuite.reactions ] )
 
     if covarianceSuite is not None:
-        covarianceSuite.styles.add(evaluatedStyle.copy())   # don't include documentation in covariances
+        evaluated = evaluatedStyle.copy()
+        evaluated.documentation.body.body = "Covariances translated from ENDL format"
+        covarianceSuite.styles.add(evaluated)
         reactionSuite._loadedCovariances = [covarianceSuite]
 
     documentation = self.getDocumentation( )

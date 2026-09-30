@@ -168,12 +168,14 @@ class CovarianceMatrix(ancestryModule.AncestryIO, base.Covariance):
         Simple test to determine if an underlying matrix is symmetric
         :return: boolean
         """
-
-        if (self.matrix.array.compression == arrayModule.Diagonal.moniker or
-                self.matrix.array.symmetry in (arrayModule.Symmetry.lower, arrayModule.Symmetry.upper)):
+        array = self.matrix.array
+        if len(set(array.shape)) != 1:
+            return False  # not a square matrix
+        if (array.compression == arrayModule.Diagonal.moniker or
+                array.symmetry in (arrayModule.Symmetry.lower, arrayModule.Symmetry.upper)):
             return True
         # could still be symmetric even if it doesn't use compression
-        arr = self.matrix.array.constructArray()
+        arr = array.constructArray()
         return numpy.all(arr == arr.T)
 
     def convertAxesToUnits(self, units):

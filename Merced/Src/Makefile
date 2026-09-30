@@ -17,10 +17,10 @@ CHECK_OPENMP_OBJ = $(CHECK_OPENMP_SRC:cpp=o)
 VERSION := $(shell $(CXX) -fopenmp -c $(CHECK_OPENMP_SRC) 2>/dev/null && ([ $$? -eq 0 ] && echo "PARALLEL") || echo "SERIAL")
 
 ifeq "$(VERSION)" "PARALLEL"
-CXXFLAGS = -Wall -fopenmp
+CXXFLAGS = -Wall -fopenmp -O3
 LINKER = -lm  -lstdc++ -fopenmp
 else ifeq "$(VERSION)" "SERIAL"
-CXXFLAGS = -Wall
+CXXFLAGS = -Wall -O3
 LINKER = -lm  -lstdc++
 else #"$(VERSION)" "DEBUG"
 CXXFLAGS = -Wall -O0 -g

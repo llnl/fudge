@@ -57,7 +57,7 @@ def _toLinear(func):
     elif isinstance(func, (regionsModule.Regions1d, constantModule.Constant1d)):
         return( func.toPointwise_withLinearXYs( accuracy = accuracy, upperEps = 1e-8 ) )
 
-    print(type(func))
+    print('_toLinear: invalide func type =', type(func))
     raise Exception( 'FIX ME' )
 
 def _groupFunctionsAndFluxInit( style, tempInfo, f1 ) :
@@ -110,7 +110,7 @@ def _mutualifyGrouping3Data( f1, f2, f3, printMutualDomainWarning = False ) :
 
 def groupOneFunctionAndFlux( style, tempInfo, f1, styleFilter = None ) :
     r"""
-    This function mulit-groups :math:`f1`. This function if for internal use.
+    This function mulit-groups :math:`self \time f1`. This function if for internal use.
 
     :param style:           This is the multi-group style for the multi-group data.
     :param tempInfo:        This is a dictionary with needed data.
@@ -127,8 +127,8 @@ def groupOneFunctionAndFlux( style, tempInfo, f1, styleFilter = None ) :
 
 def groupTwoFunctionsAndFlux( style, tempInfo, f1, f2, norm = None, printMutualDomainWarning = False ) :
     r"""
-    This function mulit-groups the product of two functions, :math:`f1 \times f2`. Typically, :math:`f2` is a cross section.
-    This function if for internal use.
+    This function mulit-groups the product of three functions, :math:`self \times f1 \times f2`. Typically, :math:`f2` 
+    is a cross section.  This function if for internal use.
 
     :param style:                       This is the multi-group style for the multi-group data.
     :param tempInfo:                    This is a dictionary with needed data.
@@ -146,9 +146,10 @@ def groupTwoFunctionsAndFlux( style, tempInfo, f1, f2, norm = None, printMutualD
     f1, f2, flux = _mutualifyGrouping3Data( f1, f2, flux, printMutualDomainWarning = printMutualDomainWarning )
     return( f1.groupThreeFunctions( groupBoundaries, flux, f2, norm = norm ) )
 
-def groupThreeFunctionsAndFlux( style, tempInfo, f1, f2, f3, norm = None, printMutualDomainWarning = False ) :
+def groupThreeFunctionsAndFlux(style, tempInfo, f1, f2, f3, norm=None, userGroupBoundaries=None,
+        printMutualDomainWarning=False):
     r"""
-    This function mulit-groups the product of three functions, :math:`f1 \times f2 \times f3`.
+    This function mulit-groups the product of four functions, :math:`self \times f1 \times f2 \times f3`.
     This function if for internal use.
 
     :param style:                       This is the multi-group style for the multi-group data.
@@ -157,15 +158,18 @@ def groupThreeFunctionsAndFlux( style, tempInfo, f1, f2, f3, norm = None, printM
     :param f2:                          One of the three functions that represent the product that is multi-grouped.
     :param f3:                          One of the three functions that represent the product that is multi-grouped.
     :param norm:                        A normalization to divided the multi-groups by.
+    :param userGroupBoundaries:         Group boundaries that are used if not None.
     :param printMutualDomainWarning:    If True, a warning is printed if the domain of :math:`f1` and :math:`f2` are not mutual.
 
     :returns:                           A list like object of the multi-group values.
     """
 
-    f1 = _toLinear( f1 )
-    f2 = _toLinear( f2 )
-    f3 = _toLinear( f3 )
-    groupBoundaries, flux = _groupFunctionsAndFluxInit( style, tempInfo, f1 )
+    f1 = _toLinear(f1)
+    f2 = _toLinear(f2)
+    f3 = _toLinear(f3)
+    groupBoundaries, flux = _groupFunctionsAndFluxInit(style, tempInfo, f1)
+    if userGroupBoundaries is not None:
+        groupBoundaries = userGroupBoundaries
 
     minEnergy = max(f1.domainMin, f2.domainMin, f3.domainMin, flux.domainMin, groupBoundaries.domainMin)
     maxEnergy = min(f1.domainMax, f2.domainMax, f3.domainMax, flux.domainMax, groupBoundaries.domainMax)
@@ -174,7 +178,44 @@ def groupThreeFunctionsAndFlux( style, tempInfo, f1, f2, f3, norm = None, printM
     f3 = f3.domainSlice(domainMin=minEnergy, domainMax=maxEnergy)
     flux = flux.domainSlice(domainMin=minEnergy, domainMax=maxEnergy)
 
-    return( f1.groupFourFunctions( groupBoundaries, flux, f2, f3, norm = norm ) )
+    return f1.groupFourFunctions(groupBoundaries, flux, f2, f3, norm=norm)
+
+def groupFourFunctionsAndFlux(style, tempInfo, f1, f2, f3, f4, norm=None, userGroupBoundaries=None, 
+            printMutualDomainWarning=False):
+    r"""
+    This function mulit-groups the product of five functions, :math:`self \times f1 \times f2 \times f3 \times f4`.
+    This function if for internal use.
+
+    :param style:                       This is the multi-group style for the multi-group data.
+    :param tempInfo:                    This is a dictionary with needed data.
+    :param f1:                          One of the four functions that represent the product that is multi-grouped.
+    :param f2:                          One of the four functions that represent the product that is multi-grouped.
+    :param f3:                          One of the four functions that represent the product that is multi-grouped.
+    :param f4:                          One of the four functions that represent the product that is multi-grouped.
+    :param norm:                        A normalization to divided the multi-groups by.
+    :param userGroupBoundaries:         Group boundaries that are used if not None.
+    :param printMutualDomainWarning:    If True, a warning is printed if the domain of :math:`f1` and :math:`f2` are not mut
+
+    :returns:                           A list like object of the multi-group values.
+    """
+
+    f1 = _toLinear(f1)
+    f2 = _toLinear(f2)
+    f3 = _toLinear(f3)
+    f4 = _toLinear(f4)
+    groupBoundaries, flux = _groupFunctionsAndFluxInit(style, tempInfo, f1)
+    if userGroupBoundaries is not None:
+        groupBoundaries = userGroupBoundaries
+
+    minEnergy = max(f1.domainMin, f2.domainMin, f3.domainMin, f4.domainMin, flux.domainMin, groupBoundaries.domainMin)
+    maxEnergy = min(f1.domainMax, f2.domainMax, f3.domainMax, f4.domainMax, flux.domainMax, groupBoundaries.domainMax)
+    f1 = f1.domainSlice(domainMin=minEnergy, domainMax=maxEnergy)
+    f2 = f2.domainSlice(domainMin=minEnergy, domainMax=maxEnergy)
+    f3 = f3.domainSlice(domainMin=minEnergy, domainMax=maxEnergy)
+    f4 = f4.domainSlice(domainMin=minEnergy, domainMax=maxEnergy)
+    flux = flux.domainSlice(domainMin=minEnergy, domainMax=maxEnergy)
+
+    return f1.groupFiveFunctions(groupBoundaries, flux, f2, f3, f4, norm=norm)
 
 def groupFunctionCrossSectionAndFlux( cls, style, tempInfo, f1, printMutualDomainWarning = False ) :
     """

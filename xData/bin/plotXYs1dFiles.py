@@ -25,6 +25,12 @@ on the line are ignored. Also, blank lines, after the comment is removed, are ig
 parser = argparse.ArgumentParser(description=description)
 
 parser.add_argument('files', type=pathlib.Path, nargs='*',                  help='The list of files whose data are plotted.')
+parser.add_argument('--xMin', type=float, default=None,                     help='The x-axis minimum value.')
+parser.add_argument('--xMax', type=float, default=None,                     help='The x-axis maximum value.')
+parser.add_argument('--yMin', type=float, default=None,                     help='The y-axis minimum value.')
+parser.add_argument('--yMax', type=float, default=None,                     help='The y-axis maximum value.')
+parser.add_argument('--logs', type=int, default=0,                          help='Set the x (y)-axis to log is value is odd (value/2 is oadd).')
+parser.add_argument('--saveToFile', type=pathlib.Path,                      help='Set the x (y)-axis to log is value is odd (value/2 is oadd).')
 
 def readCurve(file):
 
@@ -58,4 +64,5 @@ if __name__ == '__main__':
         curves.append(curve)
 
     if len(curves) > 0:
-        XYs1dModule.XYs1d.multiPlot(curves)
+        XYs1dModule.XYs1d.multiPlot(curves, domainMin=args.xMin, domainMax=args.xMax, 
+                rangeMin=args.yMin, rangeMax=args.yMax, logs=args.logs)

@@ -213,7 +213,19 @@ class Number( Quantity, abc.ABC ) :
         Returns a PQU instance of self's value in units of unit. If unit is None, self's unit is used.
         """
 
-        pqu = PQUModule.PQU( self.value, self.unit )
+        uncertainty = None
+        if self.uncertainty is not None:
+            uncertainty = self.uncertainty.form.value
+            if uncertainty.relation == uncertaintyModule.Quantity.absolute:
+                uncertainty = uncertainty.value
+            elif uncertainty.relation == uncertaintyModule.Quantity.relative:
+                uncertainty = uncertainty.value * self.value
+            elif uncertainty.relation == uncertaintyModule.Quantity.percent:
+                uncertainty = uncertainty.value * self.value / 100.0
+            else:
+                raise ValueError('Unsupported uncertainty relation "%s".' % uncertainty.relation)
+
+        pqu = PQUModule.PQU( self.value, self.unit, uncertainty = uncertainty )
         if( unit is not None ) : pqu.convertToUnit( unit )
         return( pqu )
 

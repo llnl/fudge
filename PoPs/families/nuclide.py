@@ -84,7 +84,7 @@ class Particle( particleModule.Particle ) :
     def check( self, info ):
 
         from .. import warning as warningModule
-        warnings = []
+        warnings = particleModule.Particle.check(self, info)
 
         subWarnings = self.__nucleus.check(info)
         if subWarnings:

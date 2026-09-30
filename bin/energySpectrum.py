@@ -76,7 +76,7 @@ parser.add_argument( '--energyUnit', choices = ( 'eV', 'MeV' ), default = energy
 parser.add_argument('--muMin', action='store', default=-1, type=float,                          help = 'The outgoing distribution is integrated from muMin to muMax. The default is -1.')
 parser.add_argument('--muMax', action='store', default=1, type=float,                           help = 'The outgoing distribution is integrated from muMin to muMax. The default is 1.')
 parser.add_argument( '--com', action = 'store_true',                                            help = 'Produce the energy spectra in the center-of-mass frame. The default is the lab frame.' )
-parser.add_argument( '--temperature', type = float,                                             help = 'Specifies the temperature of the target material.' )
+parser.add_argument( '--temperature', type = float, default=None,                               help = 'Specifies the temperature of the target material.' )
 parser.add_argument( '--temperatureUnit', type = str, default = temperatureUnitDefault,         help = 'Temperature unit to convert to. Default is "%s".' % temperatureUnitDefault )
 parser.add_argument( '--outputDir', action = 'store', type=pathlib.Path,                        help = 'If present, output energy spectrum for each reaction and total are written to the directory specified by this option.' )
 parser.add_argument( '--twoBodyCOMResolution', action = 'store', type = float, default = twoBodyCOMResolutionDefault,
@@ -119,7 +119,7 @@ protare = singleProtareArguments.protare(args, verbosity = args.verbose, lazyPar
 readTime = readTime.toString( current = False )
 
 if outputDir is not None:
-    outputDir = args.outputDir / ('%s+%s' % (protare.projectile, protare.target))
+    outputDir = args.outputDir / ('%s+%s' % (protare.projectile, protare.target)) / args.product
     if outputDir.exists():
         shutil.rmtree(outputDir)
     outputDir.mkdir(parents=True)
@@ -163,6 +163,9 @@ if( protare.isThermalNeutronScatteringLaw( ) ) :
             closestTemperature = temperature
             
     styleLabel = temperatures[closestTemperature]
+else:
+    if args.temperature is None:
+        args.temperature = 0.0
 
 def discreteGammaSpectrumToPDF( discreteGammaData ) :
 
@@ -190,18 +193,22 @@ def addCurves(curve1, curve2):
 
 def output( MT, reactionStr, prefix, spectrum, crossSection ) :
 
-    def write( curve, suffix, yLabel, productionCrossSection ) :
+    def write(curve, suffix, yLabel, productionCrossSection):
 
-        fOut = open( os.path.join( outputDir, prefix + '_%.3d.' % MT + suffix ), 'w' )
-        fOut.write( '# reaction = "%s"\n' % reactionStr )
-        fOut.write( '# cross section = %.5g\n' % crossSection )
-        fOut.write( '# production cross section = %.5g\n' % ( productionCrossSection ) )
-        fOut.write( '# multiplicity = %.5g\n' % ( productionCrossSection / crossSection ) )
-        fOut.write( '# x axes label = "Outgoing %s energy [%s]"\n' % ( args.product, args.energyUnit ) )
-        fOut.write( '# y axes label = "%s"\n' % yLabel )
+        fOut = open(os.path.join(outputDir, prefix + '_%.3d.' % MT + suffix), 'w')
+        fOut.write('# reaction = "%s"\n' % reactionStr)
+        fOut.write('# projectile energy = %s %s\n' % (args.energy, args.energyUnit))
+        fOut.write('# material temperature = %s %s\n' % (args.temperature, args.temperatureUnit))
+        fOut.write('# cross section = %.5g\n' % crossSection)
+        fOut.write('# production cross section = %.5g\n' % (productionCrossSection))
+        fOut.write('# multiplicity = %.5g\n' % (productionCrossSection / crossSection))
+        if suffix == '_pdf':
+             fOut.write('# average energy of pdf =  %.5g\n' % curve.integrateWithWeight_x())
+        fOut.write('# x axes label = "Outgoing %s energy [%s]"\n' % (args.product, args.energyUnit))
+        fOut.write('# y axes label = "%s"\n' % yLabel)
         if len(curve) > 0:
-            fOut.write( curve.toString(format=" %17.9e %16.8e"))
-        fOut.close( )
+            fOut.write(curve.toString(format=" %17.9e %16.8e"))
+        fOut.close()
 
     def addPointForLogPlotting( spectrum ) :
 

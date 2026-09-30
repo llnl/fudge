@@ -310,6 +310,9 @@ ptwXPoints *ptwXY_groupThreeFunctions( statusMessageReporting *smr, ptwXYPoints 
         ptwXYPoints *ptwXY3, ptwXPoints *groupBoundaries, ptwXY_group_normType normType, ptwXPoints *ptwX_norm );
 ptwXPoints *ptwXY_groupFourFunctions( statusMessageReporting *smr, ptwXYPoints *ptwXY1, ptwXYPoints *ptwXY2,
         ptwXYPoints *ptwXY3, ptwXYPoints *ptwXY4, ptwXPoints *groupBoundaries, ptwXY_group_normType normType, ptwXPoints *ptwX_norm );
+ptwXPoints *ptwXY_groupFiveFunctions( statusMessageReporting *smr, ptwXYPoints *ptwXY1, ptwXYPoints *ptwXY2, 
+        ptwXYPoints *ptwXY3, ptwXYPoints *ptwXY4, ptwXYPoints *ptwXY5, ptwXPoints *groupBoundaries, 
+        ptwXY_group_normType normType, ptwXPoints *ptwX_norm );
 ptwXPoints *ptwXY_runningIntegral( statusMessageReporting *smr, ptwXYPoints *ptwXY );
 nfu_status ptwXY_integrateWithFunction( statusMessageReporting *smr, ptwXYPoints *ptwXY, ptwXY_createFromFunction_callback func, 
         void *argList, double domainMin, double domainMax, int degree, int recursionLimit, double tolerance,

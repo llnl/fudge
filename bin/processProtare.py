@@ -87,6 +87,11 @@ def make_parser():
         n=LLNL_gid_7 --groupFile    # This is a comment.
         groups.xml                  # Another comment.
         --fluxFile ./fluxes.xml --energyUnit eV
+
+Notes:
+
+1) Heating the elastic cross section with a charged particle as projectile does not make sense as the cross section is infinite.
+To "handle" the charged particle elastic cross section, part of the cross section for scattering to small angles is ignored.
     """
 
     parserPreview = argparse.ArgumentParser(fromfile_prefix_chars='@', add_help=False)
@@ -115,8 +120,11 @@ def make_parser():
                                                                                                         help = 'For Coulomb + nuclear elastic scattering mu is limited to [ -1, muCutOff ] to make the cross section finite. \nFor identical particles mu is limited to [ -muCutOff, muCutOff ]. muCutOff must be in the range ( -1 to 1 ). Default is "%s".' % CoulombPlusNuclearMuCutOffDefault)
     parser.add_argument('--doNotAddNuclearPlusInterference', action = 'store_true',                        help = 'If not present and projectile is a charged particles, an elastic reaction without Rutherford scattering is added to the incompleteReactions node.')
 
-    parser.add_argument('-t', '--temperatures', type = float, action = 'append', default = None,           help = 'Temperatures for heating. Use one -t option for each temperature.')
-    parser.add_argument('--temperatureUnit', type = str, default = temperatureUnitDefault,                 help = 'Temperature unit to convert to. Default is "%s".' % temperatureUnitDefault)
+    parser.add_argument('-t', '--temperatures', type=float, action='append', default=None,                  help='Temperatures for heating. Use one -t option for each temperature.')
+    parser.add_argument('--temperatureUnit', type=str, default=temperatureUnitDefault,                      help='Temperature unit to convert to. Default is "%s".' % temperatureUnitDefault)
+    parser.add_argument('--heatBelowThreshold', action='store_true',                                        help='If present, heating below threshold is allowed. Note, heatingEnergyMinimum may also need to be set.')
+    parser.add_argument('--heatingEnergyMinimum', type=float, default=None,                                 help='If heating below threshold, use this value as the minimum projectile energy that a cross section may be heated to.')
+    parser.add_argument('--allowHeatingChargedParticles', action='store_true',                              help='If present, a charged particle as projectile can be heated. This should be used with caution (see Note 1).')
 
     parser.add_argument('--legendreMax', type = int, default = legendreMaxDefault,                         help = 'Maximum Legendre order for Sn prcessed data. Default is "%s".' % legendreMaxDefault)
     parser.add_argument('-mg', '--MultiGroup', action = 'store_true',                                      help = 'Flag to turn on multi-group processing.')
@@ -156,7 +164,6 @@ def make_parser():
     parser.add_argument('--baseTemperatureIndex', type = int, default = 0,                                 help = 'Index for lowest processed temperature. Default is 0')
 
     return parser, singleProtareArguments
-
 
 def main():
     timer = timesModule.Times( )
@@ -214,7 +221,11 @@ def main():
 
     if reactionSuite.projectile != IDsPoPsModule.neutron or reactionSuite.interaction == enumsModule.Interaction.LLNL_TNSL:
         args.UpScatter = False
-        if args.temperatures is not None: raise ValueError('Can only heat neutron as projectile cross sections.')
+        if args.temperatures is not None:
+            if args.allowHeatingChargedParticles and reactionSuite.projectile != IDsPoPsModule.photon:
+                print('Caution, heating with charged particle as projectile is not recommented.')
+            else:
+                raise ValueError('Can only heat neutron as projectile cross sections without option --allowHeatingChargedParticles.')
     args.UpScatter = args.UpScatter and not isThermalNeutronScatteringLaw
 
     if args.temperatures is None:
@@ -331,6 +342,7 @@ def main():
     logFile.write('Pre heating loop style label "%s".\n' % preLoopStyle.label)
     transportables_href = None
     averageProductEnergyModelB = averageProductEnergyModule.Component()
+
     for temperatureIndex, temperatureValue in enumerate(args.temperatures):  # Heat the cross sections and AEPs with a style for each temperature.
 
         if args.verbose > 0:
@@ -353,7 +365,8 @@ def main():
             reactionSuite.processThermalNeutronScatteringLaw(heatStyle, indent = '  ', verbosity = args.verbose - 2)
         else :
             if args.verbose > 0: print('  Heating cross sections')
-            reactionSuite.heatCrossSections(heatStyle, setThresholdToZero = True, heatBelowThreshold = False, verbose = args.verbose - 2)  # FIXME need logfile arguments in this process call
+            reactionSuite.heatCrossSections(heatStyle, setThresholdToZero=not args.heatBelowThreshold, 
+                    heatBelowThreshold=args.heatBelowThreshold, EMin=args.heatingEnergyMinimum, verbose=args.verbose - 2)    # FIXME need logfile arguments in this process call
         logFile.write('    %s\n' % timerHeating)
 
         loopStyle = heatStyle
@@ -398,7 +411,16 @@ def main():
             if workDirTarFile.exists():
                 if args.restart:
                     tar = tarfile.open(str(workDirTarFile))
-                    tar.extractall()
+                    try:
+                        if sys.version_info >= (3, 12):
+                            tar.extractall(filter='data')
+                        else:
+                            # Fallback for older versions
+                            tar.extractall()
+                    except EOFError:
+                        # tar file corrupted or not fully saved. Best option is to delete it and restart
+                        shutil.rmtree(str(workDir))
+                        workDirTarFile.unlink()
                 else:
                     workDirTarFile.unlink()
             if workDir.exists() and not args.restart:
@@ -425,7 +447,11 @@ def main():
                 if workDirTarFile.exists():
                     if args.restart:
                         tar = tarfile.open(str(workDirTarFile))
-                        tar.extractall()
+                        if sys.version_info >= (3, 12):
+                            tar.extractall(filter='data')
+                        else:
+                            # Fallback for older versions
+                            tar.extractall()
                     else:
                         workDirTarFile.unlink()
                 if workDir.exists() and not args.restart:

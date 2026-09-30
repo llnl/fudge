@@ -9,6 +9,9 @@
 
 import glob, os
 from setuptools import setup, Extension
+import numpy
+
+numpyPath = numpy.get_include()
 
 def setup_package():
     statusMessageReporting_c = glob.glob(os.path.join('statusMessageReporting', 'Src', '*.c'))
@@ -58,7 +61,7 @@ def setup_package():
         extra_compile_args = extra_compile_args,
         sources = statusMessageReporting_c + ptwC_c + ptwX_c + nf_Legendre_c + nf_integration_c + ptwXY_c + ptwXY_Py_c,
         include_dirs = [statusMessageReporting_hDir, ptwC_hDir, ptwX_hDir, nf_Legendre_hDir, nf_integration_hDir, 
-                ptwXY_hDir, ptwXY_Py_hDir])
+                ptwXY_hDir, ptwXY_Py_hDir, numpyPath])
 
     Legendre = Extension('numericalFunctions.Legendre',
         extra_compile_args = extra_compile_args,

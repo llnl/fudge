@@ -630,7 +630,7 @@ class ReactionSuite(ancestryModule.AncestryIO):
                 'reactionSuite': self, 'photonBranchingData': self.photonBranchingData(),
                 'isInfiniteTargetMass': isinstance(target, chemicalElementPoPsModule.ChemicalElement)}
 
-        if self.projectile == 'n' and self.target != 'n':
+        if self.projectile == 'n' and self.target not in ('n', 'H1'):
             # test Wick's limit: 0-degree elastic xsc >= ( total xsc * k/4pi )^2
             elastic = self.getReaction('elastic')
             total = self.getReaction('total')
@@ -799,9 +799,10 @@ class ReactionSuite(ancestryModule.AncestryIO):
 
     def heatCrossSections(self, style, lowerlimit=None, upperlimit=None, interpolationAccuracy=0.001,
                           heatAllPoints=False, doNotThin=True, heatBelowThreshold=True, heatAllEDomain=True,
-                          setThresholdToZero=False, verbose=0):
+                          setThresholdToZero=False, EMin=None, verbose=0):
 
-        EMin = self.domainMin
+        if EMin is None:
+            EMin = self.domainMin
         kwargs = {
             'lowerlimit': lowerlimit, 'upperlimit': upperlimit, 'interpolationAccuracy': interpolationAccuracy,
             'heatAllPoints':  heatAllPoints, 'doNotThin': doNotThin, 'heatBelowThreshold': heatBelowThreshold,
@@ -895,15 +896,10 @@ class ReactionSuite(ancestryModule.AncestryIO):
 
         # translate special channel names:
         if channel == 'elastic':
-            channel = channel_tr = self.elasticReactionLabel()
-
-            # FIXME we're not dealing with metastables or other aliases very well right now, need to rework this.
-            # special treatment to check for elastic reactions with labels like 'n + Am242_m1' (instead of Am242_e2):
-            if self.target in self.PoPs.aliases:
-                metastableElastic = f"{self.projectile} + {self.target}"
-                if metastableElastic in self.reactions:
-                    channel = channel_tr = metastableElastic
-
+            for reaction in self.reactions:
+                if reaction.isElastic():
+                    return reaction
+            return None
         elif channel == 'capture':
             channel_tr = 'z,gamma'
         else:
@@ -1381,20 +1377,23 @@ class ReactionSuite(ancestryModule.AncestryIO):
         The grid spans the same domain as the elastic scattering cross section.
         """
 
-        def mutualDomain( style, reaction, thresholds ) :
+        def getCrossSection(style, reaction):
 
-            crossSection = style.findFormMatchingDerivedStyle( reaction.crossSection )
-            if( isinstance( crossSection, crossSectionModule.Regions1d ) ) :
-                crossSection = crossSection.toPointwise_withLinearXYs( accuracy = 1e-3, lowerEps = 1e-6 )
-            crossSection = crossSection.domainSlice( domainMin, domainMax )                 # truncate to match elastic domain
-            if( ( crossSection.domainMin > domainMin ) and ( crossSection[0][1] != 0 ) ) :
-                print('    WARNING, domains not mutual, setting first y-value to 0.')
-                crossSection[0] = [ crossSection[0][0], 0 ]
-            if( ( crossSection.domainMax < domainMax ) and ( crossSection[-1][1] != 0 ) ) :
-                print('    WARNING, domains not mutual, setting last y-value to 0.')
-                crossSection[-1] = [ crossSection[-1][0], 0 ]
-            thresholds.add( crossSection[0][0] )
-            return( crossSection )
+            crossSection = style.findFormMatchingDerivedStyle(reaction.crossSection)
+            if isinstance(crossSection, crossSectionModule.Regions1d):
+                crossSection = crossSection.asXYs1d(True, 1e-3, 1e-6, 1e-6)
+
+            return crossSection
+            
+        def mutualDomain(style, crossSection, thresholds):
+
+            if (crossSection.domainMin > domainMin) and (crossSection[0][1] != 0):
+                crossSection[0] = [crossSection[0][0], 0]
+            if (crossSection.domainMax < domainMax) and (crossSection[-1][1] != 0):
+                crossSection[-1] = [crossSection[-1][0], 0]
+            thresholds.add(crossSection[0][0])
+
+            return crossSection
 
         def photoAtomic( style, reaction, thresholds ) :
 
@@ -1414,11 +1413,6 @@ class ReactionSuite(ancestryModule.AncestryIO):
 
             return( set( values ) )
 
-        evaluationStyle = style.findDerivedFromStyle( stylesModule.Evaluated )
-        projectileEnergyDomain = evaluationStyle.projectileEnergyDomain
-        domainMin = projectileEnergyDomain.min
-        domainMax = projectileEnergyDomain.max
-
         axes = style.findFormMatchingDerivedStyle( self.reactions[0].crossSection ).axes.copy( )
 
         isPhotoAtomic = False
@@ -1430,13 +1424,22 @@ class ReactionSuite(ancestryModule.AncestryIO):
 
         thresholds = set( )
         total = crossSectionModule.XYs1d( data = [], axes = axes )
-        if( isPhotoAtomic ) :
-            values = set( )
-            for reaction in self.reactions : values.update( set( photoAtomic( style, reaction, thresholds ) ) )
-            values = sorted( values )
+        if isPhotoAtomic:
+            domainMin = style.findDerivedFromStyle(stylesModule.Evaluated).projectileEnergyDomain.min
+            values = set()
+            for reaction in self.reactions:
+                values.update(set(photoAtomic(style, reaction, thresholds)))
+            values = sorted(values)
         else :
-            for reaction in self.reactions : total += mutualDomain( style, reaction, thresholds )
-            for reaction in self.orphanProducts : total += mutualDomain( style, reaction, thresholds )
+            crossSections = []
+            for reaction in self.reactions:
+                crossSections.append(getCrossSection(style, reaction))
+            for reaction in self.orphanProducts:
+                crossSections.append(getCrossSection(style, reaction))
+            domainMin = min([crossSection.domainMin for crossSection in crossSections])
+            domainMax = max([crossSection.domainMax for crossSection in crossSections])
+            for crossSection in crossSections:
+                total += mutualDomain(style, crossSection, thresholds)
             values = total.domainGrid
 
         tooCloseXsIndicies = []
@@ -1445,7 +1448,7 @@ class ReactionSuite(ancestryModule.AncestryIO):
             if( abs( x2 - x1 ) < 1e-12 * x2 ) : tooCloseXsIndicies.append( i1 )
             x1 = x2
         tooCloseXsIndicies.reverse( )
-        for index in tooCloseXsIndicies :                   # Remove close points but any threshold points.
+        for index in tooCloseXsIndicies :                   # Remove close points but not any threshold points.
             if( values[index] in thresholds ) : index -= 1
             del values[index]
 
@@ -2338,7 +2341,8 @@ class ReactionSuite(ancestryModule.AncestryIO):
                 covariancePaths.append(covariancePath)
 
                 sha1sum = checksumsModule.Sha1sum.from_file(covariancePath)
-                self.externalFiles.add(externalFileModule.ExternalFile("covariances", covariancePath, checksum=sha1sum))
+                self.externalFiles.add(externalFileModule.ExternalFile(
+                        "covariances", covariancePathRelative, checksum=sha1sum))
             else:                                       # Locate and update the ExternalFiles pointing between the two files.
                 if len(covariances) > 1:
                     raise Exception('Currently, only one covariance file is supported.')

@@ -251,7 +251,7 @@ class Form( baseModule.Form ) :
             parameters.k = energy * factor_electronMass
             return( parameters.constant * nf_integrationModule.adaptiveQuadrature_GnG( 4, integrand, parameters, -1.0, 1.0, parameters.tolerance, 20 )[0] )
 
-        scatteringFactor = self.scatteringFactor
+        scatteringFactor = self.scatteringFactor.data
 
         factor_electronMass = 1.0 / PQUModule.PQU( 1.0, 'me * c**2' ).getValueAs( domainUnit )
         factor_E2x = PQUModule.PQU( 1.0, '%s / hplanck / c' % domainUnit ).getValueAs( scatteringFactor.axes[1].unit )

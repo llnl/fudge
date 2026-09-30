@@ -830,6 +830,29 @@ class XYs1d(baseModule.XDataFunctional):
 
         return( self.__nf_pointwiseXY.copyDataToXsAndYs( ) )
 
+    def copyDataToNumpyArray(self, dataForm='XYs'):
+        """
+        This method returns a numpy array(s) the points of *self*. The returned type and shape depend
+        of the argument *dataForm* which can have any of the case-independent string in the following
+        talbe (in the table length is the number of points in self):
+
+        +-----------+-------------------------------------------------------------------------------+
+        | String    | Returned item.                                                                |
+        +===========+===============================================================================+
+        | XYs       | A numpy array of shape (length, 2).                                           |
+        +-----------+-------------------------------------------------------------------------------+
+        | XsAndYs   | A tuple of two numpy arrays representing the x and y-values, respectively.    |
+        +-----------+-------------------------------------------------------------------------------+
+        | list      | A numpy arrays of shape (2*length,) represent (x0, y0, x1, y1, ...)           |
+        +-----------+-------------------------------------------------------------------------------+
+
+        :param dataForm:    Defines how the data are returned.
+
+        :returns:           A numpy array or a tuple of two numpy arrays.
+        """
+
+        return self.__nf_pointwiseXY.copyDataToNumpyArray(dataForm=dataForm)
+
     def domain( self ) :
         """This method is deprecated."""
 
@@ -855,7 +878,6 @@ class XYs1d(baseModule.XDataFunctional):
         :returns:               An instance of class of *self*.
         """
 
-        print('positiveXOnly = ', positiveXOnly)
         dulled = self.nf_pointwiseXY.dullEdges( lowerEps = lowerEps, upperEps = upperEps, positiveXOnly = positiveXOnly )
         return( self.returnAsClass( self, dulled ) )
 
@@ -1582,6 +1604,48 @@ class XYs1d(baseModule.XDataFunctional):
         if( isinstance( norm, XYs1d ) ) : norm = norm.nf_pointwiseXY
 
         return( self.nf_pointwiseXY.groupFourFunctions(  boundaries, f2, f3, f4, norm = norm ) )
+
+    def groupFiveFunctions(self, xs, f2, f3, f4, f5, norm = None):
+        """
+        This function multi-groups *self*, *f2*, *f3*, *f4* and *f5* using the boundaries *xs*. Each group is just 
+        the value of the integral of the product of *self*, *f2*, *f3*, *f4* and *f5* over the group's domain divided by 
+        the *norm* for that group.  The argument *norm* specifies how to normalize each group. If *norm* is None, 
+        no normalization happens. If *norm* is 'dx', each group integral is divided by its domain width. If *norm* 
+        is a list of float, there must be a one-to-one mapping of the number of float to the number of groups, and 
+        the value in the *norm* at the same index as the group is used as the norm for that group.  The number of 
+        groups is the lenght of *xs* - 1.
+
+        .. note:: Need unit of xs.
+
+        :param xs:      The list of multi-group boundaries.
+        :param f2:      An instance of :py:class:`XYs1d`.
+        :param f3:      An instance of :py:class:`XYs1d`.
+        :param f4:      An instance of :py:class:`XYs1d`.
+        :param f5:      An instance of :py:class:`XYs1d`.
+        :param norm:    Can be None, the python str 'dx', or a python list of floats of lenght the number of groups.
+
+        :returns:       A python list of floats.
+        """
+
+        if type(xs) == list:
+            boundaries = xs
+        elif type(xs.values) == list:
+            boundaries = xs.values
+        else:
+            boundaries = xs.values.values
+
+        if isinstance(f2, XYs1d):
+            f2 = f2.nf_pointwiseXY
+        if isinstance(f3, XYs1d):
+            f3 = f3.nf_pointwiseXY
+        if isinstance(f4, XYs1d):
+            f4 = f4.nf_pointwiseXY
+        if isinstance(f5, XYs1d):
+            f5 = f5.nf_pointwiseXY
+        if isinstance(norm, XYs1d):
+            norm = norm.nf_pointwiseXY
+
+        return self.nf_pointwiseXY.groupFiveFunctions(boundaries, f2, f3, f4, f5, norm=norm)
 
     def hasData(self):
         """

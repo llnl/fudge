@@ -21,6 +21,7 @@ from PoPs.chemicalElements import misc as PoPsGroupsMiscModule
 from fudge import enums as enumsModule
 from fudge import map as mapModule
 from fudge import reactionSuite as reactionSuiteModule
+from fudge import suites as suitesModule
 from fudge import GNDS_file as GNDS_fileModule
 
 summaryDocString__FUDGE = '''Creates a map file from a list of GNDS reactionSuite and map files.'''
@@ -181,18 +182,18 @@ def sortFiles(files):
     return sorted(_files)
 
 standards = {}
-if( args.standards is not None ) :
+if args.standards is not None:
     import json
     with open( args.standards, 'r') as f :
         standards = json.load( f )
     for target in standards :
-        if( isinstance( standards[target], list ) ) : continue
+        if isinstance( standards[target], list ): continue
         standards[target] = [ standards[target], None ]
 
 mode = 'all'
-if( args.nonMetaStablesMapFile is not None ) :
+if args.nonMetaStablesMapFile is not None:
     mode = 'metastables'
-elif( args.ignoreMetaStables ) :
+elif args.ignoreMetaStables:
     mode = 'non-metastables'
 
 fileType = None
@@ -203,23 +204,23 @@ for file in args.files :
     except :
         print('    WARNING: Invalid file "%s".' % file)
         continue
-    if( name == reactionSuiteModule.ReactionSuite.moniker ) :
+    if name == reactionSuiteModule.ReactionSuite.moniker:
         if data['interaction'] is None:
             if data['projectile'] == PoPsIDsModule.photon:
                 raise Exception('File %s does not have interaction attribute.' % file)
             data['interaction'] = enumsModule.Interaction.nuclear
         pass
-    elif( name == mapModule.Map.moniker ) :
+    elif name == mapModule.Map.moniker:
         pass
     else :
         if args.verbose > 2: print('    WARNING: Ignoring file of type %s.' % name)
         continue
-    if( fileType != name ) :
-        if( fileType is not None ) : groups.append( [ fileType, files ] )
+    if fileType != name:
+        if fileType is not None: groups.append( [ fileType, files ] )
         fileType = name
         files = []
     files.append( [ file, data ] )
-if( fileType is not None ) : groups.append( [ fileType, files ] )
+if fileType is not None: groups.append( [ fileType, files ] )
 
 map = mapModule.Map( args.library, args.path )
 if args.nonMetaStablesMapFile is not None:                              # ensure file exists and is a map file
@@ -229,34 +230,46 @@ if args.nonMetaStablesMapFile is not None:                              # ensure
 
 TNSL_missingStandardTargets = []
 for fileType, files in groups :
-    if( fileType == mapModule.Map.moniker ) :
+    if fileType == mapModule.Map.moniker:
         for file, data in files : map.append( mapModule.Import( file ) )
     else :
         for interaction, projectile, target, file, data in sortFiles( files ) :
-            if( ( mode == 'non-metastables' ) and ( target[-1] != 0 ) ) : continue
-            if( ( mode == 'metastables' )     and ( target[-1] == 0 ) ) : continue
+            if mode == 'non-metastables' and target[-1] != 0: continue
+            if mode == 'metastables'     and target[-1] == 0: continue
             interaction = data['interaction']
-            if( interaction is None ) :
+            if interaction is None:
                 protare = GNDS_fileModule.preview(file, haltParsingMoniker=None)
                 interaction = protare.interaction
             interaction = enumsModule.Interaction.checkEnumOrString(interaction)
             if interaction == enumsModule.Interaction.legacyTNSL:
                 interaction = enumsModule.Interaction.TNSL
             if interaction == enumsModule.Interaction.TNSL:
-                try :
-                    standardTarget = standards[data['target']][0]
-                except :
-                    standardTarget = ''
-                if( standardTarget == '' ) : TNSL_missingStandardTargets.append( data['target'] )
+                # Check if the file has targetInfo at /reactionSuite/styles/evaluated/targetInfo
+                protare = GNDS_fileModule.preview(file, haltParsingMoniker=suitesModule.Reactions.moniker)
+                hasTargetInfo = False
+                evaluated_style = protare.styles.getEvaluatedStyle()
+                if hasattr(evaluated_style, 'targetInfo') and evaluated_style.targetInfo is not None:
+                    hasTargetInfo = True
 
-                try :
-                    standardEvaluation = standards[data['target']][1]
-                    if( standardEvaluation is None ) : standardEvaluation = str( data['evaluation'] )
-                except :
-                    standardEvaluation = str( data['evaluation'] )
+                if hasTargetInfo:
+                    # Skip standardTarget and standardEvaluation if targetInfo exists
+                    map.append( mapModule.TNSL( str( data['projectile'] ), str( data['target'] ), str( data['evaluation'] ), file,
+                            None, None, interaction ) )
+                else:
+                    try :
+                        standardTarget = standards[data['target']][0]
+                    except :
+                        standardTarget = ''
+                    if standardTarget == '': TNSL_missingStandardTargets.append( data['target'] )
 
-                map.append( mapModule.TNSL( str( data['projectile'] ), str( data['target'] ), str( data['evaluation'] ), file,
-                        standardTarget, standardEvaluation, interaction ) )
+                    try :
+                        standardEvaluation = standards[data['target']][1]
+                        if standardEvaluation is None: standardEvaluation = str( data['evaluation'] )
+                    except :
+                        standardEvaluation = str( data['evaluation'] )
+
+                    map.append( mapModule.TNSL( str( data['projectile'] ), str( data['target'] ), str( data['evaluation'] ), file,
+                            standardTarget, standardEvaluation, interaction ) )
             else :
                 map.append( mapModule.Protare( str( data['projectile'] ), str( data['target'] ), str( data['evaluation'] ), file, interaction ) )
 
@@ -270,10 +283,11 @@ if not args.skipChecksums:
 map.saveToFile(args.path, format=args.format)
 
 if not args.skipRIS:
+    if args.verbose > 0: print('    INFO: building RIS file with buildReactionInfoSummary.py')
     RIS_file = pathlib.Path(__file__).parent / 'buildReactionInfoSummary.py'
     subprocessingModule.executeCommand((sys.executable, RIS_file, args.path), stdout=sys.stdout, stderr=sys.stderr)
 
-if( len( TNSL_missingStandardTargets ) > 0 ) : 
+if len( TNSL_missingStandardTargets ) > 0:
     print( '    WARNING: you still need to update the standard target (and maybe the standard evaluation) for %s TNSL nodes.' % len( TNSL_missingStandardTargets ) )
     if args.verbose > 1:
         for TNSL_missingStandardTarget in TNSL_missingStandardTargets : print('        Standard target missing for %s' % TNSL_missingStandardTarget)

@@ -880,6 +880,14 @@ def _resonance_checker(self, info, things):
     keys = sorted(sumgJ.keys())
     for rxn, L in keys:
         if abs(abs(sumgJ[(rxn, L)]) - abs(2.0 * L + 1.0)) > 1e-6:
+            if rxn == 'fission':
+                continue    # don't expect the same statistical properties for fission
+            elif rxn == 'capture':
+                if isinstance(self, BreitWigner) or (
+                        isinstance(self, RMatrix) and self.approximation != RMatrix.Approximation.RMatrix):
+                    # eliminated capture channels
+                    continue
+
             warnings.append(warning.BadSpinStatisticalWeights(L, sumgJ[(rxn, L)], 2. * L + 1, rxn))
 
     # setup for checking allowed angular momentum:

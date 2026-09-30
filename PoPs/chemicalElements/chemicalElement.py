@@ -54,13 +54,18 @@ class ChemicalElement( miscModule.ClassWithSymbolKey ) :
 
         chemicalElementMiscModule.checkZ( Z )
         self.__Z = Z
-        if( chemicalElementMiscModule.symbolFromZ[Z] != base ) : raise ValueError( 'Z = %s and chemical element symbol = "%s" are not consistent' %
+        if chemicalElementMiscModule.symbolFromZ[Z] != base:
+            raise ValueError('Z = %s and chemical element symbol = "%s" are not consistent' %
                 ( Z, miscModule.toLimitedString( symbol ) ) )
 
-        if( not( isinstance( name, str ) ) ) : TypeError( 'name must be a string' )
-        if( chemicalElementMiscModule.nameFromZ[Z] != name ) : 
-            raise ValueError( 'Z = "%s" and chemical element name = "%s" are not consistent, should be "%s".' %
-                    ( Z, miscModule.toLimitedString( name ), chemicalElementMiscModule.nameFromZ[Z] ) )
+        if not isinstance(name, str): TypeError( 'name must be a string' )
+        if name not in chemicalElementMiscModule.namesFromZ[Z]:
+            names = chemicalElementMiscModule.namesFromZ[Z]
+            message = "%s" % names[0]
+            if len(names) > 1:
+                message = f"one of {', '.join(names)}."
+            raise ValueError( 'Z = "%s" and chemical element name = "%s" are not consistent, should be %s.' %
+                    (Z, miscModule.toLimitedString(name), message))
         self.__name = name
 
         self.__atomicData = None

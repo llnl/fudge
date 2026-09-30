@@ -109,9 +109,13 @@ class DelayedNeutron( ancestryModule.AncestryIO ) :
 
     def processMultiGroup( self, style, tempInfo, indent ) :
 
+        tempInfo['workFile'].append('dn%s' % self.label)
+
         tempInfo['productName'] = self.__product.pid
         tempInfo['productLabel'] = self.__product.label
         self.__product.processMultiGroup( style, tempInfo, indent )
+
+        del tempInfo['workFile'][-1]
 
     def multiGroupMultiplicity(self, multiGroupSettings, temperatureInfo, productID):
         """

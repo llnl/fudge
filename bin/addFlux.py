@@ -19,7 +19,9 @@ from argparse import ArgumentParser
 
 summaryDocString__FUDGE = '''Adds a flux definition (label and f(T,E,mu) data) to a fluxes file (e.g., fluxes.xml).'''
 
-description = """Read a list of energies and fluxes from the specified file and adds it to a flux file. For each energy, the fluxes must be stored as Legendre coefficients"""
+description = """Read a list of energies and fluxes from a file or command-line and adds it to a flux file. For each energy, the fluxes must be stored as Legendre coefficients.
+
+This script does not currently support creating a temperature-dependent flux."""
 
 parser = ArgumentParser( description = description )
 parser.add_argument( "label",                                           help = """The label to assign to the flux.""" )
@@ -28,15 +30,15 @@ parser.add_argument( "output",                                          help = "
 parser.add_argument( "input", nargs = "?", default = None,              help = """If present, the file to read existing flux data from. The new fluxes are appended to the fluxes in this file and all are written to the output file.""" )
 parser.add_argument( "--override", action = "store_true",               help = """If label exists in flux file and option present, replace flux; otherwise, execute a raise.""" )
 parser.add_argument( "-u", "--unit", default = energyUnitDefault,       help = """The unit for the energies. Default is %s.""" % energyUnitDefault )
-parser.add_argument( "--values", action = "store_true",                 help = """Qualifies how the "flux" argument is interpreted.""" )
+parser.add_argument( "--values", action = "store_true",                 help = """If option is present, the "flux" argument should be a quoted string like "0.0 1.0; 200.0 1.0" rather than a file name.""" )
 
 args = parser.parse_args( )
 
 unit = PQUModule.PQU( 1, args.unit )
-if( not( unit.isEnergy( ) ) ) : raise TypeError( "Unit must be an energy unit." )
+if not unit.isEnergy( ): raise TypeError( "Unit must be an energy unit." )
 
 XYs2d = fluxModule.XYs2d( outerDomainValue = 0.0 )
-if( args.values ) :
+if args.values:
     for xys1d in args.flux.split( ';' ) :
         energy_coefficients = list( map( float, xys1d.split( ) ) )
         XYs2d.append( fluxModule.LegendreSeries( energy_coefficients[1:], outerDomainValue = energy_coefficients[0] ) )
@@ -50,20 +52,22 @@ else :
         energy = data.pop( 0 )
         XYs2d.append( fluxModule.LegendreSeries( data, outerDomainValue = energy ) )
 
+assert len(XYs2d) > 1, "Flux definition must contain at least two incident energies"
+
 flux = fluxModule.XYs3d( label = args.label, axes = fluxModule.axes( args.unit ) )
 flux.append( XYs2d )
 
 input = args.input
-if( input is None ) :
-    if( os.path.exists( args.output ) ) : input = args.output
+if input is None:
+    if os.path.exists( args.output ): input = args.output
 
-if( input is not None ) :
+if input is not None:
     fluxes = fluxModule.Fluxes.readXML_file(input)
 else :
     fluxes = fluxModule.Fluxes( )
 
-if( flux.label in fluxes ) :
-    if( not( args.override ) ) : raise ValueError( """Label "%s" already in flux file.""" % flux.label )
+if flux.label in fluxes:
+    if not args.override: raise ValueError( """Label "%s" already in flux file.""" % flux.label )
     fluxes.replace( flux )
 else :
     fluxes.add( flux )

@@ -125,7 +125,7 @@ class Subform(baseModule.Subform, ABC):
         :param unitMap:     A dictionary in which each key is a unit that will be replaced by its value which must be an equivalent unit.
         """
 
-        if( self.data is not None ) : self.data.convertUnits( unitMap )
+        if self.data is not None: self.data.convertUnits( unitMap )
 
     def copy( self ) :
         """
@@ -151,7 +151,7 @@ class Subform(baseModule.Subform, ABC):
         Returns True if *self* is an :py:class:`ASubform` instance and if its *data* member is None, and False otherwise.
         """
 
-        return( ( self.moniker == ASubform.moniker ) and ( self.data is None ) )
+        return ( self.moniker == ASubform.moniker ) and ( self.data is None )
 
     def toXML_strList( self, indent = "", **kwargs ) :
         """
@@ -163,7 +163,7 @@ class Subform(baseModule.Subform, ABC):
         :return:                List of str instances representing the XML lines of self.
         """
 
-        if( self.isEmptyASubform( ) ) : return( [] )
+        if self.isEmptyASubform( ): return []
         indent2 = indent + kwargs.get( 'incrementalIndent', '  ' )
 
         xmlStringList = [ "%s<%s>" % ( indent, self.moniker ) ]
@@ -277,9 +277,9 @@ class Form( baseModule.Form ) :
 
     def __init__( self, label, productFrame, _fSubform, _rSubform, _aSubform ) :
 
-        if( not( isinstance( _fSubform, FSubform ) ) ) : raise TypeError( 'invalid Kalbach/Mann f data type' )
-        if( not( isinstance( _rSubform, RSubform ) ) ) : raise TypeError( 'invalid Kalbach/Mann r data type' )
-        if( not( isinstance( _aSubform, ASubform ) ) ) : raise TypeError( 'invalid Kalbach/Mann a data type' )
+        if not isinstance( _fSubform, FSubform ): raise TypeError( 'invalid Kalbach/Mann f data type' )
+        if not isinstance( _rSubform, RSubform ): raise TypeError( 'invalid Kalbach/Mann r data type' )
+        if not isinstance( _aSubform, ASubform ): raise TypeError( 'invalid Kalbach/Mann a data type' )
         baseModule.Form.__init__( self, label, productFrame, ( _fSubform, _rSubform, _aSubform ) )
 
     def convertUnits( self, unitMap ) :
@@ -303,7 +303,7 @@ class Form( baseModule.Form ) :
         from fudge import warning
         warnings = []
 
-        if( not( self.aSubform.isEmptyASubform( ) ) ) :
+        if not self.aSubform.isEmptyASubform( ):
             raise NotImplementedError("Checking for Kalbach-Mann data with 'a' coefficients")
 
         domainMins = set([term.data.domainMin for term in (self.rSubform, self.fSubform, self.aSubform)

@@ -37,6 +37,7 @@ def process_args( ) :
     parser.add_argument( "--continuumSpectraFix", action = "store_true", default = False,       help = "fix continuous spectra on read, if foobar" )
     parser.add_argument( "--ignoreBadDate", action = "store_true", default = False,             help = "ignore malformed ENDF dates" )
     parser.add_argument( "--acceptBadMF10FissionZAP", action = "store_true", default = False,   help = "allow MF=10 MT=18 IZAP=0" )
+    parser.add_argument( "--ignoreMF32Errors", action = "store_true", default = False,          help = "Skip MF32 sections with internal consistency errors and continue processing" )
     parser.add_argument( "--traceback", action = "store_true", default = False,                 help = "print traceback on exception" )
     parser.add_argument( "--formatVersion", default = GNDS_formatVersionModule.default, choices = GNDS_formatVersionModule.allowed,
                                                                                                 help = "Specifies the format for the outputted GNDS file. " )
@@ -64,11 +65,11 @@ try:
     kwargs = {}
     if args.JENDL_stylePrimarygammas:
         kwargs['JENDL_stylePrimarygammas'] = True
-    results = endfFileToGNDS.endfFileToGNDS(inFile, toStdOut=args.verbose, verbose=args.verbose, skipBadData=args.skipBadData, 
-            doCovariances=not args.skipCovariances, 
+    results = endfFileToGNDS.endfFileToGNDS(inFile, toStdOut=args.verbose, verbose=args.verbose, skipBadData=args.skipBadData,
+            doCovariances=not args.skipCovariances,
             verboseWarnings=args.verboseWarnings, printBadNK14=args.printBadNK14, continuumSpectraFix=args.continuumSpectraFix,
-            ignoreBadDate=args.ignoreBadDate, acceptBadMF10FissionZAP=args.acceptBadMF10FissionZAP, formatVersion=args.formatVersion,
-            specialNuclearParticleID=specialNuclearParticleID, **kwargs)
+            ignoreBadDate=args.ignoreBadDate, acceptBadMF10FissionZAP=args.acceptBadMF10FissionZAP, ignoreMF32Errors=args.ignoreMF32Errors,
+            formatVersion=args.formatVersion, specialNuclearParticleID=specialNuclearParticleID, **kwargs)
 
     reactionSuite = results.get('reactionSuite', None)
     covariance = results.get('covarianceSuite', None)

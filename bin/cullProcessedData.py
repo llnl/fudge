@@ -22,7 +22,7 @@ parser = argparse.ArgumentParser(description=description, allow_abbrev=False)
 singleProtareArguments = argumentsForScriptsModule.SingleProtareArguments(parser)
 parser.add_argument('outputPath', nargs='?', default=None, type=pathlib.Path,  help='Output file name.')
 parser.add_argument('-o', '--outputDir', default=None, type=pathlib.Path,      help='The output directory to write the output file to.')
-parser.add_argument('-s', '--suffix', default='.culled.xml', type=str,         help='Suffix to add to culled file.')
+parser.add_argument('-s', '--suffix', default='.culled.xml', type=str,         help='Suffix to add to culled file. Default: .culled.xml.')
 parser.add_argument('-r', '--reconstructedResonances', action='store_true',    help='Also cull reconstructed resonances.')
 
 args = parser.parse_args()

@@ -346,7 +346,8 @@
 
   <xs:complexType name="XLinkType">
     <xs:attribute name="label" type="xs:NCName"/>
-    <xs:attribute name="href" use="required"/>
+    <!-- Restricting href to valid xPath expressions would require a very detailed regex. For now just use string: -->
+    <xs:attribute name="href" type="xs:string" use="required"/>
   </xs:complexType>
 
   <!-- ===================================================================== -->
@@ -368,7 +369,7 @@
   <xs:complexType name="AxisType">
     <xs:attribute name="index" use="required" type="xs:integer"/>
     <xs:attribute name="label" use="required"/>
-    <xs:attribute name="unit" use="required"/>
+    <xs:attribute name="unit"/>
   </xs:complexType>
   <xs:complexType name="AxesType">
     <xs:sequence>
@@ -383,16 +384,26 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="GridType" >
-    <xs:sequence>
+  <xs:complexType name="GridType">
+    <xs:choice>
       <xs:element name="values" type="xData_values"/>
-    </xs:sequence>
-    <xs:attribute name="index" use="required" type="xs:integer"/>
-    <xs:attribute name="label" use="required"/>
-    <xs:attribute name="unit" use="required"/>
-    <xs:attribute name="style" use="required"/> <!-- FIXME enumerate options? -->
+      <xs:element name="link" type="XLinkType"/>
+    </xs:choice>
+    <xs:attribute name="index" type="xs:integer"/>
+    <xs:attribute name="label" type="xs:string"/>
+    <xs:attribute name="unit" type="xs:string"/>
+    <xs:attribute name="style" type="GridStyleEnum"/>
     <xs:attribute name="interpolation" type="interpolation"/>
   </xs:complexType>
+
+  <xs:simpleType name="GridStyleEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="none"/>
+      <xs:enumeration value="points"/>
+      <xs:enumeration value="boundaries"/>
+      <xs:enumeration value="parameters"/>
+    </xs:restriction>
+  </xs:simpleType>
 
   <!-- ======================== DATA CONTAINER TYPES ======================= -->
 
@@ -429,6 +440,13 @@
     </xs:simpleContent>
   </xs:complexType>
 
+  <!-- Thin wrapper around a <values> node: -->
+  <xs:complexType name="xData_values_wrapper">
+    <xs:sequence>
+      <xs:element name="values" type="xData_values"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <!-- 1d data (for cross section, multiplicity, series, distribution at one incident energy, etc.) -->
   <xs:complexType name="xData_constant1d">
     <xs:sequence>
@@ -450,10 +468,28 @@
     <xs:attribute name="interpolation" type="interpolation"/>
   </xs:complexType>
 
+  <xs:complexType name="xData_Ys1d_primary">
+    <xs:sequence>
+      <xs:element name="axes" type="GridAxesType"/>
+      <xs:element name="values" type="xData_values"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:NCName"/>
+    <xs:attribute name="interpolation" type="interpolation"/>
+  </xs:complexType>
+
   <xs:complexType name="XYs1dWrapperType">
     <xs:sequence>
       <xs:element name="XYs1d" type="xData_XYs1d_primary"/>
     </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="OneDFunctionWrapperType">
+    <xs:choice>
+      <xs:element name="XYs1d" type="xData_XYs1d_primary"/>
+      <xs:element name="regions1d" type="xData_regions_1d_primary"/>
+      <!-- processed files only -->
+      <xs:element name="xs_pdf_cdf1d" type="xData_xs_pdf_cdf1d_primary"/>
+    </xs:choice>
   </xs:complexType>
 
 
@@ -468,6 +504,26 @@
   <xs:complexType name="xData_XYs1d">
     <xs:sequence>
       <xs:element name="values" type="xData_values"/>
+    </xs:sequence>
+    <xs:attribute name="outerDomainValue" type="xs:double" use="required"/>
+    <xs:attribute name="interpolation" type="interpolation"/>
+  </xs:complexType>
+
+  <xs:complexType name="xData_xs_pdf_cdf1d_primary">
+    <xs:sequence>
+      <xs:element name="axes" type="AxesType"/>
+      <xs:element name="xs" type="xData_values_wrapper"/>
+      <xs:element name="pdf" type="xData_values_wrapper"/>
+      <xs:element name="cdf" type="xData_values_wrapper"/>
+    </xs:sequence>
+    <xs:attribute name="interpolation" type="interpolation"/>
+  </xs:complexType>
+
+  <xs:complexType name="xData_xs_pdf_cdf1d">
+    <xs:sequence>
+      <xs:element name="xs" type="xData_values_wrapper"/>
+      <xs:element name="pdf" type="xData_values_wrapper"/>
+      <xs:element name="cdf" type="xData_values_wrapper"/>
     </xs:sequence>
     <xs:attribute name="outerDomainValue" type="xs:double" use="required"/>
     <xs:attribute name="interpolation" type="interpolation"/>
@@ -506,7 +562,7 @@
 
   <xs:complexType name="xData_polynomial_1d_primary">
     <xs:sequence>
-      <xs:element name="axes"/>
+      <xs:element name="axes" type="AxesType"/>
       <xs:element name="values" type="xData_values"/>
       <xs:element name="uncertainty" type="xData_uncertainty" minOccurs="0"/>
     </xs:sequence>
@@ -521,6 +577,7 @@
       <xs:element name="Legendre" type="xData_Legendre_1d"/>
       <xs:element name="XYs1d" type="xData_XYs1d"/>
       <xs:element name="regions1d" type="xData_regions_1d"/>
+      <xs:element name="xs_pdf_cdf1d" type="xData_xs_pdf_cdf1d"/>
     </xs:choice>
   </xs:complexType>
 
@@ -603,7 +660,6 @@
 
   <xs:complexType name="xData_XYs3d_inRegions">
     <xs:sequence>
-      <xs:element name="axes" type="AxesType"/>
       <xs:element name="function2ds" type="function2ds"/>
       <xs:element name="uncertainty" type="xData_uncertainty" minOccurs="0"/>
     </xs:sequence>
@@ -662,12 +718,56 @@
     <xs:attribute name="unit" type="xs:string"/>
   </xs:complexType>
 
+  <xs:simpleType name="SymmetryEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="none"/>
+      <xs:enumeration value="lower"/>
+      <xs:enumeration value="upper"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="CompressionEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="none"/>
+      <xs:enumeration value="diagonal"/>
+      <xs:enumeration value="flattened"/>
+      <xs:enumeration value="embedded"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PermutationEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="none"/>
+      <xs:enumeration value="+1"/>
+      <xs:enumeration value="-1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="StorageOrderEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="row-major"/>
+      <xs:enumeration value="column-major"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:complexType name="xData_array">
     <xs:sequence>
       <xs:element name="values" type="xData_values" maxOccurs="3"/>
     </xs:sequence>
     <xs:attribute name="shape" type="xs:string" use="required"/>
-    <xs:attribute name="compression" type="xs:string"/>
+    <xs:attribute name="symmetry" type="SymmetryEnum"/>
+    <xs:attribute name="compression" type="CompressionEnum"/>
+    <xs:attribute name="permutation" type="PermutationEnum"/>
+    <xs:attribute name="storageOrder" type="StorageOrderEnum"/>
+    <xs:attribute name="offset" type="xs:integer"/>
+  </xs:complexType>
+
+  <xs:complexType name="xData_gridded1d">
+    <xs:sequence>
+      <xs:element name="axes" type="GridAxesType"/>
+      <xs:element name="array" type="xData_array"/>
+    </xs:sequence>
+    <xs:attribute name="label" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="xData_gridded2d">

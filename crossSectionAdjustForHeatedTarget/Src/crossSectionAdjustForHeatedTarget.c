@@ -15,7 +15,7 @@
 #include "crossSectionAdjustForHeatedTarget.h"
 
 #define sqrtpi 1.7724538509055160273
-static const double vCutoffRatio = 6., fInterpolationMin = 1e-6, fInterpolationMax = 0.1, xsecMin1 = 1e-10, xsecMin2 = 1e-20;
+static const double vCutoffRatio = 6., fInterpolationMin = 1e-6, fInterpolationMax = 0.1, xsecMin1 = 1e-20, xsecMin2 = 1e-40;
 
 #define FreeReturn( error ) { Free_E_cs_point( &E_cs_Info ); return( error ); }
 
@@ -185,20 +185,34 @@ int crossSectionAdjustForHeatedTarget( crossSectionAdjustForHeatedTarget_limit l
     EPrior = -1.;
     if( lowerlimit == crossSectionAdjustForHeatedTarget_limit_threshold ) {    /* May need to add energy point below inputted EMin. */
         EStart = E_cs_Info.E_cs_in[2 * E_cs_Info.iStart];
-        if( vCutoffRatio * vCutoffRatio * T >= EStart * mass_Ratio ) {    /* if ( v - vCutoffRatio * v_T ) < 0., insert down to EMin. */
-            E = EMin; }
-        else {                                                                /* else, insert down to v - vCutoffRatio * v_T. */
-            E = EStart + vCutoffRatio * vCutoffRatio * T / mass_Ratio - 2. * vCutoffRatio * sqrt( EStart * T / mass_Ratio );
-            if( E < EMin ) E = EMin;
-        }
-        if( E < EStart ) {
-            EPrior = E;
+        double lastNonZeroEnergy = EStart;
+        if( EMin < EStart ) {
+            double ELower = EMin;
+            double EUpper = EStart;
+            EPrior = EMin;
             i = 0;
             do {
-                E = EPrior + i * ( EStart - EPrior ) / 10.;
+                E = sqrt( ELower * EUpper );
                 crossSectionAdjustForHeatedTarget_heat_at_E( E, &E_cs_Info, &E_cs_point );
+                if( E_cs_point.cs < xsecMin2 * E_cs_Info.csMax ) {
+                    ELower = E; }
+                else {
+                    if( i == 0 ) {          /* If first E is acceptable, just use EMin. */
+                        E = EMin;
+                        crossSectionAdjustForHeatedTarget_heat_at_E( E, &E_cs_Info, &E_cs_point );
+                        break;
+                    }
+                    EUpper = E;
+                }
+                if( ( E < lastNonZeroEnergy ) && ( E_cs_point.cs != 0 ) ) {
+                    lastNonZeroEnergy = E;
+                }
                 i += 1;
-            } while( ( i < 10 ) && ( E_cs_point.cs <= ( xsecMin1 * E_cs_Info.csMax ) ) );
+            } while( i < 40 );
+            if( ( i == 40 ) && ( E_cs_point.cs == 0.0 ) ) { 
+                E = lastNonZeroEnergy;
+                crossSectionAdjustForHeatedTarget_heat_at_E( E, &E_cs_Info, &E_cs_point );
+            }
             if( ( err = crossSectionAdjustForHeatedTarget_add_point( &E_cs_point, E_cs_point_prior, &E_cs_Info ) ) < 0 ) FreeReturn( err );
             E_cs_point_prior = &(E_cs_Info.E_cs[err]);
             EPrior = E;

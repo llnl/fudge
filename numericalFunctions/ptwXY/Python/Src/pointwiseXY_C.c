@@ -15,7 +15,8 @@
 
 #include <Python.h>
 #include <pyport.h>
-#include "structmember.h"
+#include <numpy/arrayobject.h>    /* for numpy c interface */
+#include <structmember.h>
 #include <string.h>
 #include <stdarg.h>
 #include <ctype.h>
@@ -47,6 +48,7 @@
 #define pyObject_ptwXY 4
 
 enum e_interpolationType { e_interpolationTypeInvalid = -1, e_interpolationTypeLinear, e_interpolationTypeLog, e_interpolationTypeFlat, e_interpolationTypeOther };
+enum e_dataForm { e_XYs, e_XsAndYs, e_list, e_unknown };
 
 typedef nfu_status (*ptwXY_ptwXY_d_func)( statusMessageReporting *smr, ptwXYPoints *, double );
 typedef ptwXYPoints *(*ptwXY_ptwXY_ptwXY_func)( statusMessageReporting *smr, ptwXYPoints *, ptwXYPoints * );
@@ -149,6 +151,7 @@ static PyObject *pointwiseXY_C_copy( pointwiseXY_CPy *self );
 static PyObject *pointwiseXY_C_cloneToInterpolation( pointwiseXY_CPy *self, PyObject *args, PyObject *keywords );
 static PyObject *pointwiseXY_C_copyDataToXYs( pointwiseXY_CPy *self, PyObject *args, PyObject *keywords );
 static PyObject *pointwiseXY_C_copyDataToXsAndYs( pointwiseXY_CPy *self, PyObject *args, PyObject *keywords );
+static PyObject *pointwiseXY_C_copyDataToNumpyArray( pointwiseXY_CPy *self, PyObject *args, PyObject *keywords );
 static PyObject *pointwiseXY_C_dullEdges( pointwiseXY_CPy *self, PyObject *args, PyObject *keywords );
 static PyObject *pointwiseXY_C_exp( pointwiseXY_CPy *self, PyObject *args );
 static PyObject *pointwiseXY_C_getAccuracy( pointwiseXY_CPy *self );
@@ -174,7 +177,7 @@ static PyObject *pointwiseXY_C_groupOneFunction( pointwiseXY_CPy *self, PyObject
 static PyObject *pointwiseXY_C_groupTwoFunctions( pointwiseXY_CPy *self, PyObject *args, PyObject *keywords );
 static PyObject *pointwiseXY_C_groupThreeFunctions( pointwiseXY_CPy *self, PyObject *args, PyObject *keywords );
 static PyObject *pointwiseXY_C_groupFunctionsCommon( pointwiseXY_CPy *f1, PyObject *f2, PyObject *f3, PyObject *f4, 
-        PyObject *groupBoundariesPy, PyObject *normPy );
+        PyObject *f5, PyObject *groupBoundariesPy, PyObject *normPy );
 static PyObject *pointwiseXY_C_areDomainsMutual( pointwiseXY_CPy *self, PyObject *args );
 static PyObject *pointwiseXY_C_mutualify( pointwiseXY_CPy *self, PyObject *args, PyObject *keywords );
 static PyObject *pointwiseXY_C_overflowAllocatedSize( pointwiseXY_CPy *self );
@@ -248,6 +251,7 @@ static int pointwiseXY_C_Get_pointwiseXY_CAsSelf( PyObject *self, PyObject *othe
 static int pointwiseXY_C_addedItemToPythonList( PyObject *list, PyObject *item );
 static int isOkayAndHasData( pointwiseXY_CPy *self );
 static int pointwiseXY_C_checkInterpolationString( char const *interpolationStr, ptwXY_interpolation *interpolation, int allowOther );
+static enum e_dataForm pointwiseXY_C_parseDataForm( PyObject *dataFormPy );
 static PyObject *pointwiseXY_C_GetNone( void );
 static void pointwiseXY_C_SetPyErrorExceptionFromSMR( PyObject *type, statusMessageReporting *smr );
 static PyObject *pointwiseXY_C_SetPyErrorExceptionReturnNull( const char *s, ... );
@@ -278,12 +282,12 @@ static int pointwiseXY_C__init__( pointwiseXY_CPy *self, PyObject *args, PyObjec
     int infill = 1, safeDivide = 0, userFlag = 0, status;
     int initialSize = 100, overflowSize = 10;
     double accuracy = _defaultAccuracy, biSectionMax = 3.;
+    enum e_dataForm dataForm = e_XYs;
     static char *kwlist[] = { "data", "dataForm", "initialSize", "overflowSize", "accuracy", "biSectionMax", "interpolation", "infill", 
         "safeDivide", "userFlag", NULL };
     ptwXYPoints *ptwXY = NULL;
     PyObject *dataPy = NULL, *dataFormPy = NULL, *xsPy = NULL, *ysPy = NULL, *theEnd = NULL, *iterator;
-    char *interpolationStr = NULL, dataFormXYs[] = "xys", dataFormXsAndYs[] = "xsandys", dataFormList[] = "list", dataFormToLower[12], *c;
-    char const *dataForm;
+    char *interpolationStr = NULL;
     ptwXY_interpolation interpolation = ptwXY_interpolationLinLin;
 
     self->ptwXY = NULL;
@@ -292,25 +296,8 @@ static int pointwiseXY_C__init__( pointwiseXY_CPy *self, PyObject *args, PyObjec
     self->infill = infill;
     self->safeDivide = safeDivide;
 
-    if( dataFormPy == NULL ) {
-        dataForm = dataFormXYs; }
-    else {
-        if( !PYUNICODE_CHECK( dataFormPy ) ) return( pointwiseXY_C_SetPyErrorExceptionReturnMinusOne( "dataForm must be a string" ) );
-        dataForm = PYUNICODE_ASSTRING( dataFormPy );
-        if( strlen( dataForm ) > strlen( dataFormXsAndYs ) )
-            return( pointwiseXY_C_SetPyErrorExceptionReturnMinusOne( "invalid dataForm = '%s'", dataForm ) );
-        strcpy( dataFormToLower, dataForm );
-        for( c = dataFormToLower; *c != 0; c++ ) *c = (unsigned char ) tolower( *c );
-        if( strcmp( dataFormToLower, dataFormXYs ) == 0 ) {
-            dataForm = dataFormXYs; }
-        else if( strcmp( dataFormToLower, dataFormXsAndYs ) == 0 ) {
-            dataForm = dataFormXsAndYs ; }
-        else if( strcmp( dataFormToLower, dataFormList ) == 0 ) {
-            dataForm = dataFormList; }
-        else {
-            return( pointwiseXY_C_SetPyErrorExceptionReturnMinusOne( "invalid dataForm = '%s'", dataForm ) );
-        }
-    }
+    dataForm = pointwiseXY_C_parseDataForm( dataFormPy );
+    if( dataForm == e_unknown ) return( -1 );
 
     if( pointwiseXY_C_checkInterpolationString( interpolationStr, &interpolation, 1 ) != 0 ) return( -1 );
 
@@ -320,14 +307,14 @@ static int pointwiseXY_C__init__( pointwiseXY_CPy *self, PyObject *args, PyObjec
     }
 
     if( dataPy != NULL ) {
-        if( dataForm == dataFormXYs ) {
+        if( dataForm == e_XYs ) {
             if( ( status = PyObject_IsInstance( dataPy, (PyObject* ) &pointwiseXY_CPyType ) ) == 1 ) {
                 if( pointwiseXY_C_setDataFromPtwXY( ptwXY, (pointwiseXY_CPy *) dataPy ) != 0 ) goto err; }
             else {
                 if( status < 0 ) goto err;
                 if( pointwiseXY_C_setData2( self, ptwXY, dataPy ) != 0 ) goto err;
             } }
-        else if( dataForm == dataFormXsAndYs ) {
+        else if( dataForm == e_XsAndYs ) {
             if( ( iterator = PyObject_GetIter( dataPy ) ) == NULL ) {
                 pointwiseXY_C_SetPyErrorExceptionReturnMinusOne( "for dataForm = 'XsAndYs', data must be a list of length 2" );
                 goto err;
@@ -1607,6 +1594,78 @@ static PyObject *pointwiseXY_C_copyDataToXsAndYs( pointwiseXY_CPy *self, PyObjec
 
     return( item );
 }
+
+/*
+************************************************************
+*/
+static PyObject *pointwiseXY_C_copyDataToNumpyArray( pointwiseXY_CPy *self, PyObject *args, PyObject *keywords ) {
+
+    int64_t i1, index = 0;
+    double xScale = 1.0, yScale = 1.0, *xs = NULL, *ys = NULL, *data, *data2;
+    enum e_dataForm dataForm = e_XYs;
+    static char *kwlist[] = { "dataForm", "xScale", "yScale", NULL };
+    statusMessageReporting *smr = &(self->smr);
+    npy_intp dims[2];
+    PyArrayObject *numPyArray = NULL, *numPyArray2 = NULL;
+    PyObject *dataFormPy = NULL, *dataPy = NULL;
+
+    if( pointwiseXY_C_checkStatus( self ) != 0 ) return( NULL );
+    if( !PyArg_ParseTupleAndKeywords( args, keywords, "|Odd", kwlist, &dataFormPy, &xScale, &yScale ) ) return( NULL );
+
+    dataForm = pointwiseXY_C_parseDataForm( dataFormPy );
+    if( dataForm == e_unknown ) return( NULL );
+
+    if( ptwXY_valuesToC_XsAndYs( smr, self->ptwXY, &xs, &ys ) != nfu_Okay ) {
+        pointwiseXY_C_SetPyErrorExceptionFromSMR( PyExc_Exception, smr );
+        return( NULL );
+    }
+
+    if( ( dataForm == e_XYs ) || ( dataForm == e_list ) ) {
+        if( dataForm == e_XYs ) {
+            dims[0] = (npy_intp) self->ptwXY->length;
+            dims[1] = 2;
+            numPyArray = (PyArrayObject *) PyArray_SimpleNew( 2, dims, NPY_DOUBLE ); }
+        else {
+            dims[0] = (npy_intp) 2 * self->ptwXY->length;
+            numPyArray = (PyArrayObject *) PyArray_SimpleNew( 1, dims, NPY_DOUBLE );
+        }
+        if( numPyArray != NULL ) {
+            data = (double *) PyArray_DATA( numPyArray );
+            for( i1 = 0; i1 < self->ptwXY->length; i1++ ) {
+                data[index] = xScale * xs[i1];
+                ++index;
+                data[index] = yScale * ys[i1];
+                ++index;
+            }
+        }
+        dataPy = (PyObject *) numPyArray; }
+    else {
+        dims[0] = (npy_intp) self->ptwXY->length;
+        numPyArray = (PyArrayObject *) PyArray_SimpleNew( 1, dims, NPY_DOUBLE );
+        if( numPyArray != NULL ) {
+            numPyArray2 = (PyArrayObject *) PyArray_SimpleNew( 1, dims, NPY_DOUBLE );
+            if( numPyArray2 != NULL ) {
+                data  = (double *) PyArray_DATA( numPyArray );
+                data2 = (double *) PyArray_DATA( numPyArray2 );
+                for( i1 = 0; i1 < self->ptwXY->length; i1++ ) {
+                    data[i1]  = xScale * xs[i1];
+                    data2[i1] = yScale * ys[i1];
+                }
+                dataPy = Py_BuildValue( "OO", numPyArray, numPyArray2 );
+                Py_DECREF( numPyArray );
+                Py_DECREF( numPyArray2 ); }
+            else {
+                Py_DECREF( numPyArray );
+            }
+        }
+    }
+
+    free( xs );
+    free( ys );
+
+    return( dataPy );
+}
+
 /*
 ************************************************************
 */
@@ -2023,7 +2082,7 @@ static PyObject *pointwiseXY_C_groupOneFunction( pointwiseXY_CPy *self, PyObject
     static char *kwlist[] = { "groupBoundaries", "norm", NULL };
 
     if( !PyArg_ParseTupleAndKeywords( args, keywords, "O|O", kwlist, &groupBoundariesPy, &normPy ) ) return( NULL );
-    return( pointwiseXY_C_groupFunctionsCommon( self, NULL, NULL, NULL, groupBoundariesPy, normPy ) );
+    return( pointwiseXY_C_groupFunctionsCommon( self, NULL, NULL, NULL, NULL, groupBoundariesPy, normPy ) );
 }
 /*
 ************************************************************
@@ -2034,7 +2093,7 @@ static PyObject *pointwiseXY_C_groupTwoFunctions( pointwiseXY_CPy *self, PyObjec
     static char *kwlist[] = { "groupBoundaries", "f2", "norm", NULL };
 
     if( !PyArg_ParseTupleAndKeywords( args, keywords, "OO|O", kwlist, &groupBoundariesPy, &f2, &normPy ) ) return( NULL );
-    return( pointwiseXY_C_groupFunctionsCommon( self, f2, NULL, NULL, groupBoundariesPy, normPy ) );
+    return( pointwiseXY_C_groupFunctionsCommon( self, f2, NULL, NULL, NULL, groupBoundariesPy, normPy ) );
 }
 /*
 ************************************************************
@@ -2045,7 +2104,7 @@ static PyObject *pointwiseXY_C_groupThreeFunctions( pointwiseXY_CPy *self, PyObj
     static char *kwlist[] = { "groupBoundaries", "f2", "f3", "norm", NULL };
 
     if( !PyArg_ParseTupleAndKeywords( args, keywords, "OOO|O", kwlist, &groupBoundariesPy, &f2, &f3, &normPy ) ) return( NULL );
-    return( pointwiseXY_C_groupFunctionsCommon( self, f2, f3, NULL, groupBoundariesPy, normPy ) );
+    return( pointwiseXY_C_groupFunctionsCommon( self, f2, f3, NULL, NULL, groupBoundariesPy, normPy ) );
 }
 
 /*
@@ -2057,17 +2116,30 @@ static PyObject *pointwiseXY_C_groupFourFunctions( pointwiseXY_CPy *self, PyObje
     static char *kwlist[] = { "groupBoundaries", "f2", "f3", "f4", "norm", NULL };
 
     if( !PyArg_ParseTupleAndKeywords( args, keywords, "OOOO|O", kwlist, &groupBoundariesPy, &f2, &f3, &f4, &normPy ) ) return( NULL );
-    return( pointwiseXY_C_groupFunctionsCommon( self, f2, f3, f4, groupBoundariesPy, normPy ) );
+    return( pointwiseXY_C_groupFunctionsCommon( self, f2, f3, f4, NULL, groupBoundariesPy, normPy ) );
+}
+
+/*
+************************************************************
+*/
+static PyObject *pointwiseXY_C_groupFiveFunctions( pointwiseXY_CPy *self, PyObject *args, PyObject *keywords ) {
+
+    PyObject *groupBoundariesPy, *normPy = NULL, *f2, *f3, *f4, *f5;
+    static char *kwlist[] = { "groupBoundaries", "f2", "f3", "f4", "f5", "norm", NULL };
+
+    if( !PyArg_ParseTupleAndKeywords( args, keywords, "OOOOO|O", kwlist, &groupBoundariesPy, &f2, &f3, &f4, &f5, &normPy ) ) return( NULL );
+    return( pointwiseXY_C_groupFunctionsCommon( self, f2, f3, f4, f5, groupBoundariesPy, normPy ) );
 }
 
 /*
 ************************************************************
 */
 static PyObject *pointwiseXY_C_groupFunctionsCommon( pointwiseXY_CPy *f1, PyObject *of2, PyObject *of3, PyObject *of4,
-                PyObject *groupBoundariesPy, PyObject *normPy ) {
+                PyObject *of5, PyObject *groupBoundariesPy, PyObject *normPy ) {
 
     ptwXPoints *ptwXGBs, *ptwX_norm = NULL, *groups = NULL;
-    pointwiseXY_CPy *f2 = (pointwiseXY_CPy *) of2, *f3 = (pointwiseXY_CPy *) of3, *f4 = (pointwiseXY_CPy *) of4;
+    pointwiseXY_CPy *f2 = (pointwiseXY_CPy *) of2, *f3 = (pointwiseXY_CPy *) of3, *f4 = (pointwiseXY_CPy *) of4,
+            *f5 = (pointwiseXY_CPy *) of5;
     PyObject *newPy = NULL;
     ptwXY_group_normType norm = ptwXY_group_normType_none;
     char const *normChars;
@@ -2087,6 +2159,11 @@ static PyObject *pointwiseXY_C_groupFunctionsCommon( pointwiseXY_CPy *f1, PyObje
                 if( ( status = PyObject_IsInstance( of4, (PyObject* ) &pointwiseXY_CPyType ) ) < 0 ) return( NULL );
                 if( status == 0 ) return( pointwiseXY_C_SetPyErrorExceptionReturnNull( "f4 must be a pointwiseXY_C instance" ) );
                 if( pointwiseXY_C_checkStatus2( f4, "f4" ) != 0 ) return( NULL );
+                if( f5 != NULL ) {
+                    if( ( status = PyObject_IsInstance( of5, (PyObject* ) &pointwiseXY_CPyType ) ) < 0 ) return( NULL );
+                    if( status == 0 ) return( pointwiseXY_C_SetPyErrorExceptionReturnNull( "f5 must be a pointwiseXY_C instance" ) );
+                    if( pointwiseXY_C_checkStatus2( f5, "f5" ) != 0 ) return( NULL );
+                }
             }
         }
     }
@@ -2118,8 +2195,10 @@ BRB FIXME, need to check status of normPy
         groups = ptwXY_groupTwoFunctions( smr, f1->ptwXY, ((pointwiseXY_CPy *) f2)->ptwXY, ptwXGBs, norm, ptwX_norm ); }
     else if( f4 == NULL ) {
         groups = ptwXY_groupThreeFunctions( smr, f1->ptwXY, ((pointwiseXY_CPy *) f2)->ptwXY, ((pointwiseXY_CPy *) f3)->ptwXY, ptwXGBs, norm, ptwX_norm ); }
+    else if( f5 == NULL ) {
+        groups = ptwXY_groupFourFunctions( smr, f1->ptwXY, f2->ptwXY, f3->ptwXY, f4->ptwXY, ptwXGBs, norm, ptwX_norm ); }
     else {
-        groups = ptwXY_groupFourFunctions( smr, f1->ptwXY, f2->ptwXY, f3->ptwXY, f4->ptwXY, ptwXGBs, norm, ptwX_norm );
+        groups = ptwXY_groupFiveFunctions( smr, f1->ptwXY, f2->ptwXY, f3->ptwXY, f4->ptwXY, f5->ptwXY, ptwXGBs, norm, ptwX_norm );
     }
 
     ptwX_free( ptwXGBs );
@@ -3725,6 +3804,44 @@ static int pointwiseXY_C_checkInterpolationString( char const *interpolationStr,
     }
     return( 0 );
 }
+
+/*
+************************************************************
+*/
+static enum e_dataForm pointwiseXY_C_parseDataForm( PyObject *dataFormPy ) {
+
+    enum e_dataForm dataForm = e_unknown;
+    char const *dataFormChars;
+    char dataFormXYs[] = "xys", dataFormXsAndYs[] = "xsandys", dataFormList[] = "list", dataFormToLower[12], *c;
+
+    if( dataFormPy == NULL ) {
+        dataForm = e_XYs; }
+    else {
+        if( !PYUNICODE_CHECK( dataFormPy ) ) {
+            pointwiseXY_C_SetPyErrorExceptionReturnMinusOne( "dataForm must be a string" ); }
+        else {
+            dataFormChars = PYUNICODE_ASSTRING( dataFormPy );
+            if( strlen( dataFormChars ) > strlen( dataFormXsAndYs ) ) {
+                pointwiseXY_C_SetPyErrorExceptionReturnMinusOne( "invalid dataForm = '%s'", dataFormChars ); }
+            else {
+                strcpy( dataFormToLower, dataFormChars );
+                for( c = dataFormToLower; *c != 0; c++ ) *c = (char) tolower( *c );
+                if( strcmp( dataFormToLower, dataFormXYs ) == 0 ) {
+                    dataForm = e_XYs; }
+                else if( strcmp( dataFormToLower, dataFormXsAndYs ) == 0 ) {
+                    dataForm = e_XsAndYs; }
+                else if( strcmp( dataFormToLower, dataFormList ) == 0 ) {
+                    dataForm = e_list; }
+                else {
+                    pointwiseXY_C_SetPyErrorExceptionReturnMinusOne( "invalid dataForm = '%s'", dataForm );
+                }
+            }
+        }
+    }
+
+    return( dataForm );
+}
+
 /*
 ************************************************************
 */
@@ -3860,6 +3977,13 @@ static PyMethodDef pointwiseXY_CPyMethods[] = {
         "\nArguments are:\n" \
         "   xScale [o]  a float to scale all x-values by,\n" \
         "   yScale [o]  a float to scale all y-values by." },
+    { "copyDataToNumpyArray", (PyCFunction) pointwiseXY_C_copyDataToNumpyArray, METH_VARARGS | METH_KEYWORDS, 
+        "Returns a numpy array or tuple of two numpy arrauys (depending on the argument dataForm) representing self's data.\n" \
+        "The argument dataForm can be 'XYs', 'XsAndYs' or 'list' (see __init__ method for details).\n" \
+        "\nArguments are:\n" \
+        "   dataForm    [o] can be one of three strings (case is ignored) that describes the form of data:\n" \
+        "   xScale      [o]  a float to scale all x-values by. Default is 1.\n" \
+        "   yScale      [o]  a float to scale all y-values by. Default is 1." },
     { "dullEdges", (PyCFunction) pointwiseXY_C_dullEdges, METH_VARARGS | METH_KEYWORDS, 
         "Returns a new instance that is a copy of self, except the endpoints are guaranteed to have 0's for y-values\n" \
         "as long as lowerEps and/or upperEps are none zero (see below). The following algorithm is used.\n\n" \
@@ -3938,9 +4062,21 @@ static PyMethodDef pointwiseXY_CPyMethods[] = {
     { "groupFourFunctions", (PyCFunction) pointwiseXY_C_groupFourFunctions, METH_VARARGS | METH_KEYWORDS, 
         "Returns a python list of float values. Each value is the integral of the product of self, f2, f3 and f4 between two consecutive group boundaries.\n" \
         "\nArguments are:\n" \
-        "   f2                  the second pointwiseXY_C function with the integrand being the product of self * f2 * f3\n" \
-        "   f3                  the third pointwiseXY_C function with the integrand being the product of self * f2 * f3\n" \
-        "   f4                  the fourth pointwiseXY_C function with the integrand being the product of self * f2 * f3\n" \
+        "   f2                  the second pointwiseXY_C function with the integrand being the product of self * f2 * f3 * f4\n" \
+        "   f3                  the third pointwiseXY_C function with the integrand being the product of self * f2 * f3 * f4\n" \
+        "   f4                  the fourth pointwiseXY_C function with the integrand being the product of self * f2 * f3 * f4\n" \
+        "   groupBoundaries     the list of group boundaries,\n" \
+        "   norm                each value returned can be normalized as directed by one of the following allowed values\n" \
+        "       None                no normalization is applied,\n" \
+        "       'dx'                each value is normalized by the width of its interval,\n" \
+        "       list                a list of floats, one each for each group which the group is normalized by." },
+    { "groupFiveFunctions", (PyCFunction) pointwiseXY_C_groupFiveFunctions, METH_VARARGS | METH_KEYWORDS, 
+        "Returns a python list of float values. Each value is the integral of the product of self, f2, f3, f4 and f5 between two consecutive group boundaries.\n" \
+        "\nArguments are:\n" \
+        "   f2                  the second pointwiseXY_C function with the integrand being the product of self * f2 * f3 * f4 * f5\n" \
+        "   f3                  the third pointwiseXY_C function with the integrand being the product of self * f2 * f3 * f4 * f5\n" \
+        "   f4                  the fourth pointwiseXY_C function with the integrand being the product of self * f2 * f3 * f4 * f5\n" \
+        "   f5                  the fifth pointwiseXY_C function with the integrand being the product of self * f2 * f3 * f4 * f5\n" \
         "   groupBoundaries     the list of group boundaries,\n" \
         "   norm                each value returned can be normalized as directed by one of the following allowed values\n" \
         "       None                no normalization is applied,\n" \
@@ -4279,6 +4415,8 @@ static char const doc[] = "A module that contains the class pointwiseXY_C.";
         static void *Py_pointwiseXY_C_API[Py_pointwiseXY_C_API_numberOfPointers];
         PyObject *c_api_object;
 
+        import_array();  // import NumPy
+
         pointwiseXY_CPyType.tp_new = PyType_GenericNew;
         if( PyType_Ready( &pointwiseXY_CPyType ) < 0 ) return;
 
@@ -4311,6 +4449,8 @@ static char const doc[] = "A module that contains the class pointwiseXY_C.";
         PyObject *module;
         static void *Py_pointwiseXY_C_API[Py_pointwiseXY_C_API_numberOfPointers];
         PyObject *c_api_object;
+
+        import_array();  // import NumPy
 
         if( ( module = PyModule_Create( &pointwiseXY_CModule ) ) == NULL ) return( NULL );
 

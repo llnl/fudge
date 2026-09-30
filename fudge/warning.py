@@ -399,7 +399,7 @@ class BadSpinStatisticalWeights(Warning):
     def __str__(self):
         direction = 'many'
         if self.gJ < self.expectedgJ: direction = 'few'
-        s = "The spin statistical weights for L=%i sums to %s, but should sum to %s.  You have too %s channels " % (
+        s = "The spin statistical weights for L=%i sums to %s, but should sum to %s.  Too %s channels " % (
             self.L, str(self.gJ), str(self.expectedgJ), direction)
         if self.reaction is not None:
             s += 'for reaction ' + self.reaction
@@ -443,6 +443,19 @@ class UnknownMass(Warning):
 
     def __str__(self):
         return "Could not determine mass for particle '%s'" % self.particle
+
+
+class KalbachMannMissingMass(Warning):
+
+    def __init__(self, missingMasses, obj=None):
+        Warning.__init__(self, Level.Severe, obj)
+        self.missingMasses = missingMasses
+
+    def __str__(self):
+        productString = "product %s" % self.missingMasses[0]
+        if len(self.missingMasses) > 1:
+            productString = "products %s" % ', '.join(map(str, self.missingMasses))
+        return "KalbachMann distribution requires mass for %s in PoPs database" % productString
 
 
 class UnknownSpinParity(Warning):
@@ -614,7 +627,12 @@ class AverageZAbalanceWarning(Warning):
     """ Special test for sumOfRemainingOutputChannels. """
 
     def __init__(self, compoundZA, maxZA, obj=None):
-        Warning.__init__(self, Level.Fatal, obj)
+        level = Level.Moderate
+        if maxZA / compoundZA > 1.01:
+            level = Level.Severe
+        if maxZA / compoundZA > 1.2:
+            level = Level.Fatal
+        Warning.__init__(self, level, obj)
         self.compoundZA = compoundZA
         self.maxZA = maxZA
 
@@ -890,6 +908,18 @@ class MissingDistribution(Warning):
 
     def __eq__(self, other):
         return self.xpath == other.xpath and self.productName == other.productName
+
+
+class MissingDecayData(Warning):
+    def __init__(self, particleId, obj=None):
+        Warning.__init__(self, Level.Fatal, obj)
+        self.particleId = particleId
+
+    def __str__(self):
+        return "Excited state '%s' is missing decay data required by a branching3d distribution" % self.particleId
+
+    def __eq__(self, other):
+        return self.xpath == other.xpath and self.particleId == other.particleId
 
 
 """ eliminate this one?
@@ -1194,7 +1224,7 @@ class EnergyImbalance(Warning):
         elif ratio < 0.9 or ratio > 1.05: level = Level.Severe
         Warning.__init__(self, level, obj)
         self.energy_in = energy_in
-        self.index = index
+        self.interpolated = bool(index % 2)
         self.availableEnergy = availableEnergy
         self.deposition_per_product = deposition_per_product
         self.total_deposited = total_deposited
@@ -1204,12 +1234,15 @@ class EnergyImbalance(Warning):
         non_zero_products = [(key, val) for key, val in self.deposition_per_product if val]
         per_product = ', '.join(["%s = %.4g%%" % (key, val) for key, val in non_zero_products[:5]])
         if len(non_zero_products) > 5: per_product += ', ...'
-        return ("Energy imbalance at incident energy %s (index %i). Total deposited = %.4g%% (%s)" %
-                (self.energy_in, self.index, self.total_deposited, per_product))
+        energy_in = '%s (tabulated)' % self.energy_in
+        if self.interpolated:
+            energy_in = '%.3g (interpolated)' % self.energy_in
+        return ("Energy imbalance at incident energy %s. Total deposited = %.4g%% (%s)" %
+                (energy_in, self.total_deposited, per_product))
 
     def __eq__(self, other):
         return (self.xpath == other.xpath and self.energy_in == other.energy_in
-                and self.index == other.index and self.availableEnergy == other.availableEnergy
+                and self.interpolated == other.interpolated and self.availableEnergy == other.availableEnergy
                 and self.deposition_per_product == other.deposition_per_product
                 and self.total_deposited == other.total_deposited)
 
@@ -1218,9 +1251,12 @@ class FissionEnergyImbalance(EnergyImbalance):
     def __str__(self):
         per_product = ', '.join(["%s = %.4g%%" % (key, val) for key, val in self.deposition_per_product[:5]])
         if len(self.deposition_per_product) > 5: per_product += ', ...'
-        return ("Fission energy imbalance at incident energy %s (index %i). Total deposited = %.4g%% (%s), "
+        energy_in = '%s (tabulated)' % self.energy_in
+        if self.interpolated:
+            energy_in = '%.3g (interpolated)' % self.energy_in
+        return ("Fission energy imbalance at incident energy %s. Total deposited = %.4g%% (%s), "
                 "leaving insufficient energy for fission products!" %
-                (self.energy_in, self.index, self.total_deposited, per_product))
+                (energy_in, self.total_deposited, per_product))
 
 
 class ValueOutOfRange(Warning):

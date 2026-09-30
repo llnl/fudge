@@ -2862,8 +2862,11 @@ class RMatrixLimitedcrossSection(RRBaseClass):
                         penetrabilityAtResonances = self.penetrationFactor(l, rho(abs(Ex1)))
                         penetrabilityAtEin = numpy.sqrt( self.penetrationFactor(l, rho(Ex2)) )
 
-                    reducedWidths = numpy.sqrt( abs(chanWidths) / (2 * penetrabilityAtResonances) )
-                    reducedWidths[ chanWidths<0 ] *= -1
+                    if self.RR.reducedWidthAmplitudes:
+                        reducedWidths = chanWidths
+                    else:
+                        reducedWidths = numpy.sqrt( abs(chanWidths) / (2 * penetrabilityAtResonances) )
+                        reducedWidths[ chanWidths<0 ] *= -1
                     widths.append( reducedWidths )
                     penetrabilities.append( penetrabilityAtEin )
 

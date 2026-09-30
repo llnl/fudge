@@ -388,6 +388,21 @@ class DecayData(ancestryModule.AncestryIO_bare):
         self.__decayModes.convertUnits( unitMap )
         self.__averageEnergies.convertUnits( unitMap )
 
+    def check(self, info):
+        """Check that decay-mode branching ratios sum to one."""
+
+        from .. import warning as warningModule
+
+        if len(self.__decayModes) == 0:
+            return []
+
+        branchingSumTolerance = info.get('branchingRatioSumTolerance', 1e-5)
+        branchingSum = sum([decayMode.probability[0].value for decayMode in self.__decayModes])
+        if abs(branchingSum - 1) > branchingSumTolerance:
+            return [warningModule.UnnormalizedDecayProbabilities(branchingSum, self)]
+
+        return []
+
     def copy( self ) :
         """
         :return: deep copy of self

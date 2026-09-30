@@ -128,10 +128,10 @@ int nfu_stringToInt32( statusMessageReporting *smr, char const *str, char **endC
     long lValue = strtol( str, endCharacter, 10 );
 
     if( lValue < INT32_MIN ) {
-        smr_setReportError2( smr, nfu_SMR_libraryID, nfu_badInput, "int32_t underflow: %l", lValue );
+        smr_setReportError2( smr, nfu_SMR_libraryID, nfu_badInput, "int32_t underflow: %ld", lValue );
         return( -1 ); }
     else if( lValue > INT32_MAX ) {
-        smr_setReportError2( smr, nfu_SMR_libraryID, nfu_badInput, "int32_t overflow: %l", lValue );
+        smr_setReportError2( smr, nfu_SMR_libraryID, nfu_badInput, "int32_t overflow: %ld", lValue );
         return( 1 );
     }
     *value = (int) lValue;

@@ -323,7 +323,10 @@ ptwXYPoints *ptwXY_clone2( statusMessageReporting *smr, ptwXYPoints const *ptwXY
 
     ptwXY2 = ptwXY_new( smr, ptwXY->interpolation, ptwXY->interpolationString,
             ptwXY->biSectionMax, ptwXY->accuracy, length, ptwXY->overflowAllocatedSize, ptwXY->userFlag );
-    if( ptwXY2 == NULL ) smr_setReportError2p( smr, nfu_SMR_libraryID, nfu_Error, "Via." );
+    if( ptwXY2 == NULL ) {
+        smr_setReportError2p( smr, nfu_SMR_libraryID, nfu_Error, "Via." );
+        return( NULL );
+    }
 
     pointsFrom = &(ptwXY->points[ptwXY_getNonOverflowLength( smr, ptwXY ) - 1]);
     pointsTo = &(ptwXY2->points[length - 1]);

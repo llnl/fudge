@@ -1065,7 +1065,7 @@ class TNSL(ProtareBase):
 
     moniker = "TNSL"
 
-    def __init__(self, projectile, target, evaluation, path, standardTarget, standardEvaluation, 
+    def __init__(self, projectile, target, evaluation, path, standardTarget=None, standardEvaluation=None, 
                 interaction=None, checksum=None, algorithm=None):
         """
         Construtor for a TNSL instance.
@@ -1083,24 +1083,27 @@ class TNSL(ProtareBase):
         ProtareBase.__init__(self, projectile, target, evaluation, path, None,
                              checksum=checksum, algorithm=algorithm)
 
-        if not isinstance(standardTarget, str):
-            raise TypeError("Standard target must be a string.")
+        if not isinstance(standardTarget, (str, type(None))):
+            raise TypeError("Standard target must be a string or None.")
         self.__standardTarget = standardTarget
 
-        if not isinstance(standardEvaluation, str):
-            raise TypeError(
-                'Standard evaluation must be a string, is of type "%s".'
-                % type(standardEvaluation)
-            )
+        if not isinstance(standardEvaluation, (str, type(None))):
+            raise TypeError("Standard evaluation must be a string or None.")
         self.__standardEvaluation = standardEvaluation
 
     def __str__(self):
         """Returns a simple string representation of *self*."""
 
-        return (
-            '%s with projectile "%s", target "%s", evaluation "%s", path "%s", standardTarget "%s" and standardEvaluation "%s".'
-            % (self.moniker, self.projectile, self.target, self.evaluation, self.path, self.standardTarget, self.standardEvaluation)
-        )
+        if self.standardTarget is None:
+            return (
+                '%s with projectile "%s", target "%s", evaluation "%s", path "%s" (contains targetInfo).'
+                % (self.moniker, self.projectile, self.target, self.evaluation, self.path)
+            )
+        else:
+            return (
+                '%s with projectile "%s", target "%s", evaluation "%s", path "%s", standardTarget "%s" and standardEvaluation "%s".'
+                % (self.moniker, self.projectile, self.target, self.evaluation, self.path, self.standardTarget, self.standardEvaluation)
+            )
 
     @property
     def standardTarget(self):
@@ -1133,10 +1136,13 @@ class TNSL(ProtareBase):
             XML_list.append('%s<protare projectile="n" target="%s" evaluation="%s"/></%s>' %
                             (indent2, self.standardTarget, self.standardEvaluation, self.moniker))
         else:
+            standards = ""
+            if self.standardTarget is not None:
+                standards = f' standardTarget="{self.standardTarget}" standardEvaluation="{self.standardEvaluation}"'
             XML_list = [
-                '%s<%s%s standardTarget="%s" standardEvaluation="%s"/>'
-                % (indent, self.moniker, attrs, self.standardTarget, self.standardEvaluation)
+                '%s<%s%s%s/>' % (indent, self.moniker, attrs, standards)
             ]
+
 
         return XML_list
 

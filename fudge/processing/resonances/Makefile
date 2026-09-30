@@ -10,7 +10,7 @@
 default: build
 
 build:
-	$(PYTHON) -m pip install --quiet . --no-build-isolation
+	$(PYTHON) -m pip install --quiet . --no-build-isolation --no-clean
 	find build -iname "_get*" -ipath "*build/lib*/_get*" -exec cp {} . \;
 
 clean:

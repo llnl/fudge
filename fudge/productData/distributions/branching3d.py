@@ -79,6 +79,21 @@ class Form( baseModule.Form ) :
 
         return 0
 
+    def check(self, info):
+        """Check that the excited state supplying this photon cascade has decay data."""
+
+        from fudge import warning as warningModule
+
+        parentProduct = self.product.parentProduct
+        if parentProduct is None:
+            return []
+
+        particle = info['reactionSuite'].PoPs[parentProduct.pid]
+        if getattr(particle, 'index', 0) > 0 and len(particle.decayData.decayModes) == 0:
+            return [warningModule.MissingDecayData(parentProduct.pid, self)]
+
+        return []
+
     def processMC_cdf( self, style, tempInfo, indent ) :
         """
         This methods returns does nothing and returns None.

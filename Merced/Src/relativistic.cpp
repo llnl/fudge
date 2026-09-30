@@ -321,11 +321,12 @@ Ddvec::dd_entry Rel::relativistic_param::find_bottom( double mu,
   // start at the extremes
   Ddvec::dd_entry pair_0( pair_in_0 );
   Ddvec::dd_entry pair_1( pair_in_1 );
-  double Ein;
-  double Tout;
   // parameters for the function relativistic_F::T_out_lab
   mu_cm = mu;
   void *params = static_cast< void *>( this );
+  // This is also the result if the initial bounds already meet the tolerance.
+  double Ein = 0.5 * ( pair_0.x + pair_1.x );
+  double Tout = relativistic_F::T_out_lab( Ein, params );
   
   while( std::abs( pair_1.x - pair_0.x ) > tol * pair_1.x )
   {
@@ -637,11 +638,12 @@ Ddvec::dd_entry Rel::relativistic_2_step_param::find_bottom( const Ddvec::dd_ent
   // start at the extremes
   Ddvec::dd_entry pair_0( pair_in_0 );
   Ddvec::dd_entry pair_1( pair_in_1 );
-  double Ein;
-  double Tout;
   
   // parameters for the function relativistic_F::T_out_lab
   void *params = static_cast< void *>( this );
+  // This is also the result if the initial bounds already meet the tolerance.
+  double Ein = 0.5 * ( pair_0.x + pair_1.x );
+  double Tout = relativistic_F::two_step_T_out_lab( Ein, params );
   while( std::abs( pair_1.x - pair_0.x ) > tol * pair_1.x )
   {
     Ein = math_F::parabola_bottom( relativistic_F::two_step_T_out_lab, pair_0,
@@ -796,4 +798,3 @@ double relativistic_F::mucm2_T_out_lab( double mucm_2, void *params )
 		    map->mu_cm_1, mucm_2 );
   return T_out_lab;
 }
-

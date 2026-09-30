@@ -129,22 +129,22 @@ class Form( baseModule.Form ) :
 
     def __init__( self, pid, label, productFrame, _formFactor, realPart, imaginaryPart ) :
 
-        if( not( isinstance( _formFactor, FormFactor ) ) ) :
+        if not isinstance( _formFactor, FormFactor ):
             raise Exception( 'Instance is class "%s" and not formFactor' % FormFactor.__class__ )
 
-        if( realPart is not None ) :
-            if( not( isinstance( realPart, RealAnomalousFactor ) ) ) :
+        if realPart is not None:
+            if not isinstance( realPart, RealAnomalousFactor ):
                 raise Exception( 'Instance is class "%s" and not RealAnomalousFactor' % realPart.__class__ )
 
-        if( imaginaryPart is not None ) :
-            if( not( isinstance( imaginaryPart, ImaginaryAnomalousFactor ) ) ) :
+        if imaginaryPart is not None:
+            if not isinstance( imaginaryPart, ImaginaryAnomalousFactor ):
                 raise Exception( 'Instance is class "%s" and not ImaginaryAnomalousFactor' % imaginaryPart.__class__ )
 
         baseModule.Form.__init__( self, pid, label, productFrame, ( _formFactor, realPart, imaginaryPart ) )
 
     def check( self, info ) :
 
-        return( [] )
+        return []
 
     def calculateAverageProductData( self, style, indent = '', **kwargs ) :
 
@@ -164,20 +164,20 @@ class Form( baseModule.Form ) :
         from fudge.processing import group as groupModule
 
         verbosity = tempInfo['verbosity']
-        if( verbosity > 2 ) : print('%sGrouping %s' % (indent, self.moniker))
+        if verbosity > 2: print('%sGrouping %s' % (indent, self.moniker))
 
         anomalousScatteringFactor = XYs1dModule.XYs1d( [ [ 0.0, 0.0 ], [ 21., 0.0 ] ] )
         anomalousScatteringFactor_realPart = anomalousScatteringFactor
-        if( self.anomalousScatteringFactor_realPart is not None ) :
+        if self.anomalousScatteringFactor_realPart is not None:
             anomalousScatteringFactor_realPart = self.anomalousScatteringFactor_realPart.data
         anomalousScatteringFactor_imaginaryPart = anomalousScatteringFactor
-        if( self.anomalousScatteringFactor_imaginaryPart is not None ) :
+        if self.anomalousScatteringFactor_imaginaryPart is not None:
             anomalousScatteringFactor_imaginaryPart = self.anomalousScatteringFactor_imaginaryPart.data
 
         TM_1, TM_E = transferMatricesModule.wholeAtomScattering( style, tempInfo, self.productFrame, self.formFactor.data,
                 realAnomalousFactor = anomalousScatteringFactor_realPart, imaginaryAnomalousFactor = anomalousScatteringFactor_imaginaryPart,
                 comment = tempInfo['transferMatrixComment'] + ' outgoing data for %s' % tempInfo['productLabel'] )
-        return( groupModule.TMs2Form( style, tempInfo, TM_1, TM_E ) )
+        return groupModule.TMs2Form( style, tempInfo, TM_1, TM_E )
 
     def crossSection(self, tolerance=1e-3, interpolation=xDataEnumsModule.Interpolation.linlin):
         """
@@ -205,31 +205,31 @@ class Form( baseModule.Form ) :
         def integrateSub( _n, _a, logX, x1, _y1, x2, _y2 ) :
 
             epsilon = _a + _n + 1
-            if( abs( epsilon ) < 1e-3 ) :
+            if abs( epsilon ) < 1e-3:
                 epsilon_logX = epsilon * logX
                 integral = _y1 * math.pow( x1, _n + 1 ) * logX * ( 1 + 0.5 * epsilon_logX * ( 1 + epsilon_logX / 3.0 * ( 1 + 0.25 * epsilon_logX ) ) )
             else :
                 integral = ( _y2 * math.pow( x2, _n + 1 ) - _y1 * math.pow( x1, _n + 1 ) ) / epsilon
-            return( integral )
+            return integral
             
 
         def integratedCrossSection( energy, parameters, anomalousScatteringFactor_realPart, anomalousScatteringFactor_imaginaryPart ) :
 
             parameters.anomalousScatteringFactor_realPart = anomalousScatteringFactor_realPart.evaluate( energy )
-            if( parameters.anomalousScatteringFactor_realPart == None ) : parameters.anomalousScatteringFactor_realPart = 0
+            if parameters.anomalousScatteringFactor_realPart == None: parameters.anomalousScatteringFactor_realPart = 0
 
             parameters.anomalousScatteringFactor_imaginaryPart = anomalousScatteringFactor_imaginaryPart.evaluate( energy )
-            if( parameters.anomalousScatteringFactor_imaginaryPart == None ) : parameters.anomalousScatteringFactor_imaginaryPart = 0.0
+            if parameters.anomalousScatteringFactor_imaginaryPart == None: parameters.anomalousScatteringFactor_imaginaryPart = 0.0
 
             formFactorLower = parameters.formFactor[0]
 
             integralPrime = 0.0
             integralUpper = 0.0
-            if( energy <= formFactorLower.domainMax ) :
+            if energy <= formFactorLower.domainMax:
                 muMin = -1.0
                 integralLower = ( formFactorLower[0][1] + parameters.anomalousScatteringFactor_realPart )**2 + parameters.anomalousScatteringFactor_imaginaryPart**2
                 integralLower *= 8.0 / 3.0
-            else :
+            else:
                 ratio2 = 2.0 * ( formFactorLower.domainMax / energy )**2
                 muMin = 1.0 - ratio2
                 integralPrime = 8.0 / 3.0 * ( parameters.anomalousScatteringFactor_realPart**2 + parameters.anomalousScatteringFactor_imaginaryPart**2 )
@@ -237,7 +237,7 @@ class Form( baseModule.Form ) :
                         ( formFactorLower[0][1] * ( formFactorLower[0][1] + 2 * parameters.anomalousScatteringFactor_realPart ) )
 
             i1 = 0
-            if( muMin > -1.0 ) :
+            if muMin > -1.0:
                 formFactorLower = parameters.formFactor[1]
                 for i1, xy in enumerate( formFactorLower ) :
                     _x2, y2 = xy
@@ -269,10 +269,10 @@ class Form( baseModule.Form ) :
                         integralUpper += integralSub + integralSub2
                     x1 = x2
                     y1 = y2
-                    if( _x2 >= energy ) : break
+                    if _x2 >= energy: break
                 integralUpper *= 16
 
-            return( ( integralPrime + integralLower + integralUpper ) * parameters.factor_crossSection )
+            return (integralPrime + integralLower + integralUpper) * parameters.factor_crossSection
 
         parameters = Parameters( )
 
@@ -286,37 +286,56 @@ class Form( baseModule.Form ) :
         parameters.factor_crossSection = factor_crossSection
 
         formFactor = self.formFactor.data
-        if( isinstance( formFactor, Regions1d ) ) :
-            _formFactor = formFactor.copy( )
+        if isinstance(formFactor, Regions1d):
+            _formFactor = formFactor.copy()
+        elif isinstance(formFactor, XYs1d):
+            assert formFactor[0][1] == formFactor[1][1], "Non-constant form factor at low wave number!"
+            for idx in range(len(formFactor)-1):
+                if formFactor[idx+1][1] != formFactor[0][1]:
+                    break
+            assert idx < len(formFactor) // 10, "Form factor should decrease for longer wave number!"
+            cutoff = formFactor[idx][0]
+
+            _formFactor = Regions1d(axes=formFactor.axes)
+            _formFactor.append(formFactor.domainSlice(None, cutoff))
+            _formFactor.append(formFactor.domainSlice(cutoff, None))
         else :
-            raise Exception( 'Form factor must be a Regions1d instance' )
+            raise Exception( 'Form factor must be a Regions1d or XYs1d instance' )
         _formFactor.axes[1].unit = product.domainUnit
         factor_E2x = 1.0 / PQUModule.PQU( 1.0, '%s / hplanck / c' % product.domainUnit ).getValueAs( formFactor.axes[1].unit )
-        for region in _formFactor : region.scaleOffsetXAndY( factor_E2x, 0.0, 1.0, 0.0, True )
+        for region in _formFactor : region.scaleOffsetXAndY( 0.0, factor_E2x, 0.0, 1.0, True )
         parameters.formFactor = _formFactor
 
         domainMin = product.domainMin
         domainMax = product.domainMax
         anomalousScatteringFactor_realPart = self.anomalousScatteringFactor_realPart
-        if( anomalousScatteringFactor_realPart is None ) :
+        if anomalousScatteringFactor_realPart is None:
             anomalousScatteringFactor_realPart = XYs1d( [ [ domainMin, 0.0 ], [ domainMax, 0.0 ] ], axes = _formFactor.axes.copy( ) )
         else :
             anomalousScatteringFactor_realPart = anomalousScatteringFactor_realPart.data
 
         anomalousScatteringFactor_imaginaryPart = self.anomalousScatteringFactor_imaginaryPart
-        if( anomalousScatteringFactor_imaginaryPart is None ) :
+        if anomalousScatteringFactor_imaginaryPart is None:
             anomalousScatteringFactor_imaginaryPart = XYs1d( [ [ domainMin, 0.0 ], [ domainMax, 0.0 ] ], axes = _formFactor.axes.copy( ) )
         else :
             anomalousScatteringFactor_imaginaryPart = anomalousScatteringFactor_imaginaryPart.data
 
         transitionEnergy = PQUModule.PQU( 1e3, 'eV' ).getValueAs( product.domainUnit )
+        transitionEnergy2 = PQUModule.PQU( 1e4, 'eV' ).getValueAs( product.domainUnit )
         energy = domainMin
         initialEnergies = []
-        while( energy < transitionEnergy ) :
+        # Fine grid below 1 keV (1% steps)
+        while energy < transitionEnergy:
             initialEnergies.append( energy )
             energy *= 1.01
+        # Medium grid from 1 keV to 10 keV (5% steps for better sampling of absorption edges)
         energy = transitionEnergy
-        while( energy < domainMax ) :
+        while energy < transitionEnergy2:
+            initialEnergies.append( energy )
+            energy *= 1.05
+        # Coarse grid above 10 keV (decade steps)
+        energy = transitionEnergy2
+        while energy < domainMax:
             initialEnergies.append( energy )
             energy *= 10
         initialEnergies.append( domainMax )
@@ -328,8 +347,9 @@ class Form( baseModule.Form ) :
         _tester = Tester( parameters, tolerance, tolerance * energy_crossSection[-1][1], 
                 anomalousScatteringFactor_realPart, anomalousScatteringFactor_imaginaryPart )
         energy_crossSection = fudgemathModule.thickenXYList( energy_crossSection, _tester, biSectionMax = 10, interpolation = interpolation )
-        return( crossSectionModule.XYs1d( data = energy_crossSection, axes = crossSectionModule.defaultAxes( product.domainUnit ),
-                interpolation = interpolation ) )
+        return crossSectionModule.XYs1d( data = energy_crossSection,
+                                         axes = crossSectionModule.defaultAxes( product.domainUnit ),
+                                         interpolation = interpolation )
 
     @classmethod
     def parseNodeUsingClass(cls, element, xPath, linkData, **kwargs):

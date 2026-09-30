@@ -86,6 +86,28 @@ def getValue(n):
     raise Exception('Invalid number object = %s' % brb.getType(n))
 
 
+def countSignificantDigits(value):
+    """
+    Count the number of significant digits in a float value.
+
+    This function converts the value to scientific notation and counts the
+    significant digits in the mantissa, excluding trailing zeros.
+
+    :param value: The numeric value to analyze
+    :return: The number of significant digits as an integer
+    """
+    if value == 0:
+        return 0
+    # Convert to string in scientific notation to count significant digits
+    s = f"{value:.15e}"
+    # Extract mantissa
+    mantissa = s.split('e')[0].replace('.', '').replace('-', '')
+    # Count non-zero leading digits plus all following digits until trailing zeros
+    mantissa = mantissa.lstrip('0')
+    mantissa = mantissa.rstrip('0')
+    return len(mantissa)
+
+
 def RoundToSigFigs(x, sigfigs):
     """
     Rounds the value(s) in x to the number of significant figures in sigfigs.

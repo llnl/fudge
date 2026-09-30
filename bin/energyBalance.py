@@ -132,7 +132,7 @@ def output(reactionOutputDir, fileName, curve, crossSection=None):
             if priorEnergy is not None:                     # Add a point at the last zero cross section point.
                 curve.setValue(priorEnergy, curve.evaluate(priorEnergy))
         elif fileName == 'Q.dat':
-            curve = curve * crossSection.domainSlice(domainMin=curve.domainMin)
+            curve = curve * crossSection.domainSlice(domainMin=curve.domainMin, domainMax=curve.domainMax)
 
         weighted = []
         for index, (xValue, yValue) in enumerate(curve):
