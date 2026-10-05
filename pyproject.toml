@@ -27,7 +27,6 @@ packages = [
     "fudge.core.math",
     "fudge.core.math.test",
     "fudge.core.utilities",
-    "fudge",
     "fudge.outputChannelData",
     "fudge.outputChannelData.fissionFragmentData",
     "fudge.covariances",
