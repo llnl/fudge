@@ -10,9 +10,12 @@ Issues:
     -) When delayed neutrons are present, their multiplicities are added to prompt, and prompt and total nu_bar
         are written. However, their decay constants, etc are currently not written.
     -) Only neutrons distribution data are outputted.
+    -) The average heating numbers (KERMA) in the ESZ block are not calculated and are written as zeros. There is
+        currently no equivalent of NJOY's HEATR module in FUDGE. A warning is emitted when the zeros are written.
 """
 
 import time
+import warnings
 
 from xData import enums as xDataEnumsModule
 from xData import axes as axesModule
@@ -217,6 +220,7 @@ def toACE(self, styleLabel, cdf_style, fileName, evaluationId, productData, dela
     else:
         updateXSSInfo( 'absorption cross section', annotates, XSS, mapCrossSectionToGrid(absorptionXSec) )
     updateXSSInfo( 'elastic cross section', annotates, XSS, elasticXSec )
+    warnings.warn('Average heating numbers (KERMA) are not calculated and are written to the ESZ block as zeros.')
     averageHeating = len( energyGrid ) * [ 0. ]
     updateXSSInfo( 'average heating', annotates, XSS, averageHeating )
 
